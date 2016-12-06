@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns:servicing="http://bbva.com/arq-spring-servicing"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://bbva.com/arq-spring-servicing http://bbva.com/arq-spring-servicing/servicing.xsd">
+
+    <servicing:test-metadata local-configuration-filesystem-root="S:/lc" smc-logical-id="test" smc-registry-id="test"/>
+
+</beans>

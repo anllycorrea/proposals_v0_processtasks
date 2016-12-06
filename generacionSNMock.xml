@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<assembly>
+	<id>sn-mock</id>
+	<formats>
+		<format>jar</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<fileSets>
+	    <fileSet>
+            <directory>target/classes/com/bbva/pzic/proposals/business</directory>
+            <outputDirectory>com/bbva/pzic/proposals/business</outputDirectory>
+        </fileSet>
+	    <fileSet>
+            <directory>target/classes/com/bbva/pzic/proposals/dao</directory>
+            <outputDirectory>com/bbva/pzic/proposals/dao</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>target/classes/com/bbva/pzic/proposals/canonic</directory>
+			<outputDirectory>com/bbva/pzic/proposals/canonic</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>target/classes/com/bbva/pzic/proposals/util</directory>
+			<outputDirectory>com/bbva/pzic/proposals/util</outputDirectory>
+		</fileSet>
+	    <fileSet>
+            <directory>target/classes/META-INF</directory>            
+            <outputDirectory>META-INF</outputDirectory>
+        </fileSet>        
+	</fileSets> 
+</assembly>
