@@ -1,0 +1,124 @@
+  {
+      "proposalId": "100",
+      "participant": {
+        "participantId": "90014515"
+      },
+      "hiringType": {
+        "id":  "SF1",
+        "name": "SUPER FAST N"
+      },
+      "indicators": [
+        {
+          "indicatorId": "ADDRESS_VALIDATION",
+          "isActive": true
+        },
+        {
+          "indicatorId": "WORKPLACE_VALIDATION",
+          "isActive": true
+        }
+      ],
+      "campaign": {
+        "code": "201607"
+      },
+      "term": {
+        "termId": "MONTHLY",
+        "value": 36
+      },
+      "product": {
+        "productId": "F7",
+        "description": "Visa Continental Zero",
+        "bin": "404293",
+        "productConfiguration": {
+          "id": "LOW",
+          "description": "BAJO"
+        },
+        "productType": {
+          "id": "CARDS"
+        },
+        "productClassification": {
+          "id": "CREDIT_CARD",
+          "name": "Tarjeta de Crédito"
+        }
+      },
+
+      "riskType": {
+        "id": "ANY"
+      },
+
+      "rates": [
+        {
+          "rateId": "PROPOSED",
+          "value": 13.9
+        },
+        {
+          "rateId": "MAXIMUM",
+          "value": 0
+        },
+        {
+          "rateId": "MINIMUM",
+          "value": 0
+        }
+      ],
+      "ranges": [
+        {
+          "rangeId": "MAXIMUM",
+          "value": 500
+        },
+        {
+          "rangeId": "MINIMUM",
+          "value": 500
+        }
+      ],
+      "instalments": [
+        {
+          "instalmentId": "ADJUSTED",
+          "principal": {
+            "amount": 29.64370,
+            "currency": "PEN"
+          }
+        },
+        {
+          "instalmentId": "CONTRACT",
+          "principal": {
+            "amount": 29.64370,
+            "currency": "PEN"
+          }
+        },
+        {
+          "instalmentId": "REAL",
+          "principal": {
+            "amount": 29.62,
+            "currency": "PEN"
+          }
+        }
+      ],
+      "limits": [
+        {
+          "limitId": "ADJUSTED",
+          "amountLimits": [
+            {
+              "amount": 29.64370,
+              "currency": "PEN"
+            }
+          ]
+        },
+        {
+          "limitId": "CONTRACT",
+          "amountLimits": [
+            {
+              "amount": 29.64370,
+              "currency": "PEN"
+            }
+          ]
+        },
+        {
+          "limitId": "REAL",
+          "amountLimits": [
+            {
+              "amount": 29.62,
+              "currency": "PEN"
+            }
+          ]
+        }
+      ]
+    }
