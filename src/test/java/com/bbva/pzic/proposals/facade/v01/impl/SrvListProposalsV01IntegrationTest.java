@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = BusinessServiceTestContextLoader.class, locations = {"classpath*:/META-INF/spring/applicationContext-*.xml", "classpath:/META-INF/spring/business-service-test.xml"})
 @TestExecutionListeners(listeners = {MockInvocationContextTestExecutionListener.class, DependencyInjectionTestExecutionListener.class})
-public class SrvProposalsV01IntegrationTest {
+public class SrvListProposalsV01IntegrationTest {
 
     @Autowired
     private SrvProposalsV01 srvProposalsV01;

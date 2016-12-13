@@ -21,7 +21,7 @@
         "code": "201607"
       },
       "term": {
-        "termId": "MONTHLY",
+        "termId": "M",
         "value": 36
       },
       "product": {
@@ -33,16 +33,16 @@
           "description": "BAJO"
         },
         "productType": {
-          "id": "CARDS"
+          "id": "96"
         },
         "productClassification": {
-          "id": "CREDIT_CARD",
+          "id": "TC",
           "name": "Tarjeta de Crédito"
         }
       },
 
       "riskType": {
-        "id": "ANY"
+        "id": "R1"
       },
 
       "rates": [

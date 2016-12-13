@@ -1,8 +1,7 @@
-package com.bbva.pzic.proposals.util.mappers;
+package com.bbva.pzic.proposals.util;
 
 import com.bbva.jee.arq.spring.core.servicing.configuration.ConfigurationManager;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
-import com.bbva.pzic.proposals.util.Errors;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,42 +13,34 @@ import org.springframework.stereotype.Component;
  * @author Entelgy
  */
 @Component
-public class EnumMapper {
+public class PropertyReader {
 
-    private static final Log LOG = LogFactory.getLog(EnumMapper.class);
+    private static final Log LOG = LogFactory.getLog(PropertyReader.class);
 
-    private static final String PROPERTY_INPUT_ENUMS = "servicing.enum.input.";
-    private static final String PROPERTY_OUTPUT_ENUMS = "servicing.enum.output.";
+    private static final String INPUT_ENUMERATOR_PROPERTY_PREFIX = "servicing.enum.input.";
+    private static final String OUTPUT_ENUMERATOR_PROPERTY_PREFIX = "servicing.enum.output.";
 
     @Autowired
     private ConfigurationManager configurationManager;
 
-    public String getBackendValue(final String field, final String enumValue) {
-        if (enumValue == null) {
+    public String getInputEnumPropertyValue(final String field, final String value) {
+        if (value == null) {
             return null;
         }
-
-        String key = PROPERTY_INPUT_ENUMS.concat(field).concat(".").concat(enumValue);
-
-        return getProperty(key);
+        return getProperty(INPUT_ENUMERATOR_PROPERTY_PREFIX.concat(field).concat(".").concat(value));
     }
 
-    public String getEnumValue(final String field, final String backendValue) {
-        if (backendValue == null) {
+    public String getOutputEnumPropertyValue(final String field, final String value) {
+        if (value == null) {
             return null;
         }
-
-        String key = PROPERTY_OUTPUT_ENUMS.concat(field).concat(".").concat(backendValue);
-
-        return getProperty(key);
+        return getProperty(OUTPUT_ENUMERATOR_PROPERTY_PREFIX.concat(field).concat(".").concat(value));
     }
 
     private String getProperty(final String key) {
         String value = configurationManager.getProperty(key);
-
         if (value == null) {
             LOG.error(String.format("Property key '%s' is not defined", key));
-
             throw new BusinessServiceException(Errors.WRONG_PARAMETERS);
         }
         return value;

@@ -345,20 +345,34 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>generacionFacade.xml</descriptor>
-                        <descriptor>generacionSN.xml</descriptor>
-                    </descriptors>
-                    <outputDirectory>target</outputDirectory>
-                </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
+                        <id>host</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>generacionFacade.xml</descriptor>
+                                <descriptor>generacionSN.xml</descriptor>
+                            </descriptors>
+                            <outputDirectory>target/Host</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>mock</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>generacionFacade.xml</descriptor>
+                                <descriptor>generacionSNMock.xml</descriptor>
+                            </descriptors>
+                            <outputDirectory>target/Mock</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
