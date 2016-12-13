@@ -13,6 +13,11 @@ public final class Errors {
     public static final String MANDATORY_PARAMETERS_MISSING = "mandatoryParametersMissing";
 
     /**
+     * Lanzado cuando se especifican parámetros cuyos valores son incorrectos en referencia a su sintaxis, tipo de dato, etc.
+     */
+    public static final String WRONG_PARAMETERS = "wrongParameters";
+
+    /**
      * Lanzado cuando se realiza una solicitud con el parámetro especial "expands" y no se le asigna un valor.
      */
     public static final String EXPAND_EMPTY = "expandEmpty";
