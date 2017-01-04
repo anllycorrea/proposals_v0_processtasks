@@ -5,14 +5,15 @@ import com.bbva.pzic.proposals.facade.v01.mapper.IListProposalsMapper;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class ListProposalsMapperTest {
 
     private IListProposalsMapper proposalsMapper;
 
     @Before
-    public void init()  {
+    public void init() {
         proposalsMapper = new ListProposalsMapper();
     }
 
@@ -22,7 +23,7 @@ public class ListProposalsMapperTest {
         final String documentNumber = "00000001";
         final String productClassification = "CREDIT_CARD";
         final String paginationKey = "123456789qwertyuio";
-        final Long pageSize = new Long(123);
+        final Long pageSize = 123L;
         final DTOInputListProposals dtoInputListProposals = proposalsMapper.mapInput(documentType, documentNumber,
                 productClassification, paginationKey, pageSize);
         assertNotNull(dtoInputListProposals);

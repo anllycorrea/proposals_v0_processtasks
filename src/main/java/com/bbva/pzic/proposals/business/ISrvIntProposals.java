@@ -13,10 +13,10 @@ public interface ISrvIntProposals {
     /**
      * Validates all constraints on {@paramref queryFilter} and then gets all proposals of products that
      * match the query filter
-
+     *
      * @param queryFilter
      * @return a list of proposals
-     * @exception com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException if a constraint violation occurred
+     * @throws com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException if a constraint violation occurred
      */
     ProposalData listProposals(DTOInputListProposals queryFilter);
 

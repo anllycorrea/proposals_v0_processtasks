@@ -2,7 +2,6 @@ package com.bbva.pzic.proposals.business.impl;
 
 import com.bbva.pzic.proposals.business.ISrvIntProposals;
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
-import com.bbva.pzic.proposals.canonic.Indicator;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.dao.IListProposalsDAO;

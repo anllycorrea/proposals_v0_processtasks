@@ -16,14 +16,14 @@ public interface ISrvProposalsV01 {
     /**
      * Method for retrieving the list of proposals related to a specific person.
      *
-     * @param documentType            Filters the proposals by document type.
-     * @param documentNumber          Filters the proposals by document number.
-     * @param productClassification   Filters the proposals list by financial product classification.
-     * @param paginationKey           Key to obtain a single page
-     * @param pageSize                Number of elements per page
+     * @param documentType          Filters the proposals by document type.
+     * @param documentNumber        Filters the proposals by document number.
+     * @param productClassification Filters the proposals list by financial product classification.
+     * @param paginationKey         Key to obtain a single page
+     * @param pageSize              Number of elements per page
      * @return a list of proposals
      */
     Response listProposals(String documentType, String documentNumber, String productClassification,
-                                     String paginationKey, Long pageSize);
+                           String paginationKey, Long pageSize);
 
 }

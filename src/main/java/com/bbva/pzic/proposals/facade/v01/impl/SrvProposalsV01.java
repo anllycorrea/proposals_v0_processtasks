@@ -6,7 +6,6 @@ import com.bbva.jee.arq.spring.core.servicing.annotations.VN;
 import com.bbva.jee.arq.spring.core.servicing.utils.BusinessServicesToolKit;
 import com.bbva.jee.arq.spring.core.servicing.utils.ContextAware;
 import com.bbva.pzic.proposals.business.ISrvIntProposals;
-import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01;
 import com.bbva.pzic.proposals.facade.v01.mapper.IListProposalsMapper;
@@ -56,7 +55,7 @@ public class SrvProposalsV01 implements ISrvProposalsV01, ContextAware {
     @Override
     @GET
     @Path("/")
-    @SMC(registryID = "SNPE1500084", logicalID = "listProposals")
+    @SMC(registryID = "SMCPE1500164", logicalID = "listProposals")
     public Response listProposals(@QueryParam(DOCUMENT_TYPE) final String documentType,
                                   @QueryParam(DOCUMENT_NUMBER) final String documentNumber,
                                   @QueryParam(PRODUCT_CLASSIFICATION) final String productClassification,
