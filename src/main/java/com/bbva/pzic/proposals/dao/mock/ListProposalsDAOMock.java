@@ -29,11 +29,9 @@ import java.util.List;
 @Component
 public class ListProposalsDAOMock implements IListProposalsDAO {
 
-    private static final Log LOG = LogFactory.getLog(ListProposalsDAOMock.class);
-
     public static final String DOCUMENT_NUMBER_FOR_PARTIAL_LIST = "00000001";
     public static final String DOCUMENT_NUMBER_FOR_COMPLETE_LIST = "00000002";
-
+    private static final Log LOG = LogFactory.getLog(ListProposalsDAOMock.class);
     @Autowired
     private ObjectMapperHelper mapper;
 

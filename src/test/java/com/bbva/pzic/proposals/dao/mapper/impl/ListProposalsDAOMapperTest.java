@@ -7,13 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ListProposalsDAOMapperTest {
 
@@ -24,7 +23,7 @@ public class ListProposalsDAOMapperTest {
     private PropertyReader propertyReader;
 
     @Before
-    public void init()  {
+    public void init() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -35,7 +34,7 @@ public class ListProposalsDAOMapperTest {
         dtoInputListProposals.setDocumentNumber("00000001");
         dtoInputListProposals.setProductClassification("TC");
         dtoInputListProposals.setPaginationKey("123456789qwertyuio");
-        dtoInputListProposals.setPageSize(new Long(123));
+        dtoInputListProposals.setPageSize(123L);
         final Map<String, String> parameters = listProposalsDAOMapper.mapInput(dtoInputListProposals);
         assertEquals(dtoInputListProposals.getDocumentType(), parameters.get(ISrvProposalsV01.DOCUMENT_TYPE));
         assertEquals(dtoInputListProposals.getDocumentNumber(), parameters.get(ISrvProposalsV01.DOCUMENT_NUMBER));

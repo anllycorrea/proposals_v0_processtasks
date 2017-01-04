@@ -26,14 +26,14 @@ import static org.junit.Assert.*;
 @TestExecutionListeners(listeners = {MockInvocationContextTestExecutionListener.class, DependencyInjectionTestExecutionListener.class})
 public class SrvListProposalsV01IntegrationTest {
 
-    @Autowired
-    private SrvProposalsV01 srvProposalsV01;
-
     private static final String DOCUMENT_TYPE = "DNI";
     private static final String DOCUMENT_NUMBER = "00000001";
     private static final String PRODUCT_CLASSIFICATION = "CREDIT_CARD";
     private static final String PAGINATION_KEY = "123456789qwertyuio";
-    private static final Long PAGE_SIZE = new Long(123);
+    private static final Long PAGE_SIZE = 123L;
+
+    @Autowired
+    private SrvProposalsV01 srvProposalsV01;
 
     @Before
     public void setUp() {
@@ -139,9 +139,8 @@ public class SrvListProposalsV01IntegrationTest {
 
     @Test
     public void testListProposalsWithPageSizeLengthGreaterThanEight() {
-        final Long pageSize = new Long(1234);
         try {
-            srvProposalsV01.listProposals(DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, pageSize);
+            srvProposalsV01.listProposals(DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, 1234L);
             fail("Expected WRONG_PARAMETERS exception");
         } catch (BusinessServiceException e) {
             assertThat(e.getErrorCode(), is(equalTo(Errors.WRONG_PARAMETERS)));
