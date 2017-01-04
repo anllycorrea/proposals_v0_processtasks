@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "http-status": 404,
+  "error-code": "aliasNotFound",
+  "error-message": "An error message",
+  "severity": "WRONG",
+  "consumer-request-id": "9c5c54c8-e1b8-464a-b288-456dee3f1416",
+  "system-error-code": "aliasNotFound",
+  "system-error-description": "Description"
+}

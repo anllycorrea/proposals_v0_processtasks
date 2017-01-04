@@ -37,8 +37,8 @@ public class SrvProposalsV01 implements ISrvProposalsV01, ContextAware {
 
     private static final Log LOG = LogFactory.getLog(SrvProposalsV01.class);
 
-    public HttpHeaders httpHeaders;
     public UriInfo uriInfo;
+    public HttpHeaders httpHeaders;
 
     @Autowired
     private BusinessServicesToolKit businessToolKit;
@@ -48,6 +48,16 @@ public class SrvProposalsV01 implements ISrvProposalsV01, ContextAware {
 
     @Autowired
     private IListProposalsMapper listProposalsMapper;
+
+    @Override
+    public void setUriInfo(UriInfo uriInfo) {
+        this.uriInfo = uriInfo;
+    }
+
+    @Override
+    public void setHttpHeaders(HttpHeaders httpHeaders) {
+        this.httpHeaders = httpHeaders;
+    }
 
     /**
      * @see ISrvProposalsV01#listProposals(String, String, String, String, Long)
@@ -78,15 +88,5 @@ public class SrvProposalsV01 implements ISrvProposalsV01, ContextAware {
                             null, null, null).build());
             return Response.ok(proposalData).status(206).build();
         }
-    }
-
-    @Override
-    public void setUriInfo(UriInfo uriInfo) {
-        this.uriInfo = uriInfo;
-    }
-
-    @Override
-    public void setHttpHeaders(HttpHeaders httpHeaders) {
-        this.httpHeaders = httpHeaders;
     }
 }

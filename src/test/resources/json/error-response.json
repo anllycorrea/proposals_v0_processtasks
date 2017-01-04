@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "http-status": 400,
+  "error-code": "wrongParameters",
+  "error-message": "No se comprendió la solicitud debido a una sintaxis incorrecta. La solicitud debe modificarse antes de volverse a enviar.",
+  "severity": "FATAL",
+  "consumer-request-id": "7b021bb2-7ca3-4957-9e68-061ccf9b5089",
+  "system-error-code": "wrongParameters",
+  "system-error-description": "No se comprendió la solicitud debido a una sintaxis incorrecta. La solicitud debe modificarse antes de volverse a enviar."
+}
