@@ -1,10 +1,12 @@
 package com.bbva.pzic.proposals.business.impl;
 
+import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.business.ISrvIntProposals;
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.dao.IListProposalsDAO;
+import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.PropertyReader;
 import com.bbva.pzic.proposals.util.validation.Validator;
 import org.apache.commons.logging.Log;
@@ -38,6 +40,10 @@ public class SrvIntProposals implements ISrvIntProposals {
     public ProposalData listProposals(DTOInputListProposals queryFilter) {
         LOG.info("... called method SrvIntProposals.listProposals ...");
         LOG.info("... validating listProposals input parameters ...");
+        if (queryFilter.getCustomerId() == null
+                && (queryFilter.getDocumentType() == null || queryFilter.getDocumentNumber() == null)) {
+            throw new BusinessServiceException(Errors.PARAMETERS_MISSING);
+        }
         validator.validate(queryFilter);
         final EnumeratorConverter enumeratorConverter = new EnumeratorConverter();
         LOG.info("... converting listProposals input enumerators ...");
@@ -52,15 +58,16 @@ public class SrvIntProposals implements ISrvIntProposals {
 
         private final static String DOCUMENT_TYPE_FIELD_PROPERTY = "documentType.id";
         private final static String PRODUCT_CLASSIFICATION_FIELD_PROPERTY = "product.productClassification.id";
-        private final static String TERM_ID_FIELD_PROPERTY = "term.termId";
+        private final static String TERM_ID_FIELD_PROPERTY = "conditions.period.id";
         private final static String PRODUCT_TYPE_ID_FIELD_PROPERTY = "product.productType.id";
-        private final static String RISK_TYPE_ID_FIELD_PROPERTY = "riskType.id";
+        private final static String RISK_TYPE_ID_FIELD_PROPERTY = "proposals.riskType.id";
+        private final static String PROCUREMENT_FLOW_ID_ID_FIELD_PROPERTY = "proposals.procurementFlow.id";
 
         private void convertInput(DTOInputListProposals dtoInputListProposals) {
             dtoInputListProposals.setDocumentType(propertyReader.getInputEnumPropertyValue(DOCUMENT_TYPE_FIELD_PROPERTY, dtoInputListProposals.getDocumentType()));
-            if (dtoInputListProposals.getProductClassification() != null) {
-                dtoInputListProposals.setProductClassification(
-                        propertyReader.getInputEnumPropertyValue(PRODUCT_CLASSIFICATION_FIELD_PROPERTY, dtoInputListProposals.getProductClassification()));
+            if (dtoInputListProposals.getProductClassificationId() != null) {
+                dtoInputListProposals.setProductClassificationId(
+                        propertyReader.getInputEnumPropertyValue(PRODUCT_CLASSIFICATION_FIELD_PROPERTY, dtoInputListProposals.getProductClassificationId()));
             }
         }
 
@@ -82,10 +89,16 @@ public class SrvIntProposals implements ISrvIntProposals {
                                                 proposal.getProduct().getProductType().getId()));
                             }
                         }
-                        if (proposal.getTerm() != null && proposal.getTerm().getTermId() != null) {
-                            proposal.getTerm().setTermId(
+                        if (proposal.getProcurementFlow() != null
+                                && proposal.getProcurementFlow().getName() != null) {
+                            proposal.getProcurementFlow().setId(
+                                    propertyReader.getOutputEnumPropertyValue(PROCUREMENT_FLOW_ID_ID_FIELD_PROPERTY,
+                                            proposal.getProcurementFlow().getId()));
+                        }
+                        if (proposal.getTerm() != null && proposal.getTerm().getId() != null) {
+                            proposal.getTerm().setId(
                                     propertyReader.getOutputEnumPropertyValue(TERM_ID_FIELD_PROPERTY,
-                                            proposal.getTerm().getTermId()));
+                                            proposal.getTerm().getId()));
                         }
                         if (proposal.getRiskType() != null && proposal.getRiskType().getId() != null) {
                             proposal.getRiskType().setId(

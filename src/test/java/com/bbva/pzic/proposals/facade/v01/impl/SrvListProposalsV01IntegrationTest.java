@@ -26,6 +26,7 @@ import static org.junit.Assert.*;
 @TestExecutionListeners(listeners = {MockInvocationContextTestExecutionListener.class, DependencyInjectionTestExecutionListener.class})
 public class SrvListProposalsV01IntegrationTest {
 
+    private static final String CUSTOMER_ID = "1";
     private static final String DOCUMENT_TYPE = "DNI";
     private static final String DOCUMENT_NUMBER = "00000001";
     private static final String PRODUCT_CLASSIFICATION = "CREDIT_CARD";
@@ -43,7 +44,55 @@ public class SrvListProposalsV01IntegrationTest {
     @Test
     public void testListProposalsThatReturnsPartialList() {
         final Response response =
-                srvProposalsV01.listProposals(DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+                srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+        assertEquals(206, response.getStatus());
+        final ProposalData proposalData = (ProposalData) response.getEntity();
+        assertNotNull(proposalData);
+        assertNotNull(proposalData.getData());
+        assertNotNull(proposalData.getPagination());
+        assertNotSame(0, proposalData.getData().size());
+    }
+
+    @Test
+    public void testListProposalsThatReturnsPartialListWithoutDocumentTypeIdAndDocumentNumber() {
+        final Response response =
+                srvProposalsV01.listProposals(CUSTOMER_ID, null, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+        assertEquals(206, response.getStatus());
+        final ProposalData proposalData = (ProposalData) response.getEntity();
+        assertNotNull(proposalData);
+        assertNotNull(proposalData.getData());
+        assertNotNull(proposalData.getPagination());
+        assertNotSame(0, proposalData.getData().size());
+    }
+
+    @Test
+    public void testListProposalsThatReturnsPartialListWithoutCustomerId() {
+        final Response response =
+                srvProposalsV01.listProposals(null, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+        assertEquals(206, response.getStatus());
+        final ProposalData proposalData = (ProposalData) response.getEntity();
+        assertNotNull(proposalData);
+        assertNotNull(proposalData.getData());
+        assertNotNull(proposalData.getPagination());
+        assertNotSame(0, proposalData.getData().size());
+    }
+
+    @Test
+    public void testListProposalsThatReturnsPartialListWithoutDocumentTypeId() {
+        final Response response =
+                srvProposalsV01.listProposals(CUSTOMER_ID, null, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+        assertEquals(206, response.getStatus());
+        final ProposalData proposalData = (ProposalData) response.getEntity();
+        assertNotNull(proposalData);
+        assertNotNull(proposalData.getData());
+        assertNotNull(proposalData.getPagination());
+        assertNotSame(0, proposalData.getData().size());
+    }
+
+    @Test
+    public void testListProposalsThatReturnsPartialListWithoutDocumentNumber() {
+        final Response response =
+                srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
         assertEquals(206, response.getStatus());
         final ProposalData proposalData = (ProposalData) response.getEntity();
         assertNotNull(proposalData);
@@ -54,9 +103,10 @@ public class SrvListProposalsV01IntegrationTest {
 
     @Test
     public void testListProposalsThatReturnsCompleteList() {
+        final String customerId = "2";
         final String documentNumber = "00000002";
         final Response response =
-                srvProposalsV01.listProposals(DOCUMENT_TYPE, documentNumber, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+                srvProposalsV01.listProposals(customerId, DOCUMENT_TYPE, documentNumber, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         final ProposalData proposalData = (ProposalData) response.getEntity();
         assertNotNull(proposalData);
@@ -67,27 +117,18 @@ public class SrvListProposalsV01IntegrationTest {
 
     @Test
     public void testListProposalsThatReturnsEmptyList() {
+        final String customerId = "3";
         final String documentNumber = "00000003";
         final Response response =
-                srvProposalsV01.listProposals(DOCUMENT_TYPE, documentNumber, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+                srvProposalsV01.listProposals(customerId, DOCUMENT_TYPE, documentNumber, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
         assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
-    }
-
-    @Test
-    public void testListProposalsWithoutDocumentType() {
-        try {
-            srvProposalsV01.listProposals(null, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
-            fail("Expected MANDATORY_PARAMETERS_MISSING exception");
-        } catch (BusinessServiceException e) {
-            assertThat(e.getErrorCode(), is(equalTo(Errors.MANDATORY_PARAMETERS_MISSING)));
-        }
     }
 
     @Test
     public void testListProposalsWithInvalidDocumentType() {
         final String documentType = "LIBRETA_ELECTORAL";
         try {
-            srvProposalsV01.listProposals(documentType, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+            srvProposalsV01.listProposals(CUSTOMER_ID, documentType, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
             fail("Expected WRONG_PARAMETERS exception");
         } catch (BusinessServiceException e) {
             assertThat(e.getErrorCode(), is(equalTo(Errors.WRONG_PARAMETERS)));
@@ -95,20 +136,10 @@ public class SrvListProposalsV01IntegrationTest {
     }
 
     @Test
-    public void testListProposalsWithoutDocumentNumber() {
-        try {
-            srvProposalsV01.listProposals(DOCUMENT_TYPE, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
-            fail("Expected MANDATORY_PARAMETERS_MISSING exception");
-        } catch (BusinessServiceException e) {
-            assertThat(e.getErrorCode(), is(equalTo(Errors.MANDATORY_PARAMETERS_MISSING)));
-        }
-    }
-
-    @Test
     public void testListProposalsWithDocumentNumberLengthGreaterThanEight() {
         final String documentNumber = "000000012345";
         try {
-            srvProposalsV01.listProposals(DOCUMENT_TYPE, documentNumber, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+            srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, documentNumber, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
             fail("Expected WRONG_PARAMETERS exception");
         } catch (BusinessServiceException e) {
             assertThat(e.getErrorCode(), is(equalTo(Errors.WRONG_PARAMETERS)));
@@ -119,7 +150,7 @@ public class SrvListProposalsV01IntegrationTest {
     public void testListProposalsWithInvalidProductClassification() {
         final String productClassification = "ROCK_CARD";
         try {
-            srvProposalsV01.listProposals(DOCUMENT_TYPE, DOCUMENT_NUMBER, productClassification, PAGINATION_KEY, PAGE_SIZE);
+            srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, productClassification, PAGINATION_KEY, PAGE_SIZE);
             fail("Expected WRONG_PARAMETERS exception");
         } catch (BusinessServiceException e) {
             assertThat(e.getErrorCode(), is(equalTo(Errors.WRONG_PARAMETERS)));
@@ -130,7 +161,7 @@ public class SrvListProposalsV01IntegrationTest {
     public void testListProposalsWithPaginationKeyLengthGreaterThanEight() {
         final String paginationKey = "123456789qwertyuiop";
         try {
-            srvProposalsV01.listProposals(DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, paginationKey, PAGE_SIZE);
+            srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, paginationKey, PAGE_SIZE);
             fail("Expected WRONG_PARAMETERS exception");
         } catch (BusinessServiceException e) {
             assertThat(e.getErrorCode(), is(equalTo(Errors.WRONG_PARAMETERS)));
@@ -140,10 +171,40 @@ public class SrvListProposalsV01IntegrationTest {
     @Test
     public void testListProposalsWithPageSizeLengthGreaterThanEight() {
         try {
-            srvProposalsV01.listProposals(DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, 1234L);
+            srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, 1234L);
             fail("Expected WRONG_PARAMETERS exception");
         } catch (BusinessServiceException e) {
             assertThat(e.getErrorCode(), is(equalTo(Errors.WRONG_PARAMETERS)));
+        }
+    }
+
+    @Test
+    public void testListProposalsWithoutCustomerIdAndDocumentTypeIdAndDocumentNumber() {
+        try {
+            srvProposalsV01.listProposals(null, null, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+            fail("Expected PARAMETERS_MISSING exception");
+        } catch (BusinessServiceException e) {
+            assertThat(e.getErrorCode(), is(equalTo(Errors.PARAMETERS_MISSING)));
+        }
+    }
+
+    @Test
+    public void testListProposalsWithoutCustomerIdAndDocumentTypeId() {
+        try {
+            srvProposalsV01.listProposals(null, null, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+            fail("Expected PARAMETERS_MISSING exception");
+        } catch (BusinessServiceException e) {
+            assertThat(e.getErrorCode(), is(equalTo(Errors.PARAMETERS_MISSING)));
+        }
+    }
+
+    @Test
+    public void testListProposalsWithoutCustomerIdAndDocumentNumber() {
+        try {
+            srvProposalsV01.listProposals(null, DOCUMENT_TYPE, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+            fail("Expected PARAMETERS_MISSING exception");
+        } catch (BusinessServiceException e) {
+            assertThat(e.getErrorCode(), is(equalTo(Errors.PARAMETERS_MISSING)));
         }
     }
 

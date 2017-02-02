@@ -1,39 +1,39 @@
 {
-  "proposalId": "100",
-  "participant": {
-    "participantId": "90014515"
-  },
-  "hiringType": {
-    "id": "SF1",
-    "name": "SUPER FAST N"
+  "id": "100",
+  "customerId": "90014515",
+  "procurementFlow": {
+    "id":  "F",
+    "name": "Fast"
   },
   "indicators": [
     {
-      "indicatorId": "ADDRESS_VALIDATION",
+      "id": "ADDRESS_VALIDATION",
       "isActive": true
     },
     {
-      "indicatorId": "WORKPLACE_VALIDATION",
+      "id": "WORKPLACE_VALIDATION",
       "isActive": true
     }
   ],
   "campaign": {
-    "code": "201607"
+    "code": "201611"
   },
   "term": {
-    "termId": "M",
+    "id": "M",
     "value": 36
   },
   "product": {
-    "productId": "F7",
-    "description": "Visa Continental Zero",
     "bin": "404293",
+    "title": {
+      "id": "F7",
+      "name": "Visa Continental Zero"
+    },
     "productConfiguration": {
       "id": "LOW",
       "description": "BAJO"
     },
     "productType": {
-      "id": "96"
+      "id": "50"
     },
     "productClassification": {
       "id": "TC",
@@ -45,75 +45,75 @@
   },
   "rates": [
     {
-      "rateId": "PROPOSED",
+      "id": "PROPOSED",
       "value": 13.9
     },
     {
-      "rateId": "MAXIMUM",
+      "id": "MAXIMUM",
       "value": 0
     },
     {
-      "rateId": "MINIMUM",
+      "id": "MINIMUM",
       "value": 0
     }
   ],
   "ranges": [
     {
-      "rangeId": "MAXIMUM",
-      "value": 500
+      "id": "MAXIMUM",
+      "value": 100000
     },
     {
-      "rangeId": "MINIMUM",
+      "id": "MINIMUM",
       "value": 500
     }
   ],
   "instalments": [
     {
-      "instalmentId": "ADJUSTED",
+      "id": "ADJUSTED",
       "principal": {
-        "amount": 29.64370,
+        "amount": 347.31827,
         "currency": "PEN"
       }
     },
     {
-      "instalmentId": "CONTRACT",
+      "id": "CONTRACT",
       "principal": {
-        "amount": 29.64370,
+        "amount": 347.31827,
         "currency": "PEN"
       }
     },
     {
-      "instalmentId": "REAL",
+      "id": "REAL",
       "principal": {
-        "amount": 29.62,
+        "amount": 348.95,
         "currency": "PEN"
       }
     }
   ],
   "limits": [
     {
-      "limitId": "ADJUSTED",
-      "amountLimits": [
+      "id": "ADJUSTED",
+      "amounts": [
         {
-          "amount": 29.64370,
+          "value": 5400.00,
           "currency": "PEN"
         }
       ]
     },
     {
-      "limitId": "CONTRACT",
-      "amountLimits": [
+      "id": "CONTRACT",
+      "amounts": [
         {
-          "amount": 29.64370,
+          "value": 5400.00,
           "currency": "PEN"
         }
       ]
     },
     {
-      "limitId": "REAL",
-      "amountLimits": [
+      "id": "REAL",
+      "amounts": [
         {
-          "amount": 29.62,
+          "value": 5426.00,
           "currency": "PEN"
         }
       ]

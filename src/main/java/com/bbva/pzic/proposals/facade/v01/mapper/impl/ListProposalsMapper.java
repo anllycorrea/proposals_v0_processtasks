@@ -13,14 +13,15 @@ import org.springframework.stereotype.Component;
 public class ListProposalsMapper implements IListProposalsMapper {
 
     /**
-     * @see IListProposalsMapper#mapInput(String, String, String, String, Long)
+     * @see IListProposalsMapper#mapInput(String, String, String, String, String, Long)
      */
     @Override
-    public DTOInputListProposals mapInput(String documentType, String documentNumber, String productClassification, String paginationKey, Long pageSize) {
+    public DTOInputListProposals mapInput(String customerId, String documentType, String documentNumber, String productClassification, String paginationKey, Long pageSize) {
         final DTOInputListProposals dtoInputListProposals = new DTOInputListProposals();
+        dtoInputListProposals.setCustomerId(customerId);
         dtoInputListProposals.setDocumentType(documentType);
         dtoInputListProposals.setDocumentNumber(documentNumber);
-        dtoInputListProposals.setProductClassification(productClassification);
+        dtoInputListProposals.setProductClassificationId(productClassification);
         dtoInputListProposals.setPaginationKey(paginationKey);
         dtoInputListProposals.setPageSize(pageSize);
         return dtoInputListProposals;

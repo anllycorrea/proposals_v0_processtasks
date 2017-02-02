@@ -12,6 +12,7 @@ public interface IListProposalsMapper {
     /**
      * Creates a new {@Link DTOInputListProposals} instance and initializes it with the provided parameters.
      *
+     * @param customerId
      * @param documentType
      * @param documentNumber
      * @param productClassification
@@ -19,7 +20,7 @@ public interface IListProposalsMapper {
      * @param pageSize
      * @return the created object
      */
-    DTOInputListProposals mapInput(String documentType, String documentNumber, String productClassification,
+    DTOInputListProposals mapInput(String customerId, String documentType, String documentNumber, String productClassification,
                                    String paginationKey, Long pageSize);
 
 }
