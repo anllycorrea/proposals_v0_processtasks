@@ -44,6 +44,12 @@ public class Product implements Serializable {
      */
     private String description;
 
+    /**
+     * Title of the product.
+     */
+    @Valid
+    private Title title;
+
     public String getProductId() {
         return productId;
     }
@@ -92,5 +98,13 @@ public class Product implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public void setTitle(Title title) {
+        this.title = title;
     }
 }

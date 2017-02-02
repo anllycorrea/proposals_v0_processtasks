@@ -18,7 +18,7 @@ public class Indicator implements Serializable {
     /**
      * Identifier associated to the behavior indicator.
      */
-    private String indicatorId;
+    private String id;
     /**
      * Localized description of the behavior indicator.
      */
@@ -28,12 +28,12 @@ public class Indicator implements Serializable {
      */
     private Boolean isActive;
 
-    public String getIndicatorId() {
-        return indicatorId;
+    public String getId() {
+        return id;
     }
 
-    public void setIndicatorId(String indicatorId) {
-        this.indicatorId = indicatorId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

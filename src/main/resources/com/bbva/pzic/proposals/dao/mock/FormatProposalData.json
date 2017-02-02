@@ -1,0 +1,39 @@
+{
+  "listaOfertas": [
+    {
+      "campanha": "201612",
+      "codConfigProducto": "208",
+      "codFlujoOpe": "F",
+      "codPlazo": "36",
+      "codProducto": "TC",
+      "codSubProducto": "",
+      "codigoCentral": "90011271",
+      "desConfigProducto": "BAJO",
+      "desProducto": "Tarjetas de Crédito",
+      "desSubProducto": " Visa Continental Zero",
+      "divisa": "PEN",
+      "familiaProducto": "50",
+      "flujoOperativo": "FAST                                                  N",
+      "idPropuesta": "00001",
+      "rangoMax": "100000",
+      "rangoMin": "500",
+      "stRiesgo": "CQ",
+      "tasaMax": "0",
+      "tasaMin": "0",
+      "tipplazo": "M",
+      "valBin": "404293",
+      "valCuotaAjust": "405.20465",
+      "valCuotaContrato": "405.20465",
+      "valCuotaReal": "411.58",
+      "valLimiteAjust": "6300.00",
+      "valLimiteContrato": "6300.00",
+      "valLimiteReal": "6399.00",
+      "valTasa": "89.99",
+      "valTipo": "F7",
+      "vdomiciliaria": "NO",
+      "vlaboral": "SI"
+    }
+  ],
+  "idPagin": "qwe",
+  "tampagi": "100"
+}

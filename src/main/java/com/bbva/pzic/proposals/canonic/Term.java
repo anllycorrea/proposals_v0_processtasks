@@ -19,18 +19,18 @@ public class Term implements Serializable {
     /**
      * Term identifier.
      */
-    private String termId;
+    private String id;
     /**
      * Term value.
      */
     private BigDecimal value;
 
-    public String getTermId() {
-        return termId;
+    public String getId() {
+        return id;
     }
 
-    public void setTermId(String termId) {
-        this.termId = termId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public BigDecimal getValue() {
