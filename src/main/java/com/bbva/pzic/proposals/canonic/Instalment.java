@@ -19,19 +19,19 @@ public class Instalment implements Serializable {
     /**
      * Instalment identifier.
      */
-    private String instalmentId;
+    private String id;
     /**
      * Current instalment monetary amount.
      */
     @Valid
     private Principal principal;
 
-    public String getInstalmentId() {
-        return instalmentId;
+    public String getId() {
+        return id;
     }
 
-    public void setInstalmentId(String instalmentId) {
-        this.instalmentId = instalmentId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Principal getPrincipal() {

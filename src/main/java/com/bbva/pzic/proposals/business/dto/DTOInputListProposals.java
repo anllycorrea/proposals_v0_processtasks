@@ -1,7 +1,6 @@
 package com.bbva.pzic.proposals.business.dto;
 
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -11,12 +10,12 @@ import javax.validation.constraints.Size;
  */
 public class DTOInputListProposals {
 
-    @NotNull
+    @Size(max = 8)
+    private String customerId;
     private String documentType;
-    @NotNull
     @Size(max = 11)
     private String documentNumber;
-    private String productClassification;
+    private String productClassificationId;
     @Size(max = 18)
     private String paginationKey;
     @Digits(integer = 3, fraction = 0)
@@ -30,6 +29,14 @@ public class DTOInputListProposals {
         this.documentType = documentType;
     }
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
     public String getDocumentNumber() {
         return documentNumber;
     }
@@ -38,12 +45,12 @@ public class DTOInputListProposals {
         this.documentNumber = documentNumber;
     }
 
-    public String getProductClassification() {
-        return productClassification;
+    public String getProductClassificationId() {
+        return productClassificationId;
     }
 
-    public void setProductClassification(String productClassification) {
-        this.productClassification = productClassification;
+    public void setProductClassificationId(String productClassificationId) {
+        this.productClassificationId = productClassificationId;
     }
 
     public String getPaginationKey() {

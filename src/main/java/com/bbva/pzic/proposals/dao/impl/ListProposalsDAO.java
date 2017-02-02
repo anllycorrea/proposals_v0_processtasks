@@ -4,6 +4,7 @@ import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.dao.IListProposalsDAO;
 import com.bbva.pzic.proposals.dao.mapper.IListProposalsDAOMapper;
+import com.bbva.pzic.proposals.dao.model.listProposals.FormatProposalData;
 import com.bbva.pzic.proposals.util.connection.rest.RestGetConnection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @author Entelgy
  */
 @Component
-public class ListProposalsDAO extends RestGetConnection<ProposalData> implements IListProposalsDAO {
+public class ListProposalsDAO extends RestGetConnection<FormatProposalData> implements IListProposalsDAO {
 
     private static final Log LOG = LogFactory.getLog(ListProposalsDAO.class);
 
@@ -31,7 +32,9 @@ public class ListProposalsDAO extends RestGetConnection<ProposalData> implements
     @Override
     public ProposalData listProposals(DTOInputListProposals queryFilter) {
         LOG.info("... called method RestGetConnection.listProposals ...");
-        return connect(LIST_PROPOSALS_URL_PROPOSALS, proposalsDAOMapper.mapInput(queryFilter));
+        FormatProposalData formatProposalData =
+                connect(LIST_PROPOSALS_URL_PROPOSALS, proposalsDAOMapper.mapInput(queryFilter));
+        return proposalsDAOMapper.mapOutput(formatProposalData);
     }
 
 }

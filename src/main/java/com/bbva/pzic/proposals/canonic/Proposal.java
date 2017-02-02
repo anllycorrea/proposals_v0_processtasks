@@ -20,7 +20,7 @@ public class Proposal implements Serializable {
     /**
      * Proposal identifier.
      */
-    private String proposalId;
+    private String id;
     /**
      * Person who has the proposal.
      */
@@ -77,12 +77,22 @@ public class Proposal implements Serializable {
     @Valid
     private RiskType riskType;
 
-    public String getProposalId() {
-        return proposalId;
+    /**
+     * Procurement flow.
+     */
+    private ProcurementFlow procurementFlow;
+
+    /**
+     * Customer Identifier.
+     */
+    private String customerId;
+
+    public String getId() {
+        return id;
     }
 
-    public void setProposalId(String proposalId) {
-        this.proposalId = proposalId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Participant getParticipant() {
@@ -171,5 +181,21 @@ public class Proposal implements Serializable {
 
     public void setRiskType(RiskType riskType) {
         this.riskType = riskType;
+    }
+
+    public ProcurementFlow getProcurementFlow() {
+        return procurementFlow;
+    }
+
+    public void setProcurementFlow(ProcurementFlow procurementFlow) {
+        this.procurementFlow = procurementFlow;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 }

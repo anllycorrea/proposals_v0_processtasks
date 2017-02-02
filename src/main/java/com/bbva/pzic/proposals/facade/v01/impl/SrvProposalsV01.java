@@ -60,21 +60,22 @@ public class SrvProposalsV01 implements ISrvProposalsV01, ContextAware {
     }
 
     /**
-     * @see ISrvProposalsV01#listProposals(String, String, String, String, Long)
+     * @see ISrvProposalsV01#listProposals(String, String, String, String, String, Long)
      */
     @Override
     @GET
     @Path("/")
     @SMC(registryID = "SMCPE1500164", logicalID = "listProposals")
-    public Response listProposals(@QueryParam(DOCUMENT_TYPE) final String documentType,
-                                  @QueryParam(DOCUMENT_NUMBER) final String documentNumber,
-                                  @QueryParam(PRODUCT_CLASSIFICATION) final String productClassification,
-                                  @QueryParam(PAGINATION_KEY) final String paginationKey,
-                                  @QueryParam(PAGE_SIZE) final Long pageSize) {
+    public Response listProposals(@QueryParam("customerId") final String customerId,
+                                  @QueryParam("documentType") final String documentType,
+                                  @QueryParam("documentNumber") final String documentNumber,
+                                  @QueryParam("product.productClassification.id") final String productClassification,
+                                  @QueryParam("paginationKey") final String paginationKey,
+                                  @QueryParam("pageSize") final Long pageSize) {
         LOG.info("... called method SrvProposalsV01.listProposals ...");
         final ProposalData proposalData =
                 srvIntProposals
-                        .listProposals(listProposalsMapper.mapInput(documentType, documentNumber, productClassification, paginationKey, pageSize));
+                        .listProposals(listProposalsMapper.mapInput(customerId, documentType, documentNumber, productClassification, paginationKey, pageSize));
         if (proposalData == null
                 || ((proposalData.getData() == null || proposalData.getData().isEmpty()) && proposalData.getPagination() == null)) {
             return Response.noContent().build();

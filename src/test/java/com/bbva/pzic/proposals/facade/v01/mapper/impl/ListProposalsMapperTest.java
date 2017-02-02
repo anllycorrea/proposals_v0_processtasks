@@ -19,17 +19,19 @@ public class ListProposalsMapperTest {
 
     @Test
     public void testMapInput() {
+        final String customerId = "1";
         final String documentType = "DNI";
         final String documentNumber = "00000001";
         final String productClassification = "CREDIT_CARD";
         final String paginationKey = "123456789qwertyuio";
         final Long pageSize = 123L;
-        final DTOInputListProposals dtoInputListProposals = proposalsMapper.mapInput(documentType, documentNumber,
+        final DTOInputListProposals dtoInputListProposals = proposalsMapper.mapInput(customerId, documentType, documentNumber,
                 productClassification, paginationKey, pageSize);
         assertNotNull(dtoInputListProposals);
+        assertEquals(customerId, dtoInputListProposals.getCustomerId());
         assertEquals(documentType, dtoInputListProposals.getDocumentType());
         assertEquals(documentNumber, dtoInputListProposals.getDocumentNumber());
-        assertEquals(productClassification, dtoInputListProposals.getProductClassification());
+        assertEquals(productClassification, dtoInputListProposals.getProductClassificationId());
         assertEquals(paginationKey, dtoInputListProposals.getPaginationKey());
         assertEquals(pageSize, dtoInputListProposals.getPageSize());
     }
