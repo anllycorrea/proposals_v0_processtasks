@@ -10,28 +10,27 @@ import java.math.BigDecimal;
 /**
  * @author Entelgy
  */
-@XmlRootElement(name = "AmountLimit", namespace = "urn:com:bbva:pzic:proposals:canonic")
-@XmlType(name = "AmountLimit", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlRootElement(name = "Amount", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlType(name = "Amount", namespace = "urn:com:bbva:pzic:proposals:canonic")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AmountLimit implements Serializable {
+public class Amount implements Serializable {
 
     private static final long serialVersionUID = 1L;
     /**
      * Monetary amount related to the limit.
      */
-    private BigDecimal amount;
+    private BigDecimal value;
     /**
-     * String based on ISO-4217 for specifying the currency related to the
-     * amount limit.
+     * String based on ISO-4217 for specifying the currency related to the amount limit.
      */
     private String currency;
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getValue() {
+        return value;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setValue(BigDecimal value) {
+        this.value = value;
     }
 
     public String getCurrency() {

@@ -19,18 +19,18 @@ public class Rate implements Serializable {
     /**
      * Rate type identifier.
      */
-    private String rateId;
+    private String id;
     /**
      * Interest rate value.
      */
     private BigDecimal value;
 
-    public String getRateId() {
-        return rateId;
+    public String getId() {
+        return id;
     }
 
-    public void setRateId(String rateId) {
-        this.rateId = rateId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public BigDecimal getValue() {

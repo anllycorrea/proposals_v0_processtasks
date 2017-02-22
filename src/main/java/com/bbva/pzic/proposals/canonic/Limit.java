@@ -20,7 +20,7 @@ public class Limit implements Serializable {
     /**
      * Limit identifier.
      */
-    private String limitId;
+    private String id;
     /**
      * Limit localized description.
      */
@@ -30,14 +30,14 @@ public class Limit implements Serializable {
      * provided in several currencies (depending on the country).
      */
     @Valid
-    private List<AmountLimit> amountLimits;
+    private List<Amount> amounts;
 
-    public String getLimitId() {
-        return limitId;
+    public String getId() {
+        return id;
     }
 
-    public void setLimitId(String limitId) {
-        this.limitId = limitId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -48,11 +48,11 @@ public class Limit implements Serializable {
         this.name = name;
     }
 
-    public List<AmountLimit> getAmountLimits() {
-        return amountLimits;
+    public List<Amount> getAmounts() {
+        return amounts;
     }
 
-    public void setAmountLimits(List<AmountLimit> amountLimits) {
-        this.amountLimits = amountLimits;
+    public void setAmounts(List<Amount> amounts) {
+        this.amounts = amounts;
     }
 }

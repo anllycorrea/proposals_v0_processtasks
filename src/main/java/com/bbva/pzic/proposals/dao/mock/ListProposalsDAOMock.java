@@ -29,6 +29,7 @@ import java.util.List;
 @Component
 public class ListProposalsDAOMock implements IListProposalsDAO {
 
+    public static final String CUSTOMER_ID_FOR_PARTIAL_LIST = "1";
     public static final String DOCUMENT_NUMBER_FOR_PARTIAL_LIST = "00000001";
     public static final String DOCUMENT_NUMBER_FOR_COMPLETE_LIST = "00000002";
     private static final Log LOG = LogFactory.getLog(ListProposalsDAOMock.class);
@@ -41,7 +42,8 @@ public class ListProposalsDAOMock implements IListProposalsDAO {
     @Override
     public ProposalData listProposals(DTOInputListProposals queryFilter) {
         final ProposalData proposalData = new ProposalData();
-        if (DOCUMENT_NUMBER_FOR_PARTIAL_LIST.equals(queryFilter.getDocumentNumber())) {
+        if (DOCUMENT_NUMBER_FOR_PARTIAL_LIST.equals(queryFilter.getDocumentNumber())
+                || CUSTOMER_ID_FOR_PARTIAL_LIST.equals(queryFilter.getCustomerId())) {
             try {
                 final List<Proposal> proposals = new ArrayList<Proposal>();
                 proposals.add(buildProposal());

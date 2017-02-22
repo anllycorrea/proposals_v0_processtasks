@@ -19,18 +19,18 @@ public class Range implements Serializable {
     /**
      * Range identifier.
      */
-    private String rangeId;
+    private String id;
     /**
      * Range value.
      */
     private BigDecimal value;
 
-    public String getRangeId() {
-        return rangeId;
+    public String getId() {
+        return id;
     }
 
-    public void setRangeId(String rangeId) {
-        this.rangeId = rangeId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public BigDecimal getValue() {
