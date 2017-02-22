@@ -5,6 +5,7 @@ import com.bbva.pzic.proposals.canonic.*;
 import com.bbva.pzic.proposals.dao.mapper.IListProposalsDAOMapper;
 import com.bbva.pzic.proposals.dao.model.listProposals.FormatProposal;
 import com.bbva.pzic.proposals.dao.model.listProposals.FormatProposalData;
+import com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
 import org.apache.commons.logging.Log;
@@ -54,8 +55,6 @@ public class ListProposalsDAOMapper extends ConfigurableMapper implements IListP
                 .register();
     }
 
-
-
     /**
      * @see IListProposalsDAOMapper#mapInput(DTOInputListProposals)
      */
@@ -63,17 +62,16 @@ public class ListProposalsDAOMapper extends ConfigurableMapper implements IListP
     public HashMap<String, String> mapInput(DTOInputListProposals dtoInputListProposals) {
         LOG.info("... called method ListProposalsDAOMapper.mapInput ...");
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("CODCENT", dtoInputListProposals.getCustomerId());
-        map.put("TIPDOC", dtoInputListProposals.getDocumentType());
-        map.put("NUMDOC", dtoInputListProposals.getDocumentNumber());
-        map.put("CODPROD", dtoInputListProposals.getProductClassificationId());
-        map.put("IDPAGIN", dtoInputListProposals.getPaginationKey());
+        map.put(ISrvProposalsV01.CUSTOMER_ID, dtoInputListProposals.getCustomerId());
+        map.put(ISrvProposalsV01.DOCUMENT_TYPE, dtoInputListProposals.getDocumentType());
+        map.put(ISrvProposalsV01.DOCUMENT_NUMBER, dtoInputListProposals.getDocumentNumber());
+        map.put(ISrvProposalsV01.PRODUCT_CLASSIFICATION_ID, dtoInputListProposals.getProductClassificationId());
+        map.put(ISrvProposalsV01.PAGINATION_KEY, dtoInputListProposals.getPaginationKey());
         if (dtoInputListProposals.getPageSize() != null) {
-            map.put("TAMPAGI", dtoInputListProposals.getPageSize().toString());
+            map.put(ISrvProposalsV01.PAGE_SIZE, dtoInputListProposals.getPageSize().toString());
         }
         return map;
     }
-
 
     /**
      * @see IListProposalsDAOMapper#mapOutput(FormatProposalData)
