@@ -1,15 +1,11 @@
 package com.bbva.pzic.proposals.dao.mapper.impl;
 
-import com.bbva.jee.arq.spring.core.servicing.utils.Pagination;
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
-import com.bbva.pzic.proposals.canonic.Limit;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.dao.model.listProposals.FormatProposal;
 import com.bbva.pzic.proposals.dao.model.listProposals.FormatProposalData;
-import com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01;
 import com.bbva.pzic.proposals.util.PropertyReader;
-import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.cxf.helpers.IOUtils;
 import org.junit.Before;
@@ -22,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
+import static com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01.*;
 import static org.junit.Assert.*;
 
 public class ListProposalsDAOMapperTest {
@@ -48,12 +45,12 @@ public class ListProposalsDAOMapperTest {
         dtoInputListProposals.setPageSize(123L);
 
         final Map<String, String> parameters = listProposalsDAOMapper.mapInput(dtoInputListProposals);
-        assertEquals(dtoInputListProposals.getCustomerId(), parameters.get("CODCENT"));
-        assertEquals(dtoInputListProposals.getDocumentType(), parameters.get("TIPDOC"));
-        assertEquals(dtoInputListProposals.getDocumentNumber(), parameters.get("NUMDOC"));
-        assertEquals(dtoInputListProposals.getProductClassificationId(), parameters.get("CODPROD"));
-        assertEquals(dtoInputListProposals.getPaginationKey(), parameters.get("IDPAGIN"));
-        assertEquals(dtoInputListProposals.getPageSize().toString(), parameters.get("TAMPAGI"));
+        assertEquals(dtoInputListProposals.getCustomerId(), parameters.get(CUSTOMER_ID));
+        assertEquals(dtoInputListProposals.getDocumentType(), parameters.get(DOCUMENT_TYPE));
+        assertEquals(dtoInputListProposals.getDocumentNumber(), parameters.get(DOCUMENT_NUMBER));
+        assertEquals(dtoInputListProposals.getProductClassificationId(), parameters.get(PRODUCT_CLASSIFICATION_ID));
+        assertEquals(dtoInputListProposals.getPaginationKey(), parameters.get(PAGINATION_KEY));
+        assertEquals(dtoInputListProposals.getPageSize().toString(), parameters.get(PAGE_SIZE));
     }
 
     @Test
@@ -125,10 +122,10 @@ public class ListProposalsDAOMapperTest {
             assertNotNull(proposal.getProduct().getProductConfiguration());
 
             assertNotNull(proposal.getProduct().getProductConfiguration().getDescription());
-            assertEquals(formatProposal.getDesConfigProducto() , proposal.getProduct().getProductConfiguration().getDescription());
+            assertEquals(formatProposal.getDesConfigProducto(), proposal.getProduct().getProductConfiguration().getDescription());
 
             assertNotNull(proposal.getProduct().getProductConfiguration().getId());
-            assertEquals(formatProposal.getCodConfigProducto() , proposal.getProduct().getProductConfiguration().getId());
+            assertEquals(formatProposal.getCodConfigProducto(), proposal.getProduct().getProductConfiguration().getId());
 
             assertNotNull(proposal.getRiskType());
             assertNotNull(proposal.getRiskType().getId());
