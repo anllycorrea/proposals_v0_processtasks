@@ -2,7 +2,7 @@ package com.bbva.pzic.proposals.util.connection.rest;
 
 import com.bbva.jee.arq.spring.core.rest.RestConnectorResponse;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
-import com.bbva.pzic.proposals.canonic.Proposal;
+import com.bbva.jee.arq.spring.core.servicing.utils.Pagination;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.connection.BaseRestConnectionTest;
 import com.bbva.pzic.proposals.util.connection.rest.impl.RestGetConnectionDummyImpl;
@@ -38,7 +38,7 @@ public class RestGetConnectionTest extends BaseRestConnectionTest {
     @Test
     public void restGetConnectionTest() throws IOException {
         InputStream in = Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("com/bbva/pzic/proposals/dao/mock/Proposal.json");
+                .getResourceAsStream("com/bbva/pzic/proposals/dao/mock/Pagination.json");
 
         RestConnectorResponse response = new RestConnectorResponse();
         response.setContentBytes(IOUtils.readBytesFromStream(in));
@@ -49,7 +49,7 @@ public class RestGetConnectionTest extends BaseRestConnectionTest {
                 Matchers.<HashMap<String, String>>any(), Mockito.anyString(), Mockito.anyBoolean())).
                 thenReturn(response);
 
-        Proposal result = restGetConnection.invoke("abc");
+        Pagination result = restGetConnection.invoke("abc");
 
         Assert.assertNotNull(result);
     }
@@ -57,7 +57,7 @@ public class RestGetConnectionTest extends BaseRestConnectionTest {
     @Test
     public void restGetPathParamsConnectionTest() throws IOException {
         InputStream in = Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("com/bbva/pzic/proposals/dao/mock/Proposal.json");
+                .getResourceAsStream("com/bbva/pzic/proposals/dao/mock/Pagination.json");
 
         RestConnectorResponse response = new RestConnectorResponse();
         response.setContentBytes(IOUtils.readBytesFromStream(in));
@@ -68,7 +68,7 @@ public class RestGetConnectionTest extends BaseRestConnectionTest {
                 Matchers.<HashMap<String, String>>any(), Mockito.anyString(), Mockito.anyBoolean())).
                 thenReturn(response);
 
-        Proposal result = restGetConnection.invokeWithPathParams("abc");
+        Pagination result = restGetConnection.invokeWithPathParams("abc");
 
         assertNotNull(result);
     }
@@ -76,7 +76,7 @@ public class RestGetConnectionTest extends BaseRestConnectionTest {
     @Test
     public void restGetQueryParamsConnectionTest() throws IOException {
         InputStream in = Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("com/bbva/pzic/proposals/dao/mock/Proposal.json");
+                .getResourceAsStream("com/bbva/pzic/proposals/dao/mock/Pagination.json");
 
         RestConnectorResponse response = new RestConnectorResponse();
         response.setContentBytes(IOUtils.readBytesFromStream(in));
@@ -87,7 +87,7 @@ public class RestGetConnectionTest extends BaseRestConnectionTest {
                 Matchers.<HashMap<String, String>>any(), Mockito.anyString(), Mockito.anyBoolean())).
                 thenReturn(response);
 
-        Proposal result = restGetConnection.invokeWithQueryParams("abc");
+        Pagination result = restGetConnection.invokeWithQueryParams("abc");
 
         assertNotNull(result);
     }
@@ -101,7 +101,7 @@ public class RestGetConnectionTest extends BaseRestConnectionTest {
             RestConnectorResponse response = new RestConnectorResponse();
             response.setStatusCode(400);
             response.setContentBytes(IOUtils.readBytesFromStream(in));
-            Map<String, String> headers = new HashMap<String, String>();
+            Map<String, String> headers = new HashMap<>();
             headers.put("errorMessage", "an error message");
             response.setHeaders(headers);
             response.generateResponseBody();
@@ -146,7 +146,7 @@ public class RestGetConnectionTest extends BaseRestConnectionTest {
     public void restWrongErrorResponseBodyTest() throws IOException {
         try {
             InputStream in = Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream("com/bbva/pzic/proposals/dao/mock/Pagination.json");
+                    .getResourceAsStream("com/bbva/pzic/proposals/dao/mock/FormatProposalData.json");
 
             RestConnectorResponse response = new RestConnectorResponse();
             response.setStatusCode(400);

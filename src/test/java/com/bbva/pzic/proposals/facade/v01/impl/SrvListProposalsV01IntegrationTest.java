@@ -17,8 +17,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import javax.ws.rs.core.Response;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)

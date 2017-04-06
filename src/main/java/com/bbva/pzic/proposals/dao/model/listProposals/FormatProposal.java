@@ -1,4 +1,4 @@
-package com.bbva.pzic.proposals.dao.model.listProposals;
+package com.bbva.pzic.proposals.dao.model.listproposals;
 
 import java.math.BigDecimal;
 
@@ -13,6 +13,7 @@ public class FormatProposal {
     private String codConfigProducto;
     private String codFlujoOpe;
     private BigDecimal codPlazo;
+    private String codInterno;
     private String codProducto;
     private String codSubProducto;
     private String codigoCentral;
@@ -37,7 +38,6 @@ public class FormatProposal {
     private BigDecimal valLimiteContrato;
     private BigDecimal valLimiteReal;
     private BigDecimal valTasa;
-    private String valTipo;
     private String vdomiciliaria;
     private String vlaboral;
 
@@ -71,6 +71,14 @@ public class FormatProposal {
 
     public void setCodPlazo(BigDecimal codPlazo) {
         this.codPlazo = codPlazo;
+    }
+
+    public String getCodInterno() {
+        return codInterno;
+    }
+
+    public void setCodInterno(String codInterno) {
+        this.codInterno = codInterno;
     }
 
     public String getCodProducto() {
@@ -263,14 +271,6 @@ public class FormatProposal {
 
     public void setValTasa(BigDecimal valTasa) {
         this.valTasa = valTasa;
-    }
-
-    public String getValTipo() {
-        return valTipo;
-    }
-
-    public void setValTipo(String valTipo) {
-        this.valTipo = valTipo;
     }
 
     public String getVdomiciliaria() {

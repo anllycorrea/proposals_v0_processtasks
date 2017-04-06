@@ -4,7 +4,7 @@ import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.dao.IListProposalsDAO;
 import com.bbva.pzic.proposals.dao.mapper.IListProposalsDAOMapper;
-import com.bbva.pzic.proposals.dao.model.listProposals.FormatProposalData;
+import com.bbva.pzic.proposals.dao.model.listproposals.FormatProposalData;
 import com.bbva.pzic.proposals.util.connection.rest.RestGetConnection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

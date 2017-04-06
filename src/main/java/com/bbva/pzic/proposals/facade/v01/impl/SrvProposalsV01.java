@@ -76,8 +76,7 @@ public class SrvProposalsV01 implements ISrvProposalsV01, ContextAware {
         final ProposalData proposalData =
                 srvIntProposals
                         .listProposals(listProposalsMapper.mapInput(customerId, documentType, documentNumber, productClassification, paginationKey, pageSize));
-        if (proposalData == null
-                || ((proposalData.getData() == null || proposalData.getData().isEmpty()) && proposalData.getPagination() == null)) {
+        if ((proposalData.getData() == null || proposalData.getData().isEmpty()) && proposalData.getPagination() == null) {
             return Response.noContent().build();
         } else if (proposalData.getPagination() == null) {
             return Response.ok(proposalData).build();
