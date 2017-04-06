@@ -2,6 +2,7 @@
   {
     "id": "100",
     "customerId": "90014515",
+    "internalCode": "442",
     "procurementFlow": {
       "id": "F",
       "name": "Fast"
