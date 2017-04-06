@@ -24,7 +24,8 @@
     <!-- Declaracion de modulo de servicios -->
     <servicing:module-metadata application-name="pzic" service-logical-id="proposals"/>
 
-    <servicing:test-metadata local-configuration-filesystem-root="S:/lc" smc-logical-id="test" smc-registry-id="test"/>
+    <servicing:test-metadata local-configuration-filesystem-root="src/test/resources/lc"
+                             smc-logical-id="test" smc-registry-id="test"/>
 
     <!-- beans de cxf -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
@@ -62,5 +63,13 @@
             <ref bean="swaggerResourceJSON"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
+
+    <bean id="contextProvider" class="com.bbva.jee.arq.spring.core.servicing.context.ContextProviderImpl">
+        <property name="invocationContext">
+            <bean class="com.bbva.jee.arq.spring.core.servicing.context.InvocationContext">
+                <property name="tsec" value="abcdef"/>
+            </bean>
+        </property>
+    </bean>
 
 </beans>

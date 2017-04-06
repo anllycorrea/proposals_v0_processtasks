@@ -56,14 +56,14 @@ public class SrvIntProposals implements ISrvIntProposals {
 
     private class EnumeratorConverter {
 
-        private final static String DOCUMENT_TYPE_FIELD_PROPERTY = "documentType.id";
-        private final static String PRODUCT_CLASSIFICATION_FIELD_PROPERTY = "product.productClassification.id";
-        private final static String TERM_ID_FIELD_PROPERTY = "conditions.period.id";
-        private final static String PRODUCT_TYPE_ID_FIELD_PROPERTY = "product.productType.id";
-        private final static String RISK_TYPE_ID_FIELD_PROPERTY = "proposals.riskType.id";
-        private final static String PROCUREMENT_FLOW_ID_ID_FIELD_PROPERTY = "proposals.procurementFlow.id";
+        private static final String DOCUMENT_TYPE_FIELD_PROPERTY = "documentType.id";
+        private static final String PRODUCT_CLASSIFICATION_FIELD_PROPERTY = "product.productClassification.id";
+        private static final String TERM_ID_FIELD_PROPERTY = "conditions.period.id";
+        private static final String PRODUCT_TYPE_ID_FIELD_PROPERTY = "product.productType.id";
+        private static final String RISK_TYPE_ID_FIELD_PROPERTY = "proposals.riskType.id";
+        private static final String PROCUREMENT_FLOW_ID_ID_FIELD_PROPERTY = "proposals.procurementFlow.id";
 
-        private void convertInput(DTOInputListProposals dtoInputListProposals) {
+        private void convertInput(final DTOInputListProposals dtoInputListProposals) {
             dtoInputListProposals.setDocumentType(propertyReader.getInputEnumPropertyValue(DOCUMENT_TYPE_FIELD_PROPERTY, dtoInputListProposals.getDocumentType()));
             if (dtoInputListProposals.getProductClassificationId() != null) {
                 dtoInputListProposals.setProductClassificationId(
@@ -71,45 +71,41 @@ public class SrvIntProposals implements ISrvIntProposals {
             }
         }
 
-        private void convertOutput(ProposalData proposalData) {
-            if (proposalData != null && proposalData.getData() != null) {
+        private void convertOutput(final ProposalData proposalData) {
+            if (proposalData.getData() != null) {
                 for (final Proposal proposal : proposalData.getData()) {
-                    if (proposal != null) {
-                        if (proposal.getProduct() != null) {
-                            if (proposal.getProduct().getProductClassification() != null
-                                    && proposal.getProduct().getProductClassification().getId() != null) {
-                                proposal.getProduct().getProductClassification().setId(
-                                        propertyReader.getOutputEnumPropertyValue(PRODUCT_CLASSIFICATION_FIELD_PROPERTY,
-                                                proposal.getProduct().getProductClassification().getId()));
-                            }
-                            if (proposal.getProduct().getProductType() != null
-                                    && proposal.getProduct().getProductType().getId() != null) {
-                                proposal.getProduct().getProductType().setId(
-                                        propertyReader.getOutputEnumPropertyValue(PRODUCT_TYPE_ID_FIELD_PROPERTY,
-                                                proposal.getProduct().getProductType().getId()));
-                            }
+                    if (proposal.getProduct() != null) {
+                        if (proposal.getProduct().getProductClassification() != null
+                                && proposal.getProduct().getProductClassification().getId() != null) {
+                            proposal.getProduct().getProductClassification().setId(
+                                    propertyReader.getOutputEnumPropertyValue(PRODUCT_CLASSIFICATION_FIELD_PROPERTY,
+                                            proposal.getProduct().getProductClassification().getId()));
                         }
-                        if (proposal.getProcurementFlow() != null
-                                && proposal.getProcurementFlow().getName() != null) {
-                            proposal.getProcurementFlow().setId(
-                                    propertyReader.getOutputEnumPropertyValue(PROCUREMENT_FLOW_ID_ID_FIELD_PROPERTY,
-                                            proposal.getProcurementFlow().getId()));
+                        if (proposal.getProduct().getProductType() != null
+                                && proposal.getProduct().getProductType().getId() != null) {
+                            proposal.getProduct().getProductType().setId(
+                                    propertyReader.getOutputEnumPropertyValue(PRODUCT_TYPE_ID_FIELD_PROPERTY,
+                                            proposal.getProduct().getProductType().getId()));
                         }
-                        if (proposal.getTerm() != null && proposal.getTerm().getId() != null) {
-                            proposal.getTerm().setId(
-                                    propertyReader.getOutputEnumPropertyValue(TERM_ID_FIELD_PROPERTY,
-                                            proposal.getTerm().getId()));
-                        }
-                        if (proposal.getRiskType() != null && proposal.getRiskType().getId() != null) {
-                            proposal.getRiskType().setId(
-                                    propertyReader.getOutputEnumPropertyValue(RISK_TYPE_ID_FIELD_PROPERTY,
-                                            proposal.getRiskType().getId()));
-                        }
+                    }
+                    if (proposal.getProcurementFlow() != null
+                            && proposal.getProcurementFlow().getName() != null) {
+                        proposal.getProcurementFlow().setId(
+                                propertyReader.getOutputEnumPropertyValue(PROCUREMENT_FLOW_ID_ID_FIELD_PROPERTY,
+                                        proposal.getProcurementFlow().getId()));
+                    }
+                    if (proposal.getTerm() != null && proposal.getTerm().getId() != null) {
+                        proposal.getTerm().setId(
+                                propertyReader.getOutputEnumPropertyValue(TERM_ID_FIELD_PROPERTY,
+                                        proposal.getTerm().getId()));
+                    }
+                    if (proposal.getRiskType() != null && proposal.getRiskType().getId() != null) {
+                        proposal.getRiskType().setId(
+                                propertyReader.getOutputEnumPropertyValue(RISK_TYPE_ID_FIELD_PROPERTY,
+                                        proposal.getRiskType().getId()));
                     }
                 }
             }
         }
-
     }
-
 }

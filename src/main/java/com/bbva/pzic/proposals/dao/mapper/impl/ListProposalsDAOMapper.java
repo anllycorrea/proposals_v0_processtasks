@@ -3,8 +3,8 @@ package com.bbva.pzic.proposals.dao.mapper.impl;
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
 import com.bbva.pzic.proposals.canonic.*;
 import com.bbva.pzic.proposals.dao.mapper.IListProposalsDAOMapper;
-import com.bbva.pzic.proposals.dao.model.listProposals.FormatProposal;
-import com.bbva.pzic.proposals.dao.model.listProposals.FormatProposalData;
+import com.bbva.pzic.proposals.dao.model.listproposals.FormatProposal;
+import com.bbva.pzic.proposals.dao.model.listproposals.FormatProposalData;
 import com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
@@ -41,12 +41,15 @@ public class ListProposalsDAOMapper extends ConfigurableMapper implements IListP
                 .field("idPropuesta", "id")
                 .field("campanha", "campaign.code")
                 .field("codigoCentral", "customerId")
+                .field("codInterno", "internalCode")
                 .field("flujoOperativo", "procurementFlow.name")
                 .field("codFlujoOpe", "procurementFlow.id")
                 .field("tipplazo", "term.id")
                 .field("codPlazo", "term.value")
                 .field("familiaProducto", "product.productType.id")
+                .field("codSubProducto", "product.title.id")
                 .field("desSubProducto", "product.title.name")
+                .field("valBin", "product.bin")
                 .field("codProducto", "product.productClassification.id")
                 .field("desProducto", "product.productClassification.name")
                 .field("desConfigProducto", "product.productConfiguration.description")
@@ -59,9 +62,9 @@ public class ListProposalsDAOMapper extends ConfigurableMapper implements IListP
      * @see IListProposalsDAOMapper#mapInput(DTOInputListProposals)
      */
     @Override
-    public HashMap<String, String> mapInput(DTOInputListProposals dtoInputListProposals) {
+    public HashMap<String, String> mapInput(final DTOInputListProposals dtoInputListProposals) {
         LOG.info("... called method ListProposalsDAOMapper.mapInput ...");
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         map.put(ISrvProposalsV01.CUSTOMER_ID, dtoInputListProposals.getCustomerId());
         map.put(ISrvProposalsV01.DOCUMENT_TYPE, dtoInputListProposals.getDocumentType());
         map.put(ISrvProposalsV01.DOCUMENT_NUMBER, dtoInputListProposals.getDocumentNumber());
@@ -77,56 +80,43 @@ public class ListProposalsDAOMapper extends ConfigurableMapper implements IListP
      * @see IListProposalsDAOMapper#mapOutput(FormatProposalData)
      */
     @Override
-    public ProposalData mapOutput(FormatProposalData formatProposalData) {
+    public ProposalData mapOutput(final FormatProposalData formatProposalData) {
         LOG.info("... called method ListProposalsDAOMapper.mapOutput ...");
-        if (formatProposalData == null) {
-            return null;
-        }
         ProposalData proposalData = map(formatProposalData, ProposalData.class);
         if (formatProposalData.getListaOfertas() != null) {
-            final List<Proposal> proposals = new ArrayList<Proposal>();
+            final List<Proposal> proposals = new ArrayList<>();
             for (final FormatProposal formatProposal : formatProposalData.getListaOfertas()) {
-                if (formatProposal != null) {
-                    final Proposal proposal = map(formatProposal, Proposal.class);
-                    final List<Indicator> indicators = new ArrayList<Indicator>();
-                    indicators.add(newIndicator("ADDRESS_VALIDATION",
-                            stringToBoolean(formatProposal.getVdomiciliaria())));
-                    indicators.add(newIndicator("WORKPLACE_VALIDATION",
-                            stringToBoolean(formatProposal.getVlaboral())));
-                    proposal.setIndicators(indicators);
-                    proposals.add(proposal);
-                    if (proposal.getProduct() != null
-                            && proposal.getProduct().getProductType() != null) {
-                        if ("96".equals(proposal.getProduct().getProductType().getId())) {
-                            // LOANS
-                            setProductData(proposal, formatProposal.getCodSubProducto());
-                        } else if ("50".equals(proposal.getProduct().getProductType().getId())) {
-                            // CARDS
-                            setProductData(proposal, formatProposal.getValTipo(), formatProposal.getValBin());
-                        }
-                    }
-                    final List<Limit> limits = new ArrayList<Limit>();
-                    limits.add(newLimit("ADJUSTED", formatProposal.getValLimiteAjust(), formatProposal.getDivisa()));
-                    limits.add(newLimit("CONTRACT", formatProposal.getValLimiteContrato(), formatProposal.getDivisa()));
-                    limits.add(newLimit("REAL", formatProposal.getValLimiteReal(), formatProposal.getDivisa()));
-                    proposal.setLimits(limits);
-                    final List<Instalment> instalments = new ArrayList<Instalment>();
-                    instalments.add(newInstalment("ADJUSTED", formatProposal.getValCuotaAjust(), formatProposal.getDivisa()));
-                    instalments.add(newInstalment("CONTRACT", formatProposal.getValCuotaContrato(), formatProposal.getDivisa()));
-                    instalments.add(newInstalment("REAL", formatProposal.getValCuotaReal(), formatProposal.getDivisa()));
-                    proposal.setInstalments(instalments);
-                    final List<Rate> rates = new ArrayList<Rate>();
-                    rates.add(newRate("PROPOSED", formatProposal.getValTasa()));
-                    rates.add(newRate("MAXIMUM", formatProposal.getTasaMax()));
-                    rates.add(newRate("MINIMUM", formatProposal.getTasaMin()));
-                    proposal.setRates(rates);
-                    final List<Range> ranges = new ArrayList<Range>();
-                    ranges.add(newRange("MAXIMUM", formatProposal.getRangoMax()));
-                    ranges.add(newRange("MINIMUM", formatProposal.getRangoMin()));
-                    proposal.setRanges(ranges);
-                }
-                proposalData.setData(proposals);
+                final Proposal proposal = map(formatProposal, Proposal.class);
+                final List<Indicator> indicators = new ArrayList<>();
+                indicators.add(newIndicator("ADDRESS_VALIDATION",
+                        stringToBoolean(formatProposal.getVdomiciliaria())));
+                indicators.add(newIndicator("WORKPLACE_VALIDATION",
+                        stringToBoolean(formatProposal.getVlaboral())));
+                proposal.setIndicators(indicators);
+
+                final List<Limit> limits = new ArrayList<>();
+                limits.add(newLimit("ADJUSTED", formatProposal.getValLimiteAjust(), formatProposal.getDivisa()));
+                limits.add(newLimit("CONTRACT", formatProposal.getValLimiteContrato(), formatProposal.getDivisa()));
+                limits.add(newLimit("REAL", formatProposal.getValLimiteReal(), formatProposal.getDivisa()));
+                proposal.setLimits(limits);
+                final List<Instalment> instalments = new ArrayList<>();
+                instalments.add(newInstalment("ADJUSTED", formatProposal.getValCuotaAjust(), formatProposal.getDivisa()));
+                instalments.add(newInstalment("CONTRACT", formatProposal.getValCuotaContrato(), formatProposal.getDivisa()));
+                instalments.add(newInstalment("REAL", formatProposal.getValCuotaReal(), formatProposal.getDivisa()));
+                proposal.setInstalments(instalments);
+                final List<Rate> rates = new ArrayList<>();
+                rates.add(newRate("PROPOSED", formatProposal.getValTasa()));
+                rates.add(newRate("MAXIMUM", formatProposal.getTasaMax()));
+                rates.add(newRate("MINIMUM", formatProposal.getTasaMin()));
+                proposal.setRates(rates);
+                final List<Range> ranges = new ArrayList<>();
+                ranges.add(newRange("MAXIMUM", formatProposal.getRangoMax()));
+                ranges.add(newRange("MINIMUM", formatProposal.getRangoMin()));
+                proposal.setRanges(ranges);
+
+                proposals.add(proposal);
             }
+            proposalData.setData(proposals);
         }
         return proposalData;
     }
@@ -146,7 +136,7 @@ public class ListProposalsDAOMapper extends ConfigurableMapper implements IListP
     }
 
     private Limit newLimit(String id, BigDecimal amountValue, String amountCurrency) {
-        final List<Amount> amounts = new ArrayList<Amount>();
+        final List<Amount> amounts = new ArrayList<>();
         final Amount amount = new Amount();
         amount.setCurrency(amountCurrency);
         amount.setValue(amountValue);
@@ -175,22 +165,6 @@ public class ListProposalsDAOMapper extends ConfigurableMapper implements IListP
     }
 
     private Boolean stringToBoolean(String str) {
-        return str == null ? null : ("SI".equalsIgnoreCase(str) ? Boolean.TRUE : Boolean.FALSE);
+        return str == null ? null : "SI".equalsIgnoreCase(str) ? Boolean.TRUE : Boolean.FALSE;
     }
-
-    private void setProductData(Proposal proposal, String titleId) {
-        setProductData(proposal, titleId, null);
-    }
-
-    private void setProductData(Proposal proposal, String titleId, String bin) {
-        if (proposal.getProduct() == null) {
-            proposal.setProduct(new Product());
-        }
-        if (proposal.getProduct().getTitle() == null) {
-            proposal.getProduct().setTitle(new Title());
-        }
-        proposal.getProduct().getTitle().setId(titleId);
-        proposal.getProduct().setBin(bin);
-    }
-
 }

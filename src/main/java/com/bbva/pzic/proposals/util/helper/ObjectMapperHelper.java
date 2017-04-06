@@ -2,11 +2,13 @@ package com.bbva.pzic.proposals.util.helper;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created on 23/06/2016.
@@ -34,5 +36,10 @@ public class ObjectMapperHelper {
 
     public <T> T readValue(final byte[] src, final Class<T> valueType) throws IOException {
         return mapper.readValue(src, valueType);
+    }
+
+    public <T> List<T> readValues(final String name, final TypeReference valueTypeRef) throws IOException {
+        return mapper.readValue(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream(name), valueTypeRef);
     }
 }

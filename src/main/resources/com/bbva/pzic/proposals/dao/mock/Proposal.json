@@ -1,122 +1,145 @@
-{
-  "id": "100",
-  "customerId": "90014515",
-  "procurementFlow": {
-    "id":  "F",
-    "name": "Fast"
-  },
-  "indicators": [
-    {
-      "id": "ADDRESS_VALIDATION",
-      "isActive": true
+[
+  {
+    "id": "100",
+    "customerId": "90014515",
+    "internalCode": "442",
+    "procurementFlow": {
+      "id": "F",
+      "name": "Fast"
     },
-    {
-      "id": "WORKPLACE_VALIDATION",
-      "isActive": true
-    }
-  ],
-  "campaign": {
-    "code": "201611"
-  },
-  "term": {
-    "id": "M",
-    "value": 36
-  },
-  "product": {
-    "bin": "404293",
-    "title": {
-      "id": "F7",
-      "name": "Visa Continental Zero"
+    "indicators": [
+      {
+        "id": "ADDRESS_VALIDATION",
+        "isActive": true
+      },
+      {
+        "id": "WORKPLACE_VALIDATION",
+        "isActive": true
+      }
+    ],
+    "campaign": {
+      "code": "201611"
     },
-    "productConfiguration": {
-      "id": "LOW",
-      "description": "BAJO"
+    "term": {
+      "id": "M",
+      "value": 36
     },
-    "productType": {
-      "id": "50"
-    },
-    "productClassification": {
-      "id": "TC",
-      "name": "Tarjeta de Crédito"
-    }
-  },
-  "riskType": {
-    "id": "R1"
-  },
-  "rates": [
-    {
-      "id": "PROPOSED",
-      "value": 13.9
-    },
-    {
-      "id": "MAXIMUM",
-      "value": 0
-    },
-    {
-      "id": "MINIMUM",
-      "value": 0
-    }
-  ],
-  "ranges": [
-    {
-      "id": "MAXIMUM",
-      "value": 100000
-    },
-    {
-      "id": "MINIMUM",
-      "value": 500
-    }
-  ],
-  "instalments": [
-    {
-      "id": "ADJUSTED",
-      "principal": {
-        "amount": 347.31827,
-        "currency": "PEN"
+    "product": {
+      "bin": "404293",
+      "title": {
+        "id": "F7",
+        "name": "Visa Continental Zero"
+      },
+      "productConfiguration": {
+        "id": "LOW",
+        "description": "BAJO"
+      },
+      "productType": {
+        "id": "50"
+      },
+      "productClassification": {
+        "id": "TC",
+        "name": "Tarjeta de Crédito"
       }
     },
-    {
-      "id": "CONTRACT",
-      "principal": {
-        "amount": 347.31827,
-        "currency": "PEN"
+    "riskType": {
+      "id": "R1"
+    },
+    "rates": [
+      {
+        "id": "PROPOSED",
+        "value": 13.9
+      },
+      {
+        "id": "MAXIMUM",
+        "value": 0
+      },
+      {
+        "id": "MINIMUM",
+        "value": 0
+      }
+    ],
+    "ranges": [
+      {
+        "id": "MAXIMUM",
+        "value": 100000
+      },
+      {
+        "id": "MINIMUM",
+        "value": 500
+      }
+    ],
+    "instalments": [
+      {
+        "id": "ADJUSTED",
+        "principal": {
+          "amount": 347.31827,
+          "currency": "PEN"
+        }
+      },
+      {
+        "id": "CONTRACT",
+        "principal": {
+          "amount": 347.31827,
+          "currency": "PEN"
+        }
+      },
+      {
+        "id": "REAL",
+        "principal": {
+          "amount": 348.95,
+          "currency": "PEN"
+        }
+      }
+    ],
+    "limits": [
+      {
+        "id": "ADJUSTED",
+        "amounts": [
+          {
+            "value": 5400.00,
+            "currency": "PEN"
+          }
+        ]
+      },
+      {
+        "id": "CONTRACT",
+        "amounts": [
+          {
+            "value": 5400.00,
+            "currency": "PEN"
+          }
+        ]
+      },
+      {
+        "id": "REAL",
+        "amounts": [
+          {
+            "value": 5426.00,
+            "currency": "PEN"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "procurementFlow": {
+    },
+    "term": {
+    },
+    "product": {
+      "productType": {
+      },
+      "productClassification": {
       }
     },
-    {
-      "id": "REAL",
-      "principal": {
-        "amount": 348.95,
-        "currency": "PEN"
-      }
+    "riskType": {
     }
-  ],
-  "limits": [
-    {
-      "id": "ADJUSTED",
-      "amounts": [
-        {
-          "value": 5400.00,
-          "currency": "PEN"
-        }
-      ]
-    },
-    {
-      "id": "CONTRACT",
-      "amounts": [
-        {
-          "value": 5400.00,
-          "currency": "PEN"
-        }
-      ]
-    },
-    {
-      "id": "REAL",
-      "amounts": [
-        {
-          "value": 5426.00,
-          "currency": "PEN"
-        }
-      ]
+  },
+  {
+    "product": {
     }
-  ]
-}
+  },
+  {
+  }
+]

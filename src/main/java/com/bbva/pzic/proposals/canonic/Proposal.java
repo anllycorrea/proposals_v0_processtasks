@@ -76,7 +76,10 @@ public class Proposal implements Serializable {
      */
     @Valid
     private RiskType riskType;
-
+    /**
+     * Proposal internal code.
+     */
+    private String internalCode;
     /**
      * Procurement flow.
      */
@@ -181,6 +184,14 @@ public class Proposal implements Serializable {
 
     public void setRiskType(RiskType riskType) {
         this.riskType = riskType;
+    }
+
+    public String getInternalCode() {
+        return internalCode;
+    }
+
+    public void setInternalCode(String internalCode) {
+        this.internalCode = internalCode;
     }
 
     public ProcurementFlow getProcurementFlow() {

@@ -10,14 +10,14 @@ import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
 public interface IListProposalsMapper {
 
     /**
-     * Creates a new {@Link DTOInputListProposals} instance and initializes it with the provided parameters.
+     * Creates a new {@link DTOInputListProposals} instance and initializes it with the provided parameters.
      *
-     * @param customerId
-     * @param documentType
-     * @param documentNumber
-     * @param productClassification
-     * @param paginationKey
-     * @param pageSize
+     * @param customerId            filters the proposals by unique customer identifier
+     * @param documentType          filters the proposals by document type
+     * @param documentNumber        filters the proposals by document number
+     * @param productClassification filters the proposals list by financial product classification
+     * @param paginationKey         key to obtain a single page
+     * @param pageSize              number of elements per page
      * @return the created object
      */
     DTOInputListProposals mapInput(String customerId, String documentType, String documentNumber, String productClassification,

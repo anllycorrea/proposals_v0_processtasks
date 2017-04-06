@@ -1,4 +1,4 @@
-package com.bbva.pzic.proposals.dao.model.listProposals;
+package com.bbva.pzic.proposals.dao.model.listproposals;
 
 import java.util.List;
 

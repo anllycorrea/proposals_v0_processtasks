@@ -73,9 +73,7 @@ public class RestConnectionProcessor {
                 if (rcr.getResponseBody() == null) {
                     try {
                         return valueType.newInstance();
-                    } catch (InstantiationException e) {
-                        throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
-                    } catch (IllegalAccessException e) {
+                    } catch (InstantiationException | IllegalAccessException e) {
                         throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
                     }
                 }
