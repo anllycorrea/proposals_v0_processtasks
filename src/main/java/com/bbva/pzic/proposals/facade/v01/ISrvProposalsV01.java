@@ -15,6 +15,13 @@ public interface ISrvProposalsV01 {
     String PRODUCT_CLASSIFICATION_ID = "product.productClassification.id";
     String PAGINATION_KEY = "paginationKey";
     String PAGE_SIZE = "pageSize";
+    /**Etiquetas para listExternalFinancingProposals*/
+    String THIRD_PARTY_PROVIDER_ID = "thirdPartyProvider.id";
+    String HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID="holder.identityDocuments.documentType.id";
+    String HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER="holder.identityDocuments.documentNumber";
+    String FROM_REQUEST_DATE="fromRequestDate";
+    String TO_REQUEST_DATE="toRequestDate";
+
 
     /**
      * Method for retrieving the list of proposals related to a specific person.

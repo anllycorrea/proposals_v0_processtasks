@@ -16,7 +16,8 @@ public class DTOIntPagination {
 	private BigDecimal page;
 	private BigDecimal totalPages;
 	private BigDecimal totalElements;
-	private BigDecimal pageSize;
+	private Long pageSize;
+	private String paginationKey;
 
 	public DTOIntLinks getLinks() {
 		return links;
@@ -50,11 +51,19 @@ public class DTOIntPagination {
 		this.totalElements = totalElements;
 	}
 
-	public BigDecimal getPageSize() {
+	public Long getPageSize() {
 		return pageSize;
 	}
 
-	public void setPageSize(BigDecimal pageSize) {
+	public void setPageSize(Long pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public String getPaginationKey() {
+		return paginationKey;
+	}
+
+	public void setPaginationKey(String paginationKey) {
+		this.paginationKey = paginationKey;
 	}
 }

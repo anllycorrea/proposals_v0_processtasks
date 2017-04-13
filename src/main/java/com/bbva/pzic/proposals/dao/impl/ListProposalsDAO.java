@@ -31,7 +31,7 @@ public class ListProposalsDAO extends RestGetConnection<FormatProposalData> impl
      */
     @Override
     public ProposalData listProposals(DTOInputListProposals queryFilter) {
-        LOG.info("... called method RestGetConnection.listProposals ...");
+        LOG.info("... called method RestGetConnection.listproposals ...");
         FormatProposalData formatProposalData =
                 connect(LIST_PROPOSALS_URL_PROPOSALS, proposalsDAOMapper.mapInput(queryFilter));
         return proposalsDAOMapper.mapOutput(formatProposalData);

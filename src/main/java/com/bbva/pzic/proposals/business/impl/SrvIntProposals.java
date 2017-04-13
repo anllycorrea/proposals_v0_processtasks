@@ -2,10 +2,14 @@ package com.bbva.pzic.proposals.business.impl;
 
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.business.ISrvIntProposals;
+import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals;
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
+import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
+import com.bbva.pzic.proposals.business.dto.ValidationGroup;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.dao.IListProposalsDAO;
+import com.bbva.pzic.proposals.dao.IProposalsDAO;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.PropertyReader;
 import com.bbva.pzic.proposals.util.validation.Validator;
@@ -28,6 +32,9 @@ public class SrvIntProposals implements ISrvIntProposals {
     private IListProposalsDAO listProposalsDAO;
 
     @Autowired
+    private IProposalsDAO proposalsDAO;
+
+    @Autowired
     private Validator validator;
 
     @Autowired
@@ -38,23 +45,34 @@ public class SrvIntProposals implements ISrvIntProposals {
      */
     @Override
     public ProposalData listProposals(DTOInputListProposals queryFilter) {
-        LOG.info("... called method SrvIntProposals.listProposals ...");
-        LOG.info("... validating listProposals input parameters ...");
+        LOG.info("... called method SrvIntProposals.listproposals ...");
+        LOG.info("... validating listproposals input parameters ...");
         if (queryFilter.getCustomerId() == null
                 && (queryFilter.getDocumentType() == null || queryFilter.getDocumentNumber() == null)) {
             throw new BusinessServiceException(Errors.PARAMETERS_MISSING);
         }
         validator.validate(queryFilter);
         final EnumeratorConverter enumeratorConverter = new EnumeratorConverter();
-        LOG.info("... converting listProposals input enumerators ...");
+        LOG.info("... converting listproposals input enumerators ...");
         enumeratorConverter.convertInput(queryFilter);
         final ProposalData proposalData = listProposalsDAO.listProposals(queryFilter);
-        LOG.info("... converting listProposals output enumerators ...");
+        LOG.info("... converting listproposals output enumerators ...");
         if (proposalData.getData() != null) {
             enumeratorConverter.convertOutput(proposalData);
         }
         return proposalData;
     }
+
+    /**
+     * @see ISrvIntProposals#listExternalFinancingProposals(com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals)
+     */
+    @Override
+    public DTOOutExternalFinancingProposalData listExternalFinancingProposals(DTOInputListExternalFinancingProposals dtoIn) {
+        LOG.info("... called method SrvIntProposals.listExternalFinancingProposals ...");
+        validator.validate(dtoIn, ValidationGroup.ListExternalFinancingProposals.class);
+        return proposalsDAO.listExternalFinancingProposals(dtoIn);
+    }
+
 
     private class EnumeratorConverter {
 

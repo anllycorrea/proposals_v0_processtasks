@@ -84,6 +84,8 @@ public class ExternalFinancingProposal implements Serializable {
      */
     private ThirdPartyProvider thirdPartyProvider;
 
+    private Delivery delivery;
+
     public String getId() {
         return id;
     }
@@ -203,5 +205,13 @@ public class ExternalFinancingProposal implements Serializable {
 
     public void setThirdPartyProvider(ThirdPartyProvider thirdPartyProvider) {
         this.thirdPartyProvider = thirdPartyProvider;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
     }
 }
