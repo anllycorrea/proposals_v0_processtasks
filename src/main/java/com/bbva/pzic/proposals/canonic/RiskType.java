@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
+ * Created on 12/04/2017.
+ *
  * @author Entelgy
  */
 @XmlRootElement(name = "RiskType", namespace = "urn:com:bbva:pzic:proposals:canonic")

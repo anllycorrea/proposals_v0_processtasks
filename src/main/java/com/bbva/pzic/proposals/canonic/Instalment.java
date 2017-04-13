@@ -1,6 +1,5 @@
 package com.bbva.pzic.proposals.canonic;
 
-import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -8,6 +7,8 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
+ * Created on 12/04/2017.
+ *
  * @author Entelgy
  */
 @XmlRootElement(name = "Instalment", namespace = "urn:com:bbva:pzic:proposals:canonic")
@@ -23,7 +24,6 @@ public class Instalment implements Serializable {
     /**
      * Current instalment monetary amount.
      */
-    @Valid
     private Principal principal;
 
     public String getId() {

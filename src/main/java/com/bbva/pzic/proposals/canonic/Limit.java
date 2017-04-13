@@ -1,6 +1,5 @@
 package com.bbva.pzic.proposals.canonic;
 
-import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -9,6 +8,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * Created on 12/04/2017.
+ *
  * @author Entelgy
  */
 @XmlRootElement(name = "Limit", namespace = "urn:com:bbva:pzic:proposals:canonic")
@@ -26,10 +27,9 @@ public class Limit implements Serializable {
      */
     private String name;
     /**
-     * Monetary restriction related to the current limit. This amount may be
+     * Monetary restriction related to the current limit. The amounts may be
      * provided in several currencies (depending on the country).
      */
-    @Valid
     private List<Amount> amounts;
 
     public String getId() {

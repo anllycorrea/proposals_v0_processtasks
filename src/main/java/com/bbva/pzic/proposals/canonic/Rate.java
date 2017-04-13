@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
+ * Created on 12/04/2017.
+ *
  * @author Entelgy
  */
 @XmlRootElement(name = "Rate", namespace = "urn:com:bbva:pzic:proposals:canonic")

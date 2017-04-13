@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
+ * Created on 12/04/2017.
+ *
  * @author Entelgy
  */
 @XmlRootElement(name = "Amount", namespace = "urn:com:bbva:pzic:proposals:canonic")
@@ -21,7 +23,8 @@ public class Amount implements Serializable {
      */
     private BigDecimal value;
     /**
-     * String based on ISO-4217 for specifying the currency related to the amount limit.
+     * String based on ISO-4217 for specifying the currency related to the
+     * amount limit.
      */
     private String currency;
 

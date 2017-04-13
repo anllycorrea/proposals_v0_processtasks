@@ -1,6 +1,5 @@
 package com.bbva.pzic.proposals.canonic;
 
-import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -8,6 +7,8 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
+ * Created on 12/04/2017.
+ *
  * @author Entelgy
  */
 @XmlRootElement(name = "Product", namespace = "urn:com:bbva:pzic:proposals:canonic")
@@ -21,34 +22,27 @@ public class Product implements Serializable {
      */
     private String productId;
     /**
-     * The bank identification number, only applies to Cards.
+     * The bank identification number associated to the product, it\'s a general
+     * identifier that is used by different bank departments. It only applies to
+     * CARDS.
      */
     private String bin;
     /**
+     * Title of the product.
+     */
+    private Title title;
+    /**
      * Product Configuration, related to the risk groups.
      */
-    @Valid
     private ProductConfiguration productConfiguration;
     /**
      * Product type.
      */
-    @Valid
     private ProductType productType;
     /**
      * Product Classification.
      */
-    @Valid
     private ProductClassification productClassification;
-    /**
-     * Product description.
-     */
-    private String description;
-
-    /**
-     * Title of the product.
-     */
-    @Valid
-    private Title title;
 
     public String getProductId() {
         return productId;
@@ -64,6 +58,14 @@ public class Product implements Serializable {
 
     public void setBin(String bin) {
         this.bin = bin;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public void setTitle(Title title) {
+        this.title = title;
     }
 
     public ProductConfiguration getProductConfiguration() {
@@ -90,21 +92,5 @@ public class Product implements Serializable {
     public void setProductClassification(
             ProductClassification productClassification) {
         this.productClassification = productClassification;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Title getTitle() {
-        return title;
-    }
-
-    public void setTitle(Title title) {
-        this.title = title;
     }
 }

@@ -21,7 +21,7 @@ import java.util.List;
 public class ModelTest {
 
     // Configured for expectation, so we know when a class gets added or removed.
-    private static final int EXPECTED_CLASS_COUNT = 22;
+    private static final int EXPECTED_CLASS_COUNT = 43;
 
     // The packages to test
     private static final String POJO_PACKAGE = "com.bbva.pzic.proposals.canonic";
@@ -38,6 +38,4 @@ public class ModelTest {
         validator.validate(POJO_PACKAGE, new FilterPackageInfo());
         TestUtils.testToString(pojoClasses);
     }
-
-
 }

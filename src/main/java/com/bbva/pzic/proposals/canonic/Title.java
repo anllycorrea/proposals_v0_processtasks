@@ -23,7 +23,7 @@ public class Title implements Serializable {
      */
     private String id;
     /**
-     * Title name.
+     * Title identifier.
      */
     private String name;
 
