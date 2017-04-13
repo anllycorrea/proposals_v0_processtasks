@@ -2,6 +2,7 @@ package com.bbva.pzic.proposals.dao.model.ugap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExec
  * 
  * @author Arquitectura Spring BBVA
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
 	loader = BusinessServiceTestContextLoader.class, 

@@ -47,6 +47,12 @@ public class DTOIntExternalFinancingProposal {
 	@Valid
 	private DTOIntThirdPartyProvider thirdPartyProvider;
 
+	private String documentTypeId;
+	private String documentNumber;
+
+	private String deliveryTypeId;
+	private String deliveryVirtualDestination;
+
 	public String getId() {
 		return id;
 	}
@@ -167,5 +173,37 @@ public class DTOIntExternalFinancingProposal {
 	public void setThirdPartyProvider(
 			DTOIntThirdPartyProvider thirdPartyProvider) {
 		this.thirdPartyProvider = thirdPartyProvider;
+	}
+
+	public String getDocumentTypeId() {
+		return documentTypeId;
+	}
+
+	public void setDocumentTypeId(String documentTypeId) {
+		this.documentTypeId = documentTypeId;
+	}
+
+	public String getDocumentNumber() {
+		return documentNumber;
+	}
+
+	public void setDocumentNumber(String documentNumber) {
+		this.documentNumber = documentNumber;
+	}
+
+	public String getDeliveryTypeId() {
+		return deliveryTypeId;
+	}
+
+	public void setDeliveryTypeId(String deliveryTypeId) {
+		this.deliveryTypeId = deliveryTypeId;
+	}
+
+	public String getDeliveryVirtualDestination() {
+		return deliveryVirtualDestination;
+	}
+
+	public void setDeliveryVirtualDestination(String deliveryVirtualDestination) {
+		this.deliveryVirtualDestination = deliveryVirtualDestination;
 	}
 }
