@@ -8,7 +8,6 @@ import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.cxf.helpers.IOUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,7 +26,6 @@ import static org.junit.Assert.assertNull;
  *
  * @author Entelgy
  */
-@Ignore
 public class TxCreateExternalFinancingProposalMapperTest {
     private static final String DTO_EXTERNAL_FINANCING_PROPOSAL = "com/bbva/pzic/proposals/dao/tx/mapper/impl/dtoIntExternalFinancingProposal.json";
     private static final String FORMATO_UGMSGAP1 = "com/bbva/pzic/proposals/dao/model/ugap/mock/FormatoUGMSGAP1.json";

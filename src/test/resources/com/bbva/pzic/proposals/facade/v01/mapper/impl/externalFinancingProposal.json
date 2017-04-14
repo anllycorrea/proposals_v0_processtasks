@@ -1,17 +1,34 @@
 {
-  "documentNumber": "32123212",
-  "documentTypeId": "DNI",
+  "holder": {
+    "identityDocuments": [
+      {
+        "documentNumber": "32123212",
+        "documentType": {
+          "id": "DNI"
+        }
+      }
+    ],
+    "contactsInformation": [
+      {
+        "name": "euler.alvarado@bbva.com"
+      }
+    ]
+  },
   "tariff": {
     "id": "BBVA001"
   },
   "currency": "PEN",
   "initialAmount": {
     "amount": 400,
-    "currency": "EUR"
+    "currency": "USD"
   },
   "paymentDay": 20,
-  "deliveryTypeId": "VIRTUAL",
-  "deliveryVirtualDestination": "euler.alvarado@bbva.com",
+  "delivery": {
+    "deliveryType" : {
+      "id" : "VIRTUAL"
+    },
+    "virtualDestination" : "euler.alvarado@bbva.com"
+  },
   "documentationDeliveryType": {
     "id": "PHYSICAL"
   },
@@ -25,7 +42,7 @@
     "id": "919223459",
     "commercialValueAmount": {
       "amount": 3500.55,
-      "currency": "USD"
+      "currency": "EUR"
     }
   },
   "thirdPartyProvider": {
