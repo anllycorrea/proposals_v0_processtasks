@@ -2,7 +2,9 @@ package com.bbva.pzic.proposals.business.dto;
 
 
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -16,6 +18,7 @@ public class DTOIntExternalFinancingProposal {
     private Date requestDate;
     private Date openingDate;
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Size(max = 3, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String currency;
     @Valid
     private DTOIntInitialFee initialFee;
@@ -27,12 +30,10 @@ public class DTOIntExternalFinancingProposal {
     private DTOIntTariff tariff;
     @Valid
     private DTOIntRelatedProduct relatedProduct;
-    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntDocumentationDeliveryType documentationDeliveryType;
     @Valid
     private DTOIntExternalProduct externalProduct;
-    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntHolder holder;
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
@@ -42,16 +43,23 @@ public class DTOIntExternalFinancingProposal {
     @Valid
     private DTOIntStatus status;
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Digits(integer = 2, fraction = 0, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private Integer paymentDay;
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntThirdPartyProvider thirdPartyProvider;
 
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
 	private String documentTypeId;
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Size(max = 10, groups = ValidationGroup.CreateExternalFinancingProposal.class)
 	private String documentNumber;
 
-	private String deliveryTypeId;
-	private String deliveryVirtualDestination;
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    private String deliveryTypeId;
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Size(max = 50, groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    private String deliveryVirtualDestination;
 
 	public String getId() {
 		return id;

@@ -137,8 +137,8 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
     public Response createExternalFinancingProposal(ExternalFinancingProposal payload) {
         LOG.info("------ SrvIntProposals.createExternalFinancingProposal ------");
 
-        ExternalFinancingProposal data = null;/*srvIntProposals.createExternalFinancingProposal(
-                        createExternalFinancingProposalMapper.mapIn(payload));*/
+        ExternalFinancingProposal data = srvIntProposals.createExternalFinancingProposal(
+                        createExternalFinancingProposalMapper.mapIn(payload));
 
         if (data != null && data.getId() != null) {
 

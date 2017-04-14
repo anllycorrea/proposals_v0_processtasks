@@ -1,6 +1,8 @@
 package com.bbva.pzic.proposals.business.dto;
 
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 /**
@@ -10,7 +12,9 @@ import java.math.BigDecimal;
  */
 public class DTOIntCommercialValueAmount {
 
+    @Digits(integer = 15, fraction = 2, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private BigDecimal amount;
+    @Size(max = 3, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String currency;
 
     public BigDecimal getAmount() {

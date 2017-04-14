@@ -1,6 +1,8 @@
 package com.bbva.pzic.proposals.business.dto;
 
 
+import javax.validation.constraints.Size;
+
 /**
  * Created on 12/04/2017.
  *
@@ -8,6 +10,7 @@ package com.bbva.pzic.proposals.business.dto;
  */
 public class DTOIntExternalSalesChannel {
 
+    @Size(max = 5, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String id;
 
     public String getId() {

@@ -1,7 +1,9 @@
 package com.bbva.pzic.proposals.dao;
 
 import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals;
+import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 
 /**
  * Created on 12/04/2017.
@@ -16,4 +18,6 @@ public interface IProposalsDAO {
      * @return {@link DTOOutExternalFinancingProposalData}
      */
     DTOOutExternalFinancingProposalData listExternalFinancingProposals(DTOInputListExternalFinancingProposals dtoIn);
+
+    ExternalFinancingProposal createExternalFinancingProposal(DTOIntExternalFinancingProposal dtoIn);
 }

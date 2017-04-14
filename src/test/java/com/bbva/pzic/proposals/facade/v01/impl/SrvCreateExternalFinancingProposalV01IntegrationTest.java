@@ -10,7 +10,6 @@ import com.bbva.pzic.utilTest.UriInfoImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.cxf.helpers.IOUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ import static org.junit.Assert.*;
  *
  * @author Entelgy
  */
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = BusinessServiceTestContextLoader.class, locations = {
         "classpath*:/META-INF/spring/applicationContext-*.xml",
@@ -81,9 +79,6 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
         assertNotNull(result.getId());
-        assertNull(result.getOperation().getOperationType());
-        assertNull(result.getExternalProduct());
-        assertNull(result.getThirdPartyProvider().getExternalSalesChannel());
     }
 
     @Test
@@ -99,7 +94,6 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
         assertNotNull(result.getId());
-        assertNull(result.getOperation().getOperationType().getId());
     }
 
     @Test
@@ -115,7 +109,6 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
         assertNotNull(result.getId());
-        assertNull(result.getExternalProduct().getId());
     }
 
     @Test
@@ -131,7 +124,6 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
         assertNotNull(result.getId());
-        assertNull(result.getExternalProduct().getCommercialValueAmount());
     }
 
     @Test
@@ -147,7 +139,6 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
         assertNotNull(result.getId());
-        assertNull(result.getExternalProduct().getCommercialValueAmount().getAmount());
     }
 
     @Test
@@ -163,7 +154,6 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
         assertNotNull(result.getId());
-        assertNull(result.getExternalProduct().getCommercialValueAmount().getCurrency());
     }
 
     @Test
@@ -499,6 +489,10 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
         }
     }
+
+    /*
+    TODO: Validacion Tamanios
+    */
 
     private <T> T getInstance(String file, Class<T> claz) throws IOException {
         InputStream in = Thread.currentThread().getContextClassLoader().

@@ -61,6 +61,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getTariff().getId(), result.getTariff().getId());
         assertEquals(externalFinancingProposal.getCurrency(), result.getCurrency());
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
+        assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
         assertEquals(externalFinancingProposal.getDelivery().getDeliveryType().getId(), result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getVirtualDestination(), result.getDeliveryVirtualDestination());
@@ -68,6 +69,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getId(), result.getExternalProduct().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValueAmount().getAmount(), result.getExternalProduct().getCommercialValueAmount().getAmount());
+        assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValueAmount().getCurrency(), result.getExternalProduct().getCommercialValueAmount().getCurrency());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getThirdPartyProvider().getExternalSalesChannel().getId());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getId(), result.getThirdPartyProvider().getId());
     }
@@ -101,6 +103,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getTariff().getId(), result.getTariff().getId());
         assertEquals(externalFinancingProposal.getCurrency(), result.getCurrency());
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
+        assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
         assertEquals(externalFinancingProposal.getDelivery().getDeliveryType().getId(), result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getVirtualDestination(), result.getDeliveryVirtualDestination());
@@ -108,6 +111,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getId(), result.getExternalProduct().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValueAmount().getAmount(), result.getExternalProduct().getCommercialValueAmount().getAmount());
+        assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValueAmount().getCurrency(), result.getExternalProduct().getCommercialValueAmount().getCurrency());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getThirdPartyProvider().getExternalSalesChannel().getId());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getId(), result.getThirdPartyProvider().getId());
     }
@@ -140,6 +144,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getTariff().getId(), result.getTariff().getId());
         assertEquals(externalFinancingProposal.getCurrency(), result.getCurrency());
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
+        assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
         assertEquals(externalFinancingProposal.getDelivery().getDeliveryType().getId(), result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getVirtualDestination(), result.getDeliveryVirtualDestination());
@@ -147,6 +152,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getId(), result.getExternalProduct().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValueAmount().getAmount(), result.getExternalProduct().getCommercialValueAmount().getAmount());
+        assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValueAmount().getCurrency(), result.getExternalProduct().getCommercialValueAmount().getCurrency());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getThirdPartyProvider().getExternalSalesChannel().getId());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getId(), result.getThirdPartyProvider().getId());
     }
@@ -178,6 +184,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getTariff().getId(), result.getTariff().getId());
         assertEquals(externalFinancingProposal.getCurrency(), result.getCurrency());
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
+        assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
         assertEquals(externalFinancingProposal.getDelivery().getDeliveryType().getId(), result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getVirtualDestination(), result.getDeliveryVirtualDestination());
@@ -185,6 +192,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getId(), result.getExternalProduct().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValueAmount().getAmount(), result.getExternalProduct().getCommercialValueAmount().getAmount());
+        assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValueAmount().getCurrency(), result.getExternalProduct().getCommercialValueAmount().getCurrency());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getThirdPartyProvider().getExternalSalesChannel().getId());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getId(), result.getThirdPartyProvider().getId());
     }
@@ -217,6 +225,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getTariff().getId(), result.getTariff().getId());
         assertEquals(externalFinancingProposal.getCurrency(), result.getCurrency());
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
+        assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
         assertEquals(externalFinancingProposal.getDelivery().getDeliveryType().getId(), result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getVirtualDestination(), result.getDeliveryVirtualDestination());
@@ -224,6 +233,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getId(), result.getExternalProduct().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValueAmount().getAmount(), result.getExternalProduct().getCommercialValueAmount().getAmount());
+        assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValueAmount().getCurrency(), result.getExternalProduct().getCommercialValueAmount().getCurrency());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getThirdPartyProvider().getExternalSalesChannel().getId());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getId(), result.getThirdPartyProvider().getId());
     }

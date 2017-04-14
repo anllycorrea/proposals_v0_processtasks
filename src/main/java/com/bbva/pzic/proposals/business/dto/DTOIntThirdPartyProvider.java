@@ -3,6 +3,7 @@ package com.bbva.pzic.proposals.business.dto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created on 12/04/2017.
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 public class DTOIntThirdPartyProvider {
 
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Size(max = 4, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String id;
     @Valid
     private DTOIntExternalSalesChannel externalSalesChannel;

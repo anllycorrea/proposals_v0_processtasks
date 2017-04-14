@@ -2,6 +2,7 @@ package com.bbva.pzic.proposals.business.dto;
 
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created on 12/04/2017.
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 public class DTOIntTariff {
 
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Size(max = 10, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String id;
 
     public String getId() {

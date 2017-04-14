@@ -2,7 +2,9 @@ package com.bbva.pzic.proposals.business;
 
 import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals;
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
+import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 
 /**
@@ -30,4 +32,5 @@ public interface ISrvIntProposals {
      */
     DTOOutExternalFinancingProposalData listExternalFinancingProposals(DTOInputListExternalFinancingProposals dtoIn);
 
+    ExternalFinancingProposal createExternalFinancingProposal(DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal);
 }

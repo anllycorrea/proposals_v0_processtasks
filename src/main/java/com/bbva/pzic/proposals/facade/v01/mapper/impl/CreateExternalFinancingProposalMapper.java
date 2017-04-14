@@ -28,7 +28,7 @@ public class CreateExternalFinancingProposalMapper extends ConfigurableMapper
                 .field("tariff.id", "tariff.id")
                 .field("currency", "currency")
                 .field("initialAmount.amount", "initialAmount.amount")
-//				.field("initialAmount.currency",                        "initialAmount.currency")
+				.field("initialAmount.currency",                        "initialAmount.currency")
                 .field("paymentDay", "paymentDay")
                 .field("delivery.deliveryType.id", "deliveryTypeId")
                 .field("delivery.virtualDestination", "deliveryVirtualDestination")
@@ -36,7 +36,7 @@ public class CreateExternalFinancingProposalMapper extends ConfigurableMapper
                 .field("operation.operationType.id", "operation.operationType.id")
                 .field("externalProduct.id", "externalProduct.id")
                 .field("externalProduct.commercialValueAmount.amount", "externalProduct.commercialValueAmount.amount")
-//				.field("externalProduct.commercialValueAmount.currency","externalProduct.commercialValueAmount.currency")
+				.field("externalProduct.commercialValueAmount.currency","externalProduct.commercialValueAmount.currency")
                 .field("thirdPartyProvider.externalSalesChannel.id", "thirdPartyProvider.externalSalesChannel.id")
                 .field("thirdPartyProvider.id", "thirdPartyProvider.id")
                 .register();

@@ -2,10 +2,8 @@ package com.bbva.pzic.proposals.business.impl;
 
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.business.ISrvIntProposals;
-import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals;
-import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
-import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
-import com.bbva.pzic.proposals.business.dto.ValidationGroup;
+import com.bbva.pzic.proposals.business.dto.*;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.dao.IListProposalsDAO;
 import com.bbva.pzic.proposals.dao.IProposalsDAO;
@@ -58,5 +56,12 @@ public class SrvIntProposals implements ISrvIntProposals {
         LOG.info("... called method SrvIntProposals.listExternalFinancingProposals ...");
         validator.validate(dtoIn, ValidationGroup.ListExternalFinancingProposals.class);
         return proposalsDAO.listExternalFinancingProposals(dtoIn);
+    }
+
+    @Override
+    public ExternalFinancingProposal createExternalFinancingProposal(DTOIntExternalFinancingProposal dtoIn) {
+        LOG.info("... called method SrvIntProposals.createExternalFinancingProposal ...");
+        validator.validate(dtoIn, ValidationGroup.CreateExternalFinancingProposal.class);
+        return proposalsDAO.createExternalFinancingProposal(dtoIn);
     }
 }
