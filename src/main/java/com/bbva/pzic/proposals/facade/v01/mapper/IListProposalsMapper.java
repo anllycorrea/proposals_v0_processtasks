@@ -1,6 +1,7 @@
 package com.bbva.pzic.proposals.facade.v01.mapper;
 
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
+import com.bbva.pzic.proposals.canonic.ProposalData;
 
 /**
  * Created on 06/12/2016.
@@ -23,4 +24,11 @@ public interface IListProposalsMapper {
     DTOInputListProposals mapInput(String customerId, String documentType, String documentNumber, String productClassification,
                                    String paginationKey, Long pageSize);
 
+    /**
+     * Create a {@link com.bbva.pzic.proposals.canonic.ProposalData} with enums
+     *
+     * @param proposalData data
+     * @return list updated
+     */
+    ProposalData mapOut(ProposalData proposalData);
 }

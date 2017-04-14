@@ -4,10 +4,10 @@ import com.bbva.pzic.proposals.dao.tx.mapper.ITxModifyExternalFinancingProposalM
 
 /**
  * Created on 12/04/2017.
- * 
+ *
  * @author Entelgy
  */
 public class TxModifyExternalFinancingProposalMapper
-		implements
-			ITxModifyExternalFinancingProposalMapper {
+        implements
+        ITxModifyExternalFinancingProposalMapper {
 }
