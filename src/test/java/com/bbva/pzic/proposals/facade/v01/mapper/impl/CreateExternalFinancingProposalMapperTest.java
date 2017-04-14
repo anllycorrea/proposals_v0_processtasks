@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNull;
 
 /**
  * Created on 12/04/2017.
- *
+ * 
  * @author Entelgy
  */
 public class CreateExternalFinancingProposalMapperTest {

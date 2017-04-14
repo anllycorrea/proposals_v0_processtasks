@@ -5,19 +5,19 @@ import javax.validation.constraints.NotNull;
 
 /**
  * Created on 12/04/2017.
- * 
+ *
  * @author Entelgy
  */
 public class DTOIntContactsInformation {
 
-	@NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
-	private String name;
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 }

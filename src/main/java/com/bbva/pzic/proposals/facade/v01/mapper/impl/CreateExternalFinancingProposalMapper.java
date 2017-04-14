@@ -11,7 +11,7 @@ import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
 
 /**
  * Created on 12/04/2017.
- *
+ * 
  * @author Entelgy
  */
 @Mapper("createExternalFinancingProposalMapper")
