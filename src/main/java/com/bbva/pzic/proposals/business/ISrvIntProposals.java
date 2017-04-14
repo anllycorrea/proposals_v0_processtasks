@@ -24,9 +24,10 @@ public interface ISrvIntProposals {
 
     /**
      * Validacion de parametros de entrada, tamaño y obligatoriedad
+     *
      * @param dtoIn DTO con los datos de entrada
-     * @return {@Link DTOOutExternalFinancingProposalData}
+     * @return {@link DTOOutExternalFinancingProposalData}
      */
-    DTOOutExternalFinancingProposalData listExternalFinancingProposals (DTOInputListExternalFinancingProposals dtoIn);
+    DTOOutExternalFinancingProposalData listExternalFinancingProposals(DTOInputListExternalFinancingProposals dtoIn);
 
 }

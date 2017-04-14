@@ -1,6 +1,7 @@
 package com.bbva.pzic.proposals.canonic;
 
 import com.bbva.jee.arq.spring.core.servicing.utils.Pagination;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;

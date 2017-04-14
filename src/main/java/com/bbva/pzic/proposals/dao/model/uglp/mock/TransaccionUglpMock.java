@@ -19,7 +19,7 @@ import java.util.List;
  * @author Entelgy
  */
 @Component("transaccionUglp")
-public class TransaccionUglpMock implements InvocadorTransaccion<PeticionTransaccionUglp,RespuestaTransaccionUglp> {
+public class TransaccionUglpMock implements InvocadorTransaccion<PeticionTransaccionUglp, RespuestaTransaccionUglp> {
 
     public static final String TEST_EMPTY = "9999";
     public static final String TEST_NOT_PAGINATION = "8888";
@@ -27,7 +27,7 @@ public class TransaccionUglpMock implements InvocadorTransaccion<PeticionTransac
     private FormatUglpMock mock;
 
     @Override
-    public RespuestaTransaccionUglp invocar(PeticionTransaccionUglp peticionTransaccionUglp){
+    public RespuestaTransaccionUglp invocar(PeticionTransaccionUglp peticionTransaccionUglp) {
         final RespuestaTransaccionUglp response = new RespuestaTransaccionUglp();
         FormatoUGMEGLP format = (FormatoUGMEGLP) peticionTransaccionUglp.getCuerpo().getPartes().get(0);
         String nroDocu = format.getNrodocu();
@@ -49,7 +49,7 @@ public class TransaccionUglpMock implements InvocadorTransaccion<PeticionTransac
     }
 
     @Override
-    public RespuestaTransaccionUglp invocarCache(PeticionTransaccionUglp peticionTransaccionUglp){
+    public RespuestaTransaccionUglp invocarCache(PeticionTransaccionUglp peticionTransaccionUglp) {
         return null;
     }
 

@@ -11,27 +11,27 @@ import javax.validation.constraints.Size;
  */
 public class DTOInputListExternalFinancingProposals {
     @NotNull(groups = ValidationGroup.ListExternalFinancingProposals.class)
-    @Size(max =4,groups = ValidationGroup.ListExternalFinancingProposals.class)
+    @Size(max = 4, groups = ValidationGroup.ListExternalFinancingProposals.class)
     private String thirdPartyProviderId;
 
     @NotNull(groups = ValidationGroup.ListExternalFinancingProposals.class)
     private String holderIdentityDocumentsDocumentTypeId;
 
     @NotNull(groups = ValidationGroup.ListExternalFinancingProposals.class)
-    @Size(max =10,groups = ValidationGroup.ListExternalFinancingProposals.class)
+    @Size(max = 10, groups = ValidationGroup.ListExternalFinancingProposals.class)
     private String holderIdentityDocumentsDocumentNumber;
 
     @NotNull(groups = ValidationGroup.ListExternalFinancingProposals.class)
-    @Size(max =10,groups = ValidationGroup.ListExternalFinancingProposals.class)
+    @Size(max = 10, groups = ValidationGroup.ListExternalFinancingProposals.class)
     private String fromRequestDate;
 
     @NotNull(groups = ValidationGroup.ListExternalFinancingProposals.class)
-    @Size(max =10,groups = ValidationGroup.ListExternalFinancingProposals.class)
+    @Size(max = 10, groups = ValidationGroup.ListExternalFinancingProposals.class)
     private String toRequestDate;
 
-    @Size(max =18,groups = ValidationGroup.ListExternalFinancingProposals.class)
+    @Size(max = 18, groups = ValidationGroup.ListExternalFinancingProposals.class)
     private String paginationKey;
-    @Digits(integer=2,fraction = 0,groups = ValidationGroup.ListExternalFinancingProposals.class)
+    @Digits(integer = 2, fraction = 0, groups = ValidationGroup.ListExternalFinancingProposals.class)
     private Long pageSize;
 
     public String getThirdPartyProviderId() {

@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 
 /**
  * Created on 12/04/2017.
- * 
+ *
  * @author Entelgy
  */
 @Tx
@@ -32,12 +32,12 @@ public class TxListExternalFinancingProposals extends AbstractDoubleTransaction<
 
     @Override
     protected DTOOutExternalFinancingProposalData mapResponseFormatToDtoOut(FormatoUGMSGLP1 formatOutput, DTOInputListExternalFinancingProposals dtoIn, DTOOutExternalFinancingProposalData dtoOut) {
-        return proposalsMapper.mapOut1(formatOutput,dtoOut);
+        return proposalsMapper.mapOut1(formatOutput, dtoOut);
     }
 
     @Override
     protected DTOOutExternalFinancingProposalData mapResponseFormatToDtoOut2(FormatoUGMSGLP2 formatOutput, DTOInputListExternalFinancingProposals dtoIn, DTOOutExternalFinancingProposalData dtoOut) {
-        return proposalsMapper.mapOut2(formatOutput,dtoOut);
+        return proposalsMapper.mapOut2(formatOutput, dtoOut);
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Created on 12/04/2017.
- * 
+ *
  * @author Entelgy
  */
 @Repository

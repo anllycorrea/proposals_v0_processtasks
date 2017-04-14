@@ -5,14 +5,15 @@ import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
 
 /**
  * Created on 12/04/2017.
- * 
+ *
  * @author Entelgy
  */
 public interface IProposalsDAO {
     /**
      * Metodo que realiza la conexion con host
+     *
      * @param dtoIn DTO con los datos de entrada validados
-     * @return {@Link DTOOutExternalFinancingProposalData}
+     * @return {@link DTOOutExternalFinancingProposalData}
      */
     DTOOutExternalFinancingProposalData listExternalFinancingProposals(DTOInputListExternalFinancingProposals dtoIn);
 }

@@ -20,7 +20,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import javax.ws.rs.core.Response;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Created on 12/04/2017.
@@ -129,33 +130,35 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
     public void testListExternalFinancingProposalsWithoutThirdPartyProviderId() {
         try {
             srvProposalsV01.listExternalFinancingProposals(
-                null,
-                ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
-                ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
-                ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
-                ListExternalFinancingProposalsMapperTest.TO_REQUEST_DATE,
-                ListExternalFinancingProposalsMapperTest.PAGINATION_KEY,
-                ListExternalFinancingProposalsMapperTest.PAGE_SIZE);
+                    null,
+                    ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
+                    ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
+                    ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
+                    ListExternalFinancingProposalsMapperTest.TO_REQUEST_DATE,
+                    ListExternalFinancingProposalsMapperTest.PAGINATION_KEY,
+                    ListExternalFinancingProposalsMapperTest.PAGE_SIZE);
             fail();
         } catch (final BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
         }
     }
+
     @Test
     public void testListExternalFinancingProposalsWithoutHolderIdentityDocumentsDocumentTypeId() {
         try {
             srvProposalsV01.listExternalFinancingProposals(
-                ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
-                null,
-                ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
-                ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
-                ListExternalFinancingProposalsMapperTest.TO_REQUEST_DATE,
-                ListExternalFinancingProposalsMapperTest.PAGINATION_KEY,
-                ListExternalFinancingProposalsMapperTest.PAGE_SIZE);
+                    ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    null,
+                    ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
+                    ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
+                    ListExternalFinancingProposalsMapperTest.TO_REQUEST_DATE,
+                    ListExternalFinancingProposalsMapperTest.PAGINATION_KEY,
+                    ListExternalFinancingProposalsMapperTest.PAGE_SIZE);
         } catch (final BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
         }
     }
+
     @Test
     public void testListExternalFinancingProposalsWithoutHolderIdentityDocumentsDocumentNumber() {
         try {
@@ -172,6 +175,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         }
 
     }
+
     @Test
     public void testListExternalFinancingProposalsWithoutFromRequestDate() {
         try {
@@ -187,6 +191,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
         }
     }
+
     @Test
     public void testListExternalFinancingProposalsWithoutToRequestDate() {
         try {
@@ -202,6 +207,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
         }
     }
+
     //Validaciones de longitud
     @Test
     public void testListExternalFinancingProposalsInvalidSizeThirdPartyProviderId() {
@@ -219,6 +225,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
         }
     }
+
     @Test
     public void testListExternalFinancingProposalsInvalidSizeHolderIdentityDocumentsDocumentTypeId() {
         try {
@@ -234,6 +241,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
         }
     }
+
     @Test
     public void testListExternalFinancingProposalsInvalidSizeHolderIdentityDocumentsDocumentNumber() {
         try {
@@ -250,6 +258,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         }
 
     }
+
     @Test
     public void testListExternalFinancingProposalsInvalidSizeFromRequestDate() {
         try {
@@ -265,6 +274,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
         }
     }
+
     @Test
     public void testListExternalFinancingProposalsInvalidSizeRequestDate() {
         try {
@@ -280,6 +290,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
         }
     }
+
     @Test
     public void testListExternalFinancingProposalsInvalidSizePageSize() {
         try {
@@ -295,17 +306,18 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
         }
     }
+
     @Test
     public void testListExternalFinancingProposalsInvalidSizePaginationKey() {
         try {
             srvProposalsV01.listExternalFinancingProposals(
-                ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
-                ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
-                ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
-                ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
-                ListExternalFinancingProposalsMapperTest.TO_REQUEST_DATE,
-                "1234567890123456789",
-                ListExternalFinancingProposalsMapperTest.PAGE_SIZE);
+                    ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
+                    ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
+                    ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
+                    ListExternalFinancingProposalsMapperTest.TO_REQUEST_DATE,
+                    "1234567890123456789",
+                    ListExternalFinancingProposalsMapperTest.PAGE_SIZE);
 
         } catch (final BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());

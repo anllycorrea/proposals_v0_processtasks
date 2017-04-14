@@ -76,9 +76,10 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
                                   @QueryParam(PAGINATION_KEY) final String paginationKey,
                                   @QueryParam(PAGE_SIZE) final Long pageSize) {
         LOG.info("... called method SrvProposalsV01.listProposals ...");
-        final ProposalData proposalData =
-                srvIntProposals
-                        .listProposals(listProposalsMapper.mapInput(customerId, documentType, documentNumber, productClassification, paginationKey, pageSize));
+        final ProposalData proposalData = listProposalsMapper.mapOut(
+                srvIntProposals.listProposals(
+                        listProposalsMapper.mapInput(customerId, documentType, documentNumber, productClassification, paginationKey, pageSize)));
+
         if ((proposalData.getData() == null || proposalData.getData().isEmpty()) && proposalData.getPagination() == null) {
             return Response.noContent().build();
         } else if (proposalData.getPagination() == null) {
@@ -101,14 +102,14 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
             @QueryParam(THIRD_PARTY_PROVIDER_ID) final String thirdPartyProviderId,
             @QueryParam(HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID) final String holderIdentityDocumentsDocumentTypeId,
             @QueryParam(HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER) final String holderIdentityDocumentsDocumentNumber,
-            @QueryParam(FROM_REQUEST_DATE)final String fromRequestDate,
+            @QueryParam(FROM_REQUEST_DATE) final String fromRequestDate,
             @QueryParam(TO_REQUEST_DATE) final String toRequestDate,
             @QueryParam(PAGINATION_KEY) String paginationKey,
             @QueryParam(PAGE_SIZE) Long pageSize) {
 
         DTOOutExternalFinancingProposalData proposalData = srvIntProposals.listExternalFinancingProposals(
-                proposalsMapper.mapIn(thirdPartyProviderId,holderIdentityDocumentsDocumentTypeId,
-                        holderIdentityDocumentsDocumentNumber,fromRequestDate,toRequestDate,paginationKey,pageSize));
+                proposalsMapper.mapIn(thirdPartyProviderId, holderIdentityDocumentsDocumentTypeId,
+                        holderIdentityDocumentsDocumentNumber, fromRequestDate, toRequestDate, paginationKey, pageSize));
         ExternalFinancingProposalData data = proposalsMapper.mapOut(proposalData);
         if (data == null) {
             return null;
