@@ -12,9 +12,6 @@
   "paymentDay": 20,
   "deliveryTypeId": "VIRTUAL",
   "deliveryVirtualDestination": "euler.alvarado@bbva.com",
-  "documentationDeliveryType": {
-    "id": "PHYSICAL"
-  },
   "operation": {
     "id": "1123256778",
     "operationType": {

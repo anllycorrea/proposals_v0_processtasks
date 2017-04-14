@@ -14,14 +14,9 @@ import java.util.Date;
  */
 public class DTOIntExternalFinancingProposal {
 
-    private String id;
-    private Date requestDate;
-    private Date openingDate;
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Size(max = 3, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String currency;
-    @Valid
-    private DTOIntInitialFee initialFee;
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntInitialAmount initialAmount;
@@ -29,13 +24,7 @@ public class DTOIntExternalFinancingProposal {
     @Valid
     private DTOIntTariff tariff;
     @Valid
-    private DTOIntRelatedProduct relatedProduct;
-    @Valid
-    private DTOIntDocumentationDeliveryType documentationDeliveryType;
-    @Valid
     private DTOIntExternalProduct externalProduct;
-    @Valid
-    private DTOIntHolder holder;
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntOperation operation;
@@ -61,44 +50,12 @@ public class DTOIntExternalFinancingProposal {
     @Size(max = 50, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String deliveryVirtualDestination;
 
-	public String getId() {
-		return id;
-	}
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Date getRequestDate() {
-        return requestDate;
-    }
-
-    public void setRequestDate(Date requestDate) {
-        this.requestDate = requestDate;
-    }
-
-    public Date getOpeningDate() {
-        return openingDate;
-    }
-
-    public void setOpeningDate(Date openingDate) {
-        this.openingDate = openingDate;
-    }
-
     public String getCurrency() {
         return currency;
     }
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public DTOIntInitialFee getInitialFee() {
-        return initialFee;
-    }
-
-    public void setInitialFee(DTOIntInitialFee initialFee) {
-        this.initialFee = initialFee;
     }
 
     public DTOIntInitialAmount getInitialAmount() {
@@ -117,37 +74,12 @@ public class DTOIntExternalFinancingProposal {
         this.tariff = tariff;
     }
 
-    public DTOIntRelatedProduct getRelatedProduct() {
-        return relatedProduct;
-    }
-
-    public void setRelatedProduct(DTOIntRelatedProduct relatedProduct) {
-        this.relatedProduct = relatedProduct;
-    }
-
-    public DTOIntDocumentationDeliveryType getDocumentationDeliveryType() {
-        return documentationDeliveryType;
-    }
-
-    public void setDocumentationDeliveryType(
-            DTOIntDocumentationDeliveryType documentationDeliveryType) {
-        this.documentationDeliveryType = documentationDeliveryType;
-    }
-
     public DTOIntExternalProduct getExternalProduct() {
         return externalProduct;
     }
 
     public void setExternalProduct(DTOIntExternalProduct externalProduct) {
         this.externalProduct = externalProduct;
-    }
-
-    public DTOIntHolder getHolder() {
-        return holder;
-    }
-
-    public void setHolder(DTOIntHolder holder) {
-        this.holder = holder;
     }
 
     public DTOIntOperation getOperation() {
