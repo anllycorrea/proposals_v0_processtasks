@@ -13,7 +13,7 @@ import com.bbva.jee.arq.spring.core.host.InvocadorTransaccion;
  * @see PeticionTransaccionUgap
  * @see RespuestaTransaccionUgap
  */
-@Component
+@Component("transaccionUgap")
 public class TransaccionUgap implements InvocadorTransaccion<PeticionTransaccionUgap,RespuestaTransaccionUgap> {
 	
 	@Autowired
