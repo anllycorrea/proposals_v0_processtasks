@@ -51,7 +51,7 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
     @Resource(name = "listExternalFinancingProposalsMapper")
     private IListExternalFinancingProposalsMapper proposalsMapper;
 
-    @Autowired
+    @Resource(name = "createExternalFinancingProposalMapper")
     private ICreateExternalFinancingProposalMapper createExternalFinancingProposalMapper;
 
     @Override
@@ -130,6 +130,9 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
         return Response.ok(data).status(206).build();
     }
 
+    /**
+     * @see ISrvProposalsV01#createExternalFinancingProposal(ExternalFinancingProposal)
+     */
     @Override
     @POST
     @Path("/external-financing-proposals")

@@ -42,6 +42,10 @@ public class CreateExternalFinancingProposalMapper extends ConfigurableMapper
                 .register();
     }
 
+    /**
+     *
+     * @see ICreateExternalFinancingProposalMapper#mapIn(ExternalFinancingProposal)
+     */
     @Override
     public DTOIntExternalFinancingProposal mapIn(ExternalFinancingProposal externalFinancingProposal) {
 

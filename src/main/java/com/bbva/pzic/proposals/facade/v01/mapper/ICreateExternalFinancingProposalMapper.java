@@ -9,5 +9,11 @@ import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
  * @author Entelgy
  */
 public interface ICreateExternalFinancingProposalMapper {
+    /**
+     * Mapeo de entrada, los datos obtenidos del payload a un DTO la cual tiene
+     * anotaciones de validacion
+     * @param externalFinancingProposal Payload
+     * @return {@link DTOIntExternalFinancingProposal}
+     */
     DTOIntExternalFinancingProposal mapIn(ExternalFinancingProposal externalFinancingProposal);
 }

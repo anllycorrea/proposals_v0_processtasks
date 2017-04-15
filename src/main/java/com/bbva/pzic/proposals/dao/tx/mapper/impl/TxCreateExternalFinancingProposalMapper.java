@@ -44,7 +44,9 @@ public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper
                 .register();
     }
 
-
+    /**
+     * @see ITxCreateExternalFinancingProposalMapper#mapIn(DTOIntExternalFinancingProposal)
+     */
     @Override
     public FormatoUGMEGAP mapIn(DTOIntExternalFinancingProposal dtoIn) {
         FormatoUGMEGAP formatoUGMEGAP = map(dtoIn, FormatoUGMEGAP.class);
@@ -61,6 +63,9 @@ public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper
         return formatoUGMEGAP;
     }
 
+    /**
+     * @see ITxCreateExternalFinancingProposalMapper#mapOut(FormatoUGMSGAP1)
+     */
     @Override
     public ExternalFinancingProposal mapOut(FormatoUGMSGAP1 formatoUGMSGAP1) {
         if (formatoUGMSGAP1 == null) {

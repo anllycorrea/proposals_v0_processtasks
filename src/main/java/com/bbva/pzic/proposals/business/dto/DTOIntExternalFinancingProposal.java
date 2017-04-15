@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
 
 /**
  * Created on 12/04/2017.
@@ -39,10 +38,10 @@ public class DTOIntExternalFinancingProposal {
     private DTOIntThirdPartyProvider thirdPartyProvider;
 
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
-	private String documentTypeId;
+    private String documentTypeId;
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Size(max = 10, groups = ValidationGroup.CreateExternalFinancingProposal.class)
-	private String documentNumber;
+    private String documentNumber;
 
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String deliveryTypeId;
@@ -115,35 +114,35 @@ public class DTOIntExternalFinancingProposal {
         this.thirdPartyProvider = thirdPartyProvider;
     }
 
-	public String getDocumentTypeId() {
-		return documentTypeId;
-	}
+    public String getDocumentTypeId() {
+        return documentTypeId;
+    }
 
-	public void setDocumentTypeId(String documentTypeId) {
-		this.documentTypeId = documentTypeId;
-	}
+    public void setDocumentTypeId(String documentTypeId) {
+        this.documentTypeId = documentTypeId;
+    }
 
-	public String getDocumentNumber() {
-		return documentNumber;
-	}
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
 
-	public void setDocumentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
-	}
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
+    }
 
-	public String getDeliveryTypeId() {
-		return deliveryTypeId;
-	}
+    public String getDeliveryTypeId() {
+        return deliveryTypeId;
+    }
 
-	public void setDeliveryTypeId(String deliveryTypeId) {
-		this.deliveryTypeId = deliveryTypeId;
-	}
+    public void setDeliveryTypeId(String deliveryTypeId) {
+        this.deliveryTypeId = deliveryTypeId;
+    }
 
-	public String getDeliveryVirtualDestination() {
-		return deliveryVirtualDestination;
-	}
+    public String getDeliveryVirtualDestination() {
+        return deliveryVirtualDestination;
+    }
 
-	public void setDeliveryVirtualDestination(String deliveryVirtualDestination) {
-		this.deliveryVirtualDestination = deliveryVirtualDestination;
-	}
+    public void setDeliveryVirtualDestination(String deliveryVirtualDestination) {
+        this.deliveryVirtualDestination = deliveryVirtualDestination;
+    }
 }

@@ -12,7 +12,19 @@ import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMSGAP1;
  */
 public interface ITxCreateExternalFinancingProposalMapper {
 
-    FormatoUGMEGAP mapIn(DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal);
+    /**
+     * mapeo de entrada al formato HOST
+     *
+     * @param dtoIn DTO con los campos validados
+     * @return {@link FormatoUGMEGAP}
+     */
+    FormatoUGMEGAP mapIn(DTOIntExternalFinancingProposal dtoIn);
 
-    ExternalFinancingProposal mapOut(FormatoUGMSGAP1 formatoUGMSGAP1);
+    /**
+     * Mapeo del cuerpo de la respuesta de un Formato Host a una entidad canonica
+     *
+     * @param formatOutput formato que contiene el cuerpo de la respuesta
+     * @return {@link ExternalFinancingProposal}
+     */
+    ExternalFinancingProposal mapOut(FormatoUGMSGAP1 formatOutput);
 }
