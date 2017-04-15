@@ -22,8 +22,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 /**
  * Created on 12/04/2017.
@@ -61,7 +65,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         assertNotNull(response);
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-        assertTrue(response.getEntity() instanceof ExternalFinancingProposal);
+        assertNull(response.getEntity());
     }
 
     @Test
@@ -75,10 +79,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         assertNotNull(response);
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-        assertTrue(response.getEntity() instanceof ExternalFinancingProposal);
-
-        ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
-        assertNotNull(result.getId());
+        assertNull(response.getEntity());
     }
 
     @Test
@@ -90,10 +91,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         assertNotNull(response);
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-        assertTrue(response.getEntity() instanceof ExternalFinancingProposal);
-
-        ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
-        assertNotNull(result.getId());
+        assertNull(response.getEntity());
     }
 
     @Test
@@ -105,10 +103,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         assertNotNull(response);
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-        assertTrue(response.getEntity() instanceof ExternalFinancingProposal);
-
-        ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
-        assertNotNull(result.getId());
+        assertNull(response.getEntity());
     }
 
     @Test
@@ -120,10 +115,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         assertNotNull(response);
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-        assertTrue(response.getEntity() instanceof ExternalFinancingProposal);
-
-        ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
-        assertNotNull(result.getId());
+        assertNull(response.getEntity());
     }
 
     @Test
@@ -135,10 +127,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         assertNotNull(response);
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-        assertTrue(response.getEntity() instanceof ExternalFinancingProposal);
-
-        ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
-        assertNotNull(result.getId());
+        assertNull(response.getEntity());
     }
 
     @Test
@@ -150,10 +139,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         assertNotNull(response);
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-        assertTrue(response.getEntity() instanceof ExternalFinancingProposal);
-
-        ExternalFinancingProposal result = (ExternalFinancingProposal) response.getEntity();
-        assertNotNull(result.getId());
+        assertNull(response.getEntity());
     }
 
     @Test
@@ -168,6 +154,9 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         assertNull(response.getEntity());
     }
 
+    /*
+    Validaciones de Obligatoriedad
+    */
     /*
     holder
     */
@@ -491,8 +480,218 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     }
 
     /*
-    TODO: Validacion Tamanios
+    Validacion Tamanios
     */
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeHolderIdentityDocumentNumber() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentNumber("12345678901");
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeTariffId() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getTariff().setId("12345678901");
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeCurrency() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.setCurrency("1234");
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeFractionInitialAmount() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getInitialAmount().setAmount(new BigDecimal("789.856"));
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeIntegerInitialAmount() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getInitialAmount().setAmount(new BigDecimal("1234567890123456.85"));
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeInitialAmountCurrency() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getInitialAmount().setCurrency("1234");
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizePaymentDay() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.setPaymentDay(123);
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeDeliveryVirtualDestination() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getDelivery().setVirtualDestination("123456789012345678901234567890123456789012345678901");
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeOperationId() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getOperation().setId("123456789012345678901234567890123");
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeThirdPartyProviderId() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getThirdPartyProvider().setId("TDPE1");
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeOperationTypeId() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getOperation().getOperationType().setId("ALTA12");
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeExternalProductId() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getExternalProduct().setId("1234567890123456");
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeIntegerExternalProductCommercialValueAmount() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getExternalProduct().getCommercialValueAmount().setAmount(new BigDecimal("1234567890123456.89"));
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeFractionExternalProductCommercialValueAmount() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getExternalProduct().getCommercialValueAmount().setAmount(new BigDecimal("123456789012345.897"));
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testCreateExternalFinancingProposalInvalidSizeExternalProductCommercialValueAmountCurrency() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        externalFinancingProposal.getExternalProduct().getCommercialValueAmount().setCurrency("1234");
+
+        try {
+            srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
+
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
 
     private <T> T getInstance(String file, Class<T> claz) throws IOException {
         InputStream in = Thread.currentThread().getContextClassLoader().

@@ -150,7 +150,7 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
             return Response
                     .created(uriOfCreatedResource)
                     .contentLocation(uriOfCreatedResource)
-                    .status(Response.Status.CREATED).entity(data).build();
+                    .status(Response.Status.CREATED).build();
         }
 
         return Response.status(Response.Status.CREATED).build();
