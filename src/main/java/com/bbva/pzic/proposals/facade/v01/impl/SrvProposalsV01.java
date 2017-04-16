@@ -12,6 +12,7 @@ import com.bbva.pzic.proposals.canonic.ExternalFinancingProposalData;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01;
 import com.bbva.pzic.proposals.facade.v01.mapper.IListExternalFinancingProposalsMapper;
+import com.bbva.pzic.proposals.facade.v01.mapper.ICreateExternalFinancingProposalMapper;
 import com.bbva.pzic.proposals.facade.v01.mapper.IListProposalsMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,10 +21,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.ws.rs.*;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
+import java.net.URI;
 
 /**
  * @author Entelgy
@@ -51,6 +50,9 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
 
     @Resource(name = "listExternalFinancingProposalsMapper")
     private IListExternalFinancingProposalsMapper proposalsMapper;
+
+    @Resource(name = "createExternalFinancingProposalMapper")
+    private ICreateExternalFinancingProposalMapper createExternalFinancingProposalMapper;
 
     @Override
     public void setUriInfo(UriInfo uriInfo) {
@@ -128,12 +130,33 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
         return Response.ok(data).status(206).build();
     }
 
+    /**
+     * @see ISrvProposalsV01#createExternalFinancingProposal(ExternalFinancingProposal)
+     */
     @Override
     @POST
     @Path("/external-financing-proposals")
     @SMC(registryID = "SMCPE1720028", logicalID = "createExternalFinancingProposal")
     public Response createExternalFinancingProposal(ExternalFinancingProposal payload) {
-        return null;
+        LOG.info("------ SrvIntProposals.createExternalFinancingProposal ------");
+
+        ExternalFinancingProposal data = srvIntProposals.createExternalFinancingProposal(
+                        createExternalFinancingProposalMapper.mapIn(payload));
+
+        if (data != null && data.getId() != null) {
+
+            // reload header response
+            URI uriOfCreatedResource = UriBuilder.fromPath(uriInfo.getPath())
+                    .path("/{external-financing-proposal-id}")
+                    .build(data.getId());
+
+            return Response
+                    .created(uriOfCreatedResource)
+                    .contentLocation(uriOfCreatedResource)
+                    .status(Response.Status.CREATED).build();
+        }
+
+        return Response.status(Response.Status.CREATED).build();
     }
 
     @Override
