@@ -1,6 +1,5 @@
 package com.bbva.pzic.proposals.business.dto;
 
-
 import javax.validation.constraints.NotNull;
 
 /**

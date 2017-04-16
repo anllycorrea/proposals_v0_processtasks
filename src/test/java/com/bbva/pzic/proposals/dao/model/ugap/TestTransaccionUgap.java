@@ -1,15 +1,13 @@
 package com.bbva.pzic.proposals.dao.model.ugap;
 
-import com.bbva.jee.arq.spring.core.host.ExcepcionTransaccion;
 import com.bbva.jee.arq.spring.core.host.ServicioTransacciones;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Test de la transacci&oacute;n <code>UGAP</code>
@@ -19,7 +17,6 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class TestTransaccionUgap {
 
-
     @InjectMocks
     private TransaccionUgap transaccion;
 
@@ -27,7 +24,7 @@ public class TestTransaccionUgap {
     private ServicioTransacciones servicioTransacciones = Mockito.mock(ServicioTransacciones.class);
 
     @Test
-    public void test() throws ExcepcionTransaccion {
+    public void test() {
 
         PeticionTransaccionUgap peticion = new PeticionTransaccionUgap();
 
@@ -38,6 +35,6 @@ public class TestTransaccionUgap {
 
         RespuestaTransaccionUgap result = transaccion.invocar(peticion);
 
-        assertEquals(result, respuesta);
+        Assert.assertEquals(result, respuesta);
     }
 }

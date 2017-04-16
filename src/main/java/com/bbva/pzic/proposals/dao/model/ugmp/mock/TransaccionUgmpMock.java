@@ -1,11 +1,8 @@
 package com.bbva.pzic.proposals.dao.model.ugmp.mock;
 
-import com.bbva.jee.arq.spring.core.host.ExcepcionTransaccion;
 import com.bbva.jee.arq.spring.core.host.InvocadorTransaccion;
-import com.bbva.jee.arq.spring.core.host.ServicioTransacciones;
 import com.bbva.pzic.proposals.dao.model.ugmp.PeticionTransaccionUgmp;
 import com.bbva.pzic.proposals.dao.model.ugmp.RespuestaTransaccionUgmp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,12 +15,12 @@ import org.springframework.stereotype.Component;
 public class TransaccionUgmpMock implements InvocadorTransaccion<PeticionTransaccionUgmp, RespuestaTransaccionUgmp> {
 
     @Override
-    public RespuestaTransaccionUgmp invocar(PeticionTransaccionUgmp transaccion)  {
-        return null;
+    public RespuestaTransaccionUgmp invocar(PeticionTransaccionUgmp transaccion) {
+        return new RespuestaTransaccionUgmp();
     }
 
     @Override
-    public RespuestaTransaccionUgmp invocarCache(PeticionTransaccionUgmp transaccion)  {
+    public RespuestaTransaccionUgmp invocarCache(PeticionTransaccionUgmp transaccion) {
         return null;
     }
 

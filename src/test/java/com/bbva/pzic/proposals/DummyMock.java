@@ -1,7 +1,10 @@
 package com.bbva.pzic.proposals;
 
 import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals;
+import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
+import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.facade.v01.mapper.impl.ListExternalFinancingProposalsMapperTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,6 +16,8 @@ import java.io.IOException;
  * @author Entelgy
  */
 public class DummyMock {
+
+    public static final String EXTERNAL_FINANCING_PROPOSAL_ID = "001101309600000001";
 
     private ObjectMapper objectMapper;
 
@@ -35,5 +40,22 @@ public class DummyMock {
         dtoIn.setPaginationKey(ListExternalFinancingProposalsMapperTest.PAGINATION_KEY);
         dtoIn.setPageSize(ListExternalFinancingProposalsMapperTest.PAGE_SIZE);
         return dtoIn;
+    }
+
+    public ExternalFinancingProposal modifyExternalFinancingProposalPayload() throws IOException {
+        return objectMapper.readValue(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("json/modifyExternalFinancingProposal_payload.json"), ExternalFinancingProposal.class);
+    }
+
+    public DTOIntExternalFinancingProposal getDTOIntExternalFinancingProposal() throws IOException {
+        return objectMapper.readValue(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("json/dtoIntExternalFinancingProposal.json"), DTOIntExternalFinancingProposal.class);
+    }
+
+    public DTOInputModifyExternalFinancingProposal getDTOInputModifyExternalFinancingProposal() throws IOException {
+        DTOInputModifyExternalFinancingProposal dto = new DTOInputModifyExternalFinancingProposal();
+        dto.setExternalFinancingProposalId(EXTERNAL_FINANCING_PROPOSAL_ID);
+        dto.setExternalFinancingProposal(getDTOIntExternalFinancingProposal());
+        return dto;
     }
 }

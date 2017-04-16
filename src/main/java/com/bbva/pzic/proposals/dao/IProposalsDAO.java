@@ -1,6 +1,7 @@
 package com.bbva.pzic.proposals.dao;
 
 import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals;
+import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
@@ -11,6 +12,7 @@ import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
  * @author Entelgy
  */
 public interface IProposalsDAO {
+
     /**
      * Metodo que realiza la conexion con host
      *
@@ -20,4 +22,6 @@ public interface IProposalsDAO {
     DTOOutExternalFinancingProposalData listExternalFinancingProposals(DTOInputListExternalFinancingProposals dtoIn);
 
     ExternalFinancingProposal createExternalFinancingProposal(DTOIntExternalFinancingProposal dtoIn);
+
+    void modifyExternalFinancingProposal(DTOInputModifyExternalFinancingProposal dtoIn);
 }

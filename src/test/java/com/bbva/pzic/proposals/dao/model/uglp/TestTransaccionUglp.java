@@ -1,6 +1,5 @@
 package com.bbva.pzic.proposals.dao.model.uglp;
 
-import com.bbva.jee.arq.spring.core.host.ExcepcionTransaccion;
 import com.bbva.jee.arq.spring.core.host.ServicioTransacciones;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,7 +24,7 @@ public class TestTransaccionUglp {
     private ServicioTransacciones servicioTransacciones = Mockito.mock(ServicioTransacciones.class);
 
     @Test
-    public void test() throws ExcepcionTransaccion {
+    public void test() {
 
         PeticionTransaccionUglp peticion = new PeticionTransaccionUglp();
         RespuestaTransaccionUglp respuesta = transaccion.invocar(peticion);

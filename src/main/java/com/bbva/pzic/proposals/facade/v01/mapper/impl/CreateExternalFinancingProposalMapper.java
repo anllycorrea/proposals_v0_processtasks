@@ -15,9 +15,8 @@ import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
  * @author Entelgy
  */
 @Mapper("createExternalFinancingProposalMapper")
-public class CreateExternalFinancingProposalMapper extends ConfigurableMapper
-        implements
-        ICreateExternalFinancingProposalMapper {
+public class CreateExternalFinancingProposalMapper extends ConfigurableMapper implements ICreateExternalFinancingProposalMapper {
+
     private static final int FIRST = 0;
 
     @Override

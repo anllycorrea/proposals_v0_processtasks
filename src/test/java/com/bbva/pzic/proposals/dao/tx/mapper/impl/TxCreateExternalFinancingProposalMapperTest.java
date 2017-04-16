@@ -1,5 +1,6 @@
 package com.bbva.pzic.proposals.dao.tx.mapper.impl;
 
+import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMEGAP;
@@ -25,7 +26,7 @@ import static org.junit.Assert.*;
  * @author Entelgy
  */
 public class TxCreateExternalFinancingProposalMapperTest {
-    private static final String DTO_EXTERNAL_FINANCING_PROPOSAL = "com/bbva/pzic/proposals/dao/tx/mapper/impl/dtoIntExternalFinancingProposal.json";
+
     private static final String FORMATO_UGMSGAP1 = "com/bbva/pzic/proposals/dao/model/ugap/mock/FormatoUGMSGAP1.json";
 
     private static final String PROPERTY_DOCUMENT_TYPE_ID_DNI_VALUE_TESTED = "DNI";
@@ -40,10 +41,12 @@ public class TxCreateExternalFinancingProposalMapperTest {
     @Mock
     private EnumMapper enumMapper;
 
-    private ObjectMapper objectMapper;
+    private DummyMock dummyMock;
+    private ObjectMapper objectMapper; // FIXME Mover a DummyMock
 
     @Before
     public void setUp() {
+        dummyMock = new DummyMock();
         objectMapper = new ObjectMapper();
         MockitoAnnotations.initMocks(this);
         mapInEnum();
@@ -60,7 +63,7 @@ public class TxCreateExternalFinancingProposalMapperTest {
     @Test
     public void mapInFullTest() throws IOException {
 
-        DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal = getInstance(DTO_EXTERNAL_FINANCING_PROPOSAL, DTOIntExternalFinancingProposal.class);
+        DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal = dummyMock.getDTOIntExternalFinancingProposal();
         FormatoUGMEGAP result = mapper.mapIn(dtoIntExternalFinancingProposal);
 
         assertNotNull(result);

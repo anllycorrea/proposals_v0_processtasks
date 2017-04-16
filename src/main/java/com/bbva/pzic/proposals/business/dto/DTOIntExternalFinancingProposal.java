@@ -27,9 +27,10 @@ public class DTOIntExternalFinancingProposal {
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntOperation operation;
+
     @NotNull(groups = ValidationGroup.ModifyExternalFinancingProposal.class)
-    @Valid
-    private DTOIntStatus status;
+    private String statusId;
+
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Digits(integer = 2, fraction = 0, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private Integer paymentDay;
@@ -45,8 +46,12 @@ public class DTOIntExternalFinancingProposal {
 
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String deliveryTypeId;
+
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
-    @Size(max = 50, groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Size(max = 50, groups = {
+            ValidationGroup.CreateExternalFinancingProposal.class,
+            ValidationGroup.ModifyExternalFinancingProposal.class
+    })
     private String deliveryVirtualDestination;
 
     public String getCurrency() {
@@ -89,12 +94,12 @@ public class DTOIntExternalFinancingProposal {
         this.operation = operation;
     }
 
-    public DTOIntStatus getStatus() {
-        return status;
+    public String getStatusId() {
+        return statusId;
     }
 
-    public void setStatus(DTOIntStatus status) {
-        this.status = status;
+    public void setStatusId(String statusId) {
+        this.statusId = statusId;
     }
 
     public Integer getPaymentDay() {

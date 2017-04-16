@@ -17,9 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Entelgy
  */
 @Mapper("txCreateExternalFinancingProposalMapper")
-public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper
-        implements
-        ITxCreateExternalFinancingProposalMapper {
+public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper implements ITxCreateExternalFinancingProposalMapper {
 
     @Autowired
     private EnumMapper enumMapper;

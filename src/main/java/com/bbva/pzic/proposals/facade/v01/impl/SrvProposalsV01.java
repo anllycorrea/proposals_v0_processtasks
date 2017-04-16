@@ -14,6 +14,7 @@ import com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01;
 import com.bbva.pzic.proposals.facade.v01.mapper.ICreateExternalFinancingProposalMapper;
 import com.bbva.pzic.proposals.facade.v01.mapper.IListExternalFinancingProposalsMapper;
 import com.bbva.pzic.proposals.facade.v01.mapper.IListProposalsMapper;
+import com.bbva.pzic.proposals.facade.v01.mapper.IModifyExternalFinancingProposalMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,9 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
 
     @Resource(name = "createExternalFinancingProposalMapper")
     private ICreateExternalFinancingProposalMapper createExternalFinancingProposalMapper;
+
+    @Resource(name = "modifyExternalFinancingProposalMapper")
+    private IModifyExternalFinancingProposalMapper modifyExternalFinancingProposalMapper;
 
     @Override
     public void setUriInfo(UriInfo uriInfo) {
@@ -163,7 +167,12 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
     @PATCH
     @Path("/external-financing-proposals/{external-financing-proposal-id}")
     @SMC(registryID = "SMCPE1720030", logicalID = "modifyExternalFinancingProposal")
-    public Response modifyExternalFinancingProposal(@PathParam("external-financing-proposal-id") String externalFinancingProposalId, ExternalFinancingProposal payload) {
-        return null;
+    public Response modifyExternalFinancingProposal(@PathParam("external-financing-proposal-id") final String externalFinancingProposalId,
+                                                    final ExternalFinancingProposal payload) {
+        srvIntProposals.modifyExternalFinancingProposal(
+                modifyExternalFinancingProposalMapper.mapIn(externalFinancingProposalId, payload)
+        );
+
+        return Response.ok().build();
     }
 }
