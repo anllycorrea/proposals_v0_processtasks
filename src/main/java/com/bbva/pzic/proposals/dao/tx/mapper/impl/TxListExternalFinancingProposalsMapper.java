@@ -30,6 +30,8 @@ public class TxListExternalFinancingProposalsMapper extends ConfigurableMapper i
 
     private static final Log LOG = LogFactory.getLog(TxListExternalFinancingProposalsMapper.class);
 
+    private static final String MONEY_CURRENCY = "moneda";
+
     @Autowired
     private EnumMapper enumMapper;
 
@@ -54,11 +56,11 @@ public class TxListExternalFinancingProposalsMapper extends ConfigurableMapper i
                 .field("id", "nrocont")
                 .field("requestDate", "fesoli")
                 .field("openingDate", "fedesem")
-                .field("currency", "moneda")
+                .field("currency", MONEY_CURRENCY)
                 .field("initialFee.amount", "cuoini")
-                .field("initialFee.currency", "moneda")
+                .field("initialFee.currency", MONEY_CURRENCY)
                 .field("initialAmount.amount", "impfina")
-                .field("initialAmount.currency", "moneda")
+                .field("initialAmount.currency", MONEY_CURRENCY)
                 .field("tariff.id", "tarifa")
                 .field("relatedProduct.relatedProductType.id", "codseg")
                 .field("relatedProduct.relatedProductType.name", "descseg")
@@ -68,7 +70,7 @@ public class TxListExternalFinancingProposalsMapper extends ConfigurableMapper i
                 .field("delivery.virtualDestination", "mailcon")
                 .field("externalProduct.id", "codbien")
                 .field("externalProduct.commercialValueAmount.amount", "impbien")
-                .field("externalProduct.commercialValueAmount.currency", "moneda")
+                .field("externalProduct.commercialValueAmount.currency", MONEY_CURRENCY)
                 .field("holder.name", "nombr")
                 .field("holder.lastName", "apepat")
                 .field("holder.mohterLastName", "apemat")
