@@ -11,8 +11,8 @@ import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposalData;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01;
-import com.bbva.pzic.proposals.facade.v01.mapper.IListExternalFinancingProposalsMapper;
 import com.bbva.pzic.proposals.facade.v01.mapper.ICreateExternalFinancingProposalMapper;
+import com.bbva.pzic.proposals.facade.v01.mapper.IListExternalFinancingProposalsMapper;
 import com.bbva.pzic.proposals.facade.v01.mapper.IListProposalsMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -141,7 +141,7 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
         LOG.info("------ SrvIntProposals.createExternalFinancingProposal ------");
 
         ExternalFinancingProposal data = srvIntProposals.createExternalFinancingProposal(
-                        createExternalFinancingProposalMapper.mapIn(payload));
+                createExternalFinancingProposalMapper.mapIn(payload));
 
         if (data != null && data.getId() != null) {
 

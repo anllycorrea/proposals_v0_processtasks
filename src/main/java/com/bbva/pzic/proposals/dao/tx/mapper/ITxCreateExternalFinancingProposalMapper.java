@@ -7,7 +7,7 @@ import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMSGAP1;
 
 /**
  * Created on 12/04/2017.
- * 
+ *
  * @author Entelgy
  */
 public interface ITxCreateExternalFinancingProposalMapper {

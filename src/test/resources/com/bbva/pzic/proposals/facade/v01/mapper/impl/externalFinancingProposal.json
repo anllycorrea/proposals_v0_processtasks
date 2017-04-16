@@ -24,10 +24,10 @@
   },
   "paymentDay": 20,
   "delivery": {
-    "deliveryType" : {
-      "id" : "VIRTUAL"
+    "deliveryType": {
+      "id": "VIRTUAL"
     },
-    "virtualDestination" : "euler.alvarado@bbva.com"
+    "virtualDestination": "euler.alvarado@bbva.com"
   },
   "documentationDeliveryType": {
     "id": "PHYSICAL"

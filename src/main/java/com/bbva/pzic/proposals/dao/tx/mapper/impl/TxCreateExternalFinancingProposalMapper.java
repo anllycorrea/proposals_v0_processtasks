@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created on 12/04/2017.
- * 
+ *
  * @author Entelgy
  */
 @Mapper("txCreateExternalFinancingProposalMapper")
