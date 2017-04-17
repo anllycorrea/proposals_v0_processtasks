@@ -28,9 +28,8 @@ public class TransaccionUgapMock implements InvocadorTransaccion<PeticionTransac
     private static final String FORMATO_UGMSGAP1 = "com/bbva/pzic/proposals/dao/model/ugap/mock/FormatoUGMSGAP1.json";
     private ObjectMapper mapper;
 
-    @PostConstruct
-    public void init() {
-        mapper = new ObjectMapper();
+    public TransaccionUgapMock() {
+        this.mapper = new ObjectMapper();
     }
 
     @Override
@@ -38,7 +37,7 @@ public class TransaccionUgapMock implements InvocadorTransaccion<PeticionTransac
         final RespuestaTransaccionUgap response = new RespuestaTransaccionUgap();
         final FormatoUGMEGAP format = (FormatoUGMEGAP) transaccion.getCuerpo().getPartes().get(0);
         if (!NRO_DOCUMENTO.equalsIgnoreCase(format.getNrodocu())) {
-            CopySalida copy = buildData(getInstance(FORMATO_UGMSGAP1, FormatoUGMSGAP1.class));
+            CopySalida copy = buildData(getFormatoUGMSGAP1());
             response.getCuerpo().getPartes().add(copy);
         }
 
@@ -60,11 +59,10 @@ public class TransaccionUgapMock implements InvocadorTransaccion<PeticionTransac
         return copy;
     }
 
-    private <T> T getInstance(String file, Class<T> claz) {
-        InputStream in = Thread.currentThread().getContextClassLoader().
-                getResourceAsStream(file);
+    public FormatoUGMSGAP1 getFormatoUGMSGAP1() {
         try {
-            return mapper.readValue(IOUtils.readBytesFromStream(in), claz);
+            return mapper.readValue(Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream(FORMATO_UGMSGAP1), FormatoUGMSGAP1.class);
         } catch (IOException e) {
             throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
         }

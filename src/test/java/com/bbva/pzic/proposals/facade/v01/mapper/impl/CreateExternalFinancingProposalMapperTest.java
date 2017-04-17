@@ -1,19 +1,19 @@
 package com.bbva.pzic.proposals.facade.v01.mapper.impl;
 
+import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.IdentityDocument;
 import com.bbva.pzic.proposals.facade.v01.mapper.ICreateExternalFinancingProposalMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.cxf.helpers.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created on 12/04/2017.
@@ -21,22 +21,21 @@ import static org.junit.Assert.*;
  * @author Entelgy
  */
 public class CreateExternalFinancingProposalMapperTest {
-    private static final String EXTERNAL_FINANCING_PROPOSAL = "com/bbva/pzic/proposals/facade/v01/mapper/impl/externalFinancingProposal.json";
 
     private ICreateExternalFinancingProposalMapper mapper;
 
-    private ObjectMapper objectMapper;
+    private DummyMock dummyMock;
 
     @Before
     public void setUp() {
         mapper = new CreateExternalFinancingProposalMapper();
-        objectMapper = new ObjectMapper();
+        dummyMock = new DummyMock();
     }
 
     @Test
     public void mapInFullTest() throws IOException {
 
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
 
         DTOIntExternalFinancingProposal result = mapper.mapIn(externalFinancingProposal);
 
@@ -75,7 +74,7 @@ public class CreateExternalFinancingProposalMapperTest {
     @Test
     public void mapInWithoutHolderTest() throws IOException {
 
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setHolder(null);
 
         DTOIntExternalFinancingProposal result = mapper.mapIn(externalFinancingProposal);
@@ -117,7 +116,7 @@ public class CreateExternalFinancingProposalMapperTest {
     @Test
     public void mapInWithoutHolderIdentityDocumentsTest() throws IOException {
 
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().setIdentityDocuments(null);
 
         DTOIntExternalFinancingProposal result = mapper.mapIn(externalFinancingProposal);
@@ -158,7 +157,7 @@ public class CreateExternalFinancingProposalMapperTest {
     @Test
     public void mapInWithHolderIdentityDocumentsEmptyTest() throws IOException {
 
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().setIdentityDocuments(new ArrayList<IdentityDocument>());
 
         DTOIntExternalFinancingProposal result = mapper.mapIn(externalFinancingProposal);
@@ -198,7 +197,7 @@ public class CreateExternalFinancingProposalMapperTest {
     @Test
     public void mapInWithHolderIdentityDocumentsNullItemTest() throws IOException {
 
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().clear();
         externalFinancingProposal.getHolder().getIdentityDocuments().add(null);
 
@@ -263,10 +262,4 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNull(result);
     }
 
-
-    private <T> T getInstance(String file, Class<T> claz) throws IOException {
-        InputStream in = Thread.currentThread().getContextClassLoader().
-                getResourceAsStream(file);
-        return objectMapper.readValue(IOUtils.readBytesFromStream(in), claz);
-    }
 }
