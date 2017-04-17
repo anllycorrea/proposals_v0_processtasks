@@ -5,7 +5,7 @@ import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMEGAP;
 import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMSGAP1;
-import com.bbva.pzic.proposals.dao.model.ugap.mock.TransaccionUgapMock;
+import com.bbva.pzic.proposals.dao.model.ugap.mock.FormatUgapMock;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,12 +39,12 @@ public class TxCreateExternalFinancingProposalMapperTest {
     private EnumMapper enumMapper;
 
     private DummyMock dummyMock;
-    private TransaccionUgapMock transaccionUgapMock;
+    private FormatUgapMock formatUgapMock;
 
     @Before
     public void setUp() {
         dummyMock = new DummyMock();
-        transaccionUgapMock = new TransaccionUgapMock();
+        formatUgapMock = new FormatUgapMock();
         MockitoAnnotations.initMocks(this);
         mapInEnum();
     }
@@ -120,7 +120,7 @@ public class TxCreateExternalFinancingProposalMapperTest {
     @Test
     public void mapOutFullTest() throws IOException {
 
-        FormatoUGMSGAP1 formatoUGMSGAP1 = transaccionUgapMock.getFormatoUGMSGAP1();
+        FormatoUGMSGAP1 formatoUGMSGAP1 = formatUgapMock.getFormatoUGMSGAP1();
 
         ExternalFinancingProposal result = mapper.mapOut(formatoUGMSGAP1);
         assertNotNull(result);
