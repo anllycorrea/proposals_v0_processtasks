@@ -8,8 +8,6 @@ import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.dao.model.ugap.mock.TransaccionUgapMock;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.utilTest.UriInfoImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.cxf.helpers.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,10 +20,12 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 /**
  * Created on 12/04/2017.
