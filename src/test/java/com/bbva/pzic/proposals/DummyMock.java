@@ -58,4 +58,9 @@ public class DummyMock {
         dto.setExternalFinancingProposal(getDTOIntExternalFinancingProposal());
         return dto;
     }
+
+    public ExternalFinancingProposal getExternalFinancingProposal() throws IOException {
+        return objectMapper.readValue(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("com/bbva/pzic/proposals/facade/v01/mapper/impl/externalFinancingProposal.json"), ExternalFinancingProposal.class);
+    }
 }

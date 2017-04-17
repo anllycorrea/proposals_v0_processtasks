@@ -3,12 +3,11 @@ package com.bbva.pzic.proposals.facade.v01.impl;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoader;
 import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExecutionListener;
+import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.dao.model.ugap.mock.TransaccionUgapMock;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.utilTest.UriInfoImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.cxf.helpers.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +20,12 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 /**
  * Created on 12/04/2017.
@@ -39,16 +40,15 @@ import static org.junit.Assert.*;
         MockInvocationContextTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class})
 public class SrvCreateExternalFinancingProposalV01IntegrationTest {
-    private static final String EXTERNAL_FINANCING_PROPOSAL = "com/bbva/pzic/proposals/facade/v01/mapper/impl/externalFinancingProposal.json";
 
     @Autowired
     private SrvProposalsV01 srvProposalsV01;
 
-    private ObjectMapper objectMapper;
+    private DummyMock dummyMock;
 
     @Before
     public void setUp() {
-        objectMapper = new ObjectMapper();
+        dummyMock = new DummyMock();
         UriInfo uriInfo = new UriInfoImpl();
         uriInfo.getPathParameters().add("external-financing-proposal-id", "external-financing-proposal-id");
         srvProposalsV01.setUriInfo(uriInfo);
@@ -56,7 +56,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposal() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
 
         Response response = srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
 
@@ -67,7 +67,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalOnlyMandatory() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getOperation().setOperationType(null);
         externalFinancingProposal.setExternalProduct(null);
         externalFinancingProposal.getThirdPartyProvider().setExternalSalesChannel(null);
@@ -81,7 +81,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutOperationTypeId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getOperation().getOperationType().setId(null);
 
         Response response = srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
@@ -93,7 +93,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutExternalProductId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().setId(null);
 
         Response response = srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
@@ -105,7 +105,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutExternalProductCommercialValue() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().setCommercialValueAmount(null);
 
         Response response = srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
@@ -117,7 +117,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutExternalProductCommercialValueAmount() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValueAmount().setAmount(null);
 
         Response response = srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
@@ -129,7 +129,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutExternalProductCommercialValueAmountCurrency() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValueAmount().setCurrency(null);
 
         Response response = srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
@@ -141,7 +141,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithoutResponse() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentNumber(TransaccionUgapMock.NRO_DOCUMENTO);
 
         Response response = srvProposalsV01.createExternalFinancingProposal(externalFinancingProposal);
@@ -159,7 +159,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     */
     @Test
     public void testCreateExternalFinancingProposalWithOutHolder() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setHolder(null);
 
         try {
@@ -176,7 +176,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     */
     @Test
     public void testCreateExternalFinancingProposalWithOutHolderIdentityDocuments() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().setIdentityDocuments(null);
 
         try {
@@ -193,7 +193,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     */
     @Test
     public void testCreateExternalFinancingProposalWithOutHolderIdentityDocumentItems() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().clear();
         externalFinancingProposal.getHolder().getIdentityDocuments().add(null);
 
@@ -211,7 +211,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     */
     @Test
     public void testCreateExternalFinancingProposalWithOutHolderIdentityDocumentNumber() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentNumber(null);
 
         try {
@@ -228,7 +228,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     */
     @Test
     public void testCreateExternalFinancingProposalWithOutHolderIdentityDocumentType() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentType(null);
 
         try {
@@ -245,7 +245,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     */
     @Test
     public void testCreateExternalFinancingProposalWithOutHolderIdentityDocumentTypeId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).getDocumentType().setId(null);
 
         try {
@@ -262,7 +262,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     */
     @Test
     public void testCreateExternalFinancingProposalWithOutTariff() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setTariff(null);
 
         try {
@@ -279,7 +279,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     */
     @Test
     public void testCreateExternalFinancingProposalWithOutTariffId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getTariff().setId(null);
 
         try {
@@ -296,7 +296,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     */
     @Test
     public void testCreateExternalFinancingProposalWithOutCurrency() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setCurrency(null);
 
         try {
@@ -310,7 +310,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutInitial() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setInitialAmount(null);
 
         try {
@@ -324,7 +324,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutInitialAmount() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getInitialAmount().setAmount(null);
 
         try {
@@ -338,7 +338,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutInitialAmountCurrency() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getInitialAmount().setCurrency(null);
 
         try {
@@ -352,7 +352,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutPaymentDay() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setPaymentDay(null);
 
         try {
@@ -366,7 +366,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutDelivery() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setDelivery(null);
 
         try {
@@ -380,7 +380,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutDeliveryType() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getDelivery().setDeliveryType(null);
 
         try {
@@ -394,7 +394,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutDeliveryTypeId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getDelivery().getDeliveryType().setId(null);
 
         try {
@@ -408,7 +408,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutDeliveryVirtualDestination() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getDelivery().setVirtualDestination(null);
 
         try {
@@ -422,7 +422,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutOperation() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setOperation(null);
 
         try {
@@ -436,7 +436,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutOperationId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getOperation().setId(null);
 
         try {
@@ -450,7 +450,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutThirdPartyProvider() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setThirdPartyProvider(null);
 
         try {
@@ -464,7 +464,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithOutThirdPartyProviderId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getThirdPartyProvider().setId(null);
 
         try {
@@ -481,7 +481,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     */
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeHolderIdentityDocumentNumber() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentNumber("12345678901");
 
         try {
@@ -495,7 +495,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeTariffId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getTariff().setId("12345678901");
 
         try {
@@ -509,7 +509,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeCurrency() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setCurrency("1234");
 
         try {
@@ -523,7 +523,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeFractionInitialAmount() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getInitialAmount().setAmount(new BigDecimal("789.856"));
 
         try {
@@ -537,7 +537,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeIntegerInitialAmount() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getInitialAmount().setAmount(new BigDecimal("1234567890123456.85"));
 
         try {
@@ -551,7 +551,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeInitialAmountCurrency() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getInitialAmount().setCurrency("1234");
 
         try {
@@ -565,7 +565,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizePaymentDay() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setPaymentDay(123);
 
         try {
@@ -579,7 +579,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeDeliveryVirtualDestination() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getDelivery().setVirtualDestination("123456789012345678901234567890123456789012345678901");
 
         try {
@@ -593,7 +593,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeOperationId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getOperation().setId("123456789012345678901234567890123");
 
         try {
@@ -607,7 +607,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeThirdPartyProviderId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getThirdPartyProvider().setId("TDPE1");
 
         try {
@@ -621,7 +621,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeOperationTypeId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getOperation().getOperationType().setId("ALTA12");
 
         try {
@@ -635,7 +635,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeExternalProductId() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().setId("1234567890123456");
 
         try {
@@ -649,7 +649,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeIntegerExternalProductCommercialValueAmount() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValueAmount().setAmount(new BigDecimal("1234567890123456.89"));
 
         try {
@@ -663,7 +663,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeFractionExternalProductCommercialValueAmount() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValueAmount().setAmount(new BigDecimal("123456789012345.897"));
 
         try {
@@ -677,7 +677,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalInvalidSizeExternalProductCommercialValueAmountCurrency() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = getInstance(EXTERNAL_FINANCING_PROPOSAL, ExternalFinancingProposal.class);
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValueAmount().setCurrency("1234");
 
         try {
@@ -687,12 +687,5 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
         }
-    }
-
-
-    private <T> T getInstance(String file, Class<T> claz) throws IOException {
-        InputStream in = Thread.currentThread().getContextClassLoader().
-                getResourceAsStream(file);
-        return objectMapper.readValue(IOUtils.readBytesFromStream(in), claz);
     }
 }

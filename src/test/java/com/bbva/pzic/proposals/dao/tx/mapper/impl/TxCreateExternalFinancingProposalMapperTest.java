@@ -5,9 +5,8 @@ import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMEGAP;
 import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMSGAP1;
+import com.bbva.pzic.proposals.dao.model.ugap.mock.FormatUgapMock;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.cxf.helpers.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -16,9 +15,10 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
-import java.io.InputStream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created on 12/04/2017.
@@ -26,9 +26,6 @@ import static org.junit.Assert.*;
  * @author Entelgy
  */
 public class TxCreateExternalFinancingProposalMapperTest {
-
-    private static final String FORMATO_UGMSGAP1 = "com/bbva/pzic/proposals/dao/model/ugap/mock/FormatoUGMSGAP1.json";
-
     private static final String PROPERTY_DOCUMENT_TYPE_ID_DNI_VALUE_TESTED = "DNI";
     private static final String PROPERTY_DOCUMENT_TYPE_ID_DNI_KEY_TESTED = "L";
 
@@ -42,12 +39,12 @@ public class TxCreateExternalFinancingProposalMapperTest {
     private EnumMapper enumMapper;
 
     private DummyMock dummyMock;
-    private ObjectMapper objectMapper; // FIXME Mover a DummyMock
+    private FormatUgapMock formatUgapMock;
 
     @Before
     public void setUp() {
         dummyMock = new DummyMock();
-        objectMapper = new ObjectMapper();
+        formatUgapMock = new FormatUgapMock();
         MockitoAnnotations.initMocks(this);
         mapInEnum();
     }
@@ -123,7 +120,7 @@ public class TxCreateExternalFinancingProposalMapperTest {
     @Test
     public void mapOutFullTest() throws IOException {
 
-        FormatoUGMSGAP1 formatoUGMSGAP1 = getInstance(FORMATO_UGMSGAP1, FormatoUGMSGAP1.class);
+        FormatoUGMSGAP1 formatoUGMSGAP1 = formatUgapMock.getFormatoUGMSGAP1();
 
         ExternalFinancingProposal result = mapper.mapOut(formatoUGMSGAP1);
         assertNotNull(result);
@@ -141,11 +138,5 @@ public class TxCreateExternalFinancingProposalMapperTest {
         ExternalFinancingProposal result = mapper.mapOut(new FormatoUGMSGAP1());
         assertNotNull(result);
         assertNull(result.getId());
-    }
-
-    private <T> T getInstance(String file, Class<T> claz) throws IOException {
-        InputStream in = Thread.currentThread().getContextClassLoader().
-                getResourceAsStream(file);
-        return objectMapper.readValue(IOUtils.readBytesFromStream(in), claz);
     }
 }
