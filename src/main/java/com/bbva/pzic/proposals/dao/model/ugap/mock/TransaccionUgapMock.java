@@ -9,12 +9,9 @@ import com.bbva.pzic.proposals.dao.model.ugap.PeticionTransaccionUgap;
 import com.bbva.pzic.proposals.dao.model.ugap.RespuestaTransaccionUgap;
 import com.bbva.pzic.proposals.util.Errors;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.cxf.helpers.IOUtils;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Invocador de la transacci&oacute;n <code>UGAP</code>
