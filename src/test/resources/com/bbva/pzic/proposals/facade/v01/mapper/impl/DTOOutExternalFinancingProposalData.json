@@ -1,0 +1,56 @@
+{
+  "data": [
+    {
+      "id": "001101309600000001",
+      "requestDate": "2017-02-17",
+      "openingDate": "2017-02-17",
+      "currency": "PEN",
+      "initialFee": {
+        "amount": 2000.50,
+        "currency": "PEN"
+      },
+      "initialAmount": {
+        "amount": 400.00,
+        "currency": "PEN"
+      },
+      "tariff": {
+        "id": "BBVA001"
+      },
+      "relatedProduct": {
+        "percentage": 0.12,
+        "relatedProductType": {
+          "id": "0250",
+          "name": "Desgravamen individual"
+        }
+      },
+      "documentationDeliveryType": {
+        "id": "VIRTUAL",
+        "name": "Virtual"
+      },
+      "externalProduct": {
+        "id": "919223459",
+        "commercialValueAmount": {
+          "amount": 3500.55,
+          "currency": "PEN"
+        }
+      },
+      "holder": {
+        "name": "Euler",
+        "lastName": "Alvarado",
+        "mohterLastName": "Pachas",
+        "contactsInformation": [
+          {
+            "name": "euler.alvarado@bbva.com"
+          }
+        ]
+      },
+      "operation": {
+        "id": "1123256778"
+      },
+      "status": {
+        "id": "PENDING_SIGNATURE",
+        "name": "Pendiente de firma"
+      }
+    }
+  ]
+}

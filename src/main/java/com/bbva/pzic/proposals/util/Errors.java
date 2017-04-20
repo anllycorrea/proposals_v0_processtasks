@@ -8,25 +8,21 @@ package com.bbva.pzic.proposals.util;
 public final class Errors {
 
     /**
-     * Lanzado cuando se ha realizado una solicitud en la que hay parámetros obligatorios en la entrada y no se han especificado.
-     */
-    public static final String MANDATORY_PARAMETERS_MISSING = "mandatoryParametersMissing";
-
-    /**
      * Lanzado cuando se especifican parámetros cuyos valores son incorrectos en referencia a su sintaxis, tipo de dato, etc.
      */
     public static final String WRONG_PARAMETERS = "wrongParameters";
-
+    /**
+     * Lanzado cuando se ha realizado una solicitud en la que hay parámetros obligatorios en la entrada y no se han especificado.
+     */
+    public static final String MANDATORY_PARAMETERS_MISSING = "mandatoryParametersMissing";
     /**
      * Lanzado cuando se realiza una solicitud con el parámetro especial "expands" y no se le asigna un valor.
      */
     public static final String EXPAND_EMPTY = "expandEmpty";
-
     /**
      * Lanzado cuando se realiza una solicitud con el parámetro especial "expands" y el elemento que queremos expandir no es una subentidad de la entidad reflejada en la uri.
      */
     public static final String EXPAND_ERROR = "expandError";
-
     /**
      * Lanzado cuando en el servicio se considera que se ha producido un error técnico.
      */

@@ -1,6 +1,5 @@
 package com.bbva.pzic.proposals.canonic;
 
-import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -9,6 +8,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * Created on 12/04/2017.
+ *
  * @author Entelgy
  */
 @XmlRootElement(name = "Proposal", namespace = "urn:com:bbva:pzic:proposals:canonic")
@@ -22,73 +23,53 @@ public class Proposal implements Serializable {
      */
     private String id;
     /**
-     * Person who has the proposal.
+     * Customer Identifier.
      */
-    @Valid
-    private Participant participant;
+    private String customerId;
     /**
-     * Hiring type.
+     * Procurement flow.
      */
-    @Valid
-    private HiringType hiringType;
+    private ProcurementFlow procurementFlow;
     /**
      * Indicators related to the Proposal.
      */
-    @Valid
     private List<Indicator> indicators;
     /**
      * Campaign of the Proposal.
      */
-    @Valid
     private Campaign campaign;
     /**
      * Term of the product related to the proposal.
      */
-    @Valid
     private Term term;
     /**
      * Product related to the proposal.
      */
-    @Valid
     private Product product;
     /**
      * List of rates related to the product.
      */
-    @Valid
     private List<Rate> rates;
     /**
      * List of ranges related to the proposal product.
      */
-    @Valid
     private List<Range> ranges;
     /**
      * List of calculated Instalments.
      */
-    @Valid
     private List<Instalment> instalments;
     /**
      * List of limits related to the product proposal.
      */
-    @Valid
     private List<Limit> limits;
     /**
      * Risk type of the Proposal.
      */
-    @Valid
     private RiskType riskType;
     /**
      * Proposal internal code.
      */
     private String internalCode;
-    /**
-     * Procurement flow.
-     */
-    private ProcurementFlow procurementFlow;
-
-    /**
-     * Customer Identifier.
-     */
-    private String customerId;
 
     public String getId() {
         return id;
@@ -98,20 +79,20 @@ public class Proposal implements Serializable {
         this.id = id;
     }
 
-    public Participant getParticipant() {
-        return participant;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setParticipant(Participant participant) {
-        this.participant = participant;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
-    public HiringType getHiringType() {
-        return hiringType;
+    public ProcurementFlow getProcurementFlow() {
+        return procurementFlow;
     }
 
-    public void setHiringType(HiringType hiringType) {
-        this.hiringType = hiringType;
+    public void setProcurementFlow(ProcurementFlow procurementFlow) {
+        this.procurementFlow = procurementFlow;
     }
 
     public List<Indicator> getIndicators() {
@@ -192,21 +173,5 @@ public class Proposal implements Serializable {
 
     public void setInternalCode(String internalCode) {
         this.internalCode = internalCode;
-    }
-
-    public ProcurementFlow getProcurementFlow() {
-        return procurementFlow;
-    }
-
-    public void setProcurementFlow(ProcurementFlow procurementFlow) {
-        this.procurementFlow = procurementFlow;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
     }
 }

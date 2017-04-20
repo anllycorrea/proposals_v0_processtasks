@@ -33,7 +33,18 @@ import java.util.Date;
 public class DateToStringConverter extends BidirectionalConverter<Date, String> {
 
     private final String pattern;
-    private final ThreadLocal<SimpleDateFormat> dateFormats = new ThreadLocal<SimpleDateFormat>();
+    private final ThreadLocal<SimpleDateFormat> dateFormats = new ThreadLocal<>();
+
+    /**
+     * Constructs a new instance of DateToStringConverter capable of
+     * parsing and constructing Date strings according to the provided format.
+     *
+     * @param format the format descriptor, processed according to the rules
+     *               defined in {@link java.text.SimpleDateFormat}
+     */
+    public DateToStringConverter(final DateFormatsBBVA format) {
+        this.pattern = format.pattern;
+    }
 
     /**
      * @return a SimpleDateFormat instance safe for use in the current thread
@@ -44,18 +55,8 @@ public class DateToStringConverter extends BidirectionalConverter<Date, String> 
             formatter = new SimpleDateFormat(pattern);
             dateFormats.set(formatter);
         }
+        formatter.setLenient(false);
         return formatter;
-    }
-
-    /**
-     * Constructs a new instance of DateToStringConverter capable of
-     * parsing and constructing Date strings according to the provided format.
-     *
-     * @param format the format descriptor, processed according to the rules
-     *               defined in {@link java.text.SimpleDateFormat}
-     */
-    public DateToStringConverter(final String format) {
-        this.pattern = format;
     }
 
     @Override
@@ -69,6 +70,16 @@ public class DateToStringConverter extends BidirectionalConverter<Date, String> 
             return getDateFormat().parse(source);
         } catch (ParseException e) {
             return null;
+        }
+    }
+
+    public enum DateFormatsBBVA {
+        SHORT_FORMAT("yyyy-MM-dd");
+
+        String pattern;
+
+        DateFormatsBBVA(String pattern) {
+            this.pattern = pattern;
         }
     }
 }

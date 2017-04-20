@@ -2,19 +2,29 @@ package com.bbva.pzic.proposals.facade.v01.mapper.impl;
 
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
 import com.bbva.pzic.proposals.facade.v01.mapper.IListProposalsMapper;
+import com.bbva.pzic.proposals.util.PropertyReader;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class ListProposalsMapperTest {
 
+    @InjectMocks
     private IListProposalsMapper proposalsMapper;
+
+    @Mock
+    private PropertyReader propertyReader;
 
     @Before
     public void init() {
         proposalsMapper = new ListProposalsMapper();
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
@@ -25,13 +35,18 @@ public class ListProposalsMapperTest {
         final String productClassification = "CREDIT_CARD";
         final String paginationKey = "123456789qwertyuio";
         final Long pageSize = 123L;
+
+        Mockito.when(propertyReader.getInputEnumPropertyValue("documentType.id", documentType)).thenReturn("L");
+        Mockito.when(propertyReader.getInputEnumPropertyValue("product.productClassification.id", productClassification)).thenReturn("CC");
+
         final DTOInputListProposals dtoInputListProposals = proposalsMapper.mapInput(customerId, documentType, documentNumber,
                 productClassification, paginationKey, pageSize);
+
         assertNotNull(dtoInputListProposals);
         assertEquals(customerId, dtoInputListProposals.getCustomerId());
-        assertEquals(documentType, dtoInputListProposals.getDocumentType());
+        assertEquals("L", dtoInputListProposals.getDocumentType());
         assertEquals(documentNumber, dtoInputListProposals.getDocumentNumber());
-        assertEquals(productClassification, dtoInputListProposals.getProductClassificationId());
+        assertEquals("CC", dtoInputListProposals.getProductClassificationId());
         assertEquals(paginationKey, dtoInputListProposals.getPaginationKey());
         assertEquals(pageSize, dtoInputListProposals.getPageSize());
     }

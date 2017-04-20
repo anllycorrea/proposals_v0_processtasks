@@ -13,6 +13,11 @@
 	    <fileSet>
             <directory>target/classes/com/bbva/pzic/proposals/dao</directory>
             <outputDirectory>com/bbva/pzic/proposals/dao</outputDirectory>
+			<excludes>
+				<exclude>
+					**/model/*/Transaccion*.class
+				</exclude>
+			</excludes>
 		</fileSet>
 		<fileSet>
 			<directory>target/classes/com/bbva/pzic/proposals/canonic</directory>

@@ -48,9 +48,8 @@ public class DefaultValidator implements Validator {
             LOG.error(String.format("Error en validación de campo %s. Mensaje: %s.", propertyPath, message));
             List<?> constraintValidatorClasses =
                     constraintViolation.getConstraintDescriptor().getConstraintValidatorClasses();
-            if (constraintValidatorClasses != null
-                    && !constraintValidatorClasses.isEmpty()
-                    && (constraintValidatorClasses.get(0)) == org.hibernate.validator.constraints.impl.NotNullValidator.class) {
+            if (!constraintValidatorClasses.isEmpty() &&
+                    constraintValidatorClasses.get(0) == org.hibernate.validator.constraints.impl.NotNullValidator.class) {
                 throw new BusinessServiceException(Errors.MANDATORY_PARAMETERS_MISSING, message);
             } else {
                 throw new BusinessServiceException(Errors.WRONG_PARAMETERS, message);

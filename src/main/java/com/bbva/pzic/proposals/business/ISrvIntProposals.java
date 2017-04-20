@@ -1,6 +1,7 @@
 package com.bbva.pzic.proposals.business;
 
-import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
+import com.bbva.pzic.proposals.business.dto.*;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 
 /**
@@ -11,14 +12,24 @@ import com.bbva.pzic.proposals.canonic.ProposalData;
 public interface ISrvIntProposals {
 
     /**
-     * Validates all constraints on {@paramref queryFilter} and then gets all proposals of products that
+     * Validates all constraints on queryFilter and then gets all proposals of products that
      * match the query filter
      *
-     * @param queryFilter
+     * @param queryFilter filter
      * @return a list of proposals
      * @throws com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException if a constraint violation occurred
      */
     ProposalData listProposals(DTOInputListProposals queryFilter);
 
+    /**
+     * Validacion de parametros de entrada, tamaño y obligatoriedad
+     *
+     * @param dtoIn DTO con los datos de entrada
+     * @return {@link DTOOutExternalFinancingProposalData}
+     */
+    DTOOutExternalFinancingProposalData listExternalFinancingProposals(DTOInputListExternalFinancingProposals dtoIn);
 
+    ExternalFinancingProposal createExternalFinancingProposal(DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal);
+
+    void modifyExternalFinancingProposal(DTOInputModifyExternalFinancingProposal dtoIn);
 }

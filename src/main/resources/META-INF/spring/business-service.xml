@@ -42,9 +42,6 @@
     </cxf:bus>
 
     <jaxrs:server address="/${sa:logicalId}">
-        <jaxrs:inInterceptors>
-            <ref bean="interceptorRequestRestPut"/>
-        </jaxrs:inInterceptors>
         <jaxrs:providers>
             <ref bean="businessServiceJAXRSExceptionMapper"/>
             <ref bean="wadlGenerator"/>

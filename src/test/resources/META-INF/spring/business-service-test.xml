@@ -34,6 +34,7 @@
 
     <context:component-scan base-package="com.bbva.pzic.proposals">
         <context:exclude-filter expression=".*_Roo_.*" type="regex"/>
+        <context:exclude-filter expression="com\.bbva\.pzic\.[^.]*\.dao\.model\.[^.]*\.Transaccion.*" type="regex"/>
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
 
@@ -45,22 +46,8 @@
     </cxf:bus>
 
     <jaxrs:server address="/${sa:logicalId}">
-        <jaxrs:inInterceptors>
-            <ref bean="interceptorRequestRestPut"/>
-        </jaxrs:inInterceptors>
-        <jaxrs:providers>
-            <ref bean="businessServiceJAXRSExceptionMapper"/>
-            <ref bean="wadlGenerator"/>
-            <ref bean="jacksonJsonProvider"/>
-            <ref bean="resourceWriter"/>
-            <ref bean="apiWriter"/>
-        </jaxrs:providers>
-        <jaxrs:extensionMappings>
-            <entry key="json" value="application/json"/>
-        </jaxrs:extensionMappings>
         <jaxrs:serviceBeans>
             <ref bean="srvProposalsV01"/>
-            <ref bean="swaggerResourceJSON"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
 
@@ -71,5 +58,4 @@
             </bean>
         </property>
     </bean>
-
 </beans>

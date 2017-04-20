@@ -1,0 +1,11 @@
+{
+  "status": {
+    "id": "PENDING_SIGNATURE"
+  },
+  "delivery": {
+    "deliveryType": {
+      "id": "VIRTUAL"
+    },
+    "virtualDestination": "euler.alvarado@bbva.com"
+  }
+}
