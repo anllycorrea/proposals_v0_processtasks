@@ -34,8 +34,14 @@ public class EnumMapperTest {
     }
 
     @Test
-    public void testGetNullGetBackendValue() {
+    public void testGetNullBackendValue() {
         String value = enumMapper.getBackendValue("documentType.id", null);
+        assertNull(value);
+    }
+
+    @Test
+    public void testGetNullBackendValueWithEmptyParameter() {
+        String value = enumMapper.getBackendValue("documentType.id", "");
         assertNull(value);
     }
 
@@ -57,6 +63,12 @@ public class EnumMapperTest {
     @Test
     public void testGetNullEnumValue() throws Exception {
         String value = enumMapper.getEnumValue("documentType.id", null);
+        assertNull(value);
+    }
+
+    @Test
+    public void testGetNullEnumValueWithEmptyParameter() throws Exception {
+        String value = enumMapper.getEnumValue("documentType.id", "");
         assertNull(value);
     }
 

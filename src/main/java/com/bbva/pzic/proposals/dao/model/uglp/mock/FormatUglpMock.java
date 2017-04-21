@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Component
 public class FormatUglpMock {
+
     private ObjectMapper objectMapper;
 
     public FormatUglpMock() {
@@ -31,6 +32,5 @@ public class FormatUglpMock {
     public FormatoUGMSGLP2 getFormatoUGMSGLP2() throws IOException {
         return objectMapper.readValue(Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream("com/bbva/pzic/proposals/dao/model/uglp/mock/formatoUGMSGLP2.json"), FormatoUGMSGLP2.class);
-
     }
 }

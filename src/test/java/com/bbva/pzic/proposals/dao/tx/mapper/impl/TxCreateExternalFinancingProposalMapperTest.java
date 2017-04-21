@@ -16,9 +16,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * Created on 12/04/2017.
