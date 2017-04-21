@@ -36,5 +36,4 @@ public class ListProposalsDAO extends RestGetConnection<FormatProposalData> impl
                 connect(LIST_PROPOSALS_URL_PROPOSALS, proposalsDAOMapper.mapInput(queryFilter));
         return proposalsDAOMapper.mapOutput(formatProposalData);
     }
-
 }

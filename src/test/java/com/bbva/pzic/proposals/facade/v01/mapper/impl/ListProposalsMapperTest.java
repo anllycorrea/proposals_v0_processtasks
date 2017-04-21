@@ -2,7 +2,7 @@ package com.bbva.pzic.proposals.facade.v01.mapper.impl;
 
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
 import com.bbva.pzic.proposals.facade.v01.mapper.IListProposalsMapper;
-import com.bbva.pzic.proposals.util.PropertyReader;
+import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -19,7 +19,7 @@ public class ListProposalsMapperTest {
     private IListProposalsMapper proposalsMapper;
 
     @Mock
-    private PropertyReader propertyReader;
+    private EnumMapper propertyReader;
 
     @Before
     public void init() {
@@ -36,8 +36,8 @@ public class ListProposalsMapperTest {
         final String paginationKey = "123456789qwertyuio";
         final Long pageSize = 123L;
 
-        Mockito.when(propertyReader.getInputEnumPropertyValue("documentType.id", documentType)).thenReturn("L");
-        Mockito.when(propertyReader.getInputEnumPropertyValue("product.productClassification.id", productClassification)).thenReturn("CC");
+        Mockito.when(propertyReader.getBackendValue("documentType.id", documentType)).thenReturn("L");
+        Mockito.when(propertyReader.getBackendValue("product.productClassification.id", productClassification)).thenReturn("CC");
 
         final DTOInputListProposals dtoInputListProposals = proposalsMapper.mapInput(customerId, documentType, documentNumber,
                 productClassification, paginationKey, pageSize);
@@ -50,5 +50,4 @@ public class ListProposalsMapperTest {
         assertEquals(paginationKey, dtoInputListProposals.getPaginationKey());
         assertEquals(pageSize, dtoInputListProposals.getPageSize());
     }
-
 }

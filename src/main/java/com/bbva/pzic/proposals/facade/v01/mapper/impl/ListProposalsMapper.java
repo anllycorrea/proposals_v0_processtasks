@@ -4,7 +4,7 @@ import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.facade.v01.mapper.IListProposalsMapper;
-import com.bbva.pzic.proposals.util.PropertyReader;
+import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class ListProposalsMapper implements IListProposalsMapper {
 
     @Autowired
-    private PropertyReader propertyReader;
+    private EnumMapper enumMapper;
 
     private EnumeratorConverter enumeratorConverter;
 
@@ -60,9 +60,9 @@ public class ListProposalsMapper implements IListProposalsMapper {
         private static final String PROCUREMENT_FLOW_ID_ID_FIELD_PROPERTY = "proposals.procurementFlow.id";
 
         private void convertInput(final DTOInputListProposals dtoInputListProposals) {
-            dtoInputListProposals.setDocumentType(propertyReader.getInputEnumPropertyValue(DOCUMENT_TYPE_FIELD_PROPERTY, dtoInputListProposals.getDocumentType()));
+            dtoInputListProposals.setDocumentType(enumMapper.getBackendValue(DOCUMENT_TYPE_FIELD_PROPERTY, dtoInputListProposals.getDocumentType()));
             dtoInputListProposals.setProductClassificationId(
-                    propertyReader.getInputEnumPropertyValue(PRODUCT_CLASSIFICATION_FIELD_PROPERTY, dtoInputListProposals.getProductClassificationId()));
+                    enumMapper.getBackendValue(PRODUCT_CLASSIFICATION_FIELD_PROPERTY, dtoInputListProposals.getProductClassificationId()));
         }
 
         private void convertOutput(final ProposalData proposalData) {
@@ -70,28 +70,28 @@ public class ListProposalsMapper implements IListProposalsMapper {
                 if (proposal.getProduct() != null) {
                     if (proposal.getProduct().getProductClassification() != null) {
                         proposal.getProduct().getProductClassification().setId(
-                                propertyReader.getOutputEnumPropertyValue(PRODUCT_CLASSIFICATION_FIELD_PROPERTY,
+                                enumMapper.getEnumValue(PRODUCT_CLASSIFICATION_FIELD_PROPERTY,
                                         proposal.getProduct().getProductClassification().getId()));
                     }
                     if (proposal.getProduct().getProductType() != null) {
                         proposal.getProduct().getProductType().setId(
-                                propertyReader.getOutputEnumPropertyValue(PRODUCT_TYPE_ID_FIELD_PROPERTY,
+                                enumMapper.getEnumValue(PRODUCT_TYPE_ID_FIELD_PROPERTY,
                                         proposal.getProduct().getProductType().getId()));
                     }
                 }
                 if (proposal.getProcurementFlow() != null) {
                     proposal.getProcurementFlow().setId(
-                            propertyReader.getOutputEnumPropertyValue(PROCUREMENT_FLOW_ID_ID_FIELD_PROPERTY,
+                            enumMapper.getEnumValue(PROCUREMENT_FLOW_ID_ID_FIELD_PROPERTY,
                                     proposal.getProcurementFlow().getId()));
                 }
                 if (proposal.getTerm() != null) {
                     proposal.getTerm().setId(
-                            propertyReader.getOutputEnumPropertyValue(TERM_ID_FIELD_PROPERTY,
+                            enumMapper.getEnumValue(TERM_ID_FIELD_PROPERTY,
                                     proposal.getTerm().getId()));
                 }
                 if (proposal.getRiskType() != null) {
                     proposal.getRiskType().setId(
-                            propertyReader.getOutputEnumPropertyValue(RISK_TYPE_ID_FIELD_PROPERTY,
+                            enumMapper.getEnumValue(RISK_TYPE_ID_FIELD_PROPERTY,
                                     proposal.getRiskType().getId()));
                 }
             }
