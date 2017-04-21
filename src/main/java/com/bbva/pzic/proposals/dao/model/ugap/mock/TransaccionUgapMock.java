@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
  */
 @Component("transaccionUgap")
 public class TransaccionUgapMock implements InvocadorTransaccion<PeticionTransaccionUgap, RespuestaTransaccionUgap> {
+
     public static final String NRO_DOCUMENTO = "1234567890";
 
     @Autowired
@@ -47,5 +48,4 @@ public class TransaccionUgapMock implements InvocadorTransaccion<PeticionTransac
         copy.setCopy(object);
         return copy;
     }
-
 }

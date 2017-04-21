@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.bbva.pzic</groupId>
         <artifactId>pom-padre_pzic</artifactId>
         <version>2.0.0</version>
     </parent>
+
     <groupId>com.bbva.pzic.proposals</groupId>
-  	<artifactId>pzic_proposals</artifactId>
+    <artifactId>pzic_proposals</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-  	<name>pzic_proposals</name>
+    <name>pzic_proposals</name>
 
     <repositories/>
     <pluginRepositories/>
@@ -349,7 +351,7 @@
                                 <descriptor>generacionFacade.xml</descriptor>
                                 <descriptor>generacionSN.xml</descriptor>
                             </descriptors>
-                            <outputDirectory>target/Rest</outputDirectory>
+                            <outputDirectory>target/Real</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>

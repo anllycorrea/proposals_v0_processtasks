@@ -4,5 +4,6 @@ Service for managing the proposals of a person.
 
 ***
 #### v 1.0.0
+- Modification on enum mapping with empty string.
 - Adding new attribute **internalCode** and removing host field **valtipo**. Mail request *[Normal][Venta TC Zona Pública][Modificación] Requerimiento de cambio [offers]/[proposals]*
 - Initial version

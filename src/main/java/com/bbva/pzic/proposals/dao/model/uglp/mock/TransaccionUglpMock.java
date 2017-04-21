@@ -23,6 +23,7 @@ public class TransaccionUglpMock implements InvocadorTransaccion<PeticionTransac
 
     public static final String TEST_EMPTY = "9999";
     public static final String TEST_NOT_PAGINATION = "8888";
+
     @Autowired
     private FormatUglpMock mock;
 

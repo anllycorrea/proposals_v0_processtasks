@@ -33,7 +33,7 @@ public class EnumMapper {
     }
 
     private String getProperty(final String base, final String value) {
-        if (value == null) {
+        if (value == null || value.isEmpty()) {
             return null;
         }
 

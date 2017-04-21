@@ -15,12 +15,12 @@ import java.io.IOException;
  */
 @Component
 public class FormatUgapMock {
+
     private ObjectMapper objectMapper;
 
     public FormatUgapMock() {
         objectMapper = new ObjectMapper();
     }
-
 
     public FormatoUGMSGAP1 getFormatoUGMSGAP1() {
         try {

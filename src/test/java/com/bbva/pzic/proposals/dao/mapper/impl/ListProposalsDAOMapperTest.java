@@ -3,15 +3,12 @@ package com.bbva.pzic.proposals.dao.mapper.impl;
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.ProposalData;
+import com.bbva.pzic.proposals.dao.mapper.IListProposalsDAOMapper;
 import com.bbva.pzic.proposals.dao.model.listproposals.FormatProposal;
 import com.bbva.pzic.proposals.dao.model.listproposals.FormatProposalData;
-import com.bbva.pzic.proposals.util.PropertyReader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,15 +19,11 @@ import static org.junit.Assert.*;
 
 public class ListProposalsDAOMapperTest {
 
-    @InjectMocks
-    private ListProposalsDAOMapper listProposalsDAOMapper;
-
-    @Mock
-    private PropertyReader propertyReader;
+    private IListProposalsDAOMapper listProposalsDAOMapper;
 
     @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
+        listProposalsDAOMapper = new ListProposalsDAOMapper();
     }
 
     @Test
