@@ -39,6 +39,7 @@ public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper 
                 .field("impbien", "externalProduct.commercialValue.amount")
                 .field("codcnc", "thirdPartyProvider.externalSalesChannel.id")
                 .field("codemp", "thirdPartyProvider.id")
+                .field("cocliex", "thirdPartyProvider.userId")
                 .register();
     }
 
@@ -54,7 +55,7 @@ public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper 
                     dtoIn.getDocumentTypeId()));
         }
         if (dtoIn.getDeliveryTypeId() != null) {
-            formatoUGMEGAP.setTipenvi(enumMapper.getBackendValue("externalFinancingProposals.delivery.type.id",
+            formatoUGMEGAP.setTipenvi(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id",
                     dtoIn.getDeliveryTypeId()));
         }
 

@@ -24,11 +24,6 @@
     },
     "email": "euler.alvarado@bbva.com"
   },
-  "delivery": {
-    "deliveryType": {
-      "id": "PHYSICAL"
-    }
-  },
   "operation": {
     "id": "1123256778",
     "operationType": {

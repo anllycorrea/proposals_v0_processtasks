@@ -9,6 +9,7 @@ privileged aspect FormatoUGMEGAP_Roo_ToString {
     
     public String FormatoUGMEGAP.toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Cocliex: ").append(getCocliex()).append(", ");
         sb.append("Codbien: ").append(getCodbien()).append(", ");
         sb.append("Codcnc: ").append(getCodcnc()).append(", ");
         sb.append("Codemp: ").append(getCodemp()).append(", ");

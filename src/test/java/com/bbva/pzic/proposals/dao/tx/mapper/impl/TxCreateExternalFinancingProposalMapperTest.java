@@ -50,7 +50,7 @@ public class TxCreateExternalFinancingProposalMapperTest {
     private void mapInEnum() {
         Mockito.when(enumMapper.getBackendValue("documentType.id",
                 PROPERTY_DOCUMENT_TYPE_ID_DNI_VALUE_TESTED)).thenReturn(PROPERTY_DOCUMENT_TYPE_ID_DNI_KEY_TESTED);
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.type.id",
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id",
                 PROPERTY_DELIVERY_TYPE_ID_VIRTUAL_VALUE_TESTED)).thenReturn(PROPERTY_DELIVERY_TYPE_ID_VIRTUAL_KEY_TESTED);
     }
 
@@ -60,35 +60,37 @@ public class TxCreateExternalFinancingProposalMapperTest {
         FormatoUGMEGAP result = mapper.mapIn(dtoIntExternalFinancingProposal);
 
         assertNotNull(result);
+        assertNotNull(result.getMoneda());
+        assertNotNull(result.getDiapago());
+        assertNotNull(result.getImpfina());
+        assertNotNull(result.getTarifa());
+        assertNotNull(result.getTipenvi());
+        assertNotNull(result.getMailcon());
+        assertNotNull(result.getCodbien());
+        assertNotNull(result.getImpbien());
         assertNotNull(result.getTipdocu());
         assertNotNull(result.getNrodocu());
-        assertNotNull(result.getTarifa());
-        assertNotNull(result.getImpfina());
-        assertNotNull(result.getDiapago());
-        assertNotNull(result.getMailcon());
-        assertNotNull(result.getTipenvi());
-        assertNotNull(result.getMoneda());
         assertNotNull(result.getIdtoken());
-        assertNotNull(result.getImpbien());
-        assertNotNull(result.getCodbien());
         assertNotNull(result.getCodtr());
-        assertNotNull(result.getCodcnc());
         assertNotNull(result.getCodemp());
+        assertNotNull(result.getCodcnc());
+        assertNotNull(result.getCocliex());
 
-        assertEquals(PROPERTY_DOCUMENT_TYPE_ID_DNI_KEY_TESTED, result.getTipdocu());
-        assertEquals(dtoIntExternalFinancingProposal.getDocumentNumber(), result.getNrodocu());
-        assertEquals(dtoIntExternalFinancingProposal.getTariff().getId(), result.getTarifa());
         assertEquals(dtoIntExternalFinancingProposal.getCurrency(), result.getMoneda());
-        assertEquals(dtoIntExternalFinancingProposal.getInitialAmount().getAmount(), result.getImpfina());
         assertEquals(dtoIntExternalFinancingProposal.getPaymentDay(), result.getDiapago());
+        assertEquals(dtoIntExternalFinancingProposal.getInitialAmount().getAmount(), result.getImpfina());
+        assertEquals(dtoIntExternalFinancingProposal.getTariff().getId(), result.getTarifa());
         assertEquals(PROPERTY_DELIVERY_TYPE_ID_VIRTUAL_KEY_TESTED, result.getTipenvi());
         assertEquals(dtoIntExternalFinancingProposal.getEmail(), result.getMailcon());
-        assertEquals(dtoIntExternalFinancingProposal.getOperation().getId(), result.getIdtoken());
-        assertEquals(dtoIntExternalFinancingProposal.getOperation().getOperationType().getId(), result.getCodtr());
         assertEquals(dtoIntExternalFinancingProposal.getExternalProduct().getId(), result.getCodbien());
         assertEquals(dtoIntExternalFinancingProposal.getExternalProduct().getCommercialValue().getAmount(), result.getImpbien());
-        assertEquals(dtoIntExternalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getCodcnc());
+        assertEquals(PROPERTY_DOCUMENT_TYPE_ID_DNI_KEY_TESTED, result.getTipdocu());
+        assertEquals(dtoIntExternalFinancingProposal.getDocumentNumber(), result.getNrodocu());
+        assertEquals(dtoIntExternalFinancingProposal.getOperation().getId(), result.getIdtoken());
+        assertEquals(dtoIntExternalFinancingProposal.getOperation().getOperationType().getId(), result.getCodtr());
         assertEquals(dtoIntExternalFinancingProposal.getThirdPartyProvider().getId(), result.getCodemp());
+        assertEquals(dtoIntExternalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getCodcnc());
+        assertEquals(dtoIntExternalFinancingProposal.getThirdPartyProvider().getUserId(), result.getCocliex());
     }
 
     @Test

@@ -121,4 +121,12 @@ privileged aspect FormatoUGMEGAP_Roo_JavaBean {
         this.codemp = codemp;
     }
     
+    public String FormatoUGMEGAP.getCocliex() {
+        return this.cocliex;
+    }
+    
+    public void FormatoUGMEGAP.setCocliex(String cocliex) {
+        this.cocliex = cocliex;
+    }
+    
 }

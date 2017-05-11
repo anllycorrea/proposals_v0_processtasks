@@ -1,6 +1,7 @@
 package com.bbva.pzic.proposals.facade.v01.mapper.impl;
 
 import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
+import com.bbva.pzic.proposals.business.dto.DTOIntThirdPartyProvider;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.Holder;
 import com.bbva.pzic.proposals.canonic.IdentityDocument;
@@ -52,7 +53,13 @@ public class CreateExternalFinancingProposalMapper extends ConfigurableMapper im
         }
 
         DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal = map(externalFinancingProposal, DTOIntExternalFinancingProposal.class);
-        dtoIntExternalFinancingProposal.setThirdPartyProviderUserId(thirdPartyProviderUserId);
+        if (thirdPartyProviderUserId != null) {
+            if (dtoIntExternalFinancingProposal.getThirdPartyProvider() == null) {
+                dtoIntExternalFinancingProposal.setThirdPartyProvider(new DTOIntThirdPartyProvider());
+            }
+            dtoIntExternalFinancingProposal.getThirdPartyProvider().setUserId(thirdPartyProviderUserId);
+        }
+
         if (hasIdentityDocument(externalFinancingProposal.getHolder())) {
             IdentityDocument identityDocument = externalFinancingProposal.getHolder().getIdentityDocuments().get(FIRST);
 

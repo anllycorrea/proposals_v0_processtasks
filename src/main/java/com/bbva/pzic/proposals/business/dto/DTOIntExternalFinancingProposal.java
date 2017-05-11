@@ -54,8 +54,6 @@ public class DTOIntExternalFinancingProposal {
     })
     private String email;
 
-    private String thirdPartyProviderUserId;
-
     public String getCurrency() {
         return currency;
     }
@@ -151,13 +149,5 @@ public class DTOIntExternalFinancingProposal {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getThirdPartyProviderUserId() {
-        return thirdPartyProviderUserId;
-    }
-
-    public void setThirdPartyProviderUserId(String thirdPartyProviderUserId) {
-        this.thirdPartyProviderUserId = thirdPartyProviderUserId;
     }
 }
