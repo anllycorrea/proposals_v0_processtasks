@@ -32,11 +32,11 @@ public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper 
                 .field("moneda", "currency")
                 .field("impfina", "initialAmount.amount")
                 .field("diapago", "paymentDay")
-                .field("mailcon", "deliveryVirtualDestination")
+                .field("mailcon", "email")
                 .field("idtoken", "operation.id")
                 .field("codtr", "operation.operationType.id")
                 .field("codbien", "externalProduct.id")
-                .field("impbien", "externalProduct.commercialValueAmount.amount")
+                .field("impbien", "externalProduct.commercialValue.amount")
                 .field("codcnc", "thirdPartyProvider.externalSalesChannel.id")
                 .field("codemp", "thirdPartyProvider.id")
                 .register();

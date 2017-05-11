@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
- * Created on 26/01/2017.
+ * Created on 10/05/2017.
  *
  * @author Entelgy
  */
@@ -41,5 +41,4 @@ public class ProcurementFlow implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
 }

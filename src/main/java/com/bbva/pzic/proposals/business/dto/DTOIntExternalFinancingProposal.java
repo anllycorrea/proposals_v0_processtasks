@@ -52,7 +52,9 @@ public class DTOIntExternalFinancingProposal {
             ValidationGroup.CreateExternalFinancingProposal.class,
             ValidationGroup.ModifyExternalFinancingProposal.class
     })
-    private String deliveryVirtualDestination;
+    private String email;
+
+    private String thirdPartyProviderUserId;
 
     public String getCurrency() {
         return currency;
@@ -143,11 +145,19 @@ public class DTOIntExternalFinancingProposal {
         this.deliveryTypeId = deliveryTypeId;
     }
 
-    public String getDeliveryVirtualDestination() {
-        return deliveryVirtualDestination;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDeliveryVirtualDestination(String deliveryVirtualDestination) {
-        this.deliveryVirtualDestination = deliveryVirtualDestination;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getThirdPartyProviderUserId() {
+        return thirdPartyProviderUserId;
+    }
+
+    public void setThirdPartyProviderUserId(String thirdPartyProviderUserId) {
+        this.thirdPartyProviderUserId = thirdPartyProviderUserId;
     }
 }

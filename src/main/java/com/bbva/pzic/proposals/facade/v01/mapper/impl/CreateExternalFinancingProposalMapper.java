@@ -30,29 +30,29 @@ public class CreateExternalFinancingProposalMapper extends ConfigurableMapper im
                 .field("initialAmount.currency", "initialAmount.currency")
                 .field("paymentDay", "paymentDay")
                 .field("delivery.deliveryType.id", "deliveryTypeId")
-                .field("delivery.virtualDestination", "deliveryVirtualDestination")
+                .field("delivery.email", "email")
                 .field("operation.id", "operation.id")
                 .field("operation.operationType.id", "operation.operationType.id")
                 .field("externalProduct.id", "externalProduct.id")
-                .field("externalProduct.commercialValueAmount.amount", "externalProduct.commercialValueAmount.amount")
-                .field("externalProduct.commercialValueAmount.currency", "externalProduct.commercialValueAmount.currency")
+                .field("externalProduct.commercialValue.amount", "externalProduct.commercialValue.amount")
+                .field("externalProduct.commercialValue.currency", "externalProduct.commercialValue.currency")
                 .field("thirdPartyProvider.externalSalesChannel.id", "thirdPartyProvider.externalSalesChannel.id")
                 .field("thirdPartyProvider.id", "thirdPartyProvider.id")
                 .register();
     }
 
     /**
-     * @see ICreateExternalFinancingProposalMapper#mapIn(ExternalFinancingProposal)
+     * @see ICreateExternalFinancingProposalMapper#mapIn(String, com.bbva.pzic.proposals.canonic.ExternalFinancingProposal)
      */
     @Override
-    public DTOIntExternalFinancingProposal mapIn(ExternalFinancingProposal externalFinancingProposal) {
+    public DTOIntExternalFinancingProposal mapIn(final String thirdPartyProviderUserId, final ExternalFinancingProposal externalFinancingProposal) {
 
         if (externalFinancingProposal == null) {
             return null;
         }
 
         DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal = map(externalFinancingProposal, DTOIntExternalFinancingProposal.class);
-
+        dtoIntExternalFinancingProposal.setThirdPartyProviderUserId(thirdPartyProviderUserId);
         if (hasIdentityDocument(externalFinancingProposal.getHolder())) {
             IdentityDocument identityDocument = externalFinancingProposal.getHolder().getIdentityDocuments().get(FIRST);
 

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created on 12/04/2017.
+ * Created on 10/05/2017.
  *
  * @author Entelgy
  */
@@ -26,6 +26,11 @@ public class Proposal implements Serializable {
      * Customer Identifier.
      */
     private String customerId;
+    /**
+     * Proposal internal code. Code to identify the internal sub-product type
+     * associated to the proposal.
+     */
+    private String internalCode;
     /**
      * Procurement flow.
      */
@@ -66,10 +71,6 @@ public class Proposal implements Serializable {
      * Risk type of the Proposal.
      */
     private RiskType riskType;
-    /**
-     * Proposal internal code.
-     */
-    private String internalCode;
 
     public String getId() {
         return id;
@@ -85,6 +86,14 @@ public class Proposal implements Serializable {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public String getInternalCode() {
+        return internalCode;
+    }
+
+    public void setInternalCode(String internalCode) {
+        this.internalCode = internalCode;
     }
 
     public ProcurementFlow getProcurementFlow() {
@@ -165,13 +174,5 @@ public class Proposal implements Serializable {
 
     public void setRiskType(RiskType riskType) {
         this.riskType = riskType;
-    }
-
-    public String getInternalCode() {
-        return internalCode;
-    }
-
-    public void setInternalCode(String internalCode) {
-        this.internalCode = internalCode;
     }
 }

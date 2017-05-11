@@ -18,6 +18,7 @@ import java.io.IOException;
 public class DummyMock {
 
     public static final String EXTERNAL_FINANCING_PROPOSAL_ID = "001101309600000001";
+    public static final String THIRD_PARTY_PROVIDER_USER_ID = "12312432";
 
     private ObjectMapper objectMapper;
 
@@ -27,7 +28,7 @@ public class DummyMock {
 
     public DTOOutExternalFinancingProposalData getDtoOutExternalFinancingProposalData() throws IOException {
         return objectMapper.readValue(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("com/bbva/pzic/proposals/facade/v01/mapper/impl/DTOOutExternalFinancingProposalData.json"), DTOOutExternalFinancingProposalData.class);
+                .getResourceAsStream("json/DTOOutExternalFinancingProposalData.json"), DTOOutExternalFinancingProposalData.class);
     }
 
     public DTOInputListExternalFinancingProposals getDtoInputListExternalFinancingProposals() {
@@ -61,6 +62,6 @@ public class DummyMock {
 
     public ExternalFinancingProposal getExternalFinancingProposal() throws IOException {
         return objectMapper.readValue(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("com/bbva/pzic/proposals/facade/v01/mapper/impl/externalFinancingProposal.json"), ExternalFinancingProposal.class);
+                .getResourceAsStream("json/externalFinancingProposal.json"), ExternalFinancingProposal.class);
     }
 }

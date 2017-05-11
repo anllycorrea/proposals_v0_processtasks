@@ -14,7 +14,7 @@ public class DTOIntExternalProduct {
     @Size(max = 15, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String id;
     @Valid
-    private DTOIntCommercialValueAmount commercialValueAmount;
+    private DTOIntCommercialValue commercialValue;
 
     public String getId() {
         return id;
@@ -24,12 +24,11 @@ public class DTOIntExternalProduct {
         this.id = id;
     }
 
-    public DTOIntCommercialValueAmount getCommercialValueAmount() {
-        return commercialValueAmount;
+    public DTOIntCommercialValue getCommercialValue() {
+        return commercialValue;
     }
 
-    public void setCommercialValueAmount(
-            DTOIntCommercialValueAmount commercialValueAmount) {
-        this.commercialValueAmount = commercialValueAmount;
+    public void setCommercialValue(DTOIntCommercialValue commercialValue) {
+        this.commercialValue = commercialValue;
     }
 }

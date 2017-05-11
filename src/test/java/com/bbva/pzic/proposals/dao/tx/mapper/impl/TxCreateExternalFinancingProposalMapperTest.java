@@ -48,7 +48,6 @@ public class TxCreateExternalFinancingProposalMapperTest {
     }
 
     private void mapInEnum() {
-
         Mockito.when(enumMapper.getBackendValue("documentType.id",
                 PROPERTY_DOCUMENT_TYPE_ID_DNI_VALUE_TESTED)).thenReturn(PROPERTY_DOCUMENT_TYPE_ID_DNI_KEY_TESTED);
         Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.type.id",
@@ -57,7 +56,6 @@ public class TxCreateExternalFinancingProposalMapperTest {
 
     @Test
     public void mapInFullTest() throws IOException {
-
         DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal = dummyMock.getDTOIntExternalFinancingProposal();
         FormatoUGMEGAP result = mapper.mapIn(dtoIntExternalFinancingProposal);
 
@@ -84,11 +82,11 @@ public class TxCreateExternalFinancingProposalMapperTest {
         assertEquals(dtoIntExternalFinancingProposal.getInitialAmount().getAmount(), result.getImpfina());
         assertEquals(dtoIntExternalFinancingProposal.getPaymentDay(), result.getDiapago());
         assertEquals(PROPERTY_DELIVERY_TYPE_ID_VIRTUAL_KEY_TESTED, result.getTipenvi());
-        assertEquals(dtoIntExternalFinancingProposal.getDeliveryVirtualDestination(), result.getMailcon());
+        assertEquals(dtoIntExternalFinancingProposal.getEmail(), result.getMailcon());
         assertEquals(dtoIntExternalFinancingProposal.getOperation().getId(), result.getIdtoken());
         assertEquals(dtoIntExternalFinancingProposal.getOperation().getOperationType().getId(), result.getCodtr());
         assertEquals(dtoIntExternalFinancingProposal.getExternalProduct().getId(), result.getCodbien());
-        assertEquals(dtoIntExternalFinancingProposal.getExternalProduct().getCommercialValueAmount().getAmount(), result.getImpbien());
+        assertEquals(dtoIntExternalFinancingProposal.getExternalProduct().getCommercialValue().getAmount(), result.getImpbien());
         assertEquals(dtoIntExternalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getCodcnc());
         assertEquals(dtoIntExternalFinancingProposal.getThirdPartyProvider().getId(), result.getCodemp());
     }

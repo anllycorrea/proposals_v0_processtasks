@@ -58,10 +58,11 @@ public interface ISrvProposalsV01 {
     /**
      * Method for creating an external financing proposal.
      *
-     * @param payload Entity payload
+     * @param thirdPartyProviderUserId Third party provider user id
+     * @param payload                  Entity payload
      * @return status of the response
      */
-    Response createExternalFinancingProposal(ExternalFinancingProposal payload);
+    Response createExternalFinancingProposal(String thirdPartyProviderUserId, ExternalFinancingProposal payload);
 
     /**
      * Method for updating the attributes of an external financing proposal.

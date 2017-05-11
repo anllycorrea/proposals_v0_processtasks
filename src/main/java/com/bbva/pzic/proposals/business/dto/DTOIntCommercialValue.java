@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  *
  * @author Entelgy
  */
-public class DTOIntCommercialValueAmount {
+public class DTOIntCommercialValue {
 
     @Digits(integer = 15, fraction = 2, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private BigDecimal amount;

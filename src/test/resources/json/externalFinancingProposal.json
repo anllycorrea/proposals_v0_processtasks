@@ -7,11 +7,6 @@
           "id": "DNI"
         }
       }
-    ],
-    "contactsInformation": [
-      {
-        "name": "euler.alvarado@bbva.com"
-      }
     ]
   },
   "tariff": {
@@ -27,10 +22,12 @@
     "deliveryType": {
       "id": "VIRTUAL"
     },
-    "virtualDestination": "euler.alvarado@bbva.com"
+    "email": "euler.alvarado@bbva.com"
   },
-  "documentationDeliveryType": {
-    "id": "PHYSICAL"
+  "delivery": {
+    "deliveryType": {
+      "id": "PHYSICAL"
+    }
   },
   "operation": {
     "id": "1123256778",
@@ -40,7 +37,7 @@
   },
   "externalProduct": {
     "id": "919223459",
-    "commercialValueAmount": {
+    "commercialValue": {
       "amount": 3500.55,
       "currency": "EUR"
     }
