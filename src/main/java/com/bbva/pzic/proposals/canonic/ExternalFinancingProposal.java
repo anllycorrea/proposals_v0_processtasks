@@ -73,6 +73,10 @@ public class ExternalFinancingProposal implements Serializable {
      */
     private Delivery delivery;
     /**
+     * Office of the bank associated to the external financing proposal.
+     */
+    private Branch branch;
+    /**
      * Status of the external financing proposal.
      */
     private Status status;
@@ -179,6 +183,14 @@ public class ExternalFinancingProposal implements Serializable {
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
     }
 
     public Status getStatus() {
