@@ -339,6 +339,21 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     }
 
     /*
+    thirdPartyProvider.externalSalesChannel.
+    */
+    @Test
+    public void testCreateExternalFinancingProposalWithOutExternalSalesChannel() throws IOException {
+        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        externalFinancingProposal.getThirdPartyProvider().setExternalSalesChannel(null);
+        try{
+            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            fail();
+        } catch (BusinessServiceException e) {
+            assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
+        }
+    }
+
+    /*
     thirdPartyProvider.externalSalesChannel.id
     */
     @Test
