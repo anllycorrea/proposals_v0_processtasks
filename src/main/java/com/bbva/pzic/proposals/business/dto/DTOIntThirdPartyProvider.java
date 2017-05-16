@@ -15,7 +15,9 @@ public class DTOIntThirdPartyProvider {
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Size(max = 4, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String id;
+    @Size(max = 34, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String userId;
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntExternalSalesChannel externalSalesChannel;
 

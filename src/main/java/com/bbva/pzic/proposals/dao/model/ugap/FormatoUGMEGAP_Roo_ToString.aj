@@ -13,6 +13,7 @@ privileged aspect FormatoUGMEGAP_Roo_ToString {
         sb.append("Codbien: ").append(getCodbien()).append(", ");
         sb.append("Codcnc: ").append(getCodcnc()).append(", ");
         sb.append("Codemp: ").append(getCodemp()).append(", ");
+        sb.append("Codofic: ").append(getCodofic()).append(", ");
         sb.append("Codtr: ").append(getCodtr()).append(", ");
         sb.append("Diapago: ").append(getDiapago()).append(", ");
         sb.append("Idtoken: ").append(getIdtoken()).append(", ");

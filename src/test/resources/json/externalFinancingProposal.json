@@ -42,5 +42,8 @@
     "externalSalesChannel": {
       "id": "CEC"
     }
+  },
+  "branch":{
+    "id": "0101"
   }
 }

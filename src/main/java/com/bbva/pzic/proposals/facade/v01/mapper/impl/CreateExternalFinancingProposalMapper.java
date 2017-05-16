@@ -39,6 +39,7 @@ public class CreateExternalFinancingProposalMapper extends ConfigurableMapper im
                 .field("externalProduct.commercialValue.currency", "externalProduct.commercialValue.currency")
                 .field("thirdPartyProvider.externalSalesChannel.id", "thirdPartyProvider.externalSalesChannel.id")
                 .field("thirdPartyProvider.id", "thirdPartyProvider.id")
+                .field("branch.id", "branchId")
                 .register();
     }
 

@@ -129,4 +129,12 @@ privileged aspect FormatoUGMEGAP_Roo_JavaBean {
         this.cocliex = cocliex;
     }
     
+    public String FormatoUGMEGAP.getCodofic() {
+        return this.codofic;
+    }
+    
+    public void FormatoUGMEGAP.setCodofic(String codofic) {
+        this.codofic = codofic;
+    }
+    
 }

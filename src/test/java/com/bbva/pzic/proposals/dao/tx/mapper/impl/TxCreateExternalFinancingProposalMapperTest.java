@@ -75,6 +75,7 @@ public class TxCreateExternalFinancingProposalMapperTest {
         assertNotNull(result.getCodemp());
         assertNotNull(result.getCodcnc());
         assertNotNull(result.getCocliex());
+        assertNotNull(result.getCodofic());
 
         assertEquals(dtoIntExternalFinancingProposal.getCurrency(), result.getMoneda());
         assertEquals(dtoIntExternalFinancingProposal.getPaymentDay(), result.getDiapago());
@@ -91,6 +92,7 @@ public class TxCreateExternalFinancingProposalMapperTest {
         assertEquals(dtoIntExternalFinancingProposal.getThirdPartyProvider().getId(), result.getCodemp());
         assertEquals(dtoIntExternalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getCodcnc());
         assertEquals(dtoIntExternalFinancingProposal.getThirdPartyProvider().getUserId(), result.getCocliex());
+        assertEquals(dtoIntExternalFinancingProposal.getBranchId(), result.getCodofic());
     }
 
     @Test
@@ -112,6 +114,8 @@ public class TxCreateExternalFinancingProposalMapperTest {
         assertNull(result.getCodtr());
         assertNull(result.getCodcnc());
         assertNull(result.getCodemp());
+        assertNull(result.getCocliex());
+        assertNull(result.getCodofic());
     }
 
 

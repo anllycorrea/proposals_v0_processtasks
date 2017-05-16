@@ -2,6 +2,7 @@ package com.bbva.pzic.proposals.business.dto;
 
 
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
@@ -11,9 +12,10 @@ import java.math.BigDecimal;
  * @author Entelgy
  */
 public class DTOIntCommercialValue {
-
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Digits(integer = 15, fraction = 2, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private BigDecimal amount;
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Size(max = 3, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String currency;
 

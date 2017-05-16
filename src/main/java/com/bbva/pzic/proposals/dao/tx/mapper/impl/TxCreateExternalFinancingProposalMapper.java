@@ -39,7 +39,8 @@ public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper 
                 .field("impbien", "externalProduct.commercialValue.amount")
                 .field("codcnc", "thirdPartyProvider.externalSalesChannel.id")
                 .field("codemp", "thirdPartyProvider.id")
-                .field("cocliex", "thirdPartyProvider.userId")
+                .field("cocliex","thirdPartyProvider.userId")
+                .field("codofic", "branchId")
                 .register();
     }
 

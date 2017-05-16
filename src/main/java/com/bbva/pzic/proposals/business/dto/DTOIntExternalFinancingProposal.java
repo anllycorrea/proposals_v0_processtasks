@@ -54,6 +54,20 @@ public class DTOIntExternalFinancingProposal {
     })
     private String email;
 
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Size(max = 4, groups = {
+            ValidationGroup.CreateExternalFinancingProposal.class
+    })
+    private String branchId;
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
+
     public String getCurrency() {
         return currency;
     }

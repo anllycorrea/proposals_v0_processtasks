@@ -55,6 +55,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNotNull(result.getThirdPartyProvider().getId());
         assertNotNull(result.getThirdPartyProvider().getExternalSalesChannel().getId());
         assertNotNull(result.getThirdPartyProvider().getUserId());
+        assertNotNull(result.getBranchId());
 
         assertEquals(externalFinancingProposal.getCurrency(), result.getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
@@ -73,6 +74,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getId(), result.getThirdPartyProvider().getId());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getThirdPartyProvider().getExternalSalesChannel().getId());
         assertEquals(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, result.getThirdPartyProvider().getUserId());
+        assertEquals(externalFinancingProposal.getBranch().getId(), result.getBranchId());
     }
 
     @Test
@@ -98,6 +100,8 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNotNull(result.getExternalProduct().getCommercialValue().getCurrency());
         assertNotNull(result.getThirdPartyProvider());
         assertNotNull(result.getThirdPartyProvider().getExternalSalesChannel());
+        assertNotNull(result.getThirdPartyProvider().getUserId());
+        assertNotNull(result.getBranchId());
 
         assertNull(result.getDocumentTypeId());
         assertNull(result.getDocumentNumber());
@@ -117,6 +121,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getThirdPartyProvider().getExternalSalesChannel().getId());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getId(), result.getThirdPartyProvider().getId());
         assertEquals(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, result.getThirdPartyProvider().getUserId());
+        assertEquals(externalFinancingProposal.getBranch().getId(), result.getBranchId());
     }
 
     @Test
@@ -141,6 +146,8 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNotNull(result.getExternalProduct().getCommercialValue().getCurrency());
         assertNotNull(result.getThirdPartyProvider());
         assertNotNull(result.getThirdPartyProvider().getExternalSalesChannel());
+        assertNotNull(result.getThirdPartyProvider().getUserId());
+        assertNotNull(result.getBranchId());
 
         assertNull(result.getDocumentTypeId());
         assertNull(result.getDocumentNumber());
@@ -159,6 +166,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getThirdPartyProvider().getExternalSalesChannel().getId());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getId(), result.getThirdPartyProvider().getId());
         assertEquals(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, result.getThirdPartyProvider().getUserId());
+        assertEquals(externalFinancingProposal.getBranch().getId(), result.getBranchId());
     }
 
     @Test
@@ -182,6 +190,8 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNotNull(result.getExternalProduct().getCommercialValue().getCurrency());
         assertNotNull(result.getThirdPartyProvider());
         assertNotNull(result.getThirdPartyProvider().getExternalSalesChannel());
+        assertNotNull(result.getThirdPartyProvider().getUserId());
+        assertNotNull(result.getBranchId());
 
         assertNull(result.getDocumentTypeId());
         assertNull(result.getDocumentNumber());
@@ -200,6 +210,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getThirdPartyProvider().getExternalSalesChannel().getId());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getId(), result.getThirdPartyProvider().getId());
         assertEquals(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, result.getThirdPartyProvider().getUserId());
+        assertEquals(externalFinancingProposal.getBranch().getId(), result.getBranchId());
     }
 
     @Test
@@ -224,6 +235,8 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNotNull(result.getExternalProduct().getCommercialValue().getCurrency());
         assertNotNull(result.getThirdPartyProvider());
         assertNotNull(result.getThirdPartyProvider().getExternalSalesChannel());
+        assertNotNull(result.getThirdPartyProvider().getUserId());
+        assertNotNull(result.getBranchId());
 
         assertNull(result.getDocumentTypeId());
         assertNull(result.getDocumentNumber());
@@ -242,6 +255,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().getId(), result.getThirdPartyProvider().getExternalSalesChannel().getId());
         assertEquals(externalFinancingProposal.getThirdPartyProvider().getId(), result.getThirdPartyProvider().getId());
         assertEquals(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, result.getThirdPartyProvider().getUserId());
+        assertEquals(externalFinancingProposal.getBranch().getId(), result.getBranchId());
     }
 
     @Test
@@ -260,6 +274,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNull(result.getThirdPartyProvider().getId());
         assertNull(result.getThirdPartyProvider().getExternalSalesChannel());
         assertNotNull(result.getThirdPartyProvider().getUserId());
+        assertNull(result.getBranchId());
         assertNull(result.getDocumentTypeId());
         assertNull(result.getDocumentNumber());
 
@@ -282,6 +297,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNull(result.getThirdPartyProvider());
         assertNull(result.getDocumentTypeId());
         assertNull(result.getDocumentNumber());
+        assertNull(result.getBranchId());
     }
 
     @Test

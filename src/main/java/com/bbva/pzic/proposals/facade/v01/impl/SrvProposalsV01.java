@@ -141,7 +141,7 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
     @POST
     @Path("/external-financing-proposals")
     @SMC(registryID = "SMCPE1720028", logicalID = "createExternalFinancingProposal")
-    public Response createExternalFinancingProposal(final String thirdPartyProviderUserId, final ExternalFinancingProposal payload) {
+    public Response createExternalFinancingProposal(@QueryParam("thirdPartyProvider.userId") final String thirdPartyProviderUserId, final ExternalFinancingProposal payload) {
         LOG.info("------ SrvIntProposals.createExternalFinancingProposal ------");
 
         ExternalFinancingProposal data = srvIntProposals.createExternalFinancingProposal(
