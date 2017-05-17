@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
- * Created on 12/04/2017.
+ * Created on 10/05/2017.
  *
  * @author Entelgy
  */
@@ -24,7 +24,7 @@ public class ExternalProduct implements Serializable {
     /**
      * Commercial value of the external product financed.
      */
-    private CommercialValueAmount commercialValueAmount;
+    private CommercialValue commercialValue;
 
     public String getId() {
         return id;
@@ -34,12 +34,11 @@ public class ExternalProduct implements Serializable {
         this.id = id;
     }
 
-    public CommercialValueAmount getCommercialValueAmount() {
-        return commercialValueAmount;
+    public CommercialValue getCommercialValue() {
+        return commercialValue;
     }
 
-    public void setCommercialValueAmount(
-            CommercialValueAmount commercialValueAmount) {
-        this.commercialValueAmount = commercialValueAmount;
+    public void setCommercialValue(CommercialValue commercialValue) {
+        this.commercialValue = commercialValue;
     }
 }

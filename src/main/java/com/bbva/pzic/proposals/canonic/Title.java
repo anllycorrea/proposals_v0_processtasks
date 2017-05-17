@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
- * Created on 31/01/2017.
+ * Created on 10/05/2017.
  *
  * @author Entelgy
  */
@@ -17,7 +17,6 @@ import java.io.Serializable;
 public class Title implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     /**
      * Title identifier.
      */

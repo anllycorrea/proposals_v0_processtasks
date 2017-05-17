@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
- * Created on 12/04/2017.
+ * Created on 10/05/2017.
  *
  * @author Entelgy
  */
@@ -21,6 +21,10 @@ public class OperationType implements Serializable {
      * Identifier of the type of operation to obtain an external product.
      */
     private String id;
+    /**
+     * Description of the type of operation to obtain an external product.
+     */
+    private String name;
 
     public String getId() {
         return id;
@@ -28,5 +32,13 @@ public class OperationType implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

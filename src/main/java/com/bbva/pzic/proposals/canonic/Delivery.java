@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
- * Created on 13/04/2017.
+ * Created on 10/05/2017.
  *
  * @author Entelgy
  */
@@ -17,10 +17,14 @@ import java.io.Serializable;
 public class Delivery implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Type of delivery of documentation.
+     */
     private DeliveryType deliveryType;
-
-    private String virtualDestination;
+    /**
+     * Email where the documentation is delivered.
+     */
+    private String email;
 
     public DeliveryType getDeliveryType() {
         return deliveryType;
@@ -30,11 +34,11 @@ public class Delivery implements Serializable {
         this.deliveryType = deliveryType;
     }
 
-    public String getVirtualDestination() {
-        return virtualDestination;
+    public String getEmail() {
+        return email;
     }
 
-    public void setVirtualDestination(String virtualDestination) {
-        this.virtualDestination = virtualDestination;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

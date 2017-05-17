@@ -22,7 +22,7 @@ public class ModifyExternalFinancingProposalMapper extends ConfigurableMapper im
 
         factory.classMap(ExternalFinancingProposal.class, DTOIntExternalFinancingProposal.class)
                 .field("delivery.deliveryType.id", "deliveryTypeId")
-                .field("delivery.virtualDestination", "deliveryVirtualDestination")
+                .field("delivery.email", "email")
                 .field("status.id", "statusId")
                 .register();
     }

@@ -106,4 +106,16 @@ public class FormatoUGMEGAP {
 	@Campo(indice = 14, nombre = "CODEMP", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 4, longitudMaxima = 4)
 	private String codemp;
 	
+	/**
+	 * <p>Campo <code>COCLIEX</code>, &iacute;ndice: <code>15</code>, tipo: <code>ALFANUMERICO</code>
+	 */
+	@Campo(indice = 15, nombre = "COCLIEX", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 34, longitudMaxima = 34)
+	private String cocliex;
+	
+	/**
+	 * <p>Campo <code>CODOFIC</code>, &iacute;ndice: <code>16</code>, tipo: <code>ALFANUMERICO</code>
+	 */
+	@Campo(indice = 16, nombre = "CODOFIC", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 4, longitudMaxima = 4)
+	private String codofic;
+	
 }

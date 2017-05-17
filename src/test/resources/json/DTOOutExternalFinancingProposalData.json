@@ -3,7 +3,7 @@
     {
       "id": "001101309600000001",
       "requestDate": "2017-02-17",
-      "openingDate": "2017-02-17",
+      "disbursementDate": "2017-02-17",
       "currency": "PEN",
       "initialFee": {
         "amount": 2000.50,
@@ -23,13 +23,15 @@
           "name": "Desgravamen individual"
         }
       },
-      "documentationDeliveryType": {
-        "id": "VIRTUAL",
-        "name": "Virtual"
+      "delivery": {
+        "deliveryType": {
+          "id": "VIRTUAL",
+          "name": "Virtual"
+        }
       },
       "externalProduct": {
         "id": "919223459",
-        "commercialValueAmount": {
+        "commercialValue": {
           "amount": 3500.55,
           "currency": "PEN"
         }
@@ -37,12 +39,7 @@
       "holder": {
         "name": "Euler",
         "lastName": "Alvarado",
-        "mohterLastName": "Pachas",
-        "contactsInformation": [
-          {
-            "name": "euler.alvarado@bbva.com"
-          }
-        ]
+        "motherLastName": "Pachas"
       },
       "operation": {
         "id": "1123256778"

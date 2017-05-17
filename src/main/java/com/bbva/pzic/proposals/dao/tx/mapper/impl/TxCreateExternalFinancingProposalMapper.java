@@ -32,13 +32,15 @@ public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper 
                 .field("moneda", "currency")
                 .field("impfina", "initialAmount.amount")
                 .field("diapago", "paymentDay")
-                .field("mailcon", "deliveryVirtualDestination")
+                .field("mailcon", "email")
                 .field("idtoken", "operation.id")
                 .field("codtr", "operation.operationType.id")
                 .field("codbien", "externalProduct.id")
-                .field("impbien", "externalProduct.commercialValueAmount.amount")
+                .field("impbien", "externalProduct.commercialValue.amount")
                 .field("codcnc", "thirdPartyProvider.externalSalesChannel.id")
                 .field("codemp", "thirdPartyProvider.id")
+                .field("cocliex","thirdPartyProvider.userId")
+                .field("codofic", "branchId")
                 .register();
     }
 
@@ -54,7 +56,7 @@ public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper 
                     dtoIn.getDocumentTypeId()));
         }
         if (dtoIn.getDeliveryTypeId() != null) {
-            formatoUGMEGAP.setTipenvi(enumMapper.getBackendValue("externalFinancingProposals.delivery.type.id",
+            formatoUGMEGAP.setTipenvi(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id",
                     dtoIn.getDeliveryTypeId()));
         }
 

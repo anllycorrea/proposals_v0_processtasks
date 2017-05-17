@@ -1,6 +1,7 @@
 package com.bbva.pzic.proposals.business.dto;
 
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -9,7 +10,7 @@ import javax.validation.constraints.Size;
  * @author Entelgy
  */
 public class DTOIntExternalSalesChannel {
-
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Size(max = 5, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String id;
 

@@ -12,7 +12,7 @@
   "paymentDay": 20,
   "statusId": "PENDING_SIGNATURE",
   "deliveryTypeId": "VIRTUAL",
-  "deliveryVirtualDestination": "euler.alvarado@bbva.com",
+  "email": "euler.alvarado@bbva.com",
   "operation": {
     "id": "1123256778",
     "operationType": {
@@ -21,7 +21,7 @@
   },
   "externalProduct": {
     "id": "919223459",
-    "commercialValueAmount": {
+    "commercialValue": {
       "amount": 3500.55,
       "currency": "USD"
     }
@@ -30,6 +30,8 @@
     "id": "TDPE",
     "externalSalesChannel": {
       "id": "CEC"
-    }
-  }
+    },
+    "userId": "1A21D281"
+  },
+  "branchId": "0101"
 }

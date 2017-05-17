@@ -34,12 +34,12 @@ public class ModifyExternalFinancingProposalMapperTest {
         assertNotNull(result.getExternalFinancingProposalId());
         assertNotNull(result.getExternalFinancingProposal().getStatusId());
         assertNotNull(result.getExternalFinancingProposal().getDeliveryTypeId());
-        assertNotNull(result.getExternalFinancingProposal().getDeliveryVirtualDestination());
+        assertNotNull(result.getExternalFinancingProposal().getEmail());
 
         assertEquals(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, result.getExternalFinancingProposalId());
         assertEquals(payload.getStatus().getId(), result.getExternalFinancingProposal().getStatusId());
         assertEquals(payload.getDelivery().getDeliveryType().getId(), result.getExternalFinancingProposal().getDeliveryTypeId());
-        assertEquals(payload.getDelivery().getVirtualDestination(), result.getExternalFinancingProposal().getDeliveryVirtualDestination());
+        assertEquals(payload.getDelivery().getEmail(), result.getExternalFinancingProposal().getEmail());
     }
 
     @Test
@@ -49,6 +49,6 @@ public class ModifyExternalFinancingProposalMapperTest {
         assertNull(result.getExternalFinancingProposalId());
         assertNull(result.getExternalFinancingProposal().getStatusId());
         assertNull(result.getExternalFinancingProposal().getDeliveryTypeId());
-        assertNull(result.getExternalFinancingProposal().getDeliveryVirtualDestination());
+        assertNull(result.getExternalFinancingProposal().getEmail());
     }
 }

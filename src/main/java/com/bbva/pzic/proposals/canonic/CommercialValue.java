@@ -8,14 +8,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * Created on 12/04/2017.
+ * Created on 10/05/2017.
  *
  * @author Entelgy
  */
-@XmlRootElement(name = "CommercialValueAmount", namespace = "urn:com:bbva:pzic:proposals:canonic")
-@XmlType(name = "CommercialValueAmount", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlRootElement(name = "CommercialValue", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlType(name = "CommercialValue", namespace = "urn:com:bbva:pzic:proposals:canonic")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CommercialValueAmount implements Serializable {
+public class CommercialValue implements Serializable {
 
     private static final long serialVersionUID = 1L;
     /**

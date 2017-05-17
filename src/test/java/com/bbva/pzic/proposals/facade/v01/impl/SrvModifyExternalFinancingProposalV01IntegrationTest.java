@@ -63,7 +63,7 @@ public class SrvModifyExternalFinancingProposalV01IntegrationTest {
     public void testModifyExternalFinancingProposalWrongDeliveryVirtualDestinationSize() throws IOException {
         try {
             ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
-            payload.getDelivery().setVirtualDestination("0912ED102DJ9W1DFWWDJ1D912DJ18JHW9E192D18234718IW5KF");
+            payload.getDelivery().setEmail("0912ED102DJ9W1DFWWDJ1D912DJ18JHW9E192D18234718IW5KF");
             srvProposalsV01.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
 
             fail();

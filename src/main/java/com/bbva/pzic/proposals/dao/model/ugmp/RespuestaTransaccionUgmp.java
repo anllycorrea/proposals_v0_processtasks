@@ -19,6 +19,7 @@ import com.bbva.jee.arq.spring.core.host.MensajeMultiparte;
  * 
  * @author Arquitectura Spring BBVA
  */
+@RespuestaTransaccion
 @Multiformato(formatos = {})
 @RooJavaBean
 @RooToString

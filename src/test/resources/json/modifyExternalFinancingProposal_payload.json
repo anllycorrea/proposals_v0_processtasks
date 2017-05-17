@@ -6,6 +6,6 @@
     "deliveryType": {
       "id": "VIRTUAL"
     },
-    "virtualDestination": "euler.alvarado@bbva.com"
+    "email": "euler.alvarado@bbva.com"
   }
 }
