@@ -55,14 +55,14 @@ public class TxModifyExternalFinancingProposalMapperTest {
         assertEquals(dtoIn.getExternalFinancingProposalId(), result.getNrocont());
         assertEquals("A", result.getIndesta());
         assertEquals("B", result.getTipenvi());
-        assertEquals(dtoIn.getExternalFinancingProposal().getDeliveryVirtualDestination(), result.getMailcon());
+        assertEquals(dtoIn.getExternalFinancingProposal().getEmail(), result.getMailcon());
     }
 
     @Test
     public void mapInMandatoryTest() throws IOException {
         DTOInputModifyExternalFinancingProposal dtoIn = dummyMock.getDTOInputModifyExternalFinancingProposal();
         dtoIn.getExternalFinancingProposal().setDeliveryTypeId(null);
-        dtoIn.getExternalFinancingProposal().setDeliveryVirtualDestination(null);
+        dtoIn.getExternalFinancingProposal().setEmail(null);
 
         Mockito.when(enumMapper.getBackendValue("externalFinancingProposal.status.id", dtoIn.getExternalFinancingProposal().getStatusId())).thenReturn("A");
 

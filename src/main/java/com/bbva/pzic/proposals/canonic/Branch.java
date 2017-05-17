@@ -7,22 +7,24 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
- * Created on 12/04/2017.
+ * Created on 10/05/2017.
  *
  * @author Entelgy
  */
-@XmlRootElement(name = "DocumentationDeliveryType", namespace = "urn:com:bbva:pzic:proposals:canonic")
-@XmlType(name = "DocumentationDeliveryType", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlRootElement(name = "Branch", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlType(name = "Branch", namespace = "urn:com:bbva:pzic:proposals:canonic")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DocumentationDeliveryType implements Serializable {
+public class Branch implements Serializable {
 
     private static final long serialVersionUID = 1L;
     /**
-     * Identifier of documentation delivery type.
+     * Identifier of the office of the bank where the external financing
+     * proposal was registered.
      */
     private String id;
     /**
-     * Description of documentation delivery type.
+     * Description of the office of the bank where the external financing
+     * proposal was registered.
      */
     private String name;
 

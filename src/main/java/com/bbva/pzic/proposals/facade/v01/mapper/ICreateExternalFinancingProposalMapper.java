@@ -13,8 +13,9 @@ public interface ICreateExternalFinancingProposalMapper {
      * Mapeo de entrada, los datos obtenidos del payload a un DTO la cual tiene
      * anotaciones de validacion
      *
+     * @param thirdPartyProviderUserId  Third party provider user id
      * @param externalFinancingProposal Payload
      * @return {@link DTOIntExternalFinancingProposal}
      */
-    DTOIntExternalFinancingProposal mapIn(ExternalFinancingProposal externalFinancingProposal);
+    DTOIntExternalFinancingProposal mapIn(String thirdPartyProviderUserId, ExternalFinancingProposal externalFinancingProposal);
 }

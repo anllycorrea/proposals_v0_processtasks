@@ -286,7 +286,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
         Assert.assertNotNull(result.getRequestDate());
 
-        Assert.assertNotNull(result.getOpeningDate());
+        Assert.assertNotNull(result.getDisbursementDate());
 
         Assert.assertEquals(result.getCurrency(), formatoIn.getMoneda());
 
@@ -323,26 +323,25 @@ public class TxListExternalFinancingProposalsMapperTest {
         Assert.assertNotNull(result.getDelivery().getDeliveryType().getName());
         Assert.assertEquals(result.getDelivery().getDeliveryType().getName(), formatoIn.getDesenv());
 
-        Assert.assertNotNull(result.getDelivery().getVirtualDestination());
-        Assert.assertEquals(result.getDelivery().getVirtualDestination(), formatoIn.getMailcon());
-
+        Assert.assertNotNull(result.getDelivery().getEmail());
+        Assert.assertEquals(result.getDelivery().getEmail(), formatoIn.getMailcon());
 
         Assert.assertNotNull(result.getExternalProduct());
         Assert.assertNotNull(result.getExternalProduct().getId());
         Assert.assertEquals(result.getExternalProduct().getId(), formatoIn.getCodbien());
-        Assert.assertNotNull(result.getExternalProduct().getCommercialValueAmount());
-        Assert.assertNotNull(result.getExternalProduct().getCommercialValueAmount().getAmount());
-        Assert.assertEquals(result.getExternalProduct().getCommercialValueAmount().getAmount(), formatoIn.getImpbien());
-        Assert.assertNotNull(result.getExternalProduct().getCommercialValueAmount().getCurrency());
-        Assert.assertEquals(result.getExternalProduct().getCommercialValueAmount().getCurrency(), formatoIn.getMoneda());
+        Assert.assertNotNull(result.getExternalProduct().getCommercialValue());
+        Assert.assertNotNull(result.getExternalProduct().getCommercialValue().getAmount());
+        Assert.assertEquals(result.getExternalProduct().getCommercialValue().getAmount(), formatoIn.getImpbien());
+        Assert.assertNotNull(result.getExternalProduct().getCommercialValue().getCurrency());
+        Assert.assertEquals(result.getExternalProduct().getCommercialValue().getCurrency(), formatoIn.getMoneda());
 
         Assert.assertNotNull(result.getHolder());
         Assert.assertNotNull(result.getHolder().getName());
         Assert.assertEquals(result.getHolder().getName(), formatoIn.getNombr());
         Assert.assertNotNull(result.getHolder().getLastName());
         Assert.assertEquals(result.getHolder().getLastName(), formatoIn.getApepat());
-        Assert.assertNotNull(result.getHolder().getMohterLastName());
-        Assert.assertEquals(result.getHolder().getMohterLastName(), formatoIn.getApemat());
+        Assert.assertNotNull(result.getHolder().getMotherLastName());
+        Assert.assertEquals(result.getHolder().getMotherLastName(), formatoIn.getApemat());
 
         Assert.assertNotNull(result.getOperation());
         Assert.assertNotNull(result.getOperation().getId());
@@ -374,7 +373,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
         Assert.assertNotNull(result.getRequestDate());
 
-        Assert.assertNotNull(result.getOpeningDate());
+        Assert.assertNotNull(result.getDisbursementDate());
 
         Assert.assertEquals(result.getCurrency(), formatoIn.getMoneda());
 
@@ -411,26 +410,25 @@ public class TxListExternalFinancingProposalsMapperTest {
         Assert.assertNotNull(result.getDelivery().getDeliveryType().getName());
         Assert.assertEquals(result.getDelivery().getDeliveryType().getName(), formatoIn.getDesenv());
 
-        Assert.assertNotNull(result.getDelivery().getVirtualDestination());
-        Assert.assertEquals(result.getDelivery().getVirtualDestination(), formatoIn.getMailcon());
-
+        Assert.assertNotNull(result.getDelivery().getEmail());
+        Assert.assertEquals(result.getDelivery().getEmail(), formatoIn.getMailcon());
 
         Assert.assertNotNull(result.getExternalProduct());
         Assert.assertNotNull(result.getExternalProduct().getId());
         Assert.assertEquals(result.getExternalProduct().getId(), formatoIn.getCodbien());
-        Assert.assertNotNull(result.getExternalProduct().getCommercialValueAmount());
-        Assert.assertNotNull(result.getExternalProduct().getCommercialValueAmount().getAmount());
-        Assert.assertEquals(result.getExternalProduct().getCommercialValueAmount().getAmount(), formatoIn.getImpbien());
-        Assert.assertNotNull(result.getExternalProduct().getCommercialValueAmount().getCurrency());
-        Assert.assertEquals(result.getExternalProduct().getCommercialValueAmount().getCurrency(), formatoIn.getMoneda());
+        Assert.assertNotNull(result.getExternalProduct().getCommercialValue());
+        Assert.assertNotNull(result.getExternalProduct().getCommercialValue().getAmount());
+        Assert.assertEquals(result.getExternalProduct().getCommercialValue().getAmount(), formatoIn.getImpbien());
+        Assert.assertNotNull(result.getExternalProduct().getCommercialValue().getCurrency());
+        Assert.assertEquals(result.getExternalProduct().getCommercialValue().getCurrency(), formatoIn.getMoneda());
 
         Assert.assertNotNull(result.getHolder());
         Assert.assertNotNull(result.getHolder().getName());
         Assert.assertEquals(result.getHolder().getName(), formatoIn.getNombr());
         Assert.assertNotNull(result.getHolder().getLastName());
         Assert.assertEquals(result.getHolder().getLastName(), formatoIn.getApepat());
-        Assert.assertNotNull(result.getHolder().getMohterLastName());
-        Assert.assertEquals(result.getHolder().getMohterLastName(), formatoIn.getApemat());
+        Assert.assertNotNull(result.getHolder().getMotherLastName());
+        Assert.assertEquals(result.getHolder().getMotherLastName(), formatoIn.getApemat());
 
         Assert.assertNotNull(result.getOperation());
         Assert.assertNotNull(result.getOperation().getId());

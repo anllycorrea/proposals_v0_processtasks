@@ -2,6 +2,7 @@ package com.bbva.pzic.proposals.business.dto;
 
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -11,10 +12,12 @@ import javax.validation.constraints.Size;
  */
 public class DTOIntExternalProduct {
 
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Size(max = 15, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String id;
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
-    private DTOIntCommercialValueAmount commercialValueAmount;
+    private DTOIntCommercialValue commercialValue;
 
     public String getId() {
         return id;
@@ -24,12 +27,11 @@ public class DTOIntExternalProduct {
         this.id = id;
     }
 
-    public DTOIntCommercialValueAmount getCommercialValueAmount() {
-        return commercialValueAmount;
+    public DTOIntCommercialValue getCommercialValue() {
+        return commercialValue;
     }
 
-    public void setCommercialValueAmount(
-            DTOIntCommercialValueAmount commercialValueAmount) {
-        this.commercialValueAmount = commercialValueAmount;
+    public void setCommercialValue(DTOIntCommercialValue commercialValue) {
+        this.commercialValue = commercialValue;
     }
 }

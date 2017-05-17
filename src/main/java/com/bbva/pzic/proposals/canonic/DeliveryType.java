@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
- * Created on 13/04/2017.
+ * Created on 10/05/2017.
  *
  * @author Entelgy
  */
@@ -17,7 +17,13 @@ import java.io.Serializable;
 public class DeliveryType implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    /**
+     * Identifier of documentation delivery type.
+     */
     private String id;
+    /**
+     * Description of documentation delivery type.
+     */
     private String name;
 
     public String getId() {

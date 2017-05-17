@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created on 12/04/2017.
+ * Created on 10/05/2017.
  *
  * @author Entelgy
  */
@@ -29,11 +29,12 @@ public class ExternalFinancingProposal implements Serializable {
     @XmlJavaTypeAdapter(ShortDateAdapter.class)
     private Date requestDate;
     /**
-     * Disbursement date of the external financing proposal.
+     * Date of disbursement of the amount to the external company to finance the
+     * product.
      */
     @XmlSchemaType(name = "date")
     @XmlJavaTypeAdapter(ShortDateAdapter.class)
-    private Date openingDate;
+    private Date disbursementDate;
     /**
      * String based on ISO-4217 for specifying the currency related to the
      * external financing proposal.
@@ -56,10 +57,6 @@ public class ExternalFinancingProposal implements Serializable {
      */
     private RelatedProduct relatedProduct;
     /**
-     * Documentation delivery type related to the external financing proposal.
-     */
-    private DocumentationDeliveryType documentationDeliveryType;
-    /**
      * Financed external product.
      */
     private ExternalProduct externalProduct;
@@ -72,6 +69,14 @@ public class ExternalFinancingProposal implements Serializable {
      */
     private Operation operation;
     /**
+     * Documentation delivery type related to the external financing proposal.
+     */
+    private Delivery delivery;
+    /**
+     * Office of the bank associated to the external financing proposal.
+     */
+    private Branch branch;
+    /**
      * Status of the external financing proposal.
      */
     private Status status;
@@ -83,8 +88,6 @@ public class ExternalFinancingProposal implements Serializable {
      * Third party provider that provides a external product.
      */
     private ThirdPartyProvider thirdPartyProvider;
-
-    private Delivery delivery;
 
     public String getId() {
         return id;
@@ -102,12 +105,12 @@ public class ExternalFinancingProposal implements Serializable {
         this.requestDate = requestDate;
     }
 
-    public Date getOpeningDate() {
-        return openingDate;
+    public Date getDisbursementDate() {
+        return disbursementDate;
     }
 
-    public void setOpeningDate(Date openingDate) {
-        this.openingDate = openingDate;
+    public void setDisbursementDate(Date disbursementDate) {
+        this.disbursementDate = disbursementDate;
     }
 
     public String getCurrency() {
@@ -150,15 +153,6 @@ public class ExternalFinancingProposal implements Serializable {
         this.relatedProduct = relatedProduct;
     }
 
-    public DocumentationDeliveryType getDocumentationDeliveryType() {
-        return documentationDeliveryType;
-    }
-
-    public void setDocumentationDeliveryType(
-            DocumentationDeliveryType documentationDeliveryType) {
-        this.documentationDeliveryType = documentationDeliveryType;
-    }
-
     public ExternalProduct getExternalProduct() {
         return externalProduct;
     }
@@ -183,6 +177,22 @@ public class ExternalFinancingProposal implements Serializable {
         this.operation = operation;
     }
 
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -205,13 +215,5 @@ public class ExternalFinancingProposal implements Serializable {
 
     public void setThirdPartyProvider(ThirdPartyProvider thirdPartyProvider) {
         this.thirdPartyProvider = thirdPartyProvider;
-    }
-
-    public Delivery getDelivery() {
-        return delivery;
-    }
-
-    public void setDelivery(Delivery delivery) {
-        this.delivery = delivery;
     }
 }

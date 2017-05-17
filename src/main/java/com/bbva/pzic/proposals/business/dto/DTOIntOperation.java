@@ -15,6 +15,7 @@ public class DTOIntOperation {
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Size(max = 32, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String id;
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntOperationType operationType;
 

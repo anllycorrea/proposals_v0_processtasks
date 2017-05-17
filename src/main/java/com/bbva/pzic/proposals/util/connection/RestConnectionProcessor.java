@@ -51,7 +51,9 @@ public class RestConnectionProcessor {
 
     protected String buildPayload(final Object entityPayload) {
         try {
-            return mapper.writeValueAsString(entityPayload);
+            String payload = mapper.writeValueAsString(entityPayload);
+            LOG.info("Payload generado: " + payload);
+            return payload;
         } catch (JsonProcessingException e) {
             LOG.error(String.format("Error converting JSON: %s", e.getMessage()), e);
             throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);

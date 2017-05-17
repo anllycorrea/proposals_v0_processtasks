@@ -26,7 +26,7 @@ public class TxModifyExternalFinancingProposalMapper extends ConfigurableMapper 
 
         factory.classMap(FormatoUGMEGMP.class, DTOInputModifyExternalFinancingProposal.class)
                 .field("nrocont", "externalFinancingProposalId")
-                .field("mailcon", "externalFinancingProposal.deliveryVirtualDestination")
+                .field("mailcon", "externalFinancingProposal.email")
                 .register();
     }
 

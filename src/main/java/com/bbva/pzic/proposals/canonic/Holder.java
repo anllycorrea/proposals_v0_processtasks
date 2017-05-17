@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created on 12/04/2017.
+ * Created on 10/05/2017.
  *
  * @author Entelgy
  */
@@ -29,11 +29,7 @@ public class Holder implements Serializable {
     /**
      * Holder mother last name.
      */
-    private String mohterLastName;
-    /**
-     * Holder contacts information.
-     */
-    private List<ContactsInformation> contactsInformation;
+    private String motherLastName;
     /**
      * Holder identity document.
      */
@@ -55,21 +51,12 @@ public class Holder implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getMohterLastName() {
-        return mohterLastName;
+    public String getMotherLastName() {
+        return motherLastName;
     }
 
-    public void setMohterLastName(String mohterLastName) {
-        this.mohterLastName = mohterLastName;
-    }
-
-    public List<ContactsInformation> getContactsInformation() {
-        return contactsInformation;
-    }
-
-    public void setContactsInformation(
-            List<ContactsInformation> contactsInformation) {
-        this.contactsInformation = contactsInformation;
+    public void setMotherLastName(String motherLastName) {
+        this.motherLastName = motherLastName;
     }
 
     public List<IdentityDocument> getIdentityDocuments() {
