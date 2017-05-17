@@ -341,7 +341,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>host</id>
+                        <id>real</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
