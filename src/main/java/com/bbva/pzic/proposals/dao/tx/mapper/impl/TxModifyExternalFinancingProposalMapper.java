@@ -33,8 +33,8 @@ public class TxModifyExternalFinancingProposalMapper extends ConfigurableMapper 
     @Override
     public FormatoUGMEGMP mapIn(final DTOInputModifyExternalFinancingProposal dtoIn) {
         FormatoUGMEGMP format = map(dtoIn, FormatoUGMEGMP.class);
-        format.setIndesta(enumMapper.getBackendValue("externalFinancingProposal.status.id", dtoIn.getExternalFinancingProposal().getStatusId()));
-        format.setTipenvi(enumMapper.getBackendValue("externalFinancingProposal.delivery.deliveryType.id", dtoIn.getExternalFinancingProposal().getDeliveryTypeId()));
+        format.setIndesta(enumMapper.getBackendValue("externalFinancingProposals.status.id", dtoIn.getExternalFinancingProposal().getStatusId()));
+        format.setTipenvi(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id", dtoIn.getExternalFinancingProposal().getDeliveryTypeId()));
         return format;
     }
 }
