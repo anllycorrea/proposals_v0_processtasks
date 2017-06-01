@@ -42,8 +42,8 @@ public class TxModifyExternalFinancingProposalMapperTest {
     public void mapInFullTest() throws IOException {
         DTOInputModifyExternalFinancingProposal dtoIn = dummyMock.getDTOInputModifyExternalFinancingProposal();
 
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposal.status.id", dtoIn.getExternalFinancingProposal().getStatusId())).thenReturn("A");
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposal.delivery.deliveryType.id", dtoIn.getExternalFinancingProposal().getDeliveryTypeId())).thenReturn("B");
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.status.id", dtoIn.getExternalFinancingProposal().getStatusId())).thenReturn("A");
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id", dtoIn.getExternalFinancingProposal().getDeliveryTypeId())).thenReturn("B");
 
         FormatoUGMEGMP result = mapper.mapIn(dtoIn);
 
@@ -64,7 +64,7 @@ public class TxModifyExternalFinancingProposalMapperTest {
         dtoIn.getExternalFinancingProposal().setDeliveryTypeId(null);
         dtoIn.getExternalFinancingProposal().setEmail(null);
 
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposal.status.id", dtoIn.getExternalFinancingProposal().getStatusId())).thenReturn("A");
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.status.id", dtoIn.getExternalFinancingProposal().getStatusId())).thenReturn("A");
 
         FormatoUGMEGMP result = mapper.mapIn(dtoIn);
 
