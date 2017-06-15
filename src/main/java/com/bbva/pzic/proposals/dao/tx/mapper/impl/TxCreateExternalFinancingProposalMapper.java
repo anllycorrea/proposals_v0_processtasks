@@ -27,19 +27,22 @@ public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper 
         super.configure(factory);
 
         factory.classMap(FormatoUGMEGAP.class, DTOIntExternalFinancingProposal.class)
-                .field("nrodocu", "documentNumber")
-                .field("tarifa", "tariff.id")
                 .field("moneda", "currency")
-                .field("impfina", "initialAmount.amount")
                 .field("diapago", "paymentDay")
+                .field("diafact", "billingDay")
+                .field("impfina", "initialAmount.amount")
+                .field("tarifa", "tariff.id")
+                .field("tipenvi", "deliveryTypeId")
                 .field("mailcon", "email")
-                .field("idtoken", "operation.id")
-                .field("codtr", "operation.operationType.id")
                 .field("codbien", "externalProduct.id")
                 .field("impbien", "externalProduct.commercialValue.amount")
-                .field("codcnc", "thirdPartyProvider.externalSalesChannel.id")
+                .field("tipdocu", "documentTypeId")
+                .field("nrodocu", "documentNumber")
+                .field("idtoken", "operation.id")
+                .field("codtr", "operation.operationType.id")
                 .field("codemp", "thirdPartyProvider.id")
-                .field("cocliex","thirdPartyProvider.userId")
+                .field("codcnc", "thirdPartyProvider.externalSalesChannel.id")
+                .field("cocliex", "thirdPartyProvider.userId")
                 .field("codofic", "branchId")
                 .register();
     }
@@ -49,18 +52,7 @@ public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper 
      */
     @Override
     public FormatoUGMEGAP mapIn(DTOIntExternalFinancingProposal dtoIn) {
-        FormatoUGMEGAP formatoUGMEGAP = map(dtoIn, FormatoUGMEGAP.class);
-
-        if (dtoIn.getDocumentTypeId() != null) {
-            formatoUGMEGAP.setTipdocu(enumMapper.getBackendValue("documentType.id",
-                    dtoIn.getDocumentTypeId()));
-        }
-        if (dtoIn.getDeliveryTypeId() != null) {
-            formatoUGMEGAP.setTipenvi(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id",
-                    dtoIn.getDeliveryTypeId()));
-        }
-
-        return formatoUGMEGAP;
+        return map(dtoIn, FormatoUGMEGAP.class);
     }
 
     /**

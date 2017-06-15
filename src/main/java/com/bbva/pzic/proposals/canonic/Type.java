@@ -11,10 +11,10 @@ import java.io.Serializable;
  *
  * @author Entelgy
  */
-@XmlRootElement(name = "DeliveryType", namespace = "urn:com:bbva:pzic:proposals:canonic")
-@XmlType(name = "DeliveryType", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlRootElement(name = "Type", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlType(name = "Type", namespace = "urn:com:bbva:pzic:proposals:canonic")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DeliveryType implements Serializable {
+public class Type implements Serializable {
 
     private static final long serialVersionUID = 1L;
     /**

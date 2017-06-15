@@ -317,11 +317,11 @@ public class TxListExternalFinancingProposalsMapperTest {
         Assert.assertEquals(result.getRelatedProduct().getPercentage(), formatoIn.getTasaseg());
 
         Assert.assertNotNull(result.getDelivery());
-        Assert.assertNotNull(result.getDelivery().getDeliveryType());
-        Assert.assertNotNull(result.getDelivery().getDeliveryType().getId());
-        Assert.assertEquals(result.getDelivery().getDeliveryType().getId(), DELIVERY_TYPE_ID);
-        Assert.assertNotNull(result.getDelivery().getDeliveryType().getName());
-        Assert.assertEquals(result.getDelivery().getDeliveryType().getName(), formatoIn.getDesenv());
+        Assert.assertNotNull(result.getDelivery().getType());
+        Assert.assertNotNull(result.getDelivery().getType().getId());
+        Assert.assertEquals(result.getDelivery().getType().getId(), DELIVERY_TYPE_ID);
+        Assert.assertNotNull(result.getDelivery().getType().getName());
+        Assert.assertEquals(result.getDelivery().getType().getName(), formatoIn.getDesenv());
 
         Assert.assertNotNull(result.getDelivery().getEmail());
         Assert.assertEquals(result.getDelivery().getEmail(), formatoIn.getMailcon());
@@ -404,11 +404,11 @@ public class TxListExternalFinancingProposalsMapperTest {
         Assert.assertEquals(result.getRelatedProduct().getPercentage(), formatoIn.getTasaseg());
 
         Assert.assertNotNull(result.getDelivery());
-        Assert.assertNotNull(result.getDelivery().getDeliveryType());
-        Assert.assertNotNull(result.getDelivery().getDeliveryType().getId());
-        Assert.assertEquals(result.getDelivery().getDeliveryType().getId(), DELIVERY_TYPE_ID);
-        Assert.assertNotNull(result.getDelivery().getDeliveryType().getName());
-        Assert.assertEquals(result.getDelivery().getDeliveryType().getName(), formatoIn.getDesenv());
+        Assert.assertNotNull(result.getDelivery().getType());
+        Assert.assertNotNull(result.getDelivery().getType().getId());
+        Assert.assertEquals(result.getDelivery().getType().getId(), DELIVERY_TYPE_ID);
+        Assert.assertNotNull(result.getDelivery().getType().getName());
+        Assert.assertEquals(result.getDelivery().getType().getName(), formatoIn.getDesenv());
 
         Assert.assertNotNull(result.getDelivery().getEmail());
         Assert.assertEquals(result.getDelivery().getEmail(), formatoIn.getMailcon());

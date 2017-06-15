@@ -20,18 +20,18 @@ public class Delivery implements Serializable {
     /**
      * Type of delivery of documentation.
      */
-    private DeliveryType deliveryType;
+    private Type type;
     /**
      * Email where the documentation is delivered.
      */
     private String email;
 
-    public DeliveryType getDeliveryType() {
-        return deliveryType;
+    public Type getType() {
+        return type;
     }
 
-    public void setDeliveryType(DeliveryType deliveryType) {
-        this.deliveryType = deliveryType;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public String getEmail() {

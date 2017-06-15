@@ -16,14 +16,18 @@ public class DTOIntExternalFinancingProposal {
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Size(max = 3, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String currency;
+
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntInitialAmount initialAmount;
+
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntTariff tariff;
+
     @Valid
     private DTOIntExternalProduct externalProduct;
+
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntOperation operation;
@@ -34,17 +38,21 @@ public class DTOIntExternalFinancingProposal {
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Digits(integer = 2, fraction = 0, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private Integer paymentDay;
+
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Valid
     private DTOIntThirdPartyProvider thirdPartyProvider;
 
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Size(max = 1, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String documentTypeId;
+
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
     @Size(max = 10, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String documentNumber;
 
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Size(max = 1, groups = ValidationGroup.CreateExternalFinancingProposal.class)
     private String deliveryTypeId;
 
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
@@ -59,6 +67,10 @@ public class DTOIntExternalFinancingProposal {
             ValidationGroup.CreateExternalFinancingProposal.class
     })
     private String branchId;
+
+    @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Size(max = 2, groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    private String billingDay;
 
     public String getBranchId() {
         return branchId;
@@ -163,5 +175,13 @@ public class DTOIntExternalFinancingProposal {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getBillingDay() {
+        return billingDay;
+    }
+
+    public void setBillingDay(String billingDay) {
+        this.billingDay = billingDay;
     }
 }

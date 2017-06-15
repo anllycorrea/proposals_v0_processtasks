@@ -4,9 +4,13 @@ import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.IdentityDocument;
-import com.bbva.pzic.proposals.facade.v01.mapper.ICreateExternalFinancingProposalMapper;
+import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +24,11 @@ import static org.junit.Assert.*;
  */
 public class CreateExternalFinancingProposalMapperTest {
 
-    private ICreateExternalFinancingProposalMapper mapper;
+    @InjectMocks
+    private CreateExternalFinancingProposalMapper mapper;
+
+    @Mock
+    private EnumMapper enumMapper;
 
     private DummyMock dummyMock;
 
@@ -28,13 +36,18 @@ public class CreateExternalFinancingProposalMapperTest {
     public void setUp() {
         mapper = new CreateExternalFinancingProposalMapper();
         dummyMock = new DummyMock();
+        MockitoAnnotations.initMocks(this);
+        mapInEnumMapper();
+    }
+
+    public void mapInEnumMapper() {
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.type.id", "VIRTUAL")).thenReturn("V");
+        Mockito.when(enumMapper.getBackendValue("documentType.id", "DNI")).thenReturn("L");
     }
 
     @Test
     public void mapInFullTest() throws IOException {
-
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
-
         DTOIntExternalFinancingProposal result = mapper.mapIn(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
         assertNotNull(result);
@@ -62,12 +75,12 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
         assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getTariff().getId(), result.getTariff().getId());
-        assertEquals(externalFinancingProposal.getDelivery().getDeliveryType().getId(), result.getDeliveryTypeId());
+        assertEquals("V", result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getEmail(), result.getEmail());
         assertEquals(externalFinancingProposal.getExternalProduct().getId(), result.getExternalProduct().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValue().getAmount(), result.getExternalProduct().getCommercialValue().getAmount());
         assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValue().getCurrency(), result.getExternalProduct().getCommercialValue().getCurrency());
-        assertEquals(externalFinancingProposal.getHolder().getIdentityDocuments().get(0).getDocumentType().getId(), result.getDocumentTypeId());
+        assertEquals("L", result.getDocumentTypeId());
         assertEquals(externalFinancingProposal.getHolder().getIdentityDocuments().get(0).getDocumentNumber(), result.getDocumentNumber());
         assertEquals(externalFinancingProposal.getOperation().getId(), result.getOperation().getId());
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
@@ -79,14 +92,11 @@ public class CreateExternalFinancingProposalMapperTest {
 
     @Test
     public void mapInWithoutHolderTest() throws IOException {
-
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setHolder(null);
-
         DTOIntExternalFinancingProposal result = mapper.mapIn(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
         assertNotNull(result);
-
         assertNotNull(result.getTariff());
         assertNotNull(result.getCurrency());
         assertNotNull(result.getInitialAmount());
@@ -102,7 +112,6 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNotNull(result.getThirdPartyProvider().getExternalSalesChannel());
         assertNotNull(result.getThirdPartyProvider().getUserId());
         assertNotNull(result.getBranchId());
-
         assertNull(result.getDocumentTypeId());
         assertNull(result.getDocumentNumber());
 
@@ -111,7 +120,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
         assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
-        assertEquals(externalFinancingProposal.getDelivery().getDeliveryType().getId(), result.getDeliveryTypeId());
+        assertEquals("V", result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getEmail(), result.getEmail());
         assertEquals(externalFinancingProposal.getOperation().getId(), result.getOperation().getId());
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
@@ -126,10 +135,8 @@ public class CreateExternalFinancingProposalMapperTest {
 
     @Test
     public void mapInWithoutHolderIdentityDocumentsTest() throws IOException {
-
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().setIdentityDocuments(null);
-
         DTOIntExternalFinancingProposal result = mapper.mapIn(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
         assertNotNull(result);
@@ -148,15 +155,15 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNotNull(result.getThirdPartyProvider().getExternalSalesChannel());
         assertNotNull(result.getThirdPartyProvider().getUserId());
         assertNotNull(result.getBranchId());
-
         assertNull(result.getDocumentTypeId());
         assertNull(result.getDocumentNumber());
+
         assertEquals(externalFinancingProposal.getTariff().getId(), result.getTariff().getId());
         assertEquals(externalFinancingProposal.getCurrency(), result.getCurrency());
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
         assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
-        assertEquals(externalFinancingProposal.getDelivery().getDeliveryType().getId(), result.getDeliveryTypeId());
+        assertEquals("V", result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getEmail(), result.getEmail());
         assertEquals(externalFinancingProposal.getOperation().getId(), result.getOperation().getId());
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
@@ -173,7 +180,6 @@ public class CreateExternalFinancingProposalMapperTest {
     public void mapInWithHolderIdentityDocumentsEmptyTest() throws IOException {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().setIdentityDocuments(new ArrayList<IdentityDocument>());
-
         DTOIntExternalFinancingProposal result = mapper.mapIn(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
         assertNotNull(result);
@@ -192,15 +198,15 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNotNull(result.getThirdPartyProvider().getExternalSalesChannel());
         assertNotNull(result.getThirdPartyProvider().getUserId());
         assertNotNull(result.getBranchId());
-
         assertNull(result.getDocumentTypeId());
         assertNull(result.getDocumentNumber());
+
         assertEquals(externalFinancingProposal.getTariff().getId(), result.getTariff().getId());
         assertEquals(externalFinancingProposal.getCurrency(), result.getCurrency());
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
         assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
-        assertEquals(externalFinancingProposal.getDelivery().getDeliveryType().getId(), result.getDeliveryTypeId());
+        assertEquals("V", result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getEmail(), result.getEmail());
         assertEquals(externalFinancingProposal.getOperation().getId(), result.getOperation().getId());
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
@@ -218,7 +224,6 @@ public class CreateExternalFinancingProposalMapperTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().clear();
         externalFinancingProposal.getHolder().getIdentityDocuments().add(null);
-
         DTOIntExternalFinancingProposal result = mapper.mapIn(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
         assertNotNull(result);
@@ -237,15 +242,15 @@ public class CreateExternalFinancingProposalMapperTest {
         assertNotNull(result.getThirdPartyProvider().getExternalSalesChannel());
         assertNotNull(result.getThirdPartyProvider().getUserId());
         assertNotNull(result.getBranchId());
-
         assertNull(result.getDocumentTypeId());
         assertNull(result.getDocumentNumber());
+
         assertEquals(externalFinancingProposal.getTariff().getId(), result.getTariff().getId());
         assertEquals(externalFinancingProposal.getCurrency(), result.getCurrency());
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
         assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
-        assertEquals(externalFinancingProposal.getDelivery().getDeliveryType().getId(), result.getDeliveryTypeId());
+        assertEquals("V", result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getEmail(), result.getEmail());
         assertEquals(externalFinancingProposal.getOperation().getId(), result.getOperation().getId());
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());

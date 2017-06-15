@@ -21,7 +21,7 @@ public class ModifyExternalFinancingProposalMapper extends ConfigurableMapper im
         super.configure(factory);
 
         factory.classMap(ExternalFinancingProposal.class, DTOIntExternalFinancingProposal.class)
-                .field("delivery.deliveryType.id", "deliveryTypeId")
+                .field("delivery.type.id", "deliveryTypeId")
                 .field("delivery.email", "email")
                 .field("status.id", "statusId")
                 .register();

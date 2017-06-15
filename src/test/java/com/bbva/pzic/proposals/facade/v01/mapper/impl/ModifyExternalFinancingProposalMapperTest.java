@@ -38,7 +38,7 @@ public class ModifyExternalFinancingProposalMapperTest {
 
         assertEquals(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, result.getExternalFinancingProposalId());
         assertEquals(payload.getStatus().getId(), result.getExternalFinancingProposal().getStatusId());
-        assertEquals(payload.getDelivery().getDeliveryType().getId(), result.getExternalFinancingProposal().getDeliveryTypeId());
+        assertEquals(payload.getDelivery().getType().getId(), result.getExternalFinancingProposal().getDeliveryTypeId());
         assertEquals(payload.getDelivery().getEmail(), result.getExternalFinancingProposal().getEmail());
     }
 
