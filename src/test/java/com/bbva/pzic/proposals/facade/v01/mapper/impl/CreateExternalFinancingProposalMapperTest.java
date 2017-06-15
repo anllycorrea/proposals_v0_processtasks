@@ -41,7 +41,7 @@ public class CreateExternalFinancingProposalMapperTest {
     }
 
     public void mapInEnumMapper() {
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.type.id", "VIRTUAL")).thenReturn("V");
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.type.id", "DIGITAL")).thenReturn("D");
         Mockito.when(enumMapper.getBackendValue("documentType.id", "DNI")).thenReturn("L");
     }
 
@@ -75,7 +75,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
         assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getTariff().getId(), result.getTariff().getId());
-        assertEquals("V", result.getDeliveryTypeId());
+        assertEquals("D", result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getEmail(), result.getEmail());
         assertEquals(externalFinancingProposal.getExternalProduct().getId(), result.getExternalProduct().getId());
         assertEquals(externalFinancingProposal.getExternalProduct().getCommercialValue().getAmount(), result.getExternalProduct().getCommercialValue().getAmount());
@@ -120,7 +120,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
         assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
-        assertEquals("V", result.getDeliveryTypeId());
+        assertEquals("D", result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getEmail(), result.getEmail());
         assertEquals(externalFinancingProposal.getOperation().getId(), result.getOperation().getId());
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
@@ -163,7 +163,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
         assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
-        assertEquals("V", result.getDeliveryTypeId());
+        assertEquals("D", result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getEmail(), result.getEmail());
         assertEquals(externalFinancingProposal.getOperation().getId(), result.getOperation().getId());
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
@@ -206,7 +206,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
         assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
-        assertEquals("V", result.getDeliveryTypeId());
+        assertEquals("D", result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getEmail(), result.getEmail());
         assertEquals(externalFinancingProposal.getOperation().getId(), result.getOperation().getId());
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());
@@ -250,7 +250,7 @@ public class CreateExternalFinancingProposalMapperTest {
         assertEquals(externalFinancingProposal.getInitialAmount().getAmount(), result.getInitialAmount().getAmount());
         assertEquals(externalFinancingProposal.getInitialAmount().getCurrency(), result.getInitialAmount().getCurrency());
         assertEquals(externalFinancingProposal.getPaymentDay(), result.getPaymentDay());
-        assertEquals("V", result.getDeliveryTypeId());
+        assertEquals("D", result.getDeliveryTypeId());
         assertEquals(externalFinancingProposal.getDelivery().getEmail(), result.getEmail());
         assertEquals(externalFinancingProposal.getOperation().getId(), result.getOperation().getId());
         assertEquals(externalFinancingProposal.getOperation().getOperationType().getId(), result.getOperation().getOperationType().getId());

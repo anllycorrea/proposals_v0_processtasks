@@ -19,7 +19,7 @@ public interface ISrvProposalsV01 {
      * Etiquetas para listExternalFinancingProposals
      */
     String THIRD_PARTY_PROVIDER_ID = "thirdPartyProvider.id";
-    String EXTERNALPRODUCT_CATEGORY_TYPE_ID = "externalProduct.category.type.id";
+    String EXTERNAL_PRODUCT_CATEGORY_TYPE_ID = "externalProduct.category.type.id";
     String HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID = "holder.identityDocuments.documentType.id";
     String HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER = "holder.identityDocuments.documentNumber";
     String FROM_REQUEST_DATE = "fromRequestDate";

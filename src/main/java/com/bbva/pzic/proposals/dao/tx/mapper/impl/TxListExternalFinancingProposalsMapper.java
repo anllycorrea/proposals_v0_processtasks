@@ -44,7 +44,7 @@ public class TxListExternalFinancingProposalsMapper extends ConfigurableMapper i
 
         factory.classMap(FormatoUGMEGLP.class, DTOInputListExternalFinancingProposals.class)
                 .field("codemp", "thirdPartyProviderId")
-//                .field("tipbien", "externalproductCategoryTypeId")
+                .field("tipbien", "externalproductCategoryTypeId")
                 .field("tipdocu", "holderIdentityDocumentsDocumentTypeId")
                 .field("nrodocu", "holderIdentityDocumentsDocumentNumber")
                 .field("fecrdes", "fromRequestDate")

@@ -27,7 +27,7 @@ import java.util.List;
  * @author Entelgy
  */
 public class TxListExternalFinancingProposalsMapperTest {
-    final static String DELIVERY_TYPE_ID = "VIRTUAL";
+    final static String DELIVERY_TYPE_ID = "DIGITAL";
     final static String STATUS_ID = "PENDING_SIGNATURE";
 
     @InjectMocks
@@ -48,17 +48,21 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     public void enumMapOut() {
         Mockito.when(enumMapper.getEnumValue("externalFinancingProposals.status.id", "8")).thenReturn(STATUS_ID);
-        Mockito.when(enumMapper.getEnumValue("externalFinancingProposals.delivery.type.id", "V")).thenReturn(DELIVERY_TYPE_ID);
+        Mockito.when(enumMapper.getEnumValue("externalFinancingProposals.delivery.type.id", "D")).thenReturn(DELIVERY_TYPE_ID);
     }
 
     @Test
     public void mapInFullTest() {
         DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
         FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
+
         Assert.assertNotNull(result);
 
         Assert.assertNotNull(result.getCodemp());
         Assert.assertEquals(result.getCodemp(), dtoIn.getThirdPartyProviderId());
+
+        Assert.assertNotNull(result.getTipbien());
+        Assert.assertEquals(result.getTipbien(), dtoIn.getExternalproductCategoryTypeId());
 
         Assert.assertNotNull(result.getTipdocu());
         Assert.assertEquals(result.getTipdocu(), dtoIn.getHolderIdentityDocumentsDocumentTypeId());
@@ -86,6 +90,39 @@ public class TxListExternalFinancingProposalsMapperTest {
         Assert.assertNotNull(result);
 
         Assert.assertNull(result.getCodemp());
+
+        Assert.assertNotNull(result.getTipbien());
+        Assert.assertEquals(result.getTipbien(), dtoIn.getExternalproductCategoryTypeId());
+
+        Assert.assertNotNull(result.getTipdocu());
+        Assert.assertEquals(result.getTipdocu(), dtoIn.getHolderIdentityDocumentsDocumentTypeId());
+
+        Assert.assertNotNull(result.getNrodocu());
+        Assert.assertEquals(result.getNrodocu(), dtoIn.getHolderIdentityDocumentsDocumentNumber());
+
+        Assert.assertNotNull(result.getFecrdes());
+
+        Assert.assertNotNull(result.getFecrhas());
+
+        Assert.assertNotNull(result.getIdpagin());
+        Assert.assertEquals(result.getIdpagin(), dtoIn.getPaginationKey());
+
+        Assert.assertNotNull(result.getTampagi());
+        Assert.assertEquals(result.getTampagi().toString(), dtoIn.getPageSize().toString());
+
+    }
+
+    @Test
+    public void mapInWithOutExternalProductCategoryIdTest() {
+        DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
+        dtoIn.setExternalproductCategoryTypeId(null);
+        FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
+        Assert.assertNotNull(result);
+
+        Assert.assertNotNull(result.getCodemp());
+        Assert.assertEquals(result.getCodemp(), dtoIn.getThirdPartyProviderId());
+
+        Assert.assertNull(result.getTipbien());
 
         Assert.assertNotNull(result.getTipdocu());
         Assert.assertEquals(result.getTipdocu(), dtoIn.getHolderIdentityDocumentsDocumentTypeId());
@@ -115,6 +152,9 @@ public class TxListExternalFinancingProposalsMapperTest {
         Assert.assertNotNull(result.getCodemp());
         Assert.assertEquals(result.getCodemp(), dtoIn.getThirdPartyProviderId());
 
+        Assert.assertNotNull(result.getTipbien());
+        Assert.assertEquals(result.getTipbien(), dtoIn.getExternalproductCategoryTypeId());
+
         Assert.assertNull(result.getTipdocu());
 
         Assert.assertNotNull(result.getNrodocu());
@@ -133,7 +173,7 @@ public class TxListExternalFinancingProposalsMapperTest {
     }
 
     @Test
-    public void mapInWithOutTest() {
+    public void mapInWithOutDocumentNumberTest() {
         DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
         dtoIn.setHolderIdentityDocumentsDocumentNumber(null);
         FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
@@ -141,6 +181,9 @@ public class TxListExternalFinancingProposalsMapperTest {
 
         Assert.assertNotNull(result.getCodemp());
         Assert.assertEquals(result.getCodemp(), dtoIn.getThirdPartyProviderId());
+
+        Assert.assertNotNull(result.getTipbien());
+        Assert.assertEquals(result.getTipbien(), dtoIn.getExternalproductCategoryTypeId());
 
         Assert.assertNotNull(result.getTipdocu());
         Assert.assertEquals(result.getTipdocu(), dtoIn.getHolderIdentityDocumentsDocumentTypeId());
@@ -168,6 +211,9 @@ public class TxListExternalFinancingProposalsMapperTest {
 
         Assert.assertNotNull(result.getCodemp());
         Assert.assertEquals(result.getCodemp(), dtoIn.getThirdPartyProviderId());
+
+        Assert.assertNotNull(result.getTipbien());
+        Assert.assertEquals(result.getTipbien(), dtoIn.getExternalproductCategoryTypeId());
 
         Assert.assertNotNull(result.getTipdocu());
         Assert.assertEquals(result.getTipdocu(), dtoIn.getHolderIdentityDocumentsDocumentTypeId());
@@ -197,6 +243,9 @@ public class TxListExternalFinancingProposalsMapperTest {
         Assert.assertNotNull(result.getCodemp());
         Assert.assertEquals(result.getCodemp(), dtoIn.getThirdPartyProviderId());
 
+        Assert.assertNotNull(result.getTipbien());
+        Assert.assertEquals(result.getTipbien(), dtoIn.getExternalproductCategoryTypeId());
+
         Assert.assertNotNull(result.getTipdocu());
         Assert.assertEquals(result.getTipdocu(), dtoIn.getHolderIdentityDocumentsDocumentTypeId());
 
@@ -225,6 +274,9 @@ public class TxListExternalFinancingProposalsMapperTest {
         Assert.assertNotNull(result.getCodemp());
         Assert.assertEquals(result.getCodemp(), dtoIn.getThirdPartyProviderId());
 
+        Assert.assertNotNull(result.getTipbien());
+        Assert.assertEquals(result.getTipbien(), dtoIn.getExternalproductCategoryTypeId());
+
         Assert.assertNotNull(result.getTipdocu());
         Assert.assertEquals(result.getTipdocu(), dtoIn.getHolderIdentityDocumentsDocumentTypeId());
 
@@ -251,6 +303,9 @@ public class TxListExternalFinancingProposalsMapperTest {
 
         Assert.assertNotNull(result.getCodemp());
         Assert.assertEquals(result.getCodemp(), dtoIn.getThirdPartyProviderId());
+
+        Assert.assertNotNull(result.getTipbien());
+        Assert.assertEquals(result.getTipbien(), dtoIn.getExternalproductCategoryTypeId());
 
         Assert.assertNotNull(result.getTipdocu());
         Assert.assertEquals(result.getTipdocu(), dtoIn.getHolderIdentityDocumentsDocumentTypeId());

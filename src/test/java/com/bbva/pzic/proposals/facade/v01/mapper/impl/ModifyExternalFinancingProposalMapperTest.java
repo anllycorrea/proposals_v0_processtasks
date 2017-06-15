@@ -40,7 +40,8 @@ public class ModifyExternalFinancingProposalMapperTest {
     }
 
     public void mapInEnumMapper() {
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.type.id", EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_ID)).thenReturn(EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_VALUE);
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.type.id", EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_VALUE)).thenReturn(EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_ID);
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.status.id", STATUS_VALUE)).thenReturn(STATUS_ID);
     }
 
     @Test
@@ -54,8 +55,8 @@ public class ModifyExternalFinancingProposalMapperTest {
         assertNotNull(result.getExternalFinancingProposal().getEmail());
 
         assertEquals(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, result.getExternalFinancingProposalId());
-        assertEquals(payload.getStatus().getId(), result.getExternalFinancingProposal().getStatusId());
-        assertEquals(EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_VALUE, result.getExternalFinancingProposal().getDeliveryTypeId());
+        assertEquals(STATUS_ID, result.getExternalFinancingProposal().getStatusId());
+        assertEquals(EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_ID, result.getExternalFinancingProposal().getDeliveryTypeId());
         assertEquals(payload.getDelivery().getEmail(), result.getExternalFinancingProposal().getEmail());
     }
 

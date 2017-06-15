@@ -106,7 +106,7 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
     @SMC(registryID = "SMCPE1720029", logicalID = "listExternalFinancingProposals")
     public Response listExternalFinancingProposals(
             @QueryParam(THIRD_PARTY_PROVIDER_ID) final String thirdPartyProviderId,
-            @QueryParam(EXTERNALPRODUCT_CATEGORY_TYPE_ID) final String externalproductCategoryTypeId,
+            @QueryParam(EXTERNAL_PRODUCT_CATEGORY_TYPE_ID) final String externalproductCategoryTypeId,
             @QueryParam(HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID) final String holderIdentityDocumentsDocumentTypeId,
             @QueryParam(HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER) final String holderIdentityDocumentsDocumentNumber,
             @QueryParam(FROM_REQUEST_DATE) final String fromRequestDate,

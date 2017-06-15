@@ -19,8 +19,10 @@ public class DummyMock {
 
     public static final String EXTERNAL_FINANCING_PROPOSAL_ID = "001101309600000001";
     public static final String THIRD_PARTY_PROVIDER_USER_ID = "12312432";
-    public final static String EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_ID = "VIRTUAL";
-    public final static String EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_VALUE = "V";
+    public final static String EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_ID = "D";
+    public final static String EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_VALUE = "DIGITAL";
+    public final static String STATUS_ID = "8";
+    public final static String STATUS_VALUE = "PENDING_SIGNATURE";
 
     private ObjectMapper objectMapper;
 
@@ -36,6 +38,7 @@ public class DummyMock {
     public DTOInputListExternalFinancingProposals getDtoInputListExternalFinancingProposals() {
         DTOInputListExternalFinancingProposals dtoIn = new DTOInputListExternalFinancingProposals();
         dtoIn.setThirdPartyProviderId(ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID);
+        dtoIn.setExternalproductCategoryTypeId(ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID);
         dtoIn.setHolderIdentityDocumentsDocumentTypeId(ListExternalFinancingProposalsMapperTest.DOCUMENT_TYPE_VALUE);
         dtoIn.setHolderIdentityDocumentsDocumentNumber(ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER);
         dtoIn.setFromRequestDate(ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE);

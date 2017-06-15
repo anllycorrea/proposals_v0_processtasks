@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  */
 public class TxCreateExternalFinancingProposalMapperTest {
     private static final String PROPERTY_DOCUMENT_TYPE_ID_DNI_KEY_TESTED = "L";
-    private static final String PROPERTY_DELIVERY_TYPE_ID_VIRTUAL_KEY_TESTED = "V";
+    private static final String PROPERTY_DELIVERY_TYPE_ID_VIRTUAL_KEY_TESTED = "D";
 
     private TxCreateExternalFinancingProposalMapper mapper;
 
