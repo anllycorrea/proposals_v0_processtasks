@@ -9,6 +9,7 @@
       }
     ]
   },
+  "billingDay": "5",
   "tariff": {
     "id": "BBVA001"
   },

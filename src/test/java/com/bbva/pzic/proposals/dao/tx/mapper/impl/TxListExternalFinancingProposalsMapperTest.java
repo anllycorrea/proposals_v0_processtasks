@@ -48,7 +48,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     public void enumMapOut() {
         Mockito.when(enumMapper.getEnumValue("externalFinancingProposals.status.id", "8")).thenReturn(STATUS_ID);
-        Mockito.when(enumMapper.getEnumValue("externalFinancingProposals.delivery.deliveryType.id", "1")).thenReturn(DELIVERY_TYPE_ID);
+        Mockito.when(enumMapper.getEnumValue("externalFinancingProposals.delivery.type.id", "V")).thenReturn(DELIVERY_TYPE_ID);
     }
 
     @Test

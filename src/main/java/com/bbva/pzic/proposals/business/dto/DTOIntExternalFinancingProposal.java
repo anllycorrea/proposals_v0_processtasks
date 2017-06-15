@@ -33,6 +33,7 @@ public class DTOIntExternalFinancingProposal {
     private DTOIntOperation operation;
 
     @NotNull(groups = ValidationGroup.ModifyExternalFinancingProposal.class)
+    @Size(max = 1, groups = ValidationGroup.ModifyExternalFinancingProposal.class)
     private String statusId;
 
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
@@ -52,7 +53,7 @@ public class DTOIntExternalFinancingProposal {
     private String documentNumber;
 
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)
-    @Size(max = 1, groups = ValidationGroup.CreateExternalFinancingProposal.class)
+    @Size(max = 1, groups = {ValidationGroup.CreateExternalFinancingProposal.class, ValidationGroup.ModifyExternalFinancingProposal.class})
     private String deliveryTypeId;
 
     @NotNull(groups = ValidationGroup.CreateExternalFinancingProposal.class)

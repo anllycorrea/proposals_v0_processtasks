@@ -19,6 +19,8 @@ public class DummyMock {
 
     public static final String EXTERNAL_FINANCING_PROPOSAL_ID = "001101309600000001";
     public static final String THIRD_PARTY_PROVIDER_USER_ID = "12312432";
+    public final static String EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_ID = "VIRTUAL";
+    public final static String EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_VALUE = "V";
 
     private ObjectMapper objectMapper;
 

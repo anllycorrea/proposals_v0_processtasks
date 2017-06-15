@@ -24,7 +24,7 @@
         }
       },
       "delivery": {
-        "deliveryType": {
+        "type": {
           "id": "VIRTUAL",
           "name": "Virtual"
         }

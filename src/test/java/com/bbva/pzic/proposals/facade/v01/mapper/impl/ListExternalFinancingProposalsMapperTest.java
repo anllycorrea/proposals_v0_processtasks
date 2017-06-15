@@ -17,7 +17,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 /**
  * Created on 12/04/2017.
  *
@@ -25,13 +24,15 @@ import java.util.ArrayList;
  */
 public class ListExternalFinancingProposalsMapperTest {
     public final static String THIRD_PARTY_PROVIDER_ID = "TDPE";
-    public final static String HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID = "DNI";
+    public final static String EXTERNAL_PRODUCT_CATEGORY_TYPE_ID = "CE";
     public final static String HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER = "45635269";
+    public final static String HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID = "DNI";
     public final static String FROM_REQUEST_DATE = "2016-02-28";
     public final static String TO_REQUEST_DATE = "2016-02-28";
-    public final static String PAGINATION_KEY = "abc";
     public final static String DOCUMENT_TYPE_VALUE = "L";
+    public final static String PAGINATION_KEY = "abc";
     public final static Long PAGE_SIZE = 12L;
+
     @InjectMocks
     private IListExternalFinancingProposalsMapper proposalsMapper;
     @Mock
@@ -52,11 +53,14 @@ public class ListExternalFinancingProposalsMapperTest {
     @Test
     public void mapInFullTest() {
         enumMapIn();
-        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, TO_REQUEST_DATE, PAGINATION_KEY, PAGE_SIZE);
+        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, EXTERNAL_PRODUCT_CATEGORY_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, TO_REQUEST_DATE, PAGINATION_KEY, PAGE_SIZE);
         Assert.assertNotNull(dtoIn);
 
         Assert.assertNotNull(dtoIn.getThirdPartyProviderId());
         Assert.assertEquals(dtoIn.getThirdPartyProviderId(), THIRD_PARTY_PROVIDER_ID);
+
+        Assert.assertNotNull(dtoIn.getExternalproductCategoryTypeId());
+        Assert.assertEquals(dtoIn.getExternalproductCategoryTypeId(), EXTERNAL_PRODUCT_CATEGORY_TYPE_ID);
 
         Assert.assertNotNull(dtoIn.getHolderIdentityDocumentsDocumentTypeId());
         Assert.assertEquals(dtoIn.getHolderIdentityDocumentsDocumentTypeId(), DOCUMENT_TYPE_VALUE);
@@ -80,10 +84,43 @@ public class ListExternalFinancingProposalsMapperTest {
     @Test
     public void mapInWithoutThirdPartyProviderIdTest() {
         enumMapIn();
-        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(null, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, TO_REQUEST_DATE, PAGINATION_KEY, PAGE_SIZE);
+        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(null, EXTERNAL_PRODUCT_CATEGORY_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, TO_REQUEST_DATE, PAGINATION_KEY, PAGE_SIZE);
         Assert.assertNotNull(dtoIn);
 
         Assert.assertNull(dtoIn.getThirdPartyProviderId());
+
+        Assert.assertNotNull(dtoIn.getExternalproductCategoryTypeId());
+        Assert.assertEquals(dtoIn.getExternalproductCategoryTypeId(), EXTERNAL_PRODUCT_CATEGORY_TYPE_ID);
+
+        Assert.assertNotNull(dtoIn.getHolderIdentityDocumentsDocumentTypeId());
+        Assert.assertEquals(dtoIn.getHolderIdentityDocumentsDocumentTypeId(), DOCUMENT_TYPE_VALUE);
+
+        Assert.assertNotNull(dtoIn.getHolderIdentityDocumentsDocumentNumber());
+        Assert.assertEquals(dtoIn.getHolderIdentityDocumentsDocumentNumber(), HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER);
+
+        Assert.assertNotNull(dtoIn.getFromRequestDate());
+        Assert.assertEquals(dtoIn.getFromRequestDate(), FROM_REQUEST_DATE);
+
+        Assert.assertNotNull(dtoIn.getToRequestDate());
+        Assert.assertEquals(dtoIn.getToRequestDate(), TO_REQUEST_DATE);
+
+        Assert.assertNotNull(dtoIn.getPaginationKey());
+        Assert.assertEquals(dtoIn.getPaginationKey(), PAGINATION_KEY);
+
+        Assert.assertNotNull(dtoIn.getPageSize());
+
+    }
+
+    @Test
+    public void mapInWithoutExternalProductCategpryTypeIdTest() {
+        enumMapIn();
+        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, null, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, TO_REQUEST_DATE, PAGINATION_KEY, PAGE_SIZE);
+        Assert.assertNotNull(dtoIn);
+
+        Assert.assertNotNull(dtoIn.getThirdPartyProviderId());
+        Assert.assertEquals(dtoIn.getThirdPartyProviderId(), THIRD_PARTY_PROVIDER_ID);
+
+        Assert.assertNull(dtoIn.getExternalproductCategoryTypeId());
 
         Assert.assertNotNull(dtoIn.getHolderIdentityDocumentsDocumentTypeId());
         Assert.assertEquals(dtoIn.getHolderIdentityDocumentsDocumentTypeId(), DOCUMENT_TYPE_VALUE);
@@ -106,11 +143,14 @@ public class ListExternalFinancingProposalsMapperTest {
 
     @Test
     public void mapInWithoutHolderIdentityDocumentsDocumentTypeIdTest() {
-        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, null, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, TO_REQUEST_DATE, PAGINATION_KEY, PAGE_SIZE);
+        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, EXTERNAL_PRODUCT_CATEGORY_TYPE_ID, null, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, TO_REQUEST_DATE, PAGINATION_KEY, PAGE_SIZE);
         Assert.assertNotNull(dtoIn);
 
         Assert.assertNotNull(dtoIn.getThirdPartyProviderId());
         Assert.assertEquals(dtoIn.getThirdPartyProviderId(), THIRD_PARTY_PROVIDER_ID);
+
+        Assert.assertNotNull(dtoIn.getExternalproductCategoryTypeId());
+        Assert.assertEquals(dtoIn.getExternalproductCategoryTypeId(), EXTERNAL_PRODUCT_CATEGORY_TYPE_ID);
 
         Assert.assertNull(dtoIn.getHolderIdentityDocumentsDocumentTypeId());
 
@@ -133,11 +173,14 @@ public class ListExternalFinancingProposalsMapperTest {
     @Test
     public void mapInWithoutHolderIdentityDocumentsDocumentNumberTest() {
         enumMapIn();
-        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, null, FROM_REQUEST_DATE, TO_REQUEST_DATE, PAGINATION_KEY, PAGE_SIZE);
+        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, EXTERNAL_PRODUCT_CATEGORY_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, null, FROM_REQUEST_DATE, TO_REQUEST_DATE, PAGINATION_KEY, PAGE_SIZE);
         Assert.assertNotNull(dtoIn);
 
         Assert.assertNotNull(dtoIn.getThirdPartyProviderId());
         Assert.assertEquals(dtoIn.getThirdPartyProviderId(), THIRD_PARTY_PROVIDER_ID);
+
+        Assert.assertNotNull(dtoIn.getExternalproductCategoryTypeId());
+        Assert.assertEquals(dtoIn.getExternalproductCategoryTypeId(), EXTERNAL_PRODUCT_CATEGORY_TYPE_ID);
 
         Assert.assertNotNull(dtoIn.getHolderIdentityDocumentsDocumentTypeId());
         Assert.assertEquals(dtoIn.getHolderIdentityDocumentsDocumentTypeId(), DOCUMENT_TYPE_VALUE);
@@ -161,11 +204,14 @@ public class ListExternalFinancingProposalsMapperTest {
     @Test
     public void mapInWithoutFromRequestDateTest() {
         enumMapIn();
-        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, null, TO_REQUEST_DATE, PAGINATION_KEY, PAGE_SIZE);
+        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, EXTERNAL_PRODUCT_CATEGORY_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, null, TO_REQUEST_DATE, PAGINATION_KEY, PAGE_SIZE);
         Assert.assertNotNull(dtoIn);
 
         Assert.assertNotNull(dtoIn.getThirdPartyProviderId());
         Assert.assertEquals(dtoIn.getThirdPartyProviderId(), THIRD_PARTY_PROVIDER_ID);
+
+        Assert.assertNotNull(dtoIn.getExternalproductCategoryTypeId());
+        Assert.assertEquals(dtoIn.getExternalproductCategoryTypeId(), EXTERNAL_PRODUCT_CATEGORY_TYPE_ID);
 
         Assert.assertNotNull(dtoIn.getHolderIdentityDocumentsDocumentTypeId());
         Assert.assertEquals(dtoIn.getHolderIdentityDocumentsDocumentTypeId(), DOCUMENT_TYPE_VALUE);
@@ -188,11 +234,14 @@ public class ListExternalFinancingProposalsMapperTest {
     @Test
     public void mapInWithoutToRequestDateTest() {
         enumMapIn();
-        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, null, PAGINATION_KEY, PAGE_SIZE);
+        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, EXTERNAL_PRODUCT_CATEGORY_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, null, PAGINATION_KEY, PAGE_SIZE);
         Assert.assertNotNull(dtoIn);
 
         Assert.assertNotNull(dtoIn.getThirdPartyProviderId());
         Assert.assertEquals(dtoIn.getThirdPartyProviderId(), THIRD_PARTY_PROVIDER_ID);
+
+        Assert.assertNotNull(dtoIn.getExternalproductCategoryTypeId());
+        Assert.assertEquals(dtoIn.getExternalproductCategoryTypeId(), EXTERNAL_PRODUCT_CATEGORY_TYPE_ID);
 
         Assert.assertNotNull(dtoIn.getHolderIdentityDocumentsDocumentTypeId());
         Assert.assertEquals(dtoIn.getHolderIdentityDocumentsDocumentTypeId(), DOCUMENT_TYPE_VALUE);
@@ -215,11 +264,14 @@ public class ListExternalFinancingProposalsMapperTest {
     @Test
     public void mapInWithoutPaginationKeyTest() {
         enumMapIn();
-        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, TO_REQUEST_DATE, null, PAGE_SIZE);
+        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, EXTERNAL_PRODUCT_CATEGORY_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, TO_REQUEST_DATE, null, PAGE_SIZE);
         Assert.assertNotNull(dtoIn);
 
         Assert.assertNotNull(dtoIn.getThirdPartyProviderId());
         Assert.assertEquals(dtoIn.getThirdPartyProviderId(), THIRD_PARTY_PROVIDER_ID);
+
+        Assert.assertNotNull(dtoIn.getExternalproductCategoryTypeId());
+        Assert.assertEquals(dtoIn.getExternalproductCategoryTypeId(), EXTERNAL_PRODUCT_CATEGORY_TYPE_ID);
 
         Assert.assertNotNull(dtoIn.getHolderIdentityDocumentsDocumentTypeId());
         Assert.assertEquals(dtoIn.getHolderIdentityDocumentsDocumentTypeId(), DOCUMENT_TYPE_VALUE);
@@ -242,11 +294,14 @@ public class ListExternalFinancingProposalsMapperTest {
     @Test
     public void mapInWithoutPageSizeTest() {
         enumMapIn();
-        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, TO_REQUEST_DATE, PAGINATION_KEY, null);
+        DTOInputListExternalFinancingProposals dtoIn = proposalsMapper.mapIn(THIRD_PARTY_PROVIDER_ID, EXTERNAL_PRODUCT_CATEGORY_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID, HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER, FROM_REQUEST_DATE, TO_REQUEST_DATE, PAGINATION_KEY, null);
         Assert.assertNotNull(dtoIn);
 
         Assert.assertNotNull(dtoIn.getThirdPartyProviderId());
         Assert.assertEquals(dtoIn.getThirdPartyProviderId(), THIRD_PARTY_PROVIDER_ID);
+
+        Assert.assertNotNull(dtoIn.getExternalproductCategoryTypeId());
+        Assert.assertEquals(dtoIn.getExternalproductCategoryTypeId(), EXTERNAL_PRODUCT_CATEGORY_TYPE_ID);
 
         Assert.assertNotNull(dtoIn.getHolderIdentityDocumentsDocumentTypeId());
         Assert.assertEquals(dtoIn.getHolderIdentityDocumentsDocumentTypeId(), DOCUMENT_TYPE_VALUE);

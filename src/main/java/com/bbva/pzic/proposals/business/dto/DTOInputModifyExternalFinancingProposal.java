@@ -11,11 +11,12 @@ import javax.validation.constraints.Size;
  */
 public class DTOInputModifyExternalFinancingProposal {
 
+    @NotNull(groups = ValidationGroup.ModifyExternalFinancingProposal.class)
     @Size(max = 18, groups = ValidationGroup.ModifyExternalFinancingProposal.class)
     private String externalFinancingProposalId;
 
-    @Valid
     @NotNull(groups = ValidationGroup.ModifyExternalFinancingProposal.class)
+    @Valid
     private DTOIntExternalFinancingProposal externalFinancingProposal;
 
     public String getExternalFinancingProposalId() {

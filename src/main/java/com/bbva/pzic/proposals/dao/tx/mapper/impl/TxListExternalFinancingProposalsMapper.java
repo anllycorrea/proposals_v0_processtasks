@@ -44,6 +44,7 @@ public class TxListExternalFinancingProposalsMapper extends ConfigurableMapper i
 
         factory.classMap(FormatoUGMEGLP.class, DTOInputListExternalFinancingProposals.class)
                 .field("codemp", "thirdPartyProviderId")
+//                .field("tipbien", "externalproductCategoryTypeId")
                 .field("tipdocu", "holderIdentityDocumentsDocumentTypeId")
                 .field("nrodocu", "holderIdentityDocumentsDocumentNumber")
                 .field("fecrdes", "fromRequestDate")
@@ -103,7 +104,7 @@ public class TxListExternalFinancingProposalsMapper extends ConfigurableMapper i
         }
         ExternalFinancingProposal proposal = map(formatOutput, ExternalFinancingProposal.class);
         if (formatOutput.getTipenvi() != null) {
-            proposal.getDelivery().getType().setId(enumMapper.getEnumValue("externalFinancingProposals.delivery.deliveryType.id", formatOutput.getTipenvi()));
+            proposal.getDelivery().getType().setId(enumMapper.getEnumValue("externalFinancingProposals.delivery.type.id", formatOutput.getTipenvi()));
         }
         if (formatOutput.getIndesta() != null) {
             proposal.getStatus().setId(enumMapper.getEnumValue("externalFinancingProposals.status.id", formatOutput.getIndesta()));

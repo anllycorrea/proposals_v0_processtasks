@@ -36,14 +36,18 @@ public class TxModifyExternalFinancingProposalMapperTest {
         mapper = new TxModifyExternalFinancingProposalMapper();
         dummyMock = new DummyMock();
         MockitoAnnotations.initMocks(this);
+        enumMapIn();
     }
+
+    public void enumMapIn() {
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.status.id", "PENDING_SIGNATURE")).thenReturn("A");
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id", "VIRTUAL")).thenReturn("B");
+    }
+
 
     @Test
     public void mapInFullTest() throws IOException {
         DTOInputModifyExternalFinancingProposal dtoIn = dummyMock.getDTOInputModifyExternalFinancingProposal();
-
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.status.id", dtoIn.getExternalFinancingProposal().getStatusId())).thenReturn("A");
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id", dtoIn.getExternalFinancingProposal().getDeliveryTypeId())).thenReturn("B");
 
         FormatoUGMEGMP result = mapper.mapIn(dtoIn);
 
@@ -63,8 +67,6 @@ public class TxModifyExternalFinancingProposalMapperTest {
         DTOInputModifyExternalFinancingProposal dtoIn = dummyMock.getDTOInputModifyExternalFinancingProposal();
         dtoIn.getExternalFinancingProposal().setDeliveryTypeId(null);
         dtoIn.getExternalFinancingProposal().setEmail(null);
-
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.status.id", dtoIn.getExternalFinancingProposal().getStatusId())).thenReturn("A");
 
         FormatoUGMEGMP result = mapper.mapIn(dtoIn);
 

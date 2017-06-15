@@ -15,6 +15,10 @@ public class DTOInputListExternalFinancingProposals {
     private String thirdPartyProviderId;
 
     @NotNull(groups = ValidationGroup.ListExternalFinancingProposals.class)
+    @Size(max = 2, groups = ValidationGroup.ListExternalFinancingProposals.class)
+    private String externalproductCategoryTypeId;
+
+    @NotNull(groups = ValidationGroup.ListExternalFinancingProposals.class)
     private String holderIdentityDocumentsDocumentTypeId;
 
     @NotNull(groups = ValidationGroup.ListExternalFinancingProposals.class)
@@ -40,6 +44,14 @@ public class DTOInputListExternalFinancingProposals {
 
     public void setThirdPartyProviderId(String thirdPartyProviderId) {
         this.thirdPartyProviderId = thirdPartyProviderId;
+    }
+
+    public String getExternalproductCategoryTypeId() {
+        return externalproductCategoryTypeId;
+    }
+
+    public void setExternalproductCategoryTypeId(String externalproductCategoryTypeId) {
+        this.externalproductCategoryTypeId = externalproductCategoryTypeId;
     }
 
     public String getHolderIdentityDocumentsDocumentTypeId() {

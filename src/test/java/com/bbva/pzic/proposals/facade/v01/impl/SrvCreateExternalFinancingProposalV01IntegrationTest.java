@@ -628,7 +628,6 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
         try {
             srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
-
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
