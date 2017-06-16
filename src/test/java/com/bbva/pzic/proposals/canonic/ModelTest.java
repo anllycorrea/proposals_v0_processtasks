@@ -36,6 +36,5 @@ public class ModelTest {
         Affirm.affirmEquals("Classes added / removed?", EXPECTED_CLASS_COUNT, pojoClasses.size());
 
         validator.validate(POJO_PACKAGE, new FilterPackageInfo());
-        TestUtils.testToString(pojoClasses);
     }
 }
