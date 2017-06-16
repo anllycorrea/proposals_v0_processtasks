@@ -9,6 +9,7 @@
       }
     ]
   },
+  "billingDay": "5",
   "tariff": {
     "id": "BBVA001"
   },
@@ -19,8 +20,8 @@
   },
   "paymentDay": 20,
   "delivery": {
-    "deliveryType": {
-      "id": "VIRTUAL"
+    "type": {
+      "id": "DIGITAL"
     },
     "email": "euler.alvarado@bbva.com"
   },

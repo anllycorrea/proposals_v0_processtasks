@@ -19,6 +19,7 @@ public interface ISrvProposalsV01 {
      * Etiquetas para listExternalFinancingProposals
      */
     String THIRD_PARTY_PROVIDER_ID = "thirdPartyProvider.id";
+    String EXTERNAL_PRODUCT_CATEGORY_TYPE_ID = "externalProduct.category.type.id";
     String HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID = "holder.identityDocuments.documentType.id";
     String HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER = "holder.identityDocuments.documentNumber";
     String FROM_REQUEST_DATE = "fromRequestDate";
@@ -43,6 +44,7 @@ public interface ISrvProposalsV01 {
      * Method for consulting external financing proposals.
      *
      * @param thirdPartyProviderId                  Filters the external financing proposals's by third party provider identifier
+     * @param externalproductCategoryTypeId         Filters the external product proposals's by category type identifier
      * @param holderIdentityDocumentsDocumentTypeId Filters the external financing proposals's by document type
      * @param holderIdentityDocumentsDocumentNumber Filters the external financing proposals's by document number
      * @param fromRequestDate                       Filters for the external financing proposals's which request date is later than this one (ISO-8601 date format)
@@ -51,7 +53,7 @@ public interface ISrvProposalsV01 {
      * @param pageSize                              Number of elements per page
      * @return a list of external financing proposals
      */
-    Response listExternalFinancingProposals(String thirdPartyProviderId,
+    Response listExternalFinancingProposals(String thirdPartyProviderId, String externalproductCategoryTypeId,
                                             String holderIdentityDocumentsDocumentTypeId, String holderIdentityDocumentsDocumentNumber,
                                             String fromRequestDate, String toRequestDate, String paginationKey, Long pageSize);
 

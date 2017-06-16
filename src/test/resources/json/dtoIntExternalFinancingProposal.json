@@ -10,8 +10,8 @@
     "currency": "EUR"
   },
   "paymentDay": 20,
-  "statusId": "PENDING_SIGNATURE",
-  "deliveryTypeId": "VIRTUAL",
+  "statusId": "8",
+  "deliveryTypeId": "D",
   "email": "euler.alvarado@bbva.com",
   "operation": {
     "id": "1123256778",

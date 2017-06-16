@@ -24,7 +24,8 @@ public interface IListExternalFinancingProposalsMapper {
      * @param pageSize                              Number of elements per page
      * @return {@link DTOInputListExternalFinancingProposals}
      */
-    DTOInputListExternalFinancingProposals mapIn(String thirdPartyProviderId, String holderIdentityDocumentsDocumentTypeId,
+    DTOInputListExternalFinancingProposals mapIn(String thirdPartyProviderId, String externalproductCategoryTypeId,
+                                                 String holderIdentityDocumentsDocumentTypeId,
                                                  String holderIdentityDocumentsDocumentNumber, String fromRequestDate, String toRequestDate,
                                                  String paginationKey, Long pageSize);
 

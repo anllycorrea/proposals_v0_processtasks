@@ -49,6 +49,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
     public void testListExternalFinancingProposals() {
         Response response = srvProposalsV01.listExternalFinancingProposals(
                 ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                 ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                 ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                 ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -65,6 +66,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
     public void testListExternalFinancingProposalsTestEmpty() {
         Response response = srvProposalsV01.listExternalFinancingProposals(
                 ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                 ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                 TransaccionUglpMock.TEST_EMPTY,
                 ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -80,6 +82,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
     public void testListExternalFinancingProposalsTestNotPagination() {
         Response response = srvProposalsV01.listExternalFinancingProposals(
                 ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                 ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                 TransaccionUglpMock.TEST_NOT_PAGINATION,
                 ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -96,6 +99,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
     public void testListExternalFinancingProposalsWithoutPageSize() {
         Response response = srvProposalsV01.listExternalFinancingProposals(
                 ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                 ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                 ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                 ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -112,6 +116,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
     public void testListExternalFinancingProposalsWithoutPaginationKey() {
         Response response = srvProposalsV01.listExternalFinancingProposals(
                 ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                 ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                 ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                 ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -131,6 +136,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     null,
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                     ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -144,10 +150,28 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
     }
 
     @Test
+    public void testListExternalFinancingProposalsWithoutExternalProductCategoryId() {
+        try {
+            srvProposalsV01.listExternalFinancingProposals(
+                    ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    null,
+                    ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
+                    ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
+                    ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
+                    ListExternalFinancingProposalsMapperTest.TO_REQUEST_DATE,
+                    ListExternalFinancingProposalsMapperTest.PAGINATION_KEY,
+                    ListExternalFinancingProposalsMapperTest.PAGE_SIZE);
+        } catch (final BusinessServiceException e) {
+            assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
+        }
+    }
+
+    @Test
     public void testListExternalFinancingProposalsWithoutHolderIdentityDocumentsDocumentTypeId() {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                     null,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                     ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -164,6 +188,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                     null,
                     ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -181,6 +206,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                     null,
@@ -197,6 +223,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                     ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -208,12 +235,30 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         }
     }
 
-    //Validaciones de longitud
     @Test
     public void testListExternalFinancingProposalsInvalidSizeThirdPartyProviderId() {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     "13245",
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
+                    ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
+                    ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
+                    ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
+                    ListExternalFinancingProposalsMapperTest.TO_REQUEST_DATE,
+                    ListExternalFinancingProposalsMapperTest.PAGINATION_KEY,
+                    ListExternalFinancingProposalsMapperTest.PAGE_SIZE);
+            fail();
+        } catch (final BusinessServiceException e) {
+            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
+        }
+    }
+
+    @Test
+    public void testListExternalFinancingProposalsInvalidSizeExternalProductCategoryId() {
+        try {
+            srvProposalsV01.listExternalFinancingProposals(
+                    ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    "CEEE",
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                     ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -231,6 +276,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                     "RG",
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                     ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -247,6 +293,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                     "12345678901",
                     ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -264,6 +311,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                     "2017-234-04",
@@ -280,6 +328,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                     ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -296,6 +345,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                     ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,
@@ -312,6 +362,7 @@ public class SrvListExternalFinancingProposalsV01IntegrationTest {
         try {
             srvProposalsV01.listExternalFinancingProposals(
                     ListExternalFinancingProposalsMapperTest.THIRD_PARTY_PROVIDER_ID,
+                    ListExternalFinancingProposalsMapperTest.EXTERNAL_PRODUCT_CATEGORY_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID,
                     ListExternalFinancingProposalsMapperTest.HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER,
                     ListExternalFinancingProposalsMapperTest.FROM_REQUEST_DATE,

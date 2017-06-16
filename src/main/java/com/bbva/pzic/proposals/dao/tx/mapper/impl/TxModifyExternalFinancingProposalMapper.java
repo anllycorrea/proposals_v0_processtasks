@@ -26,15 +26,14 @@ public class TxModifyExternalFinancingProposalMapper extends ConfigurableMapper 
 
         factory.classMap(FormatoUGMEGMP.class, DTOInputModifyExternalFinancingProposal.class)
                 .field("nrocont", "externalFinancingProposalId")
+                .field("tipenvi", "externalFinancingProposal.deliveryTypeId")
                 .field("mailcon", "externalFinancingProposal.email")
+                .field("indesta", "externalFinancingProposal.statusId")
                 .register();
     }
 
     @Override
     public FormatoUGMEGMP mapIn(final DTOInputModifyExternalFinancingProposal dtoIn) {
-        FormatoUGMEGMP format = map(dtoIn, FormatoUGMEGMP.class);
-        format.setIndesta(enumMapper.getBackendValue("externalFinancingProposals.status.id", dtoIn.getExternalFinancingProposal().getStatusId()));
-        format.setTipenvi(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id", dtoIn.getExternalFinancingProposal().getDeliveryTypeId()));
-        return format;
+        return map(dtoIn, FormatoUGMEGMP.class);
     }
 }

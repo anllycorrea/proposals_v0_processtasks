@@ -87,6 +87,10 @@ public class ExternalFinancingProposal implements Serializable {
     /**
      * Third party provider that provides a external product.
      */
+    private Integer billingDay;
+    /**
+      * Day of the calendar on which the billing is closed.
+     */
     private ThirdPartyProvider thirdPartyProvider;
 
     public String getId() {
@@ -207,6 +211,14 @@ public class ExternalFinancingProposal implements Serializable {
 
     public void setPaymentDay(Integer paymentDay) {
         this.paymentDay = paymentDay;
+    }
+
+    public Integer getBillingDay() {
+        return billingDay;
+    }
+
+    public void setBillingDay(Integer billingDay) {
+        this.billingDay = billingDay;
     }
 
     public ThirdPartyProvider getThirdPartyProvider() {
