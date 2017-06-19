@@ -15,6 +15,7 @@ privileged aspect FormatoUGMEGLP_Roo_ToString {
         sb.append("Idpagin: ").append(getIdpagin()).append(", ");
         sb.append("Nrodocu: ").append(getNrodocu()).append(", ");
         sb.append("Tampagi: ").append(getTampagi()).append(", ");
+        sb.append("Tipbien: ").append(getTipbien()).append(", ");
         sb.append("Tipdocu: ").append(getTipdocu());
         return sb.toString();
     }

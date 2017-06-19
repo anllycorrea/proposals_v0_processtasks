@@ -106,6 +106,7 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
     @SMC(registryID = "SMCPE1720029", logicalID = "listExternalFinancingProposals")
     public Response listExternalFinancingProposals(
             @QueryParam(THIRD_PARTY_PROVIDER_ID) final String thirdPartyProviderId,
+            @QueryParam(EXTERNAL_PRODUCT_CATEGORY_TYPE_ID) final String externalproductCategoryTypeId,
             @QueryParam(HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID) final String holderIdentityDocumentsDocumentTypeId,
             @QueryParam(HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER) final String holderIdentityDocumentsDocumentNumber,
             @QueryParam(FROM_REQUEST_DATE) final String fromRequestDate,
@@ -114,7 +115,7 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
             @QueryParam(PAGE_SIZE) Long pageSize) {
 
         DTOOutExternalFinancingProposalData proposalData = srvIntProposals.listExternalFinancingProposals(
-                proposalsMapper.mapIn(thirdPartyProviderId, holderIdentityDocumentsDocumentTypeId,
+                proposalsMapper.mapIn(thirdPartyProviderId, externalproductCategoryTypeId, holderIdentityDocumentsDocumentTypeId,
                         holderIdentityDocumentsDocumentNumber, fromRequestDate, toRequestDate, paginationKey, pageSize));
         ExternalFinancingProposalData data = proposalsMapper.mapOut(proposalData);
         if (data == null) {
@@ -141,7 +142,8 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
     @POST
     @Path("/external-financing-proposals")
     @SMC(registryID = "SMCPE1720028", logicalID = "createExternalFinancingProposal")
-    public Response createExternalFinancingProposal(@QueryParam("thirdPartyProvider.userId") final String thirdPartyProviderUserId, final ExternalFinancingProposal payload) {
+    public Response createExternalFinancingProposal(@QueryParam("thirdPartyProvider.userId") final String thirdPartyProviderUserId,
+                                                    final ExternalFinancingProposal payload) {
         LOG.info("------ SrvIntProposals.createExternalFinancingProposal ------");
 
         ExternalFinancingProposal data = srvIntProposals.createExternalFinancingProposal(
@@ -149,7 +151,6 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
 
         if (data != null && data.getId() != null) {
 
-            // reload header response
             URI uriOfCreatedResource = UriBuilder.fromPath(uriInfo.getPath())
                     .path("/{external-financing-proposal-id}")
                     .build(data.getId());

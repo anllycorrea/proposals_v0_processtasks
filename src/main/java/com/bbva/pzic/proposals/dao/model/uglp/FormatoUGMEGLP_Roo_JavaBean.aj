@@ -33,6 +33,14 @@ privileged aspect FormatoUGMEGLP_Roo_JavaBean {
         this.codemp = codemp;
     }
     
+    public String FormatoUGMEGLP.getTipbien() {
+        return this.tipbien;
+    }
+    
+    public void FormatoUGMEGLP.setTipbien(String tipbien) {
+        this.tipbien = tipbien;
+    }
+    
     public Date FormatoUGMEGLP.getFecrdes() {
         return this.fecrdes;
     }

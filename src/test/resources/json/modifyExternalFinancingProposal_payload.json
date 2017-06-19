@@ -3,8 +3,8 @@
     "id": "PENDING_SIGNATURE"
   },
   "delivery": {
-    "deliveryType": {
-      "id": "VIRTUAL"
+    "type": {
+      "id": "DIGITAL"
     },
     "email": "euler.alvarado@bbva.com"
   }

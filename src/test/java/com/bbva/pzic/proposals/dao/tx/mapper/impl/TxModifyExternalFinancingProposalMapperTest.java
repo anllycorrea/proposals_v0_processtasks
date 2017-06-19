@@ -4,13 +4,8 @@ import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
 import com.bbva.pzic.proposals.dao.model.ugmp.FormatoUGMEGMP;
 import com.bbva.pzic.proposals.dao.tx.mapper.ITxModifyExternalFinancingProposalMapper;
-import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 
@@ -23,11 +18,7 @@ import static org.junit.Assert.*;
  */
 public class TxModifyExternalFinancingProposalMapperTest {
 
-    @InjectMocks
     private ITxModifyExternalFinancingProposalMapper mapper;
-
-    @Mock
-    private EnumMapper enumMapper;
 
     private DummyMock dummyMock;
 
@@ -35,16 +26,11 @@ public class TxModifyExternalFinancingProposalMapperTest {
     public void setUp() {
         mapper = new TxModifyExternalFinancingProposalMapper();
         dummyMock = new DummyMock();
-        MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void mapInFullTest() throws IOException {
         DTOInputModifyExternalFinancingProposal dtoIn = dummyMock.getDTOInputModifyExternalFinancingProposal();
-
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.status.id", dtoIn.getExternalFinancingProposal().getStatusId())).thenReturn("A");
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id", dtoIn.getExternalFinancingProposal().getDeliveryTypeId())).thenReturn("B");
-
         FormatoUGMEGMP result = mapper.mapIn(dtoIn);
 
         assertNotNull(result.getNrocont());
@@ -53,8 +39,8 @@ public class TxModifyExternalFinancingProposalMapperTest {
         assertNotNull(result.getMailcon());
 
         assertEquals(dtoIn.getExternalFinancingProposalId(), result.getNrocont());
-        assertEquals("A", result.getIndesta());
-        assertEquals("B", result.getTipenvi());
+        assertEquals("8", result.getIndesta());
+        assertEquals("D", result.getTipenvi());
         assertEquals(dtoIn.getExternalFinancingProposal().getEmail(), result.getMailcon());
     }
 
@@ -64,8 +50,6 @@ public class TxModifyExternalFinancingProposalMapperTest {
         dtoIn.getExternalFinancingProposal().setDeliveryTypeId(null);
         dtoIn.getExternalFinancingProposal().setEmail(null);
 
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.status.id", dtoIn.getExternalFinancingProposal().getStatusId())).thenReturn("A");
-
         FormatoUGMEGMP result = mapper.mapIn(dtoIn);
 
         assertNotNull(result.getNrocont());
@@ -74,6 +58,6 @@ public class TxModifyExternalFinancingProposalMapperTest {
         assertNull(result.getMailcon());
 
         assertEquals(dtoIn.getExternalFinancingProposalId(), result.getNrocont());
-        assertEquals("A", result.getIndesta());
+        assertEquals("8", result.getIndesta());
     }
 }

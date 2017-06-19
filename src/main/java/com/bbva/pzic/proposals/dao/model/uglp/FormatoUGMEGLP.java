@@ -41,27 +41,33 @@ public class FormatoUGMEGLP {
 	private String codemp;
 	
 	/**
-	 * <p>Campo <code>FECRDES</code>, &iacute;ndice: <code>4</code>, tipo: <code>FECHA</code>
+	 * <p>Campo <code>TIPBIEN</code>, &iacute;ndice: <code>4</code>, tipo: <code>ALFANUMERICO</code>
 	 */
-	@Campo(indice = 4, nombre = "FECRDES", tipo = TipoCampo.FECHA, longitudMinima = 10, longitudMaxima = 10, formato = "yyyy-MM-dd")
+	@Campo(indice = 4, nombre = "TIPBIEN", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 2, longitudMaxima = 2)
+	private String tipbien;
+	
+	/**
+	 * <p>Campo <code>FECRDES</code>, &iacute;ndice: <code>5</code>, tipo: <code>FECHA</code>
+	 */
+	@Campo(indice = 5, nombre = "FECRDES", tipo = TipoCampo.FECHA, longitudMinima = 10, longitudMaxima = 10, formato = "yyyy-MM-dd")
 	private Date fecrdes;
 	
 	/**
-	 * <p>Campo <code>FECRHAS</code>, &iacute;ndice: <code>5</code>, tipo: <code>FECHA</code>
+	 * <p>Campo <code>FECRHAS</code>, &iacute;ndice: <code>6</code>, tipo: <code>FECHA</code>
 	 */
-	@Campo(indice = 5, nombre = "FECRHAS", tipo = TipoCampo.FECHA, longitudMinima = 10, longitudMaxima = 10, formato = "yyyy-MM-dd")
+	@Campo(indice = 6, nombre = "FECRHAS", tipo = TipoCampo.FECHA, longitudMinima = 10, longitudMaxima = 10, formato = "yyyy-MM-dd")
 	private Date fecrhas;
 	
 	/**
-	 * <p>Campo <code>IDPAGIN</code>, &iacute;ndice: <code>6</code>, tipo: <code>ALFANUMERICO</code>
+	 * <p>Campo <code>IDPAGIN</code>, &iacute;ndice: <code>7</code>, tipo: <code>ALFANUMERICO</code>
 	 */
-	@Campo(indice = 6, nombre = "IDPAGIN", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 18, longitudMaxima = 18)
+	@Campo(indice = 7, nombre = "IDPAGIN", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 18, longitudMaxima = 18)
 	private String idpagin;
 	
 	/**
-	 * <p>Campo <code>TAMPAGI</code>, &iacute;ndice: <code>7</code>, tipo: <code>ENTERO</code>
+	 * <p>Campo <code>TAMPAGI</code>, &iacute;ndice: <code>8</code>, tipo: <code>ENTERO</code>
 	 */
-	@Campo(indice = 7, nombre = "TAMPAGI", tipo = TipoCampo.ENTERO, longitudMinima = 2, longitudMaxima = 2)
+	@Campo(indice = 8, nombre = "TAMPAGI", tipo = TipoCampo.ENTERO, longitudMinima = 2, longitudMaxima = 2)
 	private Integer tampagi;
 	
 }

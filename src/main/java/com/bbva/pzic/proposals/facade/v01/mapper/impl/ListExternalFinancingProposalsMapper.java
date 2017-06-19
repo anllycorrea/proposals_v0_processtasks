@@ -20,14 +20,16 @@ public class ListExternalFinancingProposalsMapper implements IListExternalFinanc
     private EnumMapper enumMapper;
 
     /**
-     * @see com.bbva.pzic.proposals.facade.v01.mapper.IListExternalFinancingProposalsMapper#mapIn(String, String, String, String, String, String, Long)
+     * @see com.bbva.pzic.proposals.facade.v01.mapper.IListExternalFinancingProposalsMapper#mapIn(String, String, String, String, String, String, String, Long)
      */
     @Override
-    public DTOInputListExternalFinancingProposals mapIn(final String thirdPartyProviderId, final String holderIdentityDocumentsDocumentTypeId,
+    public DTOInputListExternalFinancingProposals mapIn(final String thirdPartyProviderId, final String externalproductCategoryTypeId,
+                                                        final String holderIdentityDocumentsDocumentTypeId,
                                                         final String holderIdentityDocumentsDocumentNumber, final String fromRequestDate,
                                                         final String toRequestDate, final String paginationKey, final Long pageSize) {
         DTOInputListExternalFinancingProposals dtoIn = new DTOInputListExternalFinancingProposals();
         dtoIn.setThirdPartyProviderId(thirdPartyProviderId);
+        dtoIn.setExternalproductCategoryTypeId(externalproductCategoryTypeId);
         dtoIn.setHolderIdentityDocumentsDocumentTypeId(enumMapper.getBackendValue("documentType.id", holderIdentityDocumentsDocumentTypeId));
         dtoIn.setHolderIdentityDocumentsDocumentNumber(holderIdentityDocumentsDocumentNumber);
         dtoIn.setFromRequestDate(fromRequestDate);

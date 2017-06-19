@@ -41,6 +41,14 @@ privileged aspect FormatoUGMEGAP_Roo_JavaBean {
         this.impfina = impfina;
     }
     
+    public Integer FormatoUGMEGAP.getDiafact() {
+        return this.diafact;
+    }
+    
+    public void FormatoUGMEGAP.setDiafact(Integer diafact) {
+        this.diafact = diafact;
+    }
+    
     public Integer FormatoUGMEGAP.getDiapago() {
         return this.diapago;
     }
