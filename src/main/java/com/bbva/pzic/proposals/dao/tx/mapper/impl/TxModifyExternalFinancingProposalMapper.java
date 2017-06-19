@@ -17,9 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper("txModifyExternalFinancingProposalMapper")
 public class TxModifyExternalFinancingProposalMapper extends ConfigurableMapper implements ITxModifyExternalFinancingProposalMapper {
 
-    @Autowired
-    private EnumMapper enumMapper;
-
     @Override
     protected void configure(MapperFactory factory) {
         super.configure(factory);

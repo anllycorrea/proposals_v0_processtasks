@@ -5,11 +5,9 @@ import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMEGAP;
 import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMSGAP1;
 import com.bbva.pzic.proposals.dao.tx.mapper.ITxCreateExternalFinancingProposalMapper;
-import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created on 12/04/2017.
@@ -18,9 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Mapper("txCreateExternalFinancingProposalMapper")
 public class TxCreateExternalFinancingProposalMapper extends ConfigurableMapper implements ITxCreateExternalFinancingProposalMapper {
-
-    @Autowired
-    private EnumMapper enumMapper;
 
     @Override
     protected void configure(MapperFactory factory) {
