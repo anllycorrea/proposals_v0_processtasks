@@ -6,14 +6,19 @@ import com.bbva.jee.arq.spring.core.servicing.annotations.VN;
 import com.bbva.pzic.proposals.business.ISrvIntProposalsV0;
 import com.bbva.pzic.proposals.business.dto.DTOIntProposals;
 import com.bbva.pzic.proposals.canonic.Proposals;
+import com.bbva.pzic.proposals.canonic.SimulatedProposal;
+import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.facade.v0.ISrvProposalsV0;
 import com.bbva.pzic.proposals.facade.v0.mapper.IListProposalsMapper;
+import com.bbva.pzic.proposals.facade.v0.mapper.ISimulateProposalsMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -43,6 +48,8 @@ public class SrvProposalsV0
     private ISrvIntProposalsV0 srvIntProposals;
     @Autowired
     private IListProposalsMapper listProposalsMapper;
+    @Autowired
+    private ISimulateProposalsMapper simulateProposalsMapper;
 
     /**
      * {@inheritDoc}
@@ -65,6 +72,19 @@ public class SrvProposalsV0
             return null;
         }
         return proposals;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @POST
+    @Path("/proposals/simulate")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @SMC(registryID = "SMCPE1720158", logicalID = "simulateProposals")
+    public SimulatedProposalsData simulateProposals(final SimulatedProposal simulatedProposal) {
+        LOG.info("----- Invoking service simulateProposals -----");
+        return srvIntProposals.simulateProposals(simulateProposalsMapper.mapIn(simulatedProposal));
     }
 
     @Override

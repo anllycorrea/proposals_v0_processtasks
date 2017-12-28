@@ -1,7 +1,8 @@
 package com.bbva.pzic.proposals.facade.v0;
 
-import java.lang.String;
 import com.bbva.pzic.proposals.canonic.Proposals;
+import com.bbva.pzic.proposals.canonic.SimulatedProposal;
+import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 
 /**
  * Created on 28/12/2017.
@@ -21,4 +22,13 @@ public interface ISrvProposalsV0 {
 	 */
 	Proposals listProposals(String participantIdentityDocumentDocumentTypeId,
 			String participantIdentityDocumentDocumentNumber, String customerId);
+
+	/**
+	 * Service for simulating a set of proposals.
+	 *
+	 * @param simulatedProposal
+	 *            payload
+	 * @return {@link SimulatedProposalsData}
+	 */
+	SimulatedProposalsData simulateProposals(SimulatedProposal simulatedProposal);
 }
