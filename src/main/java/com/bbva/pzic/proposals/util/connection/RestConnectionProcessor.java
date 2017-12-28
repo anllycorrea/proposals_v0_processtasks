@@ -3,6 +3,8 @@ package com.bbva.pzic.proposals.util.connection;
 import com.bbva.jee.arq.spring.core.rest.RestConnector;
 import com.bbva.jee.arq.spring.core.rest.RestConnectorResponse;
 import com.bbva.jee.arq.spring.core.servicing.configuration.ConfigurationManager;
+import com.bbva.jee.arq.spring.core.servicing.context.BackendContext;
+import com.bbva.jee.arq.spring.core.servicing.context.ContextProvider;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
@@ -16,6 +18,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,6 +31,9 @@ public class RestConnectionProcessor {
     private static final Log LOG = LogFactory.getLog(RestConnectionProcessor.class);
 
     private static final String BACKEND_ID_PROPERTY = "servicing.connector.rest.backend.id";
+
+    @Autowired
+    protected ContextProvider contextProvider;
 
     @Autowired
     protected RestConnector restConnector;
@@ -57,6 +63,27 @@ public class RestConnectionProcessor {
         } catch (JsonProcessingException e) {
             LOG.error(String.format("Error converting JSON: %s", e.getMessage()), e);
             throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
+        }
+    }
+
+    protected HashMap<String, String> buildOptionalHeaders() {
+        String aap = contextProvider.getInvocationContext().getBackendContext().getProperty(BackendContext.AAP);
+        String callingChannel = contextProvider.getInvocationContext().getBackendContext().getProperty(BackendContext.CALLING_CHANNEL);
+
+        if (aap == null && callingChannel == null) {
+            LOG.info("No se han podido capturar los valores AAP y CALLING_CHANNEL");
+            return null;
+        } else {
+            HashMap<String, String> optionalHeaders = new HashMap<>();
+            if (aap != null) {
+                LOG.info(String.format("Se ha capturado el AAP '%s'", aap));
+                optionalHeaders.put("consumerId", aap);
+            }
+            if (callingChannel != null) {
+                LOG.info(String.format("Se ha capturado el CALLING_CHANNEL '%s'", callingChannel));
+                optionalHeaders.put("callingChannel", callingChannel);
+            }
+            return optionalHeaders;
         }
     }
 
