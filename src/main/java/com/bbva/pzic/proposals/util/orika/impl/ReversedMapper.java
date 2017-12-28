@@ -17,46 +17,47 @@
  */
 package com.bbva.pzic.proposals.util.orika.impl;
 
-import com.bbva.pzic.proposals.util.orika.MappingContext;
 import com.bbva.pzic.proposals.util.orika.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFacade;
+import com.bbva.pzic.proposals.util.orika.MappingContext;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
 /**
  * ReversedMapper is used to wrap an existing mapper and reverse it's direction
- *
+ * 
  * @author matt.deboer@gmail.com
+ *
  */
 public class ReversedMapper<A, B> implements Mapper<A, B> {
-
+        
     private Mapper<B, A> reversedMapper;
 
     /**
      * Reterns a Mapper which is a reversal of the supplied Mapper
-     *
+     * 
      * @param mapperToReverse
      * @return
      */
-    public static <A, B> Mapper<A, B> reverse(Mapper<B, A> mapperToReverse) {
+    public static <A,B> Mapper<A, B> reverse(Mapper<B, A> mapperToReverse) {
         /*
          * Avoid nesting reversed mappers by unwrapping an existing reversed mapper
          */
         if (mapperToReverse instanceof ReversedMapper) {
-            return ((ReversedMapper<B, A>) mapperToReverse).reversedMapper;
+            return ((ReversedMapper<B,A>)mapperToReverse).reversedMapper;
         } else {
-            return new ReversedMapper<A, B>(mapperToReverse);
+            return new ReversedMapper<A,B>(mapperToReverse);
         }
     }
-
+    
     /**
      * Constructs a new ReversedMapper which reverses the directions mapped by the specified mapper
-     *
+     * 
      * @param mapperToReverse
      */
-    private ReversedMapper(Mapper<B, A> mapperToReverse) {
+    private ReversedMapper(Mapper<B,A> mapperToReverse) {
         this.reversedMapper = mapperToReverse;
     }
-
+    
     /* (non-Javadoc)
      * @see ma.glasnost.orika.Mapper#mapAtoB(java.lang.Object, java.lang.Object, ma.glasnost.orika.MappingContext)
      */
@@ -87,7 +88,7 @@ public class ReversedMapper<A, B> implements Mapper<A, B> {
          * to the proper direction
          */
         Mapper<Object, Object>[] usedMappers = mappers.clone();
-        for (int i = 0; i < usedMappers.length; ++i) {
+        for(int i=0; i < usedMappers.length; ++i) {
             usedMappers[i] = reverse(usedMappers[i]);
         }
         reversedMapper.setUsedMappers(usedMappers);
@@ -105,5 +106,5 @@ public class ReversedMapper<A, B> implements Mapper<A, B> {
      */
     public Type<B> getBType() {
         return reversedMapper.getAType();
-    }
+    } 
 }

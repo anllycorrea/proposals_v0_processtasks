@@ -19,16 +19,16 @@
 package com.bbva.pzic.proposals.util.orika.impl.mapping.strategy;
 
 import com.bbva.pzic.proposals.util.orika.MappingContext;
-import com.bbva.pzic.proposals.util.orika.unenhance.UnenhanceStrategy;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
+import com.bbva.pzic.proposals.util.orika.unenhance.UnenhanceStrategy;
 
 public class MapExistingAndUseCustomMapperStrategy extends UseCustomMapperStrategy {
-
+    
     public MapExistingAndUseCustomMapperStrategy(Type<Object> sourceType, Type<Object> destinationType, DirectionalCustomMapperReference customMapper, UnenhanceStrategy unenhancer) {
-        super(sourceType, destinationType, customMapper, unenhancer);
+    	super(sourceType, destinationType, customMapper, unenhancer);
     }
 
     protected Object getInstance(Object sourceObject, Object destinationObject, MappingContext context) {
-        return destinationObject;
+    	return destinationObject;
     }
 }

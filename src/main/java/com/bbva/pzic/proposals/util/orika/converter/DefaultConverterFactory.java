@@ -17,51 +17,51 @@
  */
 package com.bbva.pzic.proposals.util.orika.converter;
 
-import com.bbva.pzic.proposals.util.orika.impl.Comparators;
-import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
-import com.bbva.pzic.proposals.util.orika.util.CacheLRULinkedHashMap;
-import com.bbva.pzic.proposals.util.orika.Converter;
-import com.bbva.pzic.proposals.util.orika.MapperFacade;
-import com.bbva.pzic.proposals.util.orika.impl.util.ClassUtil;
-import com.bbva.pzic.proposals.util.orika.metadata.ConverterKey;
-import com.bbva.pzic.proposals.util.orika.metadata.Type;
-import com.bbva.pzic.proposals.util.orika.util.Cache;
-import com.bbva.pzic.proposals.util.orika.util.SortedSet;
-
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.bbva.pzic.proposals.util.orika.Converter;
+import com.bbva.pzic.proposals.util.orika.MapperFacade;
+import com.bbva.pzic.proposals.util.orika.impl.Comparators;
+import com.bbva.pzic.proposals.util.orika.impl.util.ClassUtil;
+import com.bbva.pzic.proposals.util.orika.metadata.ConverterKey;
+import com.bbva.pzic.proposals.util.orika.metadata.Type;
+import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
+import com.bbva.pzic.proposals.util.orika.util.Cache;
+import com.bbva.pzic.proposals.util.orika.util.CacheLRULinkedHashMap;
+import com.bbva.pzic.proposals.util.orika.util.SortedSet;
+
 public class DefaultConverterFactory implements ConverterFactory {
-
+    
     private static final int CACHE_SIZE = 2000;
-    private final Cache<ConverterKey, com.bbva.pzic.proposals.util.orika.Converter<Object, Object>> converterCache;
-    private final Set<com.bbva.pzic.proposals.util.orika.Converter<Object, Object>> converters;
-    private final Map<String, com.bbva.pzic.proposals.util.orika.Converter<Object, Object>> convertersMap;
+    private final Cache<ConverterKey, Converter<Object, Object>> converterCache;
+    private final Set<Converter<Object, Object>> converters;
+    private final Map<String, Converter<Object, Object>> convertersMap;
     private MapperFacade mapperFacade;
-
-    public DefaultConverterFactory(Cache<ConverterKey, com.bbva.pzic.proposals.util.orika.Converter<Object, Object>> converterCache, Set<com.bbva.pzic.proposals.util.orika.Converter<Object, Object>> converters) {
+    
+    public DefaultConverterFactory(Cache<ConverterKey, Converter<Object, Object>> converterCache, Set<Converter<Object, Object>> converters) {
         super();
         this.converterCache = converterCache;
-        this.converters = new SortedSet<com.bbva.pzic.proposals.util.orika.Converter<Object, Object>>(converters, Comparators.CONVERTER);
-        this.convertersMap = new ConcurrentHashMap<String, com.bbva.pzic.proposals.util.orika.Converter<Object, Object>>();
+        this.converters = new SortedSet<Converter<Object,Object>>(converters, Comparators.CONVERTER);
+        this.convertersMap = new ConcurrentHashMap<String, Converter<Object, Object>>();
     }
-
+    
     public DefaultConverterFactory() {
-        this(new CacheLRULinkedHashMap<ConverterKey, Converter<Object, Object>>(CACHE_SIZE), new LinkedHashSet<com.bbva.pzic.proposals.util.orika.Converter<Object, Object>>());
+        this(new CacheLRULinkedHashMap<ConverterKey, Converter<Object, Object>>(CACHE_SIZE), new LinkedHashSet<Converter<Object, Object>>());
     }
-
+    
     public void setMapperFacade(MapperFacade mapperFacade) {
-        this.mapperFacade = mapperFacade;
-        for (com.bbva.pzic.proposals.util.orika.Converter<?, ?> converter : converters) {
-            converter.setMapperFacade(mapperFacade);
-        }
-        for (com.bbva.pzic.proposals.util.orika.Converter<?, ?> converter : convertersMap.values()) {
-            converter.setMapperFacade(mapperFacade);
-        }
+    	this.mapperFacade = mapperFacade;
+    	for (Converter<?,?> converter: converters) {
+    		converter.setMapperFacade(mapperFacade);
+    	}
+    	for (Converter<?,?> converter: convertersMap.values()) {
+    		converter.setMapperFacade(mapperFacade);
+    	}
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -73,7 +73,7 @@ public class DefaultConverterFactory implements ConverterFactory {
         boolean canConvert = _canConvert(sourceType, destinationType);
         if (canConvert)
             return true;
-
+        
         // Maybe the converter is registered with wrapper type and meant to be
         // used
         // for primitive one (source or destination)
@@ -84,7 +84,7 @@ public class DefaultConverterFactory implements ConverterFactory {
         }
         if (canConvert)
             return true;
-
+        
         // Destination
         if (destinationType.isPrimitive()) {
             destinationType = TypeFactory.valueOf(ClassUtil.getWrapperType(destinationType.getRawType()));
@@ -92,10 +92,10 @@ public class DefaultConverterFactory implements ConverterFactory {
         }
         if (canConvert)
             return true;
-
+        
         return false;
     }
-
+    
     @SuppressWarnings("unchecked")
     private boolean _canConvert(Type<?> sourceType, Type<?> destinationType) {
         boolean canConvert = false;
@@ -104,7 +104,7 @@ public class DefaultConverterFactory implements ConverterFactory {
             return true;
         }
         for (@SuppressWarnings("rawtypes")
-        com.bbva.pzic.proposals.util.orika.Converter converter : converters) {
+        Converter converter : converters) {
             if (converter.canConvert(sourceType, destinationType)) {
                 converterCache.cache(key, converter);
                 canConvert = true;
@@ -113,7 +113,7 @@ public class DefaultConverterFactory implements ConverterFactory {
         }
         return canConvert;
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -124,7 +124,7 @@ public class DefaultConverterFactory implements ConverterFactory {
     public boolean hasConverter(String converterId) {
         return convertersMap.containsKey(converterId);
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -132,14 +132,14 @@ public class DefaultConverterFactory implements ConverterFactory {
      * ma.glasnost.orika.converter.ConverterFactory#getConverter(java.lang.Class
      * , java.lang.Class)
      */
-    public com.bbva.pzic.proposals.util.orika.Converter<Object, Object> getConverter(Type<?> sourceClass, Type<?> destinationClass) {
-
+    public Converter<Object, Object> getConverter(Type<?> sourceClass, Type<?> destinationClass) {
+        
         // Step verify if converter exists for sourceClass and destination
-        com.bbva.pzic.proposals.util.orika.Converter<Object, Object> converter = _converter(sourceClass, destinationClass);
-
+        Converter<Object, Object> converter = _converter(sourceClass, destinationClass);
+        
         if (converter != null)
             return converter;
-
+        
         // Maybe the converter is registred with wrapper type and meant to be
         // used
         // for primitive one (source or destination)
@@ -150,7 +150,7 @@ public class DefaultConverterFactory implements ConverterFactory {
         }
         if (converter != null)
             return converter;
-
+        
         // Destination
         if (destinationClass.isPrimitive()) {
             destinationClass = TypeFactory.valueOf(ClassUtil.getWrapperType(destinationClass.getRawType()));
@@ -158,26 +158,26 @@ public class DefaultConverterFactory implements ConverterFactory {
         }
         if (converter != null)
             return converter;
-
+        
         return null;
     }
-
-    private com.bbva.pzic.proposals.util.orika.Converter<Object, Object> _converter(Type<?> sourceClass, Type<?> destinationClass) {
+    
+    private Converter<Object, Object> _converter(Type<?> sourceClass, Type<?> destinationClass) {
         ConverterKey key = new ConverterKey(sourceClass, destinationClass);
         if (converterCache.containsKey(key)) {
             return converterCache.get(key);
         }
-
-        for (com.bbva.pzic.proposals.util.orika.Converter<Object, Object> converter : converters) {
+        
+        for (Converter<Object, Object> converter : converters) {
             if (converter.canConvert(sourceClass, destinationClass)) {
                 converterCache.cache(key, converter);
                 return converter;
             }
         }
-
+        
         return null;
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -185,10 +185,10 @@ public class DefaultConverterFactory implements ConverterFactory {
      * ma.glasnost.orika.converter.ConverterFactory#getConverter(java.lang.String
      * )
      */
-    public com.bbva.pzic.proposals.util.orika.Converter<Object, Object> getConverter(String converterId) {
+    public Converter<Object, Object> getConverter(String converterId) {
         return convertersMap.get(converterId);
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -196,14 +196,14 @@ public class DefaultConverterFactory implements ConverterFactory {
      * ma.glasnost.orika.converter.ConverterFactory#registerConverter(ma.glasnost
      * .orika.converter.Converter)
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public <S, D> void registerConverter(com.bbva.pzic.proposals.util.orika.Converter<S, D> converter) {
-        if (this.mapperFacade != null) {
-            converter.setMapperFacade(mapperFacade);
-        }
-        converters.add((com.bbva.pzic.proposals.util.orika.Converter) converter);
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public <S, D> void registerConverter(Converter<S, D> converter) {
+    	if (this.mapperFacade != null) {
+    		converter.setMapperFacade(mapperFacade);
+    	}
+    	converters.add((Converter) converter);
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -211,14 +211,14 @@ public class DefaultConverterFactory implements ConverterFactory {
      * ma.glasnost.orika.converter.ConverterFactory#registerConverter(java.lang
      * .String, ma.glasnost.orika.converter.Converter)
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public <S, D> void registerConverter(String converterId, com.bbva.pzic.proposals.util.orika.Converter<S, D> converter) {
-        if (this.mapperFacade != null) {
-            converter.setMapperFacade(mapperFacade);
-        }
-        convertersMap.put(converterId, (com.bbva.pzic.proposals.util.orika.Converter) converter);
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public <S, D> void registerConverter(String converterId, Converter<S, D> converter) {
+    	if (this.mapperFacade != null) {
+    		converter.setMapperFacade(mapperFacade);
+    	}
+    	convertersMap.put(converterId, (Converter) converter);
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -228,10 +228,10 @@ public class DefaultConverterFactory implements ConverterFactory {
      */
     @Deprecated
     public <S, D> void registerConverter(com.bbva.pzic.proposals.util.orika.converter.Converter<S, D> converter) {
-
+        
         registerConverter(new com.bbva.pzic.proposals.util.orika.converter.Converter.LegacyConverter<S, D>(converter));
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -241,7 +241,7 @@ public class DefaultConverterFactory implements ConverterFactory {
      */
     @Deprecated
     public <S, D> void registerConverter(String converterId, com.bbva.pzic.proposals.util.orika.converter.Converter<S, D> converter) {
-
+        
         registerConverter(converterId, new com.bbva.pzic.proposals.util.orika.converter.Converter.LegacyConverter<S, D>(converter));
     }
 }

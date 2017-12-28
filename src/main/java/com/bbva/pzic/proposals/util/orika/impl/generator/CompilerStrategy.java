@@ -18,15 +18,16 @@
 
 package com.bbva.pzic.proposals.util.orika.impl.generator;
 
-import com.bbva.pzic.proposals.util.orika.OrikaSystemProperties;
-
 import java.io.File;
 import java.io.IOException;
 
+import com.bbva.pzic.proposals.util.orika.OrikaSystemProperties;
+
 /**
  * Defines a standard compiler profile for use in generating mapping objects.
- *
+ * 
  * @author matt.deboer@gmail.com
+ *
  */
 public abstract class CompilerStrategy {
 
@@ -34,7 +35,7 @@ public abstract class CompilerStrategy {
      * Compile and return the (generated) class; this will also cause the
      * generated class to be detached from the class-pool, and any (optional)
      * source and/or class files to be written.
-     *
+     * 
      * @return the (generated) compiled class
      * @throws SourceCodeGenerationException
      */
@@ -42,9 +43,10 @@ public abstract class CompilerStrategy {
 
     /**
      * Verify that the Class provided is accessible to the compiler/generator.
-     *
+     * 
      * @param type
-     * @throws SourceCodeGenerationException if the type is not accessible
+     * @throws SourceCodeGenerationException
+     *             if the type is not accessible
      */
     public abstract void assureTypeIsAccessible(Class<?> type) throws SourceCodeGenerationException;
 
@@ -52,82 +54,82 @@ public abstract class CompilerStrategy {
     protected final boolean writeClassFiles;
     protected final String pathToWriteSourceFiles;
     protected final String pathToWriteClassFiles;
-
+    
     protected static final String WRITE_RELATIVE_TO_CLASSPATH = "classpath:";
-
+    
     @SuppressWarnings("deprecation")
     protected CompilerStrategy(String writeSourceByDefault, String writeClassByDefault) {
-
-        this.writeSourceFiles = Boolean.valueOf(System.getProperty(
-                OrikaSystemProperties.WRITE_SOURCE_FILES,
-                // TODO: remove this before release
-                System.getProperty(GeneratedSourceCode.PROPERTY_WRITE_SOURCE_FILES,
-                        writeSourceByDefault)));
-
-        this.writeClassFiles = Boolean.valueOf(System.getProperty(
-                OrikaSystemProperties.WRITE_CLASS_FILES,
-                // TODO: remove this before release
-                System.getProperty(GeneratedSourceCode.PROPERTY_WRITE_CLASS_FILES,
-                        writeClassByDefault)));
-
-        this.pathToWriteSourceFiles =
-                (String) System.getProperty(OrikaSystemProperties.WRITE_SOURCE_FILES_TO_PATH,
-                        WRITE_RELATIVE_TO_CLASSPATH + "/");
-
-        this.pathToWriteClassFiles =
-                (String) System.getProperty(OrikaSystemProperties.WRITE_CLASS_FILES_TO_PATH,
-                        WRITE_RELATIVE_TO_CLASSPATH + "/");
-
+	
+    	this.writeSourceFiles = Boolean.valueOf(System.getProperty(
+    		OrikaSystemProperties.WRITE_SOURCE_FILES,
+    		// TODO: remove this before release
+    		System.getProperty(GeneratedSourceCode.PROPERTY_WRITE_SOURCE_FILES, 
+    			writeSourceByDefault)));
+    	
+    	this.writeClassFiles = Boolean.valueOf(System.getProperty(
+    		OrikaSystemProperties.WRITE_CLASS_FILES,
+    		// TODO: remove this before release
+    		System.getProperty(GeneratedSourceCode.PROPERTY_WRITE_CLASS_FILES, 
+    			writeClassByDefault)));
+    	
+    	this.pathToWriteSourceFiles = 
+    			(String)System.getProperty(OrikaSystemProperties.WRITE_SOURCE_FILES_TO_PATH, 
+    					WRITE_RELATIVE_TO_CLASSPATH + "/");
+    	
+    	this.pathToWriteClassFiles = 
+    			(String)System.getProperty(OrikaSystemProperties.WRITE_CLASS_FILES_TO_PATH, 
+    					WRITE_RELATIVE_TO_CLASSPATH + "/");
+	
     }
-
+    
     /**
      * Prepares the output path for a given package based on the provided base path string.
      * If the base path string begins with "classpath:", then the path is resolved relative
      * to this class' classpath root; otherwise, it is treated as an absolute file name.
-     *
+     * 
      * @param basePath
      * @param packageName
      * @return
      * @throws IOException
      */
     protected File preparePackageOutputPath(String basePath, String packageName) throws IOException {
+    	
+    	String packagePath = packageName.replaceAll("\\.", "/") ;
+    	String path = null;
+		if (basePath.startsWith(WRITE_RELATIVE_TO_CLASSPATH)) {
+			path = getClass().getResource(basePath.substring(WRITE_RELATIVE_TO_CLASSPATH.length()))
+					.getFile().toString();
+		} else {
+			path = basePath;
+			if (!path.endsWith("/")) {
+				path+= "/";
+			} 
+		}
 
-        String packagePath = packageName.replaceAll("\\.", "/");
-        String path = null;
-        if (basePath.startsWith(WRITE_RELATIVE_TO_CLASSPATH)) {
-            path = getClass().getResource(basePath.substring(WRITE_RELATIVE_TO_CLASSPATH.length()))
-                    .getFile().toString();
-        } else {
-            path = basePath;
-            if (!path.endsWith("/")) {
-                path += "/";
-            }
-        }
-
-        File parentDir = new File(path + packagePath);
-        if (!parentDir.exists() && !parentDir.mkdirs()) {
-            throw new IOException("Could not create package directory for " + packageName);
-        }
-
-        return parentDir;
-
+		File parentDir = new File(path + packagePath);
+		if (!parentDir.exists() && !parentDir.mkdirs()) {
+			throw new IOException("Could not create package directory for " + packageName );
+		}
+		
+		return parentDir;
+    	
     }
+    
+	public static class SourceCodeGenerationException extends Exception {
 
-    public static class SourceCodeGenerationException extends Exception {
+		private static final long serialVersionUID = 1L;
 
-        private static final long serialVersionUID = 1L;
+		public SourceCodeGenerationException(String message, Throwable cause) {
+			super(message, cause);
+		}
 
-        public SourceCodeGenerationException(String message, Throwable cause) {
-            super(message, cause);
-        }
+		public SourceCodeGenerationException(Throwable cause) {
+			super(cause);
+		}
 
-        public SourceCodeGenerationException(Throwable cause) {
-            super(cause);
-        }
+		public SourceCodeGenerationException(String message) {
+			super(message);
+		}
 
-        public SourceCodeGenerationException(String message) {
-            super(message);
-        }
-
-    }
+	}
 }

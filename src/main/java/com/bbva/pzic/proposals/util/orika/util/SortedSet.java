@@ -29,42 +29,44 @@ import java.util.Set;
  * This allows for the ordering of a set of items where some are less or greater than
  * others, while others are simply not comparable in an ordering sense (in which case, 0 is
  * returned from their comparison).
- *
+ * 
+ * 
  * @author matt.deboer@gmail.com
+ *
  */
 public class SortedSet<V> extends SortedCollection<V> implements Set<V> {
-
+    
     /**
-     *
+     * 
      */
     public SortedSet() {
         super();
     }
-
+    
     /**
      * @param comparator
      */
-    public SortedSet(Collection<? extends V> c) {
-        super(c);
+    public SortedSet(Collection<? extends V> comparator) {
+        super(comparator);
     }
-
+    
     /**
      * @param comparator
      */
     public SortedSet(Comparator<V> comparator) {
         super(comparator);
     }
-
+    
     /**
      * @param comparator
      */
     public SortedSet(Collection<? extends V> c, Comparator<V> comparator) {
         super(c, comparator);
     }
-
+    
     public boolean add(V value) {
         int i = -1;
-        for (V item : sortedList) {
+        for (V item: sortedList) {
             ++i;
             int comparison = comparator == null ? toComparable(item).compareTo(value) : comparator.compare(item, value);
             if (comparison == 0 && item.equals(value)) {

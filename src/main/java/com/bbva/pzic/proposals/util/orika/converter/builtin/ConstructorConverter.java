@@ -26,51 +26,52 @@ import com.bbva.pzic.proposals.util.orika.metadata.Type;
  * ConstructorConverter will converter from one type to another if there
  * exists a constructor for the destinationType with a single argument
  * matching the type of the source.
- *
+ * 
  * @author matt.deboer@gmail.com
+ *
  */
 public class ConstructorConverter extends CustomConverter<Object, Object> {
 
+	
+	public boolean canConvert(Type<?> sourceType, Type<?> destinationType) {
+		try {
+			return destinationType.getRawType().getConstructor(sourceType.getRawType()) != null;
+		} catch (NoSuchMethodException e) {
+			try {
+				if (sourceType.isPrimitive()) {
+					return destinationType.getRawType().getConstructor(ClassUtil.getWrapperType(sourceType.getRawType())) != null;
+				} else if (sourceType.isPrimitiveWrapper()) {
+					return destinationType.getRawType().getConstructor(ClassUtil.getPrimitiveType(sourceType.getRawType())) != null;
+				} else {
+					return false;
+				}
+			} catch (NoSuchMethodException e1) {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		} 
+	}
+	
 
-    public boolean canConvert(Type<?> sourceType, Type<?> destinationType) {
-        try {
-            return destinationType.getRawType().getConstructor(sourceType.getRawType()) != null;
-        } catch (NoSuchMethodException e) {
-            try {
-                if (sourceType.isPrimitive()) {
-                    return destinationType.getRawType().getConstructor(ClassUtil.getWrapperType(sourceType.getRawType())) != null;
-                } else if (sourceType.isPrimitiveWrapper()) {
-                    return destinationType.getRawType().getConstructor(ClassUtil.getPrimitiveType(sourceType.getRawType())) != null;
-                } else {
-                    return false;
-                }
-            } catch (NoSuchMethodException e1) {
-                return false;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-
-    public Object convert(Object source, Type<? extends Object> destinationType) {
-        try {
-            return destinationType.getRawType().getConstructor(source.getClass()).newInstance(source);
-        } catch (NoSuchMethodException e) {
-            try {
-                if (source.getClass().isPrimitive()) {
-                    return destinationType.getRawType().getConstructor(ClassUtil.getWrapperType(source.getClass())).newInstance(source);
-                } else if (ClassUtil.isPrimitiveWrapper(source.getClass())) {
-                    return destinationType.getRawType().getConstructor(ClassUtil.getPrimitiveType(source.getClass())).newInstance(source);
-                } else {
-                    return false;
-                }
-            } catch (Exception e1) {
-                return false;
-            }
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
+	public Object convert(Object source, Type<? extends Object> destinationType) {
+		try {
+			return destinationType.getRawType().getConstructor(source.getClass()).newInstance(source);
+		} catch (NoSuchMethodException e) {
+			try {
+				if (source.getClass().isPrimitive()) {
+					return destinationType.getRawType().getConstructor(ClassUtil.getWrapperType(source.getClass())).newInstance(source);
+				} else if (ClassUtil.isPrimitiveWrapper(source.getClass())) {
+					return destinationType.getRawType().getConstructor(ClassUtil.getPrimitiveType(source.getClass())).newInstance(source);
+				} else {
+					return false;
+				}
+			} catch (Exception e1) {
+				return false;
+			}
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e);
+		} 
+	}
+	
 }

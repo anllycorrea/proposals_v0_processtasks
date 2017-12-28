@@ -23,7 +23,7 @@ import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
 public class ToStringConverter extends CustomConverter<Object, String> {
 
-    public String convert(Object source, Type<? extends String> destinationType) {
-        return source.toString();
-    }
+	public String convert(Object source, Type<? extends String> destinationType) {
+		return source.toString();
+	}
 }

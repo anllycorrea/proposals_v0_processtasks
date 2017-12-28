@@ -8,18 +8,20 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.xml.stream;
 
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
-import com.bbva.pzic.proposals.util.orika.javolution.text.CharArray;
-import com.bbva.pzic.proposals.util.orika.javolution.util.FastCollection;
-
+import java.lang.CharSequence;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
+import com.bbva.pzic.proposals.util.orika.javolution.text.CharArray;
+import com.bbva.pzic.proposals.util.orika.javolution.util.FastCollection;
+import com.bbva.pzic.proposals.util.orika.javolution.util.FastCollection.Record;
+
 /**
  * This class holds defined entities while parsing.
- *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ *     
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.0, June 16, 2006
  */
 final class EntitiesImpl implements Reusable {
@@ -42,7 +44,7 @@ final class EntitiesImpl implements Reusable {
 
     /**
      * Returns the length of the largest entity.
-     *
+     * 
      * @return the length largest entity.
      */
     public int getMaxLength() {
@@ -50,14 +52,14 @@ final class EntitiesImpl implements Reusable {
     }
 
     /**
-     * Replaces the entity at the specified position.
+     * Replaces the entity at the specified position. 
      * The five predefined XML entities "&#38;lt;", "&#38;gt;", "&#38;apos;",
-     * "&#38;quot;", "&#38;amp;" as well as character refererences
+     * "&#38;quot;", "&#38;amp;" as well as character refererences 
      * (decimal or hexadecimal) are always recognized.
-     *
+     * 
      * @param buffer the data buffer.
-     * @param start  the index of entity first character (index of '&')
-     * @return the length of the replacement entity (including ';')
+     * @param start the index of entity first character (index of '&')
+     * @return the length of the replacement entity (including ';') 
      * @throws XMLStreamException if the entity is not recognized.
      */
     public int replaceEntity(char[] buffer, int start, int length)
@@ -127,24 +129,24 @@ final class EntitiesImpl implements Reusable {
     private CharArray _tmp = new CharArray();
 
     /**
-     * Defines a custom entity mapping.
-     *
-     * @param entityToReplacementText the entity (e.g. "copy") to replacement
-     *                                text (e.g. "©") mapping (both CharSequence).
+     * Defines a custom entity mapping. 
+     * 
+     * @param entityToReplacementText the entity (e.g. "copy") to replacement 
+     *        text (e.g. "©") mapping (both CharSequence).
      */
     public void setEntitiesMapping(Map entityToReplacementText) {
         // Sets the maximum length for replacement text.
         Collection values = entityToReplacementText.values();
         if (values instanceof FastCollection) { // Avoids allocating iterators.
-            FastCollection fc = (FastCollection) values;
-            for (FastCollection.Record r = fc.head(), t = fc.tail(); (r = r.getNext()) != t; ) {
-                CharSequence value = (CharSequence) fc.valueOf(r);
-                if (_maxLength < value.length()) {
-                    _maxLength = value.length();
-                }
-            }
+             FastCollection fc = (FastCollection) values;
+             for (Record r=fc.head(), t=fc.tail(); (r = r.getNext())!= t;) {
+                 CharSequence value = (CharSequence) fc.valueOf(r);
+                 if (_maxLength < value.length()) {
+                     _maxLength = value.length();
+                 }
+             }
         } else {
-            for (Iterator i = values.iterator(); i.hasNext(); ) {
+            for (Iterator i=values.iterator(); i.hasNext();) {
                 CharSequence value = (CharSequence) i.next();
                 if (_maxLength < value.length()) {
                     _maxLength = value.length();
@@ -155,15 +157,15 @@ final class EntitiesImpl implements Reusable {
     }
 
     /**
-     * Returns the custom entity mapping.
-     *
-     * @return the entity (e.g. "copy") to replacement text (e.g. "©") mapping
-     * (both CharSequence).
+     * Returns the custom entity mapping. 
+     * 
+     * @return the entity (e.g. "copy") to replacement text (e.g. "©") mapping 
+     *         (both CharSequence).
      */
     public Map getEntitiesMapping() {
         return _entitiesMapping;
     }
-
+    
     // Implements Reusable.
     public void reset() {
         _maxLength = 1;

@@ -17,55 +17,56 @@
  */
 package com.bbva.pzic.proposals.util.orika;
 
+import java.lang.reflect.ParameterizedType;
+
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
 import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
-
-import java.lang.reflect.ParameterizedType;
 
 /**
  * CustomConverterBase provides a utility base for creating customized converters,
  * which determines type parameters automatically. <br><br>
- * <p/>
+ * 
  * It is recommend to extend this class to create your own custom converters.
+ * 
+ * @author matt.deboer@gmail.com
  *
  * @param <S> the source type
  * @param <D> the destination type
- * @author matt.deboer@gmail.com
  */
-public abstract class CustomConverter<S, D> implements Converter<S, D> {
-
+public abstract class CustomConverter<S, D> implements com.bbva.pzic.proposals.util.orika.Converter<S, D> {
+    
     protected final Type<S> sourceType;
     protected final Type<D> destinationType;
     protected MapperFacade mapperFacade;
-
+    
     public CustomConverter() {
         java.lang.reflect.Type genericSuperclass = getClass().getGenericSuperclass();
         if (genericSuperclass != null && genericSuperclass instanceof ParameterizedType) {
-            ParameterizedType superType = (ParameterizedType) genericSuperclass;
+            ParameterizedType superType = (ParameterizedType)genericSuperclass;
             sourceType = TypeFactory.valueOf(superType.getActualTypeArguments()[0]);
             destinationType = TypeFactory.valueOf(superType.getActualTypeArguments()[1]);
         } else {
             throw new IllegalStateException("When you subclass the ConverterBase S and D type-parameters are required.");
         }
     }
-
+    
     public boolean canConvert(Type<?> sourceType, Type<?> destinationType) {
         return this.sourceType.isAssignableFrom(sourceType) && this.destinationType.equals(destinationType);
     }
-
+    
     public void setMapperFacade(MapperFacade mapper) {
         this.mapperFacade = mapper;
     }
-
+    
     public String toString() {
-        String subClass = getClass().equals(CustomConverter.class) ? "" : "(" + getClass().getSimpleName() + ")";
-        return CustomConverter.class.getSimpleName() + subClass + "<" + sourceType + ", " + destinationType + ">";
+    	String subClass = getClass().equals(CustomConverter.class) ? "" : "("+getClass().getSimpleName()+")";
+    	return CustomConverter.class.getSimpleName()+subClass+"<"+sourceType + ", " + destinationType+">";
     }
-
+    
     public Type<S> getAType() {
         return sourceType;
     }
-
+    
     public Type<D> getBType() {
         return destinationType;
     }

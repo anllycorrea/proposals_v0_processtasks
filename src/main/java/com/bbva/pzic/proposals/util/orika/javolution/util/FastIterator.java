@@ -8,19 +8,21 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.util;
 
-import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
-
+import java.lang.IllegalStateException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
+import com.bbva.pzic.proposals.util.orika.javolution.util.FastCollection.Record;
+
 /**
  * <p> This class represents an iterator over a {@link Fastcollection).
- * Iterations are thread-safe if the collections records are not removed
- * or inserted at arbitrary position (appending/prepending is fine).</p>
- * <p/>
- * <p> Iterators are allocated on the stack when executing in a
- * {@link StackContext javolution.context.StackContext}.</p>
- *
+ *     Iterations are thread-safe if the collections records are not removed 
+ *     or inserted at arbitrary position (appending/prepending is fine).</p>
+ *     
+ * <p> Iterators are allocated on the stack when executing in a 
+ *     {@link StackContext javolution.context.StackContext}.</p>
+ *          
  * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 3.7, March 17, 2005
  */
@@ -42,11 +44,11 @@ final class FastIterator implements Iterator {
 
     private FastCollection _collection;
 
-    private FastCollection.Record _current;
+    private Record _current;
 
-    private FastCollection.Record _next;
+    private Record _next;
 
-    private FastCollection.Record _tail;
+    private Record _tail;
 
     public static FastIterator valueOf(FastCollection collection) {
         FastIterator iterator = (FastIterator) FastIterator.FACTORY.object();
@@ -75,7 +77,7 @@ final class FastIterator implements Iterator {
         if (_current != null) {
             // Uses the previous record (not affected by the remove)
             // to set the next record.
-            final FastCollection.Record previous = _current.getPrevious();
+            final Record previous = _current.getPrevious();
             _collection.delete(_current);
             _current = null;
             _next = previous.getNext();

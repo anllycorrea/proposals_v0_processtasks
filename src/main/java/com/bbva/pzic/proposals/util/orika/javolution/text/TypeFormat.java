@@ -8,36 +8,38 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.text;
 
+import java.io.IOException;
+import java.lang.CharSequence;
+import java.lang.Appendable;
+
 import com.bbva.pzic.proposals.util.orika.javolution.lang.MathLib;
 
-import java.io.IOException;
-
 /**
- * <p> This class provides utility methods to parse
- * {@link CharSequence} into primitive types and to format
- * primitive types into any {@link Appendable}.</p>
- * <p/>
- * <p> Methods from this class <b>do not create temporary objects</b> and
- * are typically faster than standard library methods (see
- * <a href="http://javolution.org/doc/benchmark.html">benchmark</a>).</p>
- * <p/>
- * <p> The number of digits when formatting floating point numbers can be
- * specified. The default setting for <code>double</code> is 17 digits
- * or even 16 digits when the conversion is lossless back and forth
- * (mimic the standard library formatting). For example:[code]
- * TypeFormat.format(0.2, a) = "0.2" // 17 or 16 digits (as long as lossless conversion), remove trailing zeros.
- * TypeFormat.format(0.2, 17, false, false, a) = "0.20000000000000001" // Closest 17 digits number.
- * TypeFormat.format(0.2, 19, false, false, a) = "0.2000000000000000111" // Closest 19 digits.
- * TypeFormat.format(0.2, 4, false, false, a) = "0.2" // Fixed-point notation, remove trailing zeros.
- * TypeFormat.format(0.2, 4, false, true, a) = "0.2000" // Fixed-point notation, fixed number of digits.
- * TypeFormat.format(0.2, 4, true, false, a) = "2.0E-1" // Scientific notation, remove trailing zeros.
- * TypeFormat.format(0.2, 4, true, true, a) = "2.000E-1" // Scientific notation, fixed number of digits.
- * [/code]</p>
- * <p/>
- * <p> For non-primitive objects, formatting is typically performed using
- * specialized {@link TextFormat} instances.</p>
+ * <p> This class provides utility methods to parse 
+ *     {@link CharSequence} into primitive types and to format 
+ *     primitive types into any {@link Appendable}.</p>
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * <p> Methods from this class <b>do not create temporary objects</b> and
+ *     are typically faster than standard library methods (see 
+ *     <a href="http://javolution.org/doc/benchmark.html">benchmark</a>).</p>
+ *     
+ * <p> The number of digits when formatting floating point numbers can be 
+ *     specified. The default setting for <code>double</code> is 17 digits 
+ *     or even 16 digits when the conversion is lossless back and forth
+ *     (mimic the standard library formatting). For example:[code]
+ *         TypeFormat.format(0.2, a) = "0.2" // 17 or 16 digits (as long as lossless conversion), remove trailing zeros.
+ *         TypeFormat.format(0.2, 17, false, false, a) = "0.20000000000000001" // Closest 17 digits number.
+ *         TypeFormat.format(0.2, 19, false, false, a) = "0.2000000000000000111" // Closest 19 digits.
+ *         TypeFormat.format(0.2, 4, false, false, a) = "0.2" // Fixed-point notation, remove trailing zeros.
+ *         TypeFormat.format(0.2, 4, false, true, a) = "0.2000" // Fixed-point notation, fixed number of digits.
+ *         TypeFormat.format(0.2, 4, true, false, a) = "2.0E-1" // Scientific notation, remove trailing zeros.  
+ *         TypeFormat.format(0.2, 4, true, true, a) = "2.000E-1" // Scientific notation, fixed number of digits.
+ *         [/code]</p>        
+ *
+ * <p> For non-primitive objects, formatting is typically performed using 
+ *     specialized {@link TextFormat} instances.</p>
+ * 
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.3, February 15, 2009
  */
 public final class TypeFormat {
@@ -51,21 +53,20 @@ public final class TypeFormat {
     /////////////
     // PARSING //
     /////////////
-
     /**
      * Parses the specified character sequence as a <code>boolean</code>.
      *
-     * @param csq the character sequence to parse.
+     * @param  csq the character sequence to parse.
      * @return <code>parseBoolean(csq, null)</code>
-     * @throws IllegalArgumentException if the specified character sequence
-     *                                  is different from "true" or "false" ignoring cases.
+     * @throws IllegalArgumentException if the specified character sequence 
+     *         is different from "true" or "false" ignoring cases.
      */
     public static boolean parseBoolean(CharSequence csq) {
         return parseBoolean(csq, null);
     }
 
     /**
-     * Equivalent to {@link #parseBoolean(CharSequence)}
+     * Equivalent to {@link #parseBoolean(CharSequence)} 
      * (for J2ME compatibility).
      */
     public static boolean parseBoolean(String str) {
@@ -73,16 +74,16 @@ public final class TypeFormat {
     }
 
     /**
-     * Parses the specified character sequence from the specified position
+     * Parses the specified character sequence from the specified position 
      * as a <code>boolean</code>.
      *
-     * @param csq    the character sequence to parse.
+     * @param csq the character sequence to parse.
      * @param cursor the cursor position (being maintained) or
-     *               <code>null></code> to parse the whole character sequence.
+     *        <code>null></code> to parse the whole character sequence.
      * @return the next boolean value.
-     * @throws IllegalArgumentException if the character sequence from the
-     *                                  specified position is different from "true" or "false" ignoring
-     *                                  cases.
+     * @throws IllegalArgumentException if the character sequence from the 
+     *         specified position is different from "true" or "false" ignoring
+     *         cases.
      */
     public static boolean parseBoolean(CharSequence csq, Cursor cursor) {
         int start = (cursor != null) ? cursor.getIndex() : 0;
@@ -101,28 +102,28 @@ public final class TypeFormat {
     }
 
     /**
-     * Parses the specified character sequence as a signed decimal
+     * Parses the specified character sequence as a signed decimal 
      * <code>byte</code>.
      *
-     * @param csq the character sequence to parse.
+     * @param  csq the character sequence to parse.
      * @return <code>parseByte(csq, 10)</code>
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>byte</code>.
-     * @see #parseByte(CharSequence, int)
+     *         does not contain a parsable <code>byte</code>.
+     * @see    #parseByte(CharSequence, int)
      */
     public static byte parseByte(CharSequence csq) {
         return parseByte(csq, 10);
     }
 
     /**
-     * Parses the specified character sequence as a signed <code>byte</code>
+     * Parses the specified character sequence as a signed <code>byte</code> 
      * in the specified radix.
      *
-     * @param csq   the character sequence to parse.
-     * @param radix the radix to be used while parsing.
+     * @param  csq the character sequence to parse.
+     * @param  radix the radix to be used while parsing.
      * @return the corresponding <code>byte</code>.
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>byte</code>.
+     *         does not contain a parsable <code>byte</code>.
      */
     public static byte parseByte(CharSequence csq, int radix) {
         int i = parseInt(csq, radix);
@@ -132,16 +133,16 @@ public final class TypeFormat {
     }
 
     /**
-     * Parses the specified character sequence from the specified position
+     * Parses the specified character sequence from the specified position 
      * as a signed <code>byte</code> in the specified radix.
      *
-     * @param csq    the character sequence to parse.
-     * @param radix  the radix to be used while parsing.
+     * @param  csq the character sequence to parse.
+     * @param  radix the radix to be used while parsing.
      * @param cursor the cursor position (being maintained) or
-     *               <code>null></code> to parse the whole character sequence.
+     *        <code>null></code> to parse the whole character sequence.
      * @return the corresponding <code>byte</code>.
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>byte</code>.
+     *         does not contain a parsable <code>byte</code>.
      */
     public static byte parseByte(CharSequence csq, int radix, Cursor cursor) {
         int i = parseInt(csq, radix, cursor);
@@ -151,28 +152,28 @@ public final class TypeFormat {
     }
 
     /**
-     * Parses the specified character sequence as a signed decimal
+     * Parses the specified character sequence as a signed decimal 
      * <code>short</code>.
      *
-     * @param csq the character sequence to parse.
+     * @param  csq the character sequence to parse.
      * @return <code>parseShort(csq, 10)</code>
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>short</code>.
-     * @see #parseShort(CharSequence, int)
+     *         does not contain a parsable <code>short</code>.
+     * @see    #parseShort(CharSequence, int)
      */
     public static short parseShort(CharSequence csq) {
         return parseShort(csq, 10);
     }
 
     /**
-     * Parses the specified character sequence as a signed <code>short</code>
+     * Parses the specified character sequence as a signed <code>short</code> 
      * in the specified radix.
      *
-     * @param csq   the character sequence to parse.
-     * @param radix the radix to be used while parsing.
+     * @param  csq the character sequence to parse.
+     * @param  radix the radix to be used while parsing.
      * @return the corresponding <code>short</code>.
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>short</code>.
+     *         does not contain a parsable <code>short</code>.
      */
     public static short parseShort(CharSequence csq, int radix) {
         int i = parseInt(csq, radix);
@@ -182,16 +183,16 @@ public final class TypeFormat {
     }
 
     /**
-     * Parses the specified character sequence from the specified position
+     * Parses the specified character sequence from the specified position 
      * as a signed <code>short</code> in the specified radix.
      *
-     * @param csq    the character sequence to parse.
-     * @param radix  the radix to be used while parsing.
+     * @param  csq the character sequence to parse.
+     * @param  radix the radix to be used while parsing.
      * @param cursor the cursor position (being maintained) or
-     *               <code>null></code> to parse the whole character sequence.
+     *        <code>null></code> to parse the whole character sequence.
      * @return the corresponding <code>short</code>.
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>short</code>.
+     *         does not contain a parsable <code>short</code>.
      */
     public static short parseShort(CharSequence csq, int radix, Cursor cursor) {
         int i = parseInt(csq, radix, cursor);
@@ -203,11 +204,11 @@ public final class TypeFormat {
     /**
      * Parses the specified character sequence as a signed <code>int</code>.
      *
-     * @param csq the character sequence to parse.
+     * @param  csq the character sequence to parse.
      * @return <code>parseInt(csq, 10)</code>
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>int</code>.
-     * @see #parseInt(CharSequence, int)
+     *         does not contain a parsable <code>int</code>.
+     * @see    #parseInt(CharSequence, int)
      */
     public static int parseInt(CharSequence csq) {
         return parseInt(csq, 10);
@@ -221,21 +222,21 @@ public final class TypeFormat {
     }
 
     /**
-     * Parses the specified character sequence as a signed <code>int</code>
+     * Parses the specified character sequence as a signed <code>int</code> 
      * in the specified radix.
      *
-     * @param csq   the character sequence to parse.
-     * @param radix the radix to be used while parsing.
+     * @param  csq the character sequence to parse.
+     * @param  radix the radix to be used while parsing.
      * @return the corresponding <code>int</code>.
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>int</code>.
+     *         does not contain a parsable <code>int</code>.
      */
     public static int parseInt(CharSequence csq, int radix) {
         return parseInt(csq, radix, null);
     }
 
     /**
-     * Equivalent to {@link #parseInt(CharSequence, int)}
+     * Equivalent to {@link #parseInt(CharSequence, int)} 
      * (for J2ME compatibility).
      */
     public static int parseInt(String str, int radix) {
@@ -246,13 +247,13 @@ public final class TypeFormat {
      * Parses the specified character sequence from the specified position
      * as a signed <code>int</code> in the specified radix.
      *
-     * @param csq    the character sequence to parse.
-     * @param radix  the radix to be used while parsing.
+     * @param  csq the character sequence to parse.
+     * @param  radix the radix to be used while parsing.
      * @param cursor the cursor position (being maintained) or
-     *               <code>null></code> to parse the whole character sequence.
+     *        <code>null></code> to parse the whole character sequence.
      * @return the corresponding <code>int</code>.
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>int</code>.
+     *         does not contain a parsable <code>int</code>.
      */
     public static int parseInt(CharSequence csq, int radix, Cursor cursor) {
         int start = (cursor != null) ? cursor.getIndex() : 0;
@@ -289,18 +290,18 @@ public final class TypeFormat {
     /**
      * Parses the specified character sequence as a decimal <code>long</code>.
      *
-     * @param csq the character sequence to parse.
+     * @param  csq the character sequence to parse.
      * @return <code>parseLong(csq, 10)</code>
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>long</code>.
-     * @see #parseLong(CharSequence, int)
+     *         does not contain a parsable <code>long</code>.
+     * @see    #parseLong(CharSequence, int)
      */
     public static long parseLong(CharSequence csq) {
         return parseLong(csq, 10);
     }
 
     /**
-     * Equivalent to {@link #parseLong(CharSequence)}
+     * Equivalent to {@link #parseLong(CharSequence)} 
      * (for J2ME compatibility).
      */
     public static long parseLong(String str) {
@@ -311,18 +312,18 @@ public final class TypeFormat {
      * Parses the specified character sequence as a signed <code>long</code>
      * in the specified radix.
      *
-     * @param csq   the character sequence to parse.
-     * @param radix the radix to be used while parsing.
+     * @param  csq the character sequence to parse.
+     * @param  radix the radix to be used while parsing.
      * @return the corresponding <code>long</code>.
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>long</code>.
+     *         does not contain a parsable <code>long</code>.
      */
     public static long parseLong(CharSequence csq, int radix) {
         return parseLong(csq, radix, null);
     }
 
     /**
-     * Equivalent to {@link #parseLong(CharSequence, int)}
+     * Equivalent to {@link #parseLong(CharSequence, int)} 
      * (for J2ME compatibility).
      */
     public static long parseLong(String str, int radix) {
@@ -330,16 +331,16 @@ public final class TypeFormat {
     }
 
     /**
-     * Parses the specified character sequence from the specified position
+     * Parses the specified character sequence from the specified position 
      * as a signed <code>long</code> in the specified radix.
      *
-     * @param csq    the character sequence to parse.
-     * @param radix  the radix to be used while parsing.
+     * @param  csq the character sequence to parse.
+     * @param  radix the radix to be used while parsing.
      * @param cursor the cursor position (being maintained) or
-     *               <code>null></code> to parse the whole character sequence.
+     *        <code>null></code> to parse the whole character sequence.
      * @return the corresponding <code>long</code>.
      * @throws NumberFormatException if the specified character sequence
-     *                               does not contain a parsable <code>long</code>.
+     *         does not contain a parsable <code>long</code>.
      */
     public static long parseLong(CharSequence csq, int radix, Cursor cursor) {
         final int start = (cursor != null) ? cursor.getIndex() : 0;
@@ -376,7 +377,7 @@ public final class TypeFormat {
     /**
      * Parses the specified character sequence as a <code>float</code>.
      *
-     * @param csq the character sequence to parse.
+     * @param  csq the character sequence to parse.
      * @return the float number represented by the specified character sequence.
      */
     public static float parseFloat(CharSequence csq) {
@@ -384,7 +385,7 @@ public final class TypeFormat {
     }
 
     /**
-     * Equivalent to {@link #parseFloat(CharSequence)}
+     * Equivalent to {@link #parseFloat(CharSequence)} 
      * (for J2ME compatibility).
      */
     public static float parseFloat(String str) {
@@ -392,12 +393,12 @@ public final class TypeFormat {
     }
 
     /**
-     * Parses the specified character sequence from the specified position
+     * Parses the specified character sequence from the specified position 
      * as a <code>float</code>.
      *
-     * @param csq    the character sequence to parse.
+     * @param  csq the character sequence to parse.
      * @param cursor the cursor position (being maintained) or
-     *               <code>null></code> to parse the whole character sequence.
+     *        <code>null></code> to parse the whole character sequence.
      * @return the float number represented by the specified character sequence.
      */
     public static float parseFloat(CharSequence csq, Cursor cursor) {
@@ -409,10 +410,10 @@ public final class TypeFormat {
      * The format must be of the form:<code>
      * &lt;decimal&gt;{'.'&lt;fraction&gt;}{'E|e'&lt;exponent&gt;}</code>.
      *
-     * @param csq the character sequence to parse.
+     * @param  csq the character sequence to parse.
      * @return the double number represented by this character sequence.
      * @throws NumberFormatException if the character sequence does not contain
-     *                               a parsable <code>double</code>.
+     *         a parsable <code>double</code>.
      */
     public static double parseDouble(CharSequence csq)
             throws NumberFormatException {
@@ -420,7 +421,7 @@ public final class TypeFormat {
     }
 
     /**
-     * Equivalent to {@link #parseDouble(CharSequence)}
+     * Equivalent to {@link #parseDouble(CharSequence)} 
      * (for J2ME compatibility).
      */
     public static double parseDouble(String str) {
@@ -428,15 +429,15 @@ public final class TypeFormat {
     }
 
     /**
-     * Parses the specified character sequence from the specified position
+     * Parses the specified character sequence from the specified position 
      * as a <code>double</code>.
      *
-     * @param csq    the character sequence to parse.
+     * @param  csq the character sequence to parse.
      * @param cursor the cursor position (being maintained) or
-     *               <code>null></code> to parse the whole character sequence.
+     *        <code>null></code> to parse the whole character sequence.
      * @return the double number represented by this character sequence.
      * @throws NumberFormatException if the character sequence does not contain
-     *                               a parsable <code>double</code>.
+     *         a parsable <code>double</code>.
      */
     public static double parseDouble(CharSequence csq, Cursor cursor)
             throws NumberFormatException {
@@ -465,8 +466,8 @@ public final class TypeFormat {
 
         // At least one digit or a '.' required.
         if (((c < '0') || (c > '9')) && (c != '.'))
-            throw new NumberFormatException("Digit or '.' required");
-
+             throw new NumberFormatException("Digit or '.' required");
+   
         // Reads decimal and fraction (both merged to a long).
         long decimal = 0;
         int decimalPoint = -1;
@@ -516,7 +517,7 @@ public final class TypeFormat {
                 exp = -exp;
         }
         increment(cursor, i - start, end, csq);
-        return MathLib.toDoublePow10(decimal, exp - fractionLength);
+        return com.bbva.pzic.proposals.util.orika.javolution.lang.MathLib.toDoublePow10(decimal, exp - fractionLength);
     }
 
     static boolean match(String str, CharSequence csq, int start, int length) {
@@ -538,20 +539,18 @@ public final class TypeFormat {
     ////////////////
     // FORMATTING //
     ////////////////
-
     /**
      * Formats the specified <code>boolean</code> and appends the resulting
      * text to the <code>Appendable</code> argument.
      *
-     * @param b a <code>boolean</code>.
-     * @param a the <code>Appendable</code> to append.
+     * @param  b a <code>boolean</code>.
+     * @param  a the <code>Appendable</code> to append.
      * @return the specified <code>StringBuffer</code> object.
      * @throws IOException if an I/O exception occurs.
      */
     public static Appendable format(boolean b, Appendable a) throws IOException {
         return b ? a.append(TRUE) : a.append(FALSE);
     }
-
     private static final CharSequence TRUE = j2meToCharSeq("true");
     private static final CharSequence FALSE = j2meToCharSeq("false");
 
@@ -559,8 +558,9 @@ public final class TypeFormat {
      * Formats the specified <code>int</code> and appends the resulting
      * text (decimal representation) to the <code>Appendable</code> argument.
      *
-     * @param i the <code>int</code> number.
-     * @param a the <code>Appendable</code> to append.
+     *
+     * @param  i the <code>int</code> number.
+     * @param  a the <code>Appendable</code> to append.
      * @return the specified <code>Appendable</code> object.
      * @throws IOException if an I/O exception occurs.
      */
@@ -580,12 +580,12 @@ public final class TypeFormat {
      * Formats the specified <code>int</code> in the specified radix and appends
      * the resulting text to the <code>Appendable</code> argument.
      *
-     * @param i     the <code>int</code> number.
-     * @param radix the radix.
-     * @param a     the <code>Appendable</code> to append.
+     * @param  i the <code>int</code> number.
+     * @param  radix the radix.
+     * @param  a the <code>Appendable</code> to append.
      * @return the specified <code>Appendable</code> object.
      * @throws IllegalArgumentException if radix is not in [2 .. 36] range.
-     * @throws IOException              if an I/O exception occurs.
+     * @throws IOException if an I/O exception occurs.
      */
     public static Appendable format(int i, int radix, Appendable a) throws IOException {
         if (a instanceof TextBuilder)
@@ -603,11 +603,11 @@ public final class TypeFormat {
      * Formats the specified <code>long</code> and appends the resulting
      * text (decimal representation) to the <code>Appendable</code> argument.
      *
-     * @param l the <code>long</code> number.
-     * @param a the <code>Appendable</code> to append.
+     * @param  l the <code>long</code> number.
+     * @param  a the <code>Appendable</code> to append.
      * @return the specified <code>Appendable</code> object.
      * @throws IOException if an I/O exception occurs.
-     * @see #parseLong
+     * @see    #parseLong
      */
     public static Appendable format(long l, Appendable a) throws IOException {
         if (a instanceof TextBuilder)
@@ -625,13 +625,13 @@ public final class TypeFormat {
      * Formats the specified <code>long</code> in the specified radix and
      * appends the resulting text to the <code>Appendable</code> argument.
      *
-     * @param l     the <code>long</code> number.
-     * @param radix the radix.
-     * @param a     the <code>Appendable</code> to append.
+     * @param  l the <code>long</code> number.
+     * @param  radix the radix.
+     * @param  a the <code>Appendable</code> to append.
      * @return the specified <code>Appendable</code> object.
-     * @throws IllegalArgumentException if radix is not in [2 .. 36] range.
-     * @throws IOException              if an I/O exception occurs.
-     * @see #parseLong(CharSequence, int)
+     * @throws  IllegalArgumentException if radix is not in [2 .. 36] range.
+     * @throws IOException if an I/O exception occurs.
+     * @see    #parseLong(CharSequence, int)
      */
     public static Appendable format(long l, int radix, Appendable a)
             throws IOException {
@@ -649,8 +649,8 @@ public final class TypeFormat {
     /**
      * Formats the specified <code>float</code> value.
      *
-     * @param f the <code>float</code> value.
-     * @param a the <code>Appendable</code> to append.
+     * @param  f the <code>float</code> value.
+     * @param  a the <code>Appendable</code> to append.
      * @return <code>TypeFormat.format(f, 10, (MathLib.abs(f) >= 1E7) || (MathLib.abs(f) < 0.001), false, a)</code>
      * @throws IOException if an I/O exception occurs.
      */
@@ -661,11 +661,11 @@ public final class TypeFormat {
     /**
      * Formats the specified <code>double</code> value (16 or 17 digits output).
      *
-     * @param d the <code>double</code> value.
-     * @param a the <code>Appendable</code> to append.
+     * @param  d the <code>double</code> value.
+     * @param  a the <code>Appendable</code> to append.
      * @return <code>TypeFormat.format(d, -1, (MathLib.abs(d) >= 1E7) || (MathLib.abs(d) < 0.001), false, a)</code>
      * @throws IOException if an I/O exception occurs.
-     * @see TextBuilder#append(double)
+     * @see    TextBuilder#append(double)
      */
     public static Appendable format(double d, Appendable a) throws IOException {
         return TypeFormat.format(d, -1, (MathLib.abs(d) >= 1E7) || (MathLib.abs(d) < 0.001), false, a);
@@ -675,22 +675,22 @@ public final class TypeFormat {
      * Formats the specified <code>double</code> value according to the
      * specified formatting arguments.
      *
-     * @param d          the <code>double</code> value.
-     * @param digits     the number of significative digits (excludes exponent) or
-     *                   <code>-1</code> to mimic the standard library (16 or 17 digits).
-     * @param scientific <code>true</code> to forces the use of the scientific
-     *                   notation (e.g. <code>1.23E3</code>); <code>false</code>
-     *                   otherwise.
-     * @param showZero   <code>true</code> if trailing fractional zeros are
-     *                   represented; <code>false</code> otherwise.
-     * @param a          the <code>Appendable</code> to append.
+     * @param  d the <code>double</code> value.
+     * @param  digits the number of significative digits (excludes exponent) or
+     *         <code>-1</code> to mimic the standard library (16 or 17 digits).
+     * @param  scientific <code>true</code> to forces the use of the scientific
+     *         notation (e.g. <code>1.23E3</code>); <code>false</code>
+     *         otherwise.
+     * @param  showZero <code>true</code> if trailing fractional zeros are
+     *         represented; <code>false</code> otherwise.
+     * @param  a the <code>Appendable</code> to append.
      * @return the specified <code>Appendable</code> object.
      * @throws IllegalArgumentException if <code>(digits &gt; 19)</code>)
-     * @throws IOException              if an I/O exception occurs.
-     * @see TextBuilder#append(double, int, boolean, boolean)
+     * @throws IOException if an I/O exception occurs.
+     * @see    TextBuilder#append(double, int, boolean, boolean)
      */
     public static Appendable format(double d, int digits, boolean scientific,
-                                    boolean showZero, Appendable a) throws IOException {
+            boolean showZero, Appendable a) throws IOException {
         if (a instanceof TextBuilder)
             return ((TextBuilder) a).append(d, digits, scientific, showZero);
         TextBuilder tb = TextBuilder.newInstance();
@@ -707,8 +707,8 @@ public final class TypeFormat {
         if (cursor != null)
             cursor.increment(inc);
         else // Whole string must be parsed.
-            if (inc != endIndex)
-                throw new NumberFormatException("Extraneous character: '" + csq.charAt(inc) + "'");
+        if (inc != endIndex)
+            throw new NumberFormatException("Extraneous character: '" + csq.charAt(inc) + "'");
     }
 
     // For J2ME Compatibility.

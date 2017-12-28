@@ -25,55 +25,57 @@ import java.util.LinkedList;
 /**
  * A simple sorted collection implementation that allows for duplicates;
  * new items are inserted based on their comparison to existing items;
- * if a new item is found to be less than any item in the list, it is inserted
+ * if a new item is found to be less than any item in the list, it is inserted 
  * before that item, else it is inserted at the end. <br><br>
  * The collection is backed by a LinkedList, and all operations save for <code>add</code>
  * and <code>addAll</code> perform in the same time as the backing collection.<br><br>
  * The add method performs in linear time (O(n)), and the addAll method performs in
  * O(n*m) time, where n is the current size of the list, and m is the count being added.
- *
+ * 
+ * 
  * @author matt.deboer@gmail.com
+ *
  */
 public class SortedCollection<V> implements Collection<V> {
-
+    
     protected final Comparator<V> comparator;
     protected final LinkedList<V> sortedList = new LinkedList<V>();
-
+    
     /**
-     *
+     * 
      */
     public SortedCollection() {
         this.comparator = null;
     }
-
+    
     /**
-     *
+     * 
      */
     public SortedCollection(Collection<? extends V> c) {
         this();
         addAll(c);
     }
-
+    
     /**
      * @param comparator
      */
     public SortedCollection(Comparator<V> comparator) {
         this.comparator = comparator;
     }
-
+    
     /**
-     * @param c          the collection from which to initialize this SortedCollection
+     * @param c the collection from which to initialize this SortedCollection
      * @param comparator the comparator used for sorting the elements
      */
     public SortedCollection(Collection<? extends V> c, Comparator<V> comparator) {
         this(comparator);
         addAll(c);
     }
-
-
+    
+    
     public boolean add(V value) {
         int i = -1;
-        for (V item : sortedList) {
+        for (V item: sortedList) {
             ++i;
             int comparison = comparator == null ? toComparable(item).compareTo(value) : comparator.compare(item, value);
             if (comparison > 0) {
@@ -88,16 +90,15 @@ public class SortedCollection<V> implements Collection<V> {
     public int size() {
         return sortedList.size();
     }
-
+    
     public boolean isEmpty() {
         return sortedList.isEmpty();
     }
-
-    @SuppressWarnings({"unchecked"})
+    
+    @SuppressWarnings({"unchecked" })
     protected static <V> Comparable<V> toComparable(V item) {
-        return (Comparable<V>) item;
+        return (Comparable<V>)item;
     }
-
     /* (non-Javadoc)
      * @see java.lang.Iterable#iterator()
      */
@@ -144,7 +145,7 @@ public class SortedCollection<V> implements Collection<V> {
      * @see java.util.Collection#addAll(java.util.Collection)
      */
     public boolean addAll(Collection<? extends V> c) {
-        for (V value : c) {
+        for (V value: c) {
             add(value);
         }
         return true;
@@ -170,14 +171,14 @@ public class SortedCollection<V> implements Collection<V> {
     public void clear() {
         sortedList.clear();
     }
-
+    
     /**
      * @return the first item in this collection
      */
     public V first() {
         return sortedList.getFirst();
     }
-
+    
     /**
      * @return the last item in this collection
      */

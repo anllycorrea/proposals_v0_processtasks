@@ -17,20 +17,21 @@
  */
 package com.bbva.pzic.proposals.util.orika.impl;
 
-import com.bbva.pzic.proposals.util.orika.Converter;
-import com.bbva.pzic.proposals.util.orika.metadata.MapperKey;
-import com.bbva.pzic.proposals.util.orika.Mapper;
-import com.bbva.pzic.proposals.util.orika.metadata.Type;
-
 import java.util.Comparator;
+
+import com.bbva.pzic.proposals.util.orika.Converter;
+import com.bbva.pzic.proposals.util.orika.Mapper;
+import com.bbva.pzic.proposals.util.orika.metadata.MapperKey;
+import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
 /**
  * @author matt.deboer@gmail.com
+ *
  */
 public abstract class Comparators {
-
-    private static int compare(Type<?> aType1, Type<?> bType1, Type<?> aType2, Type<?> bType2, boolean isBidirectional) {
-
+    
+    private static final int compare(Type<?> aType1, Type<?> bType1, Type<?> aType2, Type<?> bType2, boolean isBidirectional) {
+        
         if ((aType1.equals(aType2) && bType1.equals(bType2)) || (aType1.equals(bType2) && aType2.equals(bType1))) {
             return 0;
         } else if ((aType1.isAssignableFrom(aType2) && bType1.isAssignableFrom(bType2))
@@ -47,22 +48,24 @@ public abstract class Comparators {
             return 0;
         }
     }
-
+    
     public static final Comparator<MapperKey> MAPPER_KEY = new Comparator<MapperKey>() {
         public int compare(MapperKey mapper1, MapperKey mapper2) {
             return Comparators.compare(mapper1.getAType(), mapper1.getBType(), mapper2.getAType(), mapper2.getBType(), true);
         }
     };
-
+    
     public static final Comparator<Mapper<Object, Object>> MAPPER = new Comparator<Mapper<Object, Object>>() {
         public int compare(Mapper<Object, Object> mapper1, Mapper<Object, Object> mapper2) {
             return Comparators.compare(mapper1.getAType(), mapper1.getBType(), mapper2.getAType(), mapper2.getBType(), true);
         }
     };
-
+    
     public static final Comparator<Converter<Object, Object>> CONVERTER = new Comparator<Converter<Object, Object>>() {
         public int compare(Converter<Object, Object> mapper1, Converter<Object, Object> mapper2) {
             return Comparators.compare(mapper1.getAType(), mapper1.getBType(), mapper2.getAType(), mapper2.getBType(), false);
         }
     };
+    
+    
 }

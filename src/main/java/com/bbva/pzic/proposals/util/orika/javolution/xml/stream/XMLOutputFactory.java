@@ -8,45 +8,45 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.xml.stream;
 
-import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Configurable;
-
 import java.io.OutputStream;
 import java.io.Writer;
 
+import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Configurable;
+
 /**
  * <p> The class represents the factory for getting {@link XMLStreamWriter}
- * intances.</p>
- * <p/>
- * <p> The {@link #newInstance() default implementation} automatically
- * {@link com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory#recycle recycles} any writer which has been
- * {@link XMLStreamWriter#close() closed}.</p>
- * <p/>
+ *     intances.</p>
+ * 
+ * <p> The {@link #newInstance() default implementation} automatically 
+ *     {@link ObjectFactory#recycle recycles} any writer which has been 
+ *     {@link XMLStreamWriter#close() closed}.</p>
+ *     
  * <P> Usage example:[code]
- * <p/>
- * // Lets format to an appendable.
- * TextBuilder xml = new TextBuilder();
- * AppendableWriter out = new AppendableWriter(xml);
- * <p/>
- * // Creates a factory producing writers using tab indentation.
- * XMLOutpuFactory factory = XMLOutputFactory.newInstance();
- * factory.setProperty(XMLOutputFactory.INDENTATION, "/t");
- * <p/>
- * // Creates a new writer (potentially recycled).
- * XMLStreamWriter writer = factory.createXMLStreamReader(out);
- * <p/>
- * // Formats to XML.
- * writer.writeStartDocument();
- * writer.writeStartElement(...);
- * ...
- * writer.close(); // Automatically recycles this writer.
- * out.close(); // Underlying output should be closed explicitly.
- * <p/>
- * // Displays the formatted output.
- * System.out.println(xml);
- * [/code]</p>
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ *     // Lets format to an appendable.
+ *     TextBuilder xml = new TextBuilder();
+ *     AppendableWriter out = new AppendableWriter(xml);
+ *     
+ *     // Creates a factory producing writers using tab indentation.
+ *     XMLOutpuFactory factory = XMLOutputFactory.newInstance();
+ *     factory.setProperty(XMLOutputFactory.INDENTATION, "/t");
+ *     
+ *     // Creates a new writer (potentially recycled).
+ *     XMLStreamWriter writer = factory.createXMLStreamReader(out);
+ *     
+ *     // Formats to XML.
+ *     writer.writeStartDocument();
+ *     writer.writeStartElement(...); 
+ *     ...
+ *     writer.close(); // Automatically recycles this writer. 
+ *     out.close(); // Underlying output should be closed explicitly.
+ *     
+ *     // Displays the formatted output.
+ *     System.out.println(xml);
+ *     [/code]</p>
+ *     
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.0, September 4, 2006
  */
 public abstract class XMLOutputFactory {
@@ -54,9 +54,8 @@ public abstract class XMLOutputFactory {
     /**
      * Holds the XMLOutputFactory implementation (configurable).
      */
-    public static final Configurable<Class<? extends XMLOutputFactory>> CLASS
-            = new Configurable<Class<? extends XMLOutputFactory>>(Default.class) {
-    };
+    public static final Configurable <Class<? extends XMLOutputFactory>> CLASS
+        = new Configurable <Class<? extends XMLOutputFactory>> (Default.class) {};
 
     /**
      * Property used to set prefix defaulting on the output side
@@ -73,20 +72,20 @@ public abstract class XMLOutputFactory {
     public final static String REPAIRING_PREFIX = "javolution.xml.stream.repairingPrefix";
 
     /**
-     * Property used to specify an indentation string; non-null indentation
+     * Property used to specify an indentation string; non-null indentation 
      * forces the writer to write elements into separate lines
      * (type: <code>String</code>, default: <code>null</code>).
      */
     public static final String INDENTATION = "javolution.xml.stream.indentation";
 
-    /**
+     /**
      * Property used to specify the new line characters
      * (type: <code>String</code>, default: <code>"\n"</code>).
      */
     public static final String LINE_SEPARATOR = "javolution.xml.stream.lineSeparator";
 
     /**
-     * Property indicating if the stream writers are allowed to automatically
+     * Property indicating if the stream writers are allowed to automatically 
      * output empty elements when a start element is immediately followed by
      * matching end element
      * (type: <code>Boolean</code>, default: <code>FALSE</code>).
@@ -94,10 +93,10 @@ public abstract class XMLOutputFactory {
     public final static String AUTOMATIC_EMPTY_ELEMENTS = "javolution.xml.stream.automaticEmptyElements";
 
     /**
-     * Property indicating if the stream writers are not allowed to use
-     * empty element tags
+     * Property indicating if the stream writers are not allowed to use 
+     * empty element tags 
      * (type: <code>Boolean</code>, default: <code>FALSE</code>).
-     * When set, this property forces the use of start/end element tag
+     * When set, this property forces the use of start/end element tag 
      * (e.g. i.e. "&lt;empty /&gt;" replaced by  "&lt;empty&gt;&lt;/empty&gt;"),
      * This property takes precedence over {@link #AUTOMATIC_EMPTY_ELEMENTS}.
      */
@@ -112,10 +111,10 @@ public abstract class XMLOutputFactory {
 
     /**
      * Returns a new instance of the {@link #CLASS} output factory
-     * implementation which may be configurated by the user
+     * implementation which may be configurated by the user 
      * (see {@link #setProperty(String, Object)}). The output factory
-     * instance is allocated through {@link com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory#getInstance(Class)}.
-     *
+     * instance is allocated through {@link ObjectFactory#getInstance(Class)}.
+     * 
      * @return a new factory instance.
      */
     public static XMLOutputFactory newInstance() {
@@ -125,7 +124,7 @@ public abstract class XMLOutputFactory {
 
     /**
      * Returns a XML stream writer to the specified i/o writer.
-     *
+     * 
      * @param writer the writer to write to.
      * @throws XMLStreamException
      */
@@ -135,7 +134,7 @@ public abstract class XMLOutputFactory {
     /**
      * Returns a XML stream writer to the specified output stream (UTF-8
      * encoding).
-     *
+     * 
      * @param stream the stream to write to.
      * @throws XMLStreamException
      */
@@ -145,20 +144,20 @@ public abstract class XMLOutputFactory {
     /**
      * Returns a XML stream writer to the specified output stream using the
      * specified encoding.
-     *
-     * @param stream   the stream to write to.
+     * 
+     * @param stream the stream to write to.
      * @param encoding the encoding to use.
      * @throws XMLStreamException
      */
     public abstract XMLStreamWriter createXMLStreamWriter(OutputStream stream,
-                                                          String encoding) throws XMLStreamException;
+            String encoding) throws XMLStreamException;
 
     /**
      * Allows the user to set specific features/properties on the underlying
      * implementation.
-     *
-     * @param name  the name of the property.
-     * @param value the value of the property.
+     * 
+     * @param name the name of the property.
+     * @param value  the value of the property.
      * @throws IllegalArgumentException if the property is not supported.
      */
     public abstract void setProperty(String name, Object value)
@@ -166,7 +165,7 @@ public abstract class XMLOutputFactory {
 
     /**
      * Gets a feature/property on the underlying implementation.
-     *
+     * 
      * @param name the name of the property
      * @return the value of the property
      * @throws IllegalArgumentException if the property is not supported.
@@ -176,10 +175,10 @@ public abstract class XMLOutputFactory {
 
     /**
      * Queries the set of properties that this factory supports.
-     *
+     * 
      * @param name the name of the property (may not be null).
      * @return <code>true</code> if the property is supported;
-     * <code>false</code> otherwise.
+     *         <code>false</code> otherwise.
      */
     public abstract boolean isPropertySupported(String name);
 
@@ -224,7 +223,7 @@ public abstract class XMLOutputFactory {
 
         // Implements XMLOutputFactory abstract method.
         public XMLStreamWriter createXMLStreamWriter(OutputStream stream,
-                                                     String encoding) throws XMLStreamException {
+                String encoding) throws XMLStreamException {
             if ((encoding == null) || encoding.equals("UTF-8")
                     || encoding.equals("utf-8"))
                 return createXMLStreamWriter(stream);
@@ -322,7 +321,6 @@ public abstract class XMLOutputFactory {
         ObjectFactory.setInstance(new ObjectFactory() {
             protected Object create() {
                 return new Default();
-            }
-        }, Default.class);
+            } }, Default.class);
     }
 }

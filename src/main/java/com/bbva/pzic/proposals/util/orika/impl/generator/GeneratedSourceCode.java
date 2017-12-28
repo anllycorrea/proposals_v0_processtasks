@@ -18,18 +18,20 @@
 
 package com.bbva.pzic.proposals.util.orika.impl.generator;
 
-import javassist.CannotCompileException;
-import javassist.NotFoundException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.bbva.pzic.proposals.util.orika.impl.generator.CompilerStrategy.SourceCodeGenerationException;
+
+import javassist.CannotCompileException;
+import javassist.NotFoundException;
 
 /**
  * Acts as an intermediate to gather source code as methods are added to an
  * object which is being generated; useful for providing source code for
  * troubleshooting of generated objects as desired.
- *
+ * 
  * @author matt.deboer@gmail.com
  */
 public class GeneratedSourceCode {
@@ -56,125 +58,129 @@ public class GeneratedSourceCode {
     private Class<?> superClass;
 
     /**
-     * @param baseClassName    The base name of the class to generated; the final name chosen
-     *                         may include an extra suffix for uniqueness. Callers should not
-     *                         rely on the final class being generated to use the specified base
-     *                         name.
-     * @param superClass       The type of the base class to be extended by the generated
-     *                         class
-     * @param compilerStrategy The strategy to use when performing the compilation
+     * @param baseClassName
+     *            The base name of the class to generated; the final name chosen
+     *            may include an extra suffix for uniqueness. Callers should not 
+     *            rely on the final class being generated to use the specified base
+     *            name.
+     * @param superClass
+     *            The type of the base class to be extended by the generated
+     *            class
+     * @param compilerStrategy
+     * 		  The strategy to use when performing the compilation
      * @throws CannotCompileException
      * @throws NotFoundException
      */
-    public GeneratedSourceCode(final String baseClassName, Class<?> superClass,
-                               CompilerStrategy compilerStrategy) {
+	public GeneratedSourceCode(final String baseClassName, Class<?> superClass,
+	        CompilerStrategy compilerStrategy) {
 
-        String safeBaseClassName = baseClassName.replace("[]", "$Array");
-        this.compilerStrategy = compilerStrategy;
-        this.sourceBuilder = new StringBuilder();
-        this.classSimpleName = safeBaseClassName + System.identityHashCode(this);
-        this.superClass = superClass;
+	    String safeBaseClassName = baseClassName.replace("[]", "$Array");
+		this.compilerStrategy = compilerStrategy;
+		this.sourceBuilder = new StringBuilder();
+		this.classSimpleName = safeBaseClassName + System.identityHashCode(this);
+		this.superClass = superClass;
 
-        int namePos = safeBaseClassName.lastIndexOf(".");
-        if (namePos > 0) {
-            this.packageName = safeBaseClassName.substring(0, namePos - 1);
-            this.classSimpleName = safeBaseClassName.substring(namePos + 1);
-        } else {
-            this.packageName = "ma.glasnost.orika.generated";
-        }
-        this.className = this.packageName + "." + this.classSimpleName;
-        this.methods = new ArrayList<String>();
-        this.fields = new ArrayList<String>();
+		int namePos = safeBaseClassName.lastIndexOf(".");
+		if (namePos > 0) {
+			this.packageName = safeBaseClassName.substring(0, namePos - 1);
+			this.classSimpleName = safeBaseClassName.substring(namePos + 1);
+		} else {
+			this.packageName = "ma.glasnost.orika.generated";
+		}
+		this.className = this.packageName + "." + this.classSimpleName;
+		this.methods = new ArrayList<String>();
+		this.fields = new ArrayList<String>();
 
-        sourceBuilder.append("package " + packageName + ";\n\n");
-        sourceBuilder.append("public class " + classSimpleName + " extends "
-                + superClass.getCanonicalName() + " {\n");
-    }
-
+		sourceBuilder.append("package " + packageName + ";\n\n");
+		sourceBuilder.append("public class " + classSimpleName + " extends "
+		        + superClass.getCanonicalName() + " {\n");
+	}
+	
     /**
      * @return the StringBuilder containing the current accumulated source.
      */
-    protected StringBuilder getSourceBuilder() {
-        return sourceBuilder;
-    }
+	protected StringBuilder getSourceBuilder() {
+		return sourceBuilder;
+	}
 
-    public Class<?> getSuperClass() {
-        return superClass;
-    }
+	public Class<?> getSuperClass() {
+		return superClass;
+	}
 
-    public String getClassSimpleName() {
-        return classSimpleName;
-    }
+	public String getClassSimpleName() {
+		return classSimpleName;
+	}
 
-    public String getPackageName() {
-        return packageName;
-    }
+	public String getPackageName() {
+		return packageName;
+	}
 
-    public String getClassName() {
-        return className;
-    }
+	public String getClassName() {
+		return className;
+	}
 
-    List<String> getFields() {
-        return fields;
-    }
+	List<String> getFields() {
+		return fields;
+	}
 
-    List<String> getMethods() {
-        return methods;
-    }
+	List<String> getMethods() {
+		return methods;
+	}
 
+    
+	/**
+	 * Adds a method definition to the class based on the provided source.
+	 * 
+	 * @param methodSource
+	 */
+	public void addMethod(String methodSource) {
+		sourceBuilder.append("\n" + methodSource + "\n");
+		this.methods.add(methodSource);
+	}
 
-    /**
-     * Adds a method definition to the class based on the provided source.
-     *
-     * @param methodSource
-     */
-    public void addMethod(String methodSource) {
-        sourceBuilder.append("\n" + methodSource + "\n");
-        this.methods.add(methodSource);
-    }
+	/**
+	 * Adds a field definition to the class based on the provided source.
+	 * 
+	 * @param fieldSource
+	 *            the source from which to compile the field
+	 */
+	public void addField(String fieldSource) {
+		sourceBuilder.append("\n" + fieldSource + "\n");
+		this.fields.add(fieldSource);
+	}
 
-    /**
-     * Adds a field definition to the class based on the provided source.
-     *
-     * @param fieldSource the source from which to compile the field
-     */
-    public void addField(String fieldSource) {
-        sourceBuilder.append("\n" + fieldSource + "\n");
-        this.fields.add(fieldSource);
-    }
+	/**
+	 * @return the completed generated java source for the class.
+	 */
+	public String toSourceFile() {
+		return sourceBuilder.toString() + "\n}";
+	}
 
-    /**
-     * @return the completed generated java source for the class.
-     */
-    public String toSourceFile() {
-        return sourceBuilder.toString() + "\n}";
-    }
+	/**
+	 * Compile and return the (generated) class; this will also cause the
+	 * generated class to be detached from the class-pool, and any (optional)
+	 * source and/or class files to be written.
+	 * 
+	 * @return the (generated) compiled class
+	 * @throws CannotCompileException
+	 * @throws IOException
+	 */
+	protected Class<?> compileClass() throws SourceCodeGenerationException {
+		return compilerStrategy.compileClass(this);
+	}
 
-    /**
-     * Compile and return the (generated) class; this will also cause the
-     * generated class to be detached from the class-pool, and any (optional)
-     * source and/or class files to be written.
-     *
-     * @return the (generated) compiled class
-     * @throws CannotCompileException
-     * @throws IOException
-     */
-    protected Class<?> compileClass() throws CompilerStrategy.SourceCodeGenerationException {
-        return compilerStrategy.compileClass(this);
-    }
+	/**
+	 * @return a new instance of the (generated) compiled class
+	 * @throws CannotCompileException
+	 * @throws IOException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T getInstance() throws SourceCodeGenerationException,
+	        InstantiationException, IllegalAccessException {
 
-    /**
-     * @return a new instance of the (generated) compiled class
-     * @throws CannotCompileException
-     * @throws IOException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     */
-    @SuppressWarnings("unchecked")
-    public <T> T getInstance() throws CompilerStrategy.SourceCodeGenerationException,
-            InstantiationException, IllegalAccessException {
-
-        return (T) compileClass().newInstance();
-    }
+		return (T) compileClass().newInstance();
+	}
 
 }

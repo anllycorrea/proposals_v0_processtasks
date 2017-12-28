@@ -9,48 +9,53 @@
 package com.bbva.pzic.proposals.util.orika.javolution.util;
 
 import com.bbva.pzic.proposals.util.orika.javax.realtime.MemoryArea;
-import com.bbva.pzic.proposals.util.orika.javolution.lang.MathLib;
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
 import com.bbva.pzic.proposals.util.orika.javolution.context.PersistentContext;
+import com.bbva.pzic.proposals.util.orika.javolution.lang.MathLib;
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
+import java.util.RandomAccess;
 
 
 /**
- * <p> This class represents a random access collection with real-time behavior
- * (smooth capacity increase).</p>
- * <img src="doc-files/list-add.png"/>
- * <p/>
- * <p> This class has the following advantages over the widely used
- * <code>java.util.ArrayList</code>:<ul>
- * <li> No large array allocation (for large collections multi-dimensional
- * arrays are employed). The garbage collector is not stressed with
- * large chunk of memory to allocate (likely to trigger a
- * full garbage collection due to memory fragmentation).</li>
- * <li> Support concurrent access/iteration/modification without synchronization
- * if marked {@link FastCollection#shared shared}. </li>
- * </ul></p>
- * <p/>
- * <p> Iterations over the {@link FastTable} values are faster when
- * performed using the {@link #get} method rather than using collection
- * records or iterators:[code]
- * for (int i = 0, n = table.size(); i < n; i++) {
- * table.get(i);
- * }[/code]</p>
- * <p/>
- * <p> {@link FastTable} supports {@link #sort sorting} in place (quick sort)
- * using the {@link FastCollection#getValueComparator() value comparator}
- * for the table (no object or array allocation when sorting).</p>
- *
+ * <p> This class represents a random access collection with real-time behavior 
+ *     (smooth capacity increase).</p>
+ *     <img src="doc-files/list-add.png"/>
+ *     
+ * <p> This class has the following advantages over the widely used 
+ *     <code>java.util.ArrayList</code>:<ul>
+ *     <li> No large array allocation (for large collections multi-dimensional
+ *          arrays are employed). The garbage collector is not stressed with
+ *          large chunk of memory to allocate (likely to trigger a
+ *          full garbage collection due to memory fragmentation).</li>
+ *     <li> Support concurrent access/iteration/modification without synchronization
+ *          if marked {@link FastCollection#shared shared}. </li>
+ *     </ul></p>
+ *     
+ *  <p> Iterations over the {@link FastTable} values are faster when
+ *      performed using the {@link #get} method rather than using collection
+ *      records or iterators:[code]
+ *     for (int i = 0, n = table.size(); i < n; i++) {
+ *          table.get(i);
+ *     }[/code]</p>
+ *     
+ *  <p> {@link FastTable} supports {@link #sort sorting} in place (quick sort) 
+ *      using the {@link FastCollection#getValueComparator() value comparator}
+ *      for the table (no object or array allocation when sorting).</p>
+ * 
  * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.4.5, August 20, 2007
  */
-public class FastTable<E> extends FastCollection<E> implements
-        List<E>, Reusable, RandomAccess {
+public class FastTable <E> extends FastCollection <E> implements
+        List <E> , Reusable, RandomAccess {
 
     /**
      * Holds the factory for this fast table.
@@ -75,13 +80,13 @@ public class FastTable<E> extends FastCollection<E> implements
     private static final int M1 = C1 - 1; // Mask.
 
     // Resizes up to 1024 maximum (16, 32, 64, 128, 256, 512, 1024). 
-    private transient E[] _low;
+    private transient  E [] _low;
 
     // For larger capacity use multi-dimensional array.
-    private transient E[][] _high;
+    private transient  E [][] _high;
 
     /**
-     * Holds the current capacity.
+     * Holds the current capacity. 
      */
     private transient int _capacity;
 
@@ -94,22 +99,22 @@ public class FastTable<E> extends FastCollection<E> implements
     /**
      * Holds the value comparator.
      */
-    private transient FastComparator<? super E> _valueComparator = FastComparator.DEFAULT;
+    private transient FastComparator <? super E> _valueComparator = FastComparator.DEFAULT;
 
     /**
      * Creates a table of small initial capacity.
      */
     public FastTable() {
         _capacity = C0;
-        _low = (E[]) new Object[C0];
-        _high = (E[][]) new Object[1][];
+        _low = ( E []) new Object[C0];
+        _high = ( E [][]) new Object[1][];
         _high[0] = _low;
     }
 
     /**
      * Creates a persistent table associated to the specified unique identifier
      * (convenience method).
-     *
+     * 
      * @param id the unique identifier for this map.
      * @throws IllegalArgumentException if the identifier is not unique.
      * @see com.bbva.DtoIntReference.routine.mapper.javolution.context.PersistentContext.Reference
@@ -125,10 +130,10 @@ public class FastTable<E> extends FastCollection<E> implements
     }
 
     /**
-     * Creates a table of specified initial capacity; unless the table size
-     * reaches the specified capacity, operations on this table will not
+     * Creates a table of specified initial capacity; unless the table size 
+     * reaches the specified capacity, operations on this table will not 
      * allocate memory (no lazy object creation).
-     *
+     * 
      * @param capacity the initial capacity.
      */
     public FastTable(int capacity) {
@@ -144,26 +149,26 @@ public class FastTable<E> extends FastCollection<E> implements
      *
      * @param values the values to be placed into this table.
      */
-    public FastTable(Collection<? extends E> values) {
+    public FastTable(Collection <? extends E> values) {
         this(values.size());
         addAll(values);
     }
 
     /**
      * Returns a new, preallocated or {@link #recycle recycled} table instance
-     * (on the stack when executing in a {@link com.bbva.czic.routine.mapper.javolution.context.StackContext
+     * (on the stack when executing in a {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext
      * StackContext}).
      *
      * @return a new, preallocated or recycled table instance.
      */
-    public static <E> FastTable<E> newInstance() {
-        return (FastTable<E>) FACTORY.object();
+    public static <E> FastTable <E> newInstance() {
+        return (FastTable <E> ) FACTORY.object();
     }
 
     /**
      * Recycles a table {@link #newInstance() instance} immediately
-     * (on the stack when executing in a {@link com.bbva.czic.routine.mapper.javolution.context.StackContext
-     * StackContext}).
+     * (on the stack when executing in a {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext
+     * StackContext}). 
      */
     public static void recycle(FastTable instance) {
         FACTORY.recycle(instance);
@@ -190,10 +195,10 @@ public class FastTable<E> extends FastCollection<E> implements
      *
      * @param index index of value to return.
      * @return the value at the specified position in this list.
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index >= size())</code>
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *         (index >= size())</code>
      */
-    public final E get(int index) { // Short to be inlined.
+    public final  E get(int index) { // Short to be inlined.
         if (index >= _size)
             throw new IndexOutOfBoundsException();
         return index < C1 ? _low[index] : _high[index >> B1][index & M1];
@@ -206,14 +211,14 @@ public class FastTable<E> extends FastCollection<E> implements
      * @param index index of value to replace.
      * @param value value to be stored at the specified position.
      * @return previous value.
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index >= size())</code>
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *         (index >= size())</code>
      */
-    public final E set(int index, E value) {
+    public final  E set(int index,  E value) {
         if (index >= _size)
             throw new IndexOutOfBoundsException();
-        final E[] low = _high[index >> B1];
-        final E previous = low[index & M1];
+        final  E [] low = _high[index >> B1];
+        final  E previous = low[index & M1];
         low[index & M1] = value;
         return previous;
     }
@@ -223,9 +228,9 @@ public class FastTable<E> extends FastCollection<E> implements
      *
      * @param value the value to be appended to this table.
      * @return <code>true</code> (as per the general contract of the
-     * <code>Collection.add</code> method).
+     *         <code>Collection.add</code> method).
      */
-    public final boolean add(E value) {
+    public final boolean add( E value) {
         if (_size >= _capacity)
             increaseCapacity();
         _high[_size >> B1][_size & M1] = value;
@@ -239,7 +244,7 @@ public class FastTable<E> extends FastCollection<E> implements
      * @return this table first value.
      * @throws NoSuchElementException if this table is empty.
      */
-    public final E getFirst() {
+    public final  E getFirst() {
         if (_size == 0)
             throw new NoSuchElementException();
         return _low[0];
@@ -251,7 +256,7 @@ public class FastTable<E> extends FastCollection<E> implements
      * @return this table last value.
      * @throws NoSuchElementException if this table is empty.
      */
-    public final E getLast() {
+    public final  E getLast() {
         if (_size == 0)
             throw new NoSuchElementException();
         return get(_size - 1);
@@ -259,10 +264,10 @@ public class FastTable<E> extends FastCollection<E> implements
 
     /**
      * Appends the specified value to the end of this table <i>(fast)</i>.
-     *
+     * 
      * @param value the value to be added.
      */
-    public final void addLast(E value) {
+    public final void addLast( E value) {
         add(value);
     }
 
@@ -272,12 +277,12 @@ public class FastTable<E> extends FastCollection<E> implements
      * @return this table's last value before this call.
      * @throws NoSuchElementException if this table is empty.
      */
-    public final E removeLast() {
+    public final  E removeLast() {
         if (_size == 0)
             throw new NoSuchElementException();
         _size--; // No need for volatile, removal are not thread-safe.
-        final E[] low = _high[_size >> B1];
-        final E previous = low[_size & M1];
+        final  E [] low = _high[_size >> B1];
+        final  E previous = low[_size & M1];
         low[_size & M1] = null;
         return previous;
     }
@@ -286,7 +291,7 @@ public class FastTable<E> extends FastCollection<E> implements
     public final void clear() {
         for (int i = 0; i < _size; i += C1) {
             final int count = MathLib.min(_size - i, C1);
-            final E[] low = _high[i >> B1];
+            final  E [] low = _high[i >> B1];
             System.arraycopy(NULL_BLOCK, 0, low, 0, count);
         }
         _size = 0; // No need for volatile, removal are not thread-safe.
@@ -303,26 +308,26 @@ public class FastTable<E> extends FastCollection<E> implements
     /**
      * Inserts all of the values in the specified collection into this
      * table at the specified position. Shifts the value currently at that
-     * position (if any) and any subsequent values to the right
-     * (increases their indices).
-     * <p/>
+     * position (if any) and any subsequent values to the right 
+     * (increases their indices). 
+     * 
      * <p>Note: If this method is used concurrent access must be synchronized
-     * (the table is no more thread-safe).</p>
+     *          (the table is no more thread-safe).</p>
      *
-     * @param index  the index at which to insert first value from the specified
-     *               collection.
+     * @param index the index at which to insert first value from the specified
+     *        collection.
      * @param values the values to be inserted into this list.
      * @return <code>true</code> if this list changed as a result of the call;
-     * <code>false</code> otherwise.
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index > size())</code>
+     *         <code>false</code> otherwise.
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *         (index > size())</code>
      */
-    public final boolean addAll(int index, Collection<? extends E> values) {
+    public final boolean addAll(int index, Collection <? extends E> values) {
         if ((index < 0) || (index > _size))
             throw new IndexOutOfBoundsException("index: " + index);
         final int shift = values.size();
         shiftRight(index, shift);
-        Iterator<? extends E> valuesIterator = values.iterator();
+        Iterator <? extends E> valuesIterator = values.iterator();
         for (int i = index, n = index + shift; i < n; i++) {
             _high[i >> B1][i & M1] = valuesIterator.next();
         }
@@ -335,16 +340,16 @@ public class FastTable<E> extends FastCollection<E> implements
      * Shifts the value currently at that position
      * (if any) and any subsequent values to the right (adds one to their
      * indices).
-     * <p/>
+     *
      * <p>Note: If this method is used concurrent access must be synchronized
-     * (the table is no more thread-safe).</p>
+     *          (the table is no more thread-safe).</p>
      *
      * @param index the index at which the specified value is to be inserted.
      * @param value the value to be inserted.
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index > size())</code>
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *         (index > size())</code>
      */
-    public final void add(int index, E value) {
+    public final void add(int index,  E value) {
         if ((index < 0) || (index > _size))
             throw new IndexOutOfBoundsException("index: " + index);
         shiftRight(index, 1);
@@ -357,17 +362,17 @@ public class FastTable<E> extends FastCollection<E> implements
      * Shifts any subsequent values to the left (subtracts one
      * from their indices). Returns the value that was removed from the
      * table.
-     * <p/>
+     *
      * <p>Note: If this method is used concurrent access must be synchronized
-     * (the table is no more thread-safe).</p>
+     *          (the table is no more thread-safe).</p>
      *
      * @param index the index of the value to removed.
      * @return the value previously at the specified position.
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index >= size())</code>
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *         (index >= size())</code>
      */
-    public final E remove(int index) {
-        final E previous = get(index);
+    public final  E remove(int index) {
+        final  E previous = get(index);
         shiftLeft(index + 1, 1);
         _size--; // No need for volatile, removal are not thread-safe.
         _high[_size >> B1][_size & M1] = null; // Deallocates for GC.
@@ -377,16 +382,16 @@ public class FastTable<E> extends FastCollection<E> implements
     /**
      * Removes the values between <code>[fromIndex..toIndex[<code> from
      * this table.
-     * <p/>
+     * 
      * <p>Note: If this method is used concurrent access must be synchronized
-     * (the table is no more thread-safe).</p>
+     *          (the table is no more thread-safe).</p>
      *
      * @param fromIndex the beginning index, inclusive.
-     * @param toIndex   the ending index, exclusive.
-     * @throws IndexOutOfBoundsException if <code>(fromIndex < 0) || (toIndex < 0)
-     *                                   || (fromIndex > toIndex) || (toIndex > this.size())</code>
+     * @param toIndex the ending index, exclusive.
+     * @throws IndexOutOfBoundsException if <code>(fromIndex < 0) || (toIndex < 0) 
+     *         || (fromIndex > toIndex) || (toIndex > this.size())</code>
      */
-    public final void removeRange(int fromIndex, int toIndex) {
+       public final void removeRange(int fromIndex, int toIndex) {
         if ((fromIndex < 0) || (toIndex < 0) || (fromIndex > toIndex)
                 || (toIndex > _size))
             throw new IndexOutOfBoundsException("FastTable removeRange(" + fromIndex + ", " + toIndex + ") index out of bounds, size: " + _size);
@@ -404,12 +409,12 @@ public class FastTable<E> extends FastCollection<E> implements
      *
      * @param value the value to search for.
      * @return the index in this table of the first occurrence of the specified
-     * value, or -1 if this table does not contain this value.
+     *         value, or -1 if this table does not contain this value.
      */
     public final int indexOf(Object value) {
         final FastComparator comp = this.getValueComparator();
-        for (int i = 0; i < _size; ) {
-            final E[] low = _high[i >> B1];
+        for (int i = 0; i < _size;) {
+            final  E [] low = _high[i >> B1];
             final int count = MathLib.min(low.length, _size - i);
             for (int j = 0; j < count; j++) {
                 if (comp == FastComparator.DEFAULT ? defaultEquals(value,
@@ -427,14 +432,14 @@ public class FastTable<E> extends FastCollection<E> implements
      *
      * @param value the value to search for.
      * @return the index in this table of the last occurrence of the specified
-     * value, or -1 if this table does not contain this value.
+     *         value, or -1 if this table does not contain this value.
      */
     public final int lastIndexOf(Object value) {
         final FastComparator comp = this.getValueComparator();
-        for (int i = _size - 1; i >= 0; ) {
-            final E[] low = _high[i >> B1];
-            final int count = (i & M1) + 1;
-            for (int j = count; --j >= 0; ) {
+        for (int i = _size - 1; i >= 0;) {
+            final  E [] low = _high[i >> B1];
+            final int count =  (i & M1) + 1;
+            for (int j = count; --j >= 0;) {
                 if (comp == FastComparator.DEFAULT ? defaultEquals(value,
                         low[j]) : comp.areEqual(value, low[j]))
                     return i + j - count + 1;
@@ -445,41 +450,41 @@ public class FastTable<E> extends FastCollection<E> implements
     }
 
     /**
-     * Returns an iterator over the elements in this list
-     * (allocated on the stack when executed in a
-     * {@link com.bbva.czic.routine.mapper.javolution.context.StackContext StackContext}).
+     * Returns an iterator over the elements in this list 
+     * (allocated on the stack when executed in a 
+     * {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext StackContext}).
      *
      * @return an iterator over this list values.
      */
-    public Iterator<E> iterator() {
+    public Iterator <E> iterator() {
         return FastTableIterator.valueOf(this, 0, 0, _size);
     }
 
     /**
-     * Returns a list iterator over the elements in this list
-     * (allocated on the stack when executed in a
-     * {@link com.bbva.czic.routine.mapper.javolution.context.StackContext StackContext}).
+     * Returns a list iterator over the elements in this list 
+     * (allocated on the stack when executed in a 
+     * {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext StackContext}).
      *
      * @return an iterator over this list values.
      */
-    public ListIterator<E> listIterator() {
+    public ListIterator <E> listIterator() {
         return FastTableIterator.valueOf(this, 0, 0, _size);
     }
 
     /**
      * Returns a list iterator from the specified position
-     * (allocated on the stack when executed in a
-     * {@link com.bbva.czic.routine.mapper.javolution.context.StackContext StackContext}).
+     * (allocated on the stack when executed in a 
+     * {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext StackContext}).
      * The list iterator being returned does not support insertion/deletion.
-     *
+     * 
      * @param index the index of first value to be returned from the
-     *              list iterator (by a call to the <code>next</code> method).
+     *        list iterator (by a call to the <code>next</code> method).
      * @return a list iterator of the values in this table
-     * starting at the specified position in this list.
-     * @throws IndexOutOfBoundsException if the index is out of range
-     *                                   [code](index < 0 || index > size())[/code]
+     *         starting at the specified position in this list.
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     *         [code](index < 0 || index > size())[/code]
      */
-    public ListIterator<E> listIterator(int index) {
+    public ListIterator <E> listIterator(int index) {
         if ((index < 0) || (index > _size)) throw new IndexOutOfBoundsException();
         return FastTableIterator.valueOf(this, index, 0, _size);
     }
@@ -487,11 +492,11 @@ public class FastTable<E> extends FastCollection<E> implements
     /**
      * Returns a view of the portion of this list between the specified
      * indexes (instance of {@link FastList} allocated from the "stack" when
-     * executing in a {@link com.bbva.czic.routine.mapper.javolution.context.StackContext StackContext}).
-     * If the specified indexes are equal, the returned list is empty.
+     * executing in a {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext StackContext}).
+     * If the specified indexes are equal, the returned list is empty. 
      * The returned list is backed by this list, so non-structural changes in
-     * the returned list are reflected in this list, and vice-versa.
-     * <p/>
+     * the returned list are reflected in this list, and vice-versa. 
+     *
      * This method eliminates the need for explicit range operations (of
      * the sort that commonly exist for arrays). Any operation that expects
      * a list can be used as a range operation by passing a subList view
@@ -501,7 +506,7 @@ public class FastTable<E> extends FastCollection<E> implements
      * Similar idioms may be constructed for <code>indexOf</code> and
      * <code>lastIndexOf</code>, and all of the algorithms in the
      * <code>Collections</code> class can be applied to a subList.
-     * <p/>
+     *
      * The semantics of the list returned by this method become undefined if
      * the backing list (i.e., this list) is <i>structurally modified</i> in
      * any way other than via the returned list (structural modifications are
@@ -509,12 +514,13 @@ public class FastTable<E> extends FastCollection<E> implements
      * a fashion that iterations in progress may yield incorrect results).
      *
      * @param fromIndex low endpoint (inclusive) of the subList.
-     * @param toIndex   high endpoint (exclusive) of the subList.
+     * @param toIndex high endpoint (exclusive) of the subList.
      * @return a view of the specified range within this list.
+     * 
      * @throws IndexOutOfBoundsException if [code](fromIndex < 0 ||
-     *                                   toIndex > size || fromIndex > toIndex)[/code]
+     *          toIndex > size || fromIndex > toIndex)[/code]
      */
-    public final List<E> subList(int fromIndex, int toIndex) {
+    public final List <E> subList(int fromIndex, int toIndex) {
         if ((fromIndex < 0) || (toIndex > _size) || (fromIndex > toIndex))
             throw new IndexOutOfBoundsException("fromIndex: " + fromIndex
                     + ", toIndex: " + toIndex + " for list of size: " + _size);
@@ -522,7 +528,7 @@ public class FastTable<E> extends FastCollection<E> implements
     }
 
     /**
-     * Reduces the capacity of this table to the current size (minimize
+     * Reduces the capacity of this table to the current size (minimize 
      * storage space).
      */
     public final void trimToSize() {
@@ -533,13 +539,13 @@ public class FastTable<E> extends FastCollection<E> implements
     }
 
     /**
-     * Sorts this table in place (quick sort) using this table
+     * Sorts this table in place (quick sort) using this table 
      * {@link FastCollection#getValueComparator() value comparator}
      * (smallest first).
-     *
+     * 
      * @return <code>this</code>
      */
-    public final FastTable<E> sort() {
+    public final FastTable <E> sort() {
         if (_size > 1) {
             quicksort(0, _size - 1, this.getValueComparator());
         }
@@ -559,7 +565,7 @@ public class FastTable<E> extends FastCollection<E> implements
 
     private int partition(int f, int l, FastComparator cmp) {
         int up, down;
-        E piv = get(f);
+         E piv = get(f);
         up = f;
         down = l;
         do {
@@ -570,7 +576,7 @@ public class FastTable<E> extends FastCollection<E> implements
                 down--;
             }
             if (up < down) { // Swaps.
-                E temp = get(up);
+                 E temp = get(up);
                 set(up, get(down));
                 set(down, temp);
             }
@@ -581,20 +587,20 @@ public class FastTable<E> extends FastCollection<E> implements
     }
 
     /**
-     * Sets the comparator to use for value equality or comparison if the
+     * Sets the comparator to use for value equality or comparison if the 
      * collection is ordered (see {@link #sort()}).
      *
      * @param comparator the value comparator.
      * @return <code>this</code>
      */
-    public FastTable<E> setValueComparator(
-            FastComparator<? super E> comparator) {
+    public FastTable <E> setValueComparator(
+            FastComparator <? super E> comparator) {
         _valueComparator = comparator;
         return this;
     }
 
     // Overrides.
-    public FastComparator<? super E> getValueComparator() {
+    public FastComparator <? super E> getValueComparator() {
         return _valueComparator;
     }
 
@@ -614,7 +620,7 @@ public class FastTable<E> extends FastCollection<E> implements
     }
 
     // Implements FastCollection abstract method.
-    public final E valueOf(Record record) {
+    public final  E valueOf(Record record) {
         return get(((Index) record).intValue());
     }
 
@@ -624,8 +630,8 @@ public class FastTable<E> extends FastCollection<E> implements
     }
 
     // Overrides  to return a list (JDK1.5+).
-    public List<E> unmodifiable() {
-        return (List<E>) super.unmodifiable();
+    public  List<E> unmodifiable() {
+        return ( List<E> ) super.unmodifiable();
     }
 
     // Overrides (optimization).
@@ -642,11 +648,11 @@ public class FastTable<E> extends FastCollection<E> implements
         while ((_capacity < _size) && (_capacity < C1)) {
             _capacity <<= 1; // Increases capacity up to C1 to avoid resizes.
         }
-        _low = (E[]) new Object[_capacity];
-        _high = (E[][]) new Object[1][];
+        _low = ( E []) new Object[_capacity];
+        _high = ( E [][]) new Object[1][];
         _high[0] = _low;
         for (int i = 0; i < size; i++) {
-            addLast((E) stream.readObject());
+            addLast(( E ) stream.readObject());
         }
     }
 
@@ -677,18 +683,18 @@ public class FastTable<E> extends FastCollection<E> implements
             public void run() {
                 if (_capacity < C1) { // For small capacity, resize.
                     _capacity <<= 1;
-                    E[] tmp = (E[]) new Object[_capacity];
+                     E [] tmp = ( E []) new Object[_capacity];
                     System.arraycopy(_low, 0, tmp, 0, _size);
                     _low = tmp;
                     _high[0] = tmp;
                 } else { // Add a new low block of 1024 elements.
                     int j = _capacity >> B1;
                     if (j >= _high.length) { // Resizes _high.
-                        E[][] tmp = (E[][]) new Object[_high.length * 2][];
+                         E [][] tmp = ( E [][]) new Object[_high.length * 2][];
                         System.arraycopy(_high, 0, tmp, 0, _high.length);
                         _high = tmp;
                     }
-                    _high[j] = (E[]) new Object[C1];
+                    _high[j] = ( E []) new Object[C1];
                     _capacity += C1;
                 }
             }
@@ -776,7 +782,7 @@ public class FastTable<E> extends FastCollection<E> implements
 
         public int indexOf(Object value) {
             final FastComparator comp = _table.getValueComparator();
-            for (int i = -1; ++i < _size; ) {
+            for (int i = -1; ++i < _size;) {
                 if (comp.areEqual(value, _table.get(i + _offset)))
                     return i;
             }
@@ -785,7 +791,7 @@ public class FastTable<E> extends FastCollection<E> implements
 
         public int lastIndexOf(Object value) {
             final FastComparator comp = _table.getValueComparator();
-            for (int i = _size; --i >= 0; ) {
+            for (int i = _size; --i >= 0;) {
                 if (comp.areEqual(value, _table.get(i + _offset)))
                     return i;
             }
@@ -845,18 +851,18 @@ public class FastTable<E> extends FastCollection<E> implements
         private int _nextIndex;
 
         private Object[] _low;
-
+        
         private Object[][] _high;
 
         public static FastTableIterator valueOf(FastTable table, int nextIndex,
-                                                int start, int end) {
+                int start, int end) {
             FastTableIterator iterator = (FastTableIterator) FACTORY.object();
             iterator._table = table;
             iterator._start = start;
             iterator._end = end;
             iterator._nextIndex = nextIndex;
             iterator._low = table._low;
-            iterator._high = table._high;
+            iterator._high = table._high;            
             iterator._currentIndex = -1;
             return iterator;
         }
@@ -924,7 +930,7 @@ public class FastTable<E> extends FastCollection<E> implements
         while (_size + shift >= _capacity) {
             increaseCapacity();
         }
-        for (int i = _size; --i >= index; ) {
+        for (int i = _size; --i >= index;) {
             final int dest = i + shift;
             _high[dest >> B1][dest & M1] = _high[i >> B1][i & M1];
         }

@@ -23,17 +23,18 @@ import com.bbva.pzic.proposals.util.orika.ObjectFactory;
 /**
  * DefaultConstructorObjectFactory is used for types which should be instantiated
  * using their default constructor.
- *
+ * 
  * @author matt.deboer@gmail.com
+ *
  */
 public class DefaultConstructorObjectFactory<T> implements ObjectFactory<T> {
 
     private final Class<T> type;
-
+    
     public DefaultConstructorObjectFactory(Class<T> type) {
         this.type = type;
     }
-
+    
     /* (non-Javadoc)
      * @see ma.glasnost.orika.ObjectFactory#create(java.lang.Object, ma.glasnost.orika.MappingContext)
      */
@@ -46,5 +47,5 @@ public class DefaultConstructorObjectFactory<T> implements ObjectFactory<T> {
             throw new IllegalStateException(e);
         }
     }
-
+    
 }

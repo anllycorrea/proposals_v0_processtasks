@@ -21,28 +21,29 @@ package com.bbva.pzic.proposals.util.orika.inheritance;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
 /**
- * This strategy is used by the super-type resolver to
+ * This strategy is used by the super-type resolver to 
  * determine when and how to lookup a super-type, and and
  * also provides decision as to whether the super-type is
  * accepted.
- *
+ * 
  * @author matt.deboer@gmail.com
  */
 public interface SuperTypeResolverStrategy {
-
+	
     /**
      * @param type
      * @return true if the proposed super-type is acceptable
      */
     public boolean accept(Type<?> type);
-
+    
     /**
+     * 
      * @param type
-     * @return true if a super-type should be looked up for the proposed type;
+     * @return true if a super-type should be looked up for the proposed type; 
      * false signifies that the class should be returned as-is.
      */
     public boolean shouldLookupSuperType(Type<?> type);
-
+    
     /**
      * @return true if a super class(es) should be looked-up first before
      * trying interfaces

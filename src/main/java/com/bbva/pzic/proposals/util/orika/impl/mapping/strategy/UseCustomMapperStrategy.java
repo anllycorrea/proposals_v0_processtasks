@@ -18,18 +18,18 @@
 
 package com.bbva.pzic.proposals.util.orika.impl.mapping.strategy;
 
-import com.bbva.pzic.proposals.util.orika.unenhance.UnenhanceStrategy;
 import com.bbva.pzic.proposals.util.orika.Mapper;
 import com.bbva.pzic.proposals.util.orika.MappingContext;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
+import com.bbva.pzic.proposals.util.orika.unenhance.UnenhanceStrategy;
 
 public abstract class UseCustomMapperStrategy implements MappingStrategy {
-
+    
     protected final DirectionalCustomMapperReference customMapper;
     protected final Type<Object> sourceType;
     protected final Type<Object> destinationType;
     protected final UnenhanceStrategy unenhancer;
-
+    
     public UseCustomMapperStrategy(Type<Object> sourceType, Type<Object> destinationType, DirectionalCustomMapperReference customMapper, UnenhanceStrategy unenhancer) {
         this.sourceType = sourceType;
         this.destinationType = destinationType;
@@ -38,60 +38,60 @@ public abstract class UseCustomMapperStrategy implements MappingStrategy {
     }
 
     public Object map(final Object sourceObject, final Object destinationObject, final MappingContext context) {
-
+        
         context.beginMapping();
-
-        Object resolvedSourceObject = unenhancer.unenhanceObject(sourceObject, sourceType);
-
+        
+    	Object resolvedSourceObject = unenhancer.unenhanceObject(sourceObject, sourceType);
+        
         Object newInstance = getInstance(resolvedSourceObject, destinationObject, context);
-
+        
         context.cacheMappedObject(sourceObject, destinationType, newInstance);
-
+        
         customMapper.map(resolvedSourceObject, newInstance, context);
-
+        
         context.endMapping();
-
+        
         return newInstance;
     }
-
+    
     protected abstract Object getInstance(Object sourceObject, Object destinationObject, MappingContext context);
-
+    
     public static interface DirectionalCustomMapperReference {
-        public void map(Object sourceObject,
-                        Object destinationObject, MappingContext context);
+    	public void map(Object sourceObject,
+    			Object destinationObject, MappingContext context); 
     }
-
+    
     public static class ForwardMapperReference implements DirectionalCustomMapperReference {
 
-        protected Mapper<Object, Object> customMapper;
-
-        public ForwardMapperReference(Mapper<Object, Object> customMapper) {
-            this.customMapper = customMapper;
-        }
-
-        public void map(Object sourceObject,
-                        Object destinationObject, MappingContext context) {
-            customMapper.mapAtoB(sourceObject, destinationObject, context);
-        }
-
-        public String toString() {
-            return customMapper.getClass().getSimpleName() + ".mapAtoB";
-        }
+    	protected Mapper<Object, Object> customMapper;
+    	
+    	public ForwardMapperReference(Mapper<Object, Object> customMapper) {
+    		this.customMapper = customMapper;
+    	}
+    	
+		public void map(Object sourceObject,
+				Object destinationObject, MappingContext context) {
+			customMapper.mapAtoB(sourceObject, destinationObject, context);
+		}
+		
+		public String toString() {
+		    return customMapper.getClass().getSimpleName() + ".mapAtoB";
+		}
     }
-
+    
     public static class ReverseMapperReference extends ForwardMapperReference {
 
-        public ReverseMapperReference(Mapper<Object, Object> customMapper) {
-            super(customMapper);
-        }
-
-        @Override
-        public void map(Object sourceObject,
-                        Object destinationObject, MappingContext context) {
-            customMapper.mapBtoA(sourceObject, destinationObject, context);
-        }
-
-        public String toString() {
+    	public ReverseMapperReference(Mapper<Object, Object> customMapper) {
+    		super(customMapper);
+    	}
+    	
+    	@Override
+		public void map(Object sourceObject,
+				Object destinationObject, MappingContext context) {
+			customMapper.mapBtoA(sourceObject, destinationObject, context);
+		}
+    	
+    	public String toString() {
             return customMapper.getClass().getSimpleName() + ".mapBtoA";
         }
     }

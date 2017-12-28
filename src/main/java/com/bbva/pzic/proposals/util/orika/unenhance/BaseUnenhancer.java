@@ -18,42 +18,42 @@
 
 package com.bbva.pzic.proposals.util.orika.unenhance;
 
-import com.bbva.pzic.proposals.util.orika.inheritance.SuperTypeResolverStrategy;
-import com.bbva.pzic.proposals.util.orika.inheritance.SuperTypeResolver;
-import com.bbva.pzic.proposals.util.orika.metadata.Type;
-
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.bbva.pzic.proposals.util.orika.inheritance.SuperTypeResolver;
+import com.bbva.pzic.proposals.util.orika.inheritance.SuperTypeResolverStrategy;
+import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
 /**
  * Provides a delegating unenhance strategy which also post-processes the
  * unenhancement results using the associated super-type strategies.<br>
- * <p/>
- * See also: {@link #SuperTypeResolverStrategy}
- *
+ * 
+ * See also: {@link com.bbva.pzic.proposals.util.orika.inheritance.SuperTypeResolverStrategy}
+ * 
  * @author matt.deboer@gmail.com
  */
 public class BaseUnenhancer implements UnenhanceStrategy {
-
+    
     private final ConcurrentHashMap<Type<?>, Type<?>> mappedSuperTypes;
     private final LinkedList<UnenhanceStrategy> unenhanceStrategyChain = new LinkedList<UnenhanceStrategy>();
     private final LinkedList<SuperTypeResolverStrategy> supertypeStrategyChain = new LinkedList<SuperTypeResolverStrategy>();
-
+    
     public BaseUnenhancer() {
         this.mappedSuperTypes = new ConcurrentHashMap<Type<?>, Type<?>>();
     }
-
+    
     public synchronized void addUnenhanceStrategy(final UnenhanceStrategy strategy) {
         unenhanceStrategyChain.add(strategy);
     }
-
+    
     public synchronized void addSuperTypeResolverStrategy(final SuperTypeResolverStrategy strategy) {
         supertypeStrategyChain.add(strategy);
     }
-
+    
     @SuppressWarnings("unchecked")
     public <T> Type<T> unenhanceType(T object, Type<T> type) {
-
+        
         Type<T> unenhancedClass = type;
         for (UnenhanceStrategy strategy : unenhanceStrategyChain) {
             Type<T> delegateUnenhanced = strategy.unenhanceType(object, type);
@@ -64,7 +64,7 @@ public class BaseUnenhancer implements UnenhanceStrategy {
                 break;
             }
         }
-
+        
         for (SuperTypeResolverStrategy strategy : supertypeStrategyChain) {
             Type<?> superType = SuperTypeResolver.getSuperType(unenhancedClass, strategy);
             if (superType != null && !unenhancedClass.equals(superType)) {
@@ -78,10 +78,10 @@ public class BaseUnenhancer implements UnenhanceStrategy {
                 break;
             }
         }
-
+        
         return unenhancedClass;
     }
-
+    
     @SuppressWarnings("unchecked")
     public <T> T unenhanceObject(T object, Type<T> type) {
         for (UnenhanceStrategy strategy : unenhanceStrategyChain) {

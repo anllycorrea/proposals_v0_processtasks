@@ -21,19 +21,19 @@ package com.bbva.pzic.proposals.util.orika;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
 /**
- * Provides a generic mapping suggestion mechanism to provide
+ * Provides a generic mapping suggestion mechanism to provide 
  * help with guessing default mappings of fields when a straight
  * equivalent name match is not found
- *
+ * 
  * @author matt.deboer@gmail.com
  */
 public interface DefaultFieldMapper {
-
-    /**
-     * @param sourceExpression
-     * @return a suggested optional mapping name for the given property,
-     * or <code>null</code> if no suggestion for the given property
-     */
-    public String suggestMappedField(String fromProperty, Type<?> fromPropertyType);
-
+	
+	/**
+	 * @param sourceExpression
+	 * @return a suggested optional mapping name for the given property,
+	 * or <code>null</code> if no suggestion for the given property
+	 */
+	public String suggestMappedField(String fromProperty, Type<?> fromPropertyType);
+	
 }

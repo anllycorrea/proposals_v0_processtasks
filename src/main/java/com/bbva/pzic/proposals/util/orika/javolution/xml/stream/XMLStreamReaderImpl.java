@@ -8,60 +8,65 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.xml.stream;
 
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.lang.CharSequence;
+import java.lang.IllegalStateException;
+import java.util.Map;
+
 import com.bbva.pzic.proposals.util.orika.javax.realtime.MemoryArea;
-import com.bbva.pzic.proposals.util.orika.javolution.context.LogContext;
 import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
 import com.bbva.pzic.proposals.util.orika.javolution.io.UTF8StreamReader;
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 import com.bbva.pzic.proposals.util.orika.javolution.text.CharArray;
 import com.bbva.pzic.proposals.util.orika.javolution.xml.sax.Attributes;
 
-import java.io.*;
-import java.util.Map;
-
 /**
- * <p> This class represents a  {@link com.bbva.czic.routine.mapper.javolution.lang.Reusable reusable}
- * implementation of {@link XMLStreamWriter}.</p>
- * <p/>
+ * <p> This class represents a  {@link com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable reusable}
+ *     implementation of {@link XMLStreamWriter}.</p>
+ *  
  * <p> Except for the types being used ({@link CharArray CharArray}/
- * {@link CharSequence CharSequence} instead of {@link String}) the
- * parsing behavior is about the same as for the standard
- * <code>javax.xml.stream.XMLStreamReader</code> (although several times
- * faster).</p>
- * <p/>
- * <p> The {@link CharArray CharArray} instances returned by this reader
- * supports fast primitive conversions as illustrated below:[code]
- * <p/>
- * // Creates reader for an input sream with unknown encoding.
- * XMLStreamReaderImpl xmlReader = new XMLStreamReaderImpl().setInput(inputStream);
- * <p/>
- * // Parses.
- * for (int e=xmlReader.next(); e != XMLStreamConstants.END_DOCUMENT; e = xmlReader.next()) {
- * switch (e) { // Event.
- * case XMLStreamConstants.START_ELEMENT:
- * if (xmlReader.getLocalName().equals("Time")) {
- * // Reads primitive types (int) attributes directly.
- * int hour = xmlReader.getAttributeValue("hour").toInt();
- * int minute = xmlReader.getAttributeValue("minute").toInt();
- * int second = xmlReader.getAttributeValue("second").toInt();
- * ...
- * }
- * ...
- * break;
- * }
- * }
- * <p/>
- * // Closes reader, it is automatically reset() and can be reused!
- * xmlReader.close();
- * [/code]</p>
- * <p/>
- * <p> This reader returns all contiguous character data in a single
- * chunk (always coalescing). It is non-validating (DTD is returned
- * unparsed). Although, users may define custom entities mapping using
- * the {@link #setEntities} method (e.g. after parsing/resolving
- * external entities).</p>
- *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ *     {@link CharSequence CharSequence} instead of {@link String}) the 
+ *     parsing behavior is about the same as for the standard 
+ *     <code>javax.xml.stream.XMLStreamReader</code> (although several times 
+ *     faster).</p>
+ *     
+ * <p> The {@link CharArray CharArray} instances returned by this reader 
+ *     supports fast primitive conversions as illustrated below:[code]
+ *     
+ *     // Creates reader for an input sream with unknown encoding.
+ *     XMLStreamReaderImpl xmlReader = new XMLStreamReaderImpl().setInput(inputStream);
+ *     
+ *     // Parses.
+ *     for (int e=xmlReader.next(); e != XMLStreamConstants.END_DOCUMENT; e = xmlReader.next()) {
+ *         switch (e) { // Event.
+ *             case XMLStreamConstants.START_ELEMENT:
+ *             if (xmlReader.getLocalName().equals("Time")) {
+ *                  // Reads primitive types (int) attributes directly.
+ *                  int hour = xmlReader.getAttributeValue("hour").toInt();
+ *                  int minute = xmlReader.getAttributeValue("minute").toInt();
+ *                  int second = xmlReader.getAttributeValue("second").toInt();
+ *                  ...
+ *             }
+ *             ...
+ *             break;
+ *         }         
+ *     }
+ *     
+ *     // Closes reader, it is automatically reset() and can be reused!
+ *     xmlReader.close();
+ *     [/code]</p>
+ *     
+ *  <p> This reader returns all contiguous character data in a single
+ *      chunk (always coalescing). It is non-validating (DTD is returned 
+ *      unparsed). Although, users may define custom entities mapping using 
+ *      the {@link #setEntities} method (e.g. after parsing/resolving 
+ *      external entities).</p>
+ *       
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.0, September 4, 2006
  */
 public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
@@ -69,11 +74,11 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     /**
      * Holds the textual representation for events.
      */
-    static final String[] NAMES_OF_EVENTS = new String[]{"UNDEFINED",
+    static final String[] NAMES_OF_EVENTS = new String[] { "UNDEFINED",
             "START_ELEMENT", "END_ELEMENT", "PROCESSING_INSTRUCTIONS",
             "CHARACTERS", "COMMENT", "SPACE", "START_DOCUMENT", "END_DOCUMENT",
             "ENTITY_REFERENCE", "ATTRIBUTE", "DTD", "CDATA", "NAMESPACE",
-            "NOTATION_DECLARATION", "ENTITY_DECLARATION"};
+            "NOTATION_DECLARATION", "ENTITY_DECLARATION" };
 
     /**
      * Holds the reader buffer capacity.
@@ -170,7 +175,7 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
      */
     private CharArray _text;
 
-    /**
+    /** 
      * Holds the reader input source (<code>null</code> when unused).
      */
     private Reader _reader;
@@ -221,18 +226,18 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
      */
     private final UTF8StreamReader _utf8StreamReader = new UTF8StreamReader();
 
-    /**
+    /** 
      * Default constructor.
      */
     public XMLStreamReaderImpl() {
     }
 
     /**
-     * Sets the input stream source for this XML stream reader
+     * Sets the input stream source for this XML stream reader 
      * (encoding retrieved from XML prolog if any). This method
      * attempts to detect the encoding automatically.
      *
-     * @param in the input source with unknown encoding.
+     * @param  in the input source with unknown encoding.
      */
     public void setInput(InputStream in) throws XMLStreamException {
         setInput(in, detectEncoding(in));
@@ -258,7 +263,7 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     /**
      * Sets the input stream source and encoding for this XML stream reader.
      *
-     * @param in       the input source.
+     * @param in the input source.
      * @param encoding the associated encoding.
      */
     public void setInput(InputStream in, String encoding)
@@ -276,13 +281,13 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     }
 
     /**
-     * Sets the reader input source for this XML stream reader.
+     * Sets the reader input source for this XML stream reader. 
      * This method reads the prolog (if any).
      *
-     * @param reader the input source reader.
-     * @see com.bbva.pzic.proposals.util.orika.javolution.io.UTF8StreamReader
-     * @see com.bbva.pzic.proposals.util.orika.javolution.io.UTF8ByteBufferReader
-     * @see com.bbva.pzic.proposals.util.orika.javolution.io.CharSequenceReader
+     * @param  reader the input source reader.
+     * @see    com.bbva.pzic.proposals.util.orika.javolution.io.UTF8StreamReader
+     * @see    com.bbva.pzic.proposals.util.orika.javolution.io.UTF8ByteBufferReader
+     * @see    com.bbva.pzic.proposals.util.orika.javolution.io.CharSequenceReader
      */
     public void setInput(Reader reader) throws XMLStreamException {
         if (_reader != null)
@@ -307,35 +312,35 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
             throw new XMLStreamException(e);
         }
     }
-
-    /**
-     * Returns the current depth of the element. Outside the root element,
+   
+    /** 
+     * Returns the current depth of the element. Outside the root element, 
      * the depth is 0. The depth is incremented by 1 when a start tag is
      * reached. The depth is decremented AFTER the end tag event was observed.
      * [code]
      * <!-- outside -->     0
      * <root>               1
-     * sometext          1
-     * <foobar>          2
-     * </foobar>         2
+     *    sometext          1
+     *    <foobar>          2
+     *    </foobar>         2
      * </root>              1
      * <!-- outside -->     0 [/code]
-     *
+     * 
      * @return the nesting depth.
      */
     public int getDepth() {
         return _depth;
     }
-
+    
     /**
      * Returns the qualified name of the current event.
-     *
+     * 
      * @return the qualified name.
      * @throws IllegalStateException if this not a START_ELEMENT or END_ELEMENT.
      */
     public CharArray getQName() {
-        if ((_eventType != START_ELEMENT)
-                && (_eventType != END_ELEMENT))
+        if ((_eventType != XMLStreamConstants.START_ELEMENT)
+                && (_eventType != XMLStreamConstants.END_ELEMENT))
             throw new IllegalStateException(
                     "Not a start element or an end element");
         return _qName;
@@ -361,7 +366,7 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
      * @throws IllegalStateException if not a START_ELEMENT.
      */
     public Attributes getAttributes() {
-        if (_eventType != START_ELEMENT)
+        if (_eventType != XMLStreamConstants.START_ELEMENT)
             throw new IllegalStateException("Not a start element");
         return _attributes;
     }
@@ -369,19 +374,19 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     /**
      * Defines a custom entities to replacement text mapping for this reader.
      * For example:[code]
-     * FastMap<String, String> HTML_ENTITIES = new FastMap<String, String>();
-     * HTML_ENTITIES.put("nbsp", " ");
-     * HTML_ENTITIES.put("copy", "©");
-     * HTML_ENTITIES.put("eacute", "é");
-     * ...
-     * XMLStreamReaderImpl reader = new XMLStreamReaderImpl();
-     * reader.setEntities(HTML_ENTITIES);
+     *     FastMap<String, String> HTML_ENTITIES = new FastMap<String, String>();
+     *     HTML_ENTITIES.put("nbsp", " ");
+     *     HTML_ENTITIES.put("copy", "©");
+     *     HTML_ENTITIES.put("eacute", "é");
+     *     ...
+     *     XMLStreamReaderImpl reader = new XMLStreamReaderImpl();
+     *     reader.setEntities(HTML_ENTITIES);
      * [/code]
-     * The entities mapping may be changed dynamically (e.g.
+     * The entities mapping may be changed dynamically (e.g. 
      * after reading the DTD and all external entities references are resolved).
-     *
-     * @param entities the entities to replacement texts mapping
-     *                 (both must be <code>CharSequence</code> instances).
+     * 
+     * @param entities the entities to replacement texts mapping 
+     *        (both must be <code>CharSequence</code> instances).
      */
     public void setEntities(Map entities) {
         _entities.setEntitiesMapping(entities);
@@ -389,7 +394,7 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
 
     /**
      * Returns the textual representation of this reader current state.
-     *
+     * 
      * @return the textual representation of the current state.
      */
     public String toString() {
@@ -430,366 +435,366 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
             //
             switch (_state) {
 
-                case STATE_CHARACTERS:
-                    while (true) { // Read characters data all at once.
+            case STATE_CHARACTERS:
+                while (true) { // Read characters data all at once.
 
-                        if (c == '<') {
-                            int length = _index - _start - 1;
-                            if (length > 0) {
-                                if (_charactersPending) {
-                                    _text.setArray(_data, _text.offset(), _text
-                                            .length()
-                                            + length); // Coalescing.
-                                } else {
-                                    _text = newSeq(_start, length);
-                                    _charactersPending = true;
-                                }
-                                _start = _index - 1; // Keeps '<' as part of markup.
-                            }
-                            _state = STATE_MARKUP;
-                            break;
-                        }
-
-                        // Local character reading block.
-                        if ((_readIndex >= _readCount) && isEndOfStream())
-                            return _eventType;
-                        c = _readBuffer[_readIndex++];
-                        if (c <= '&')
-                            c = (c == '&') ? replaceEntity()
-                                    : (c < ' ') ? handleEndOfLine(c) : c;
-                        _data[_index++] = c;
+                    if (c == '<') {
+                        int length = _index - _start - 1;
+                        if (length > 0) {
+                            if (_charactersPending) {
+                               _text.setArray(_data, _text.offset(), _text
+                                      .length()
+                                      + length); // Coalescing.
+                            } else {
+                               _text = newSeq(_start, length);
+                               _charactersPending = true;
+                           }
+                           _start = _index - 1; // Keeps '<' as part of markup.
+                        }   
+                        _state = STATE_MARKUP;
+                        break;
                     }
-                    break;
 
-                case STATE_CDATA:
-                    while (true) { // Reads CDATA all at once.
+                    // Local character reading block.
+                    if ((_readIndex >= _readCount) && isEndOfStream())
+                        return _eventType;
+                    c = _readBuffer[_readIndex++];
+                    if (c <= '&')
+                        c = (c == '&') ? replaceEntity()
+                                : (c < ' ') ? handleEndOfLine(c) : c;
+                    _data[_index++] = c;
+                }
+                break;
 
-                        if ((c == '>') && (_index - _start >= 3)
-                                && (_data[_index - 2] == ']')
-                                && (_data[_index - 3] == ']')) {
-                            _index -= 3;
-                            int length = _index - _start;
-                            if (length > 0) { // Not empty.
-                                if (_charactersPending) {
-                                    _text.setArray(_data, _text.offset(), _text
-                                            .length()
-                                            + length); // Coalescing.
-                                } else {
-                                    _text = newSeq(_start, length);
-                                    _charactersPending = true;
-                                }
+            case STATE_CDATA:
+                while (true) { // Reads CDATA all at once.
+
+                    if ((c == '>') && (_index - _start >= 3)
+                            && (_data[_index - 2] == ']')
+                            && (_data[_index - 3] == ']')) {
+                        _index -= 3;
+                        int length = _index - _start;
+                        if (length > 0) { // Not empty.
+                            if (_charactersPending) {
+                                _text.setArray(_data, _text.offset(), _text
+                                        .length()
+                                        + length); // Coalescing.
+                            } else {
+                                _text = newSeq(_start, length);
+                                _charactersPending = true;
                             }
-                            _start = _index;
-                            _state = STATE_CHARACTERS;
-                            break;
                         }
-
-                        // Local character reading block.
-                        if (_readIndex >= _readCount)
-                            reloadBuffer();
-                        c = _readBuffer[_readIndex++];
-                        if (c < ' ')
-                            c = handleEndOfLine(c);
-                        _data[_index++] = c;
-                    }
-                    break;
-
-                case STATE_DTD:
-                    if (c == '>') {
-                        _text = newSeq(_start, _index - _start);
-                        _index = _start; // Do not keep DTD.
+                        _start = _index;
                         _state = STATE_CHARACTERS;
-                        return _eventType = DTD;
-                    } else if (c == '[') {
-                        _state = STATE_DTD_INTERNAL;
+                        break;
                     }
-                    break;
 
-                case STATE_DTD_INTERNAL:
-                    if (c == ']') {
-                        _state = STATE_DTD;
-                    }
-                    break;
+                    // Local character reading block.
+                    if (_readIndex >= _readCount)
+                        reloadBuffer();
+                    c = _readBuffer[_readIndex++];
+                    if (c < ' ')
+                        c = handleEndOfLine(c);
+                    _data[_index++] = c;
+                }
+                break;
 
-                case STATE_MARKUP: // Starts with '<'
-                    if (_index - _start == 2) {
-                        if (c == '/') {
-                            _start = _index = _index - 2;
-                            _state = STATE_CLOSE_TAGxREAD_ELEM_NAME;
-                            _prefixSep = -1;
-                            if (_charactersPending) { // Flush characters event.
-                                _charactersPending = false;
-                                return _eventType = CHARACTERS;
-                            }
-                        } else if (c == '?') {
-                            _start = _index = _index - 2;
-                            _state = STATE_PI;
-                            if (_charactersPending) { // Flush characters event.
-                                _charactersPending = false;
-                                return _eventType = CHARACTERS;
-                            }
-                        } else if (c != '!') { // Element tag (first letter).
-                            _data[_start] = c;
-                            _index = _start + 1;
-                            _state = STATE_OPEN_TAGxREAD_ELEM_NAME;
-                            _prefixSep = -1;
-                            if (_charactersPending) { // Flush character event.
-                                _charactersPending = false;
-                                return _eventType = CHARACTERS;
-                            }
+            case STATE_DTD:
+                if (c == '>') {
+                    _text = newSeq(_start, _index - _start);
+                    _index = _start; // Do not keep DTD.
+                    _state = STATE_CHARACTERS;
+                    return _eventType = DTD;
+                } else if (c == '[') {
+                    _state = STATE_DTD_INTERNAL;
+                }
+                break;
+
+            case STATE_DTD_INTERNAL:
+                if (c == ']') {
+                    _state = STATE_DTD;
+                }
+                break;
+
+            case STATE_MARKUP: // Starts with '<'
+                if (_index - _start == 2) {
+                    if (c == '/') {
+                        _start = _index = _index - 2;
+                        _state = STATE_CLOSE_TAGxREAD_ELEM_NAME;
+                        _prefixSep = -1;
+                        if (_charactersPending) { // Flush characters event.
+                            _charactersPending = false;
+                            return _eventType = CHARACTERS;
                         }
-                    } else if ((_index - _start == 4) && (_data[_start + 1] == '!')
-                            && (_data[_start + 2] == '-')
-                            && (_data[_start + 3] == '-')) {
-                        _start = _index = _index - 4; // Removes <!--
-                        _state = STATE_COMMENT;
+                    } else if (c == '?') {
+                        _start = _index = _index - 2;
+                        _state = STATE_PI;
+                        if (_charactersPending) { // Flush characters event.
+                            _charactersPending = false;
+                            return _eventType = CHARACTERS;
+                        }
+                    } else if (c != '!') { // Element tag (first letter).
+                        _data[_start] = c;
+                        _index = _start + 1;
+                        _state = STATE_OPEN_TAGxREAD_ELEM_NAME;
+                        _prefixSep = -1;
                         if (_charactersPending) { // Flush character event.
                             _charactersPending = false;
                             return _eventType = CHARACTERS;
                         }
-
-                    } else if ((_index - _start == 9) && (_data[_start + 1] == '!')
-                            && (_data[_start + 2] == '[')
-                            && (_data[_start + 3] == 'C')
-                            && (_data[_start + 4] == 'D')
-                            && (_data[_start + 5] == 'A')
-                            && (_data[_start + 6] == 'T')
-                            && (_data[_start + 7] == 'A')
-                            && (_data[_start + 8] == '[')) {
-                        _start = _index = _index - 9; // Do not keep <![CDATA[
-                        _state = STATE_CDATA;
-
-                    } else if ((_index - _start == 9) && (_data[_start + 1] == '!')
-                            && (_data[_start + 2] == 'D')
-                            && (_data[_start + 3] == 'O')
-                            && (_data[_start + 4] == 'C')
-                            && (_data[_start + 5] == 'T')
-                            && (_data[_start + 6] == 'Y')
-                            && (_data[_start + 7] == 'P')
-                            && (_data[_start + 8] == 'E')) {
-                        // Keeps <!DOCTYPE as part of DTD.
-                        _state = STATE_DTD;
-                    } else {
-                        // Ignores, e.g. <!ELEMENT <!ENTITY...
                     }
-                    break;
-
-                case STATE_COMMENT:
-                    while (true) { // Read comment all at once.
-
-                        if ((c == '>') && (_index - _start >= 3)
-                                && (_data[_index - 2] == '-')
-                                && (_data[_index - 3] == '-')) {
-                            _index -= 3; // Removes -->
-                            _text = newSeq(_start, _index - _start);
-                            _state = STATE_CHARACTERS;
-                            _index = _start; // Do not keep comments.
-                            return _eventType = COMMENT;
-                        }
-
-                        // Local character reading block.
-                        if (_readIndex >= _readCount)
-                            reloadBuffer();
-                        c = _readBuffer[_readIndex++];
-                        if (c < ' ')
-                            c = handleEndOfLine(c);
-                        _data[_index++] = c;
+                } else if ((_index - _start == 4) && (_data[_start + 1] == '!')
+                        && (_data[_start + 2] == '-')
+                        && (_data[_start + 3] == '-')) {
+                    _start = _index = _index - 4; // Removes <!--
+                    _state = STATE_COMMENT;
+                    if (_charactersPending) { // Flush character event.
+                        _charactersPending = false;
+                        return _eventType = CHARACTERS;
                     }
 
-                case STATE_PI:
-                    if ((c == '>') && (_index - _start >= 2)
-                            && (_data[_index - 2] == '?')) {
-                        _index -= 2; // Removes ?>
+                } else if ((_index - _start == 9) && (_data[_start + 1] == '!')
+                        && (_data[_start + 2] == '[')
+                        && (_data[_start + 3] == 'C')
+                        && (_data[_start + 4] == 'D')
+                        && (_data[_start + 5] == 'A')
+                        && (_data[_start + 6] == 'T')
+                        && (_data[_start + 7] == 'A')
+                        && (_data[_start + 8] == '[')) {
+                    _start = _index = _index - 9; // Do not keep <![CDATA[
+                    _state = STATE_CDATA;
+
+                } else if ((_index - _start == 9) && (_data[_start + 1] == '!')
+                        && (_data[_start + 2] == 'D')
+                        && (_data[_start + 3] == 'O')
+                        && (_data[_start + 4] == 'C')
+                        && (_data[_start + 5] == 'T')
+                        && (_data[_start + 6] == 'Y')
+                        && (_data[_start + 7] == 'P')
+                        && (_data[_start + 8] == 'E')) {
+                    // Keeps <!DOCTYPE as part of DTD.
+                    _state = STATE_DTD;
+                } else {
+                    // Ignores, e.g. <!ELEMENT <!ENTITY...
+                }
+                break;
+
+            case STATE_COMMENT:
+                while (true) { // Read comment all at once.
+
+                    if ((c == '>') && (_index - _start >= 3)
+                            && (_data[_index - 2] == '-')
+                            && (_data[_index - 3] == '-')) {
+                        _index -= 3; // Removes -->
                         _text = newSeq(_start, _index - _start);
                         _state = STATE_CHARACTERS;
-                        _index = _start; // Do not keep processing instructions.
-                        return _eventType = PROCESSING_INSTRUCTION;
+                        _index = _start; // Do not keep comments.
+                        return _eventType = COMMENT;
                     }
-                    break;
 
-                // OPEN_TAG:
-                case STATE_OPEN_TAGxREAD_ELEM_NAME:
-                    while (true) { // Read element name all at once.
+                    // Local character reading block.
+                    if (_readIndex >= _readCount)
+                        reloadBuffer();
+                    c = _readBuffer[_readIndex++];
+                    if (c < ' ')
+                        c = handleEndOfLine(c);
+                    _data[_index++] = c;
+                }
 
-                        if (c < '@') { // Else avoid multiple checks.
-                            if (c == '>') {
-                                _qName = newSeq(_start, --_index - _start);
-                                _start = _index;
-                                _state = STATE_CHARACTERS;
-                                processStartTag();
-                                _isEmpty = false;
-                                return _eventType = START_ELEMENT;
-                            } else if (c == '/') {
-                                _qName = newSeq(_start, --_index - _start);
-                                _start = _index;
-                                _state = STATE_OPEN_TAGxEMPTY_TAG;
-                                break;
-                            } else if (c == ':') {
-                                _prefixSep = _index - 1;
-                            } else if (c <= ' ') {
-                                _qName = newSeq(_start, --_index - _start);
-                                _state = STATE_OPEN_TAGxELEM_NAME_READ;
-                                break;
-                            }
+            case STATE_PI:
+                if ((c == '>') && (_index - _start >= 2)
+                        && (_data[_index - 2] == '?')) {
+                    _index -= 2; // Removes ?>
+                    _text = newSeq(_start, _index - _start);
+                    _state = STATE_CHARACTERS;
+                    _index = _start; // Do not keep processing instructions.
+                    return _eventType = PROCESSING_INSTRUCTION;
+                }
+                break;
+
+            // OPEN_TAG:
+            case STATE_OPEN_TAGxREAD_ELEM_NAME:
+                while (true) { // Read element name all at once.
+
+                    if (c < '@') { // Else avoid multiple checks.
+                        if (c == '>') {
+                            _qName = newSeq(_start, --_index - _start);
+                            _start = _index;
+                            _state = STATE_CHARACTERS;
+                            processStartTag();
+                            _isEmpty = false;
+                            return _eventType = START_ELEMENT;
+                        } else if (c == '/') {
+                            _qName = newSeq(_start, --_index - _start);
+                            _start = _index;
+                            _state = STATE_OPEN_TAGxEMPTY_TAG;
+                            break;
+                        } else if (c == ':') {
+                            _prefixSep = _index - 1;
+                        } else if (c <= ' ') {
+                            _qName = newSeq(_start, --_index - _start);
+                            _state = STATE_OPEN_TAGxELEM_NAME_READ;
+                            break;
                         }
-
-                        if (_readIndex >= _readCount)
-                            reloadBuffer();
-                        c = _data[_index++] = _readBuffer[_readIndex++];
                     }
-                    break;
 
-                case STATE_OPEN_TAGxELEM_NAME_READ:
-                    if (c == '>') {
-                        _start = --_index;
-                        _state = STATE_CHARACTERS;
-                        processStartTag();
-                        _isEmpty = false;
-                        return _eventType = START_ELEMENT;
-                    } else if (c == '/') {
-                        _state = STATE_OPEN_TAGxEMPTY_TAG;
-                    } else if (c > ' ') {
-                        _start = _index - 1; // Includes current character.
-                        _attrPrefixSep = -1;
-                        _state = STATE_OPEN_TAGxREAD_ATTR_NAME;
-                    }
-                    break;
+                    if (_readIndex >= _readCount)
+                        reloadBuffer();
+                    c = _data[_index++] = _readBuffer[_readIndex++];
+                }
+                break;
 
-                case STATE_OPEN_TAGxREAD_ATTR_NAME:
-                    while (true) { // Read attribute name all at once.
+            case STATE_OPEN_TAGxELEM_NAME_READ:
+                if (c == '>') {
+                    _start = --_index;
+                    _state = STATE_CHARACTERS;
+                    processStartTag();
+                    _isEmpty = false;
+                    return _eventType = START_ELEMENT;
+                } else if (c == '/') {
+                    _state = STATE_OPEN_TAGxEMPTY_TAG;
+                } else if (c > ' ') {
+                    _start = _index - 1; // Includes current character.
+                    _attrPrefixSep = -1;
+                    _state = STATE_OPEN_TAGxREAD_ATTR_NAME;
+                }
+                break;
 
-                        if (c < '@') { // Else avoid multiple checks.
-                            if (c <= ' ') {
-                                _attrQName = newSeq(_start, --_index - _start);
-                                _state = STATE_OPEN_TAGxATTR_NAME_READ;
-                                break;
-                            } else if (c == '=') {
-                                _attrQName = newSeq(_start, --_index - _start);
-                                _state = STATE_OPEN_TAGxEQUAL_READ;
-                                break;
-                            } else if (c == ':') {
-                                _attrPrefixSep = _index - 1;
-                            }
+            case STATE_OPEN_TAGxREAD_ATTR_NAME:
+                while (true) { // Read attribute name all at once.
+
+                    if (c < '@') { // Else avoid multiple checks.
+                        if (c <= ' ') {
+                            _attrQName = newSeq(_start, --_index - _start);
+                            _state = STATE_OPEN_TAGxATTR_NAME_READ;
+                            break;
+                        } else if (c == '=') {
+                            _attrQName = newSeq(_start, --_index - _start);
+                            _state = STATE_OPEN_TAGxEQUAL_READ;
+                            break;
+                        } else if (c == ':') {
+                            _attrPrefixSep = _index - 1;
                         }
-
-                        if (_readIndex >= _readCount)
-                            reloadBuffer();
-                        _data[_index++] = c = _readBuffer[_readIndex++];
                     }
-                    break;
 
-                case STATE_OPEN_TAGxATTR_NAME_READ:
-                    if (c == '=') {
-                        --_index;
-                        _state = STATE_OPEN_TAGxEQUAL_READ;
-                    } else if (c > ' ') {
-                        throw new XMLStreamException("'=' expected", _location);
-                    }
-                    break;
+                    if (_readIndex >= _readCount)
+                        reloadBuffer();
+                    _data[_index++] = c = _readBuffer[_readIndex++];
+                }
+                break;
 
-                case STATE_OPEN_TAGxEQUAL_READ:
+            case STATE_OPEN_TAGxATTR_NAME_READ:
+                if (c == '=') {
+                    --_index;
+                    _state = STATE_OPEN_TAGxEQUAL_READ;
+                } else if (c > ' ') {
+                    throw new XMLStreamException("'=' expected", _location);
+                }
+                break;
+
+            case STATE_OPEN_TAGxEQUAL_READ:
+                if (c == '\'') {
+                    _start = --_index;
+                    _state = STATE_OPEN_TAGxREAD_ATTR_VALUE_SIMPLE_QUOTE;
+                } else if (c == '\"') {
+                    _start = --_index;
+                    _state = STATE_OPEN_TAGxREAD_ATTR_VALUE_DOUBLE_QUOTE;
+                } else if (c > ' ') {
+                    throw new XMLStreamException("Quotes expected", _location);
+                }
+                break;
+
+            case STATE_OPEN_TAGxREAD_ATTR_VALUE_SIMPLE_QUOTE:
+                while (true) { // Read attribute value all at once.
+
                     if (c == '\'') {
-                        _start = --_index;
-                        _state = STATE_OPEN_TAGxREAD_ATTR_VALUE_SIMPLE_QUOTE;
-                    } else if (c == '\"') {
-                        _start = --_index;
-                        _state = STATE_OPEN_TAGxREAD_ATTR_VALUE_DOUBLE_QUOTE;
-                    } else if (c > ' ') {
-                        throw new XMLStreamException("Quotes expected", _location);
+                        _attrValue = newSeq(_start, --_index - _start);
+                        processAttribute();
+                        _state = STATE_OPEN_TAGxELEM_NAME_READ;
+                        break;
                     }
-                    break;
 
-                case STATE_OPEN_TAGxREAD_ATTR_VALUE_SIMPLE_QUOTE:
-                    while (true) { // Read attribute value all at once.
+                    // Local character reading block.
+                    if (_readIndex >= _readCount)
+                        reloadBuffer();
+                    c = _readBuffer[_readIndex++];
+                    if (c == '&')
+                        c = replaceEntity();
+                    _data[_index++] = c;
+                }
+                break;
 
-                        if (c == '\'') {
-                            _attrValue = newSeq(_start, --_index - _start);
-                            processAttribute();
-                            _state = STATE_OPEN_TAGxELEM_NAME_READ;
+            case STATE_OPEN_TAGxREAD_ATTR_VALUE_DOUBLE_QUOTE:
+                while (true) { // Read attribute value all at once.
+
+                    if (c == '\"') {
+                        _attrValue = newSeq(_start, --_index - _start);
+                        processAttribute();
+                        _state = STATE_OPEN_TAGxELEM_NAME_READ;
+                        break;
+                    }
+
+                    // Local character reading block.
+                    if (_readIndex >= _readCount)
+                        reloadBuffer();
+                    c = _readBuffer[_readIndex++];
+                    if (c == '&')
+                        c = replaceEntity();
+                    _data[_index++] = c;
+                }
+                break;
+
+            case STATE_OPEN_TAGxEMPTY_TAG:
+                if (c == '>') {
+                    _start = --_index;
+                    _state = STATE_CHARACTERS;
+                    processStartTag();
+                    _isEmpty = true;
+                    return _eventType = START_ELEMENT;
+                } else {
+                    throw new XMLStreamException("'>' expected", _location);
+                }
+
+                // CLOSE_TAG:
+            case STATE_CLOSE_TAGxREAD_ELEM_NAME:
+                while (true) { // Element name can be read all at once.
+
+                    if (c < '@') { // Else avoid multiple checks.
+                        if (c == '>') {
+                            _qName = newSeq(_start, --_index - _start);
+                            _start = _index;
+                            _state = STATE_CHARACTERS;
+                            processEndTag();
+                            return _eventType = END_ELEMENT;
+                        } else if (c == ':') {
+                            _prefixSep = _index - 1;
+                        } else if (c <= ' ') {
+                            _qName = newSeq(_start, --_index - _start);
+                            _state = STATE_CLOSE_TAGxELEM_NAME_READ;
                             break;
                         }
-
-                        // Local character reading block.
-                        if (_readIndex >= _readCount)
-                            reloadBuffer();
-                        c = _readBuffer[_readIndex++];
-                        if (c == '&')
-                            c = replaceEntity();
-                        _data[_index++] = c;
-                    }
-                    break;
-
-                case STATE_OPEN_TAGxREAD_ATTR_VALUE_DOUBLE_QUOTE:
-                    while (true) { // Read attribute value all at once.
-
-                        if (c == '\"') {
-                            _attrValue = newSeq(_start, --_index - _start);
-                            processAttribute();
-                            _state = STATE_OPEN_TAGxELEM_NAME_READ;
-                            break;
-                        }
-
-                        // Local character reading block.
-                        if (_readIndex >= _readCount)
-                            reloadBuffer();
-                        c = _readBuffer[_readIndex++];
-                        if (c == '&')
-                            c = replaceEntity();
-                        _data[_index++] = c;
-                    }
-                    break;
-
-                case STATE_OPEN_TAGxEMPTY_TAG:
-                    if (c == '>') {
-                        _start = --_index;
-                        _state = STATE_CHARACTERS;
-                        processStartTag();
-                        _isEmpty = true;
-                        return _eventType = START_ELEMENT;
-                    } else {
-                        throw new XMLStreamException("'>' expected", _location);
                     }
 
-                    // CLOSE_TAG:
-                case STATE_CLOSE_TAGxREAD_ELEM_NAME:
-                    while (true) { // Element name can be read all at once.
+                    if (_readIndex >= _readCount)
+                        reloadBuffer();
+                    c = _data[_index++] = _readBuffer[_readIndex++];
+                }
+                break;
 
-                        if (c < '@') { // Else avoid multiple checks.
-                            if (c == '>') {
-                                _qName = newSeq(_start, --_index - _start);
-                                _start = _index;
-                                _state = STATE_CHARACTERS;
-                                processEndTag();
-                                return _eventType = END_ELEMENT;
-                            } else if (c == ':') {
-                                _prefixSep = _index - 1;
-                            } else if (c <= ' ') {
-                                _qName = newSeq(_start, --_index - _start);
-                                _state = STATE_CLOSE_TAGxELEM_NAME_READ;
-                                break;
-                            }
-                        }
+            case STATE_CLOSE_TAGxELEM_NAME_READ:
+                if (c == '>') {
+                    _start = --_index;
+                    _state = STATE_CHARACTERS;
+                    processEndTag();
+                    return _eventType = END_ELEMENT;
+                } else if (c > ' ') {
+                    throw new XMLStreamException("'>' expected", _location);
+                }
+                break;
 
-                        if (_readIndex >= _readCount)
-                            reloadBuffer();
-                        c = _data[_index++] = _readBuffer[_readIndex++];
-                    }
-                    break;
-
-                case STATE_CLOSE_TAGxELEM_NAME_READ:
-                    if (c == '>') {
-                        _start = --_index;
-                        _state = STATE_CHARACTERS;
-                        processEndTag();
-                        return _eventType = END_ELEMENT;
-                    } else if (c > ' ') {
-                        throw new XMLStreamException("'>' expected", _location);
-                    }
-                    break;
-
-                default:
-                    throw new XMLStreamException("State unknown: " + _state,
-                            _location);
+            default:
+                throw new XMLStreamException("State unknown: " + _state,
+                        _location);
             }
         }
     }
@@ -831,11 +836,11 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
 
     /**
      * Reloads data buffer.
-     *
-     * @param detectEndOfStream indicates
+     * 
+     * @param detectEndOfStream indicates 
      * @return <code>true</code> if the buffer has been reloaded;
-     * <code>false</code> if the end of stream has being reached
-     * and the event type (CHARACTERS or END_DOCUMENT) has been set.
+     *         <code>false</code> if the end of stream has being reached
+     *         and the event type (CHARACTERS or END_DOCUMENT) has been set.
      */
     private void reloadBuffer() throws XMLStreamException {
         _location._column += _readIndex;
@@ -857,10 +862,10 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
 
     /**
      * Detects end of stream.
-     *
+     * 
      * @return <code>true</code> if end of stream has being reached
-     * and the event type (CHARACTERS or END_DOCUMENT) has been set;
-     * <code>false</code> otherwise.
+     *         and the event type (CHARACTERS or END_DOCUMENT) has been set;
+     *         <code>false</code> otherwise.
      */
     private boolean isEndOfStream() throws XMLStreamException {
         if (_readIndex >= _readCount)
@@ -890,7 +895,7 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
 
     /**
      * Handles end of line as per XML Spec. 2.11
-     *
+     * 
      * @param c the potential end of line character.
      * @return the replacement character for end of line.
      */
@@ -916,9 +921,9 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
 
     /**
      * Replaces an entity if the current state allows it.
-     *
+     * 
      * @return the next character after the text replacement or '&' if no
-     * replacement took place.
+     *         replacement took place.
      */
     private char replaceEntity() throws XMLStreamException {
         if ((_state == STATE_COMMENT) || (_state == STATE_PI)
@@ -1071,7 +1076,7 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
         MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
             public void run() {
                 char[] tmp = new char[_data.length * 2];
-                LogContext.info(new CharArray(
+                com.bbva.pzic.proposals.util.orika.javolution.context.LogContext.info(new CharArray(
                         "XMLStreamReaderImpl: Data buffer increased to "
                                 + tmp.length));
                 System.arraycopy(_data, 0, tmp, 0, _data.length);
@@ -1085,7 +1090,7 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
         MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
             public void run() {
                 CharArray[] tmp = new CharArray[_elemStack.length * 2];
-                LogContext.info(new CharArray(
+                com.bbva.pzic.proposals.util.orika.javolution.context.LogContext.info(new CharArray(
                         "XMLStreamReaderImpl: CharArray stack increased to "
                                 + tmp.length));
                 System.arraycopy(_elemStack, 0, tmp, 0, _elemStack.length);
@@ -1142,7 +1147,7 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
 
     // Implements XMLStreamReader Interface.
     public void require(int type, CharSequence namespaceURI,
-                        CharSequence localName) throws XMLStreamException {
+            CharSequence localName) throws XMLStreamException {
         if (_eventType != type)
             throw new XMLStreamException("Expected event: "
                     + NAMES_OF_EVENTS[type] + ", found event: "
@@ -1158,29 +1163,29 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     // Implements XMLStreamReader Interface.
     public CharArray getElementText() throws XMLStreamException {
         // Derived from interface specification code.
-        if (getEventType() != START_ELEMENT) {
+        if (getEventType() != XMLStreamConstants.START_ELEMENT) {
             throw new XMLStreamException(
                     "Parser must be on START_ELEMENT to read next text",
                     getLocation());
         }
         CharArray text = null;
         int eventType = next();
-        while (eventType != END_ELEMENT) {
-            if (eventType == CHARACTERS) {
+        while (eventType != XMLStreamConstants.END_ELEMENT) {
+            if (eventType == XMLStreamConstants.CHARACTERS) {
                 if (text == null) {
                     text = getText();
                 } else { // Merge (adjacent text, comments and PI are not kept).
                     text.setArray(_data, text.offset(), text.length()
                             + getText().length());
                 }
-            } else if (eventType == PROCESSING_INSTRUCTION
-                    || eventType == COMMENT) {
+            } else if (eventType == XMLStreamConstants.PROCESSING_INSTRUCTION
+                    || eventType == XMLStreamConstants.COMMENT) {
                 // Skips (not kept).
-            } else if (eventType == END_DOCUMENT) {
+            } else if (eventType == XMLStreamConstants.END_DOCUMENT) {
                 throw new XMLStreamException(
                         "Unexpected end of document when reading element text content",
                         getLocation());
-            } else if (eventType == START_ELEMENT) {
+            } else if (eventType == XMLStreamConstants.START_ELEMENT) {
                 throw new XMLStreamException(
                         "Element text content may not contain START_ELEMENT",
                         getLocation());
@@ -1215,45 +1220,45 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     }
 
     public int getAttributeCount() {
-        if (_eventType != START_ELEMENT)
+        if (_eventType != XMLStreamConstants.START_ELEMENT)
             throw illegalState("Not a start element");
         return _attributes.getLength();
     }
 
     public CharArray getAttributeLocalName(int index) {
-        if (_eventType != START_ELEMENT)
+        if (_eventType != XMLStreamConstants.START_ELEMENT)
             throw illegalState("Not a start element");
         return _attributes.getLocalName(index);
     }
 
     public CharArray getAttributeNamespace(int index) {
-        if (_eventType != START_ELEMENT)
+        if (_eventType != XMLStreamConstants.START_ELEMENT)
             throw illegalState("Not a start element");
         CharArray prefix = _attributes.getPrefix(index);
         return _namespaces.getNamespaceURINullAllowed(prefix);
     }
 
     public CharArray getAttributePrefix(int index) {
-        if (_eventType != START_ELEMENT)
+        if (_eventType != XMLStreamConstants.START_ELEMENT)
             throw illegalState("Not a start element");
         return _attributes.getPrefix(index);
     }
 
     public CharArray getAttributeType(int index) {
-        if (_eventType != START_ELEMENT)
+        if (_eventType != XMLStreamConstants.START_ELEMENT)
             throw illegalState("Not a start element");
         return _attributes.getType(index);
     }
 
     public CharArray getAttributeValue(CharSequence uri, CharSequence localName) {
-        if (_eventType != START_ELEMENT)
+        if (_eventType != XMLStreamConstants.START_ELEMENT)
             throw illegalState("Not a start element");
         return (uri == null) ? _attributes.getValue(localName) : _attributes
                 .getValue(uri, localName);
     }
 
     public CharArray getAttributeValue(int index) {
-        if (_eventType != START_ELEMENT)
+        if (_eventType != XMLStreamConstants.START_ELEMENT)
             throw illegalState("Not a start element");
         return _attributes.getValue(index);
     }
@@ -1273,8 +1278,8 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     }
 
     public CharArray getLocalName() {
-        if ((_eventType != START_ELEMENT)
-                && (_eventType != END_ELEMENT))
+        if ((_eventType != XMLStreamConstants.START_ELEMENT)
+                && (_eventType != XMLStreamConstants.END_ELEMENT))
             throw illegalState("Not a start or end element");
         if (_prefixSep < 0)
             return _qName;
@@ -1288,29 +1293,29 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     }
 
     public int getNamespaceCount() {
-        if ((_eventType != START_ELEMENT)
-                && (_eventType != END_ELEMENT))
+        if ((_eventType != XMLStreamConstants.START_ELEMENT)
+                && (_eventType != XMLStreamConstants.END_ELEMENT))
             throw illegalState("Not a start or end element");
         return _namespaces._namespacesCount[_depth];
     }
 
     public CharArray getNamespacePrefix(int index) {
-        if ((_eventType != START_ELEMENT)
-                && (_eventType != END_ELEMENT))
+        if ((_eventType != XMLStreamConstants.START_ELEMENT)
+                && (_eventType != XMLStreamConstants.END_ELEMENT))
             throw illegalState("Not a start or end element");
         return _namespaces._prefixes[index];
     }
 
     public CharArray getNamespaceURI(CharSequence prefix) {
-        if ((_eventType != START_ELEMENT)
-                && (_eventType != END_ELEMENT))
+        if ((_eventType != XMLStreamConstants.START_ELEMENT)
+                && (_eventType != XMLStreamConstants.END_ELEMENT))
             throw illegalState("Not a start or end element");
         return _namespaces.getNamespaceURI(prefix);
     }
 
     public CharArray getNamespaceURI(int index) {
-        if ((_eventType != START_ELEMENT)
-                && (_eventType != END_ELEMENT))
+        if ((_eventType != XMLStreamConstants.START_ELEMENT)
+                && (_eventType != XMLStreamConstants.END_ELEMENT))
             throw illegalState("Not a start or end element");
         return _namespaces._namespaces[index];
     }
@@ -1324,8 +1329,8 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     }
 
     public CharArray getPrefix() {
-        if ((_eventType != START_ELEMENT)
-                && (_eventType != END_ELEMENT))
+        if ((_eventType != XMLStreamConstants.START_ELEMENT)
+                && (_eventType != XMLStreamConstants.END_ELEMENT))
             throw illegalState("Not a start or end element");
         if (_prefixSep < 0)
             return null;
@@ -1335,7 +1340,7 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     }
 
     public CharArray getPIData() {
-        if (_eventType != PROCESSING_INSTRUCTION)
+        if (_eventType != XMLStreamConstants.PROCESSING_INSTRUCTION)
             throw illegalState("Not a processing instruction");
         int offset = _text.indexOf(' ') + _text.offset() + 1;
         CharArray piData = newSeq(offset, _text.length() - offset);
@@ -1343,16 +1348,16 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     }
 
     public CharArray getPITarget() {
-        if (_eventType != PROCESSING_INSTRUCTION)
+        if (_eventType != XMLStreamConstants.PROCESSING_INSTRUCTION)
             throw illegalState("Not a processing instruction");
         CharArray piTarget = newSeq(_text.offset(), _text.indexOf(' ') + _text.offset());
         return piTarget;
     }
 
     public CharArray getText() {
-        if ((_eventType != CHARACTERS)
-                && (_eventType != COMMENT)
-                && (_eventType != DTD))
+        if ((_eventType != XMLStreamConstants.CHARACTERS)
+                && (_eventType != XMLStreamConstants.COMMENT)
+                && (_eventType != XMLStreamConstants.DTD))
             throw illegalState("Not a text event");
         return _text;
     }
@@ -1362,7 +1367,7 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     }
 
     public int getTextCharacters(int sourceStart, char[] target,
-                                 int targetStart, int length) throws XMLStreamException {
+            int targetStart, int length) throws XMLStreamException {
         CharArray text = getText();
         int copyLength = Math.min(length, text.length());
         System.arraycopy(text.array(), sourceStart + text.offset(), target,
@@ -1396,42 +1401,42 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
     private static final CharArray STANDALONE = new CharArray("standalone");
 
     public boolean hasName() {
-        return (_eventType == START_ELEMENT)
-                || (_eventType == END_ELEMENT);
+        return (_eventType == XMLStreamConstants.START_ELEMENT)
+                || (_eventType == XMLStreamConstants.END_ELEMENT);
     }
 
     public boolean hasNext() throws XMLStreamException {
-        return _eventType != END_DOCUMENT;
+        return _eventType != XMLStreamConstants.END_DOCUMENT;
     }
 
     public boolean hasText() {
-        return ((_eventType == CHARACTERS)
-                || (_eventType == COMMENT) || (_eventType == DTD))
+        return ((_eventType == XMLStreamConstants.CHARACTERS)
+                || (_eventType == XMLStreamConstants.COMMENT) || (_eventType == XMLStreamConstants.DTD))
                 && (_text.length() > 0);
     }
 
     public boolean isAttributeSpecified(int index) {
-        if (_eventType != START_ELEMENT)
+        if (_eventType != XMLStreamConstants.START_ELEMENT)
             throw new IllegalStateException("Not a start element");
         return _attributes.getValue(index) != null;
     }
 
     public boolean isCharacters() {
-        return _eventType == CHARACTERS;
+        return _eventType == XMLStreamConstants.CHARACTERS;
     }
 
     public boolean isEndElement() {
-        return _eventType == END_ELEMENT;
+        return _eventType == XMLStreamConstants.END_ELEMENT;
     }
 
     public boolean isStartElement() {
-        return _eventType == START_ELEMENT;
+        return _eventType == XMLStreamConstants.START_ELEMENT;
     }
 
     public boolean isWhiteSpace() {
         if (isCharacters()) {
             char[] chars = _text.array();
-            for (int i = _text.offset(), end = _text.offset() + _text.length(); i < end; ) {
+            for (int i = _text.offset(), end = _text.offset() + _text.length(); i < end;) {
                 if (!isWhiteSpace(chars[i++]))
                     return false;
             }
@@ -1447,14 +1452,14 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
 
     public int nextTag() throws XMLStreamException {
         int eventType = next();
-        while (eventType == COMMENT
-                || eventType == PROCESSING_INSTRUCTION
-                || eventType == DTD
-                || (eventType == CHARACTERS && isWhiteSpace())) {
+        while (eventType == XMLStreamConstants.COMMENT
+                || eventType == XMLStreamConstants.PROCESSING_INSTRUCTION
+                || eventType == XMLStreamConstants.DTD
+                || (eventType == XMLStreamConstants.CHARACTERS && isWhiteSpace())) {
             eventType = next();
         }
-        if (eventType != START_ELEMENT
-                && eventType != END_ELEMENT)
+        if (eventType != XMLStreamConstants.START_ELEMENT
+                && eventType != XMLStreamConstants.END_ELEMENT)
             throw new XMLStreamException("Tag expected (but found "
                     + NAMES_OF_EVENTS[_eventType] + ")");
         return eventType;
@@ -1523,28 +1528,28 @@ public final class XMLStreamReaderImpl implements XMLStreamReader, Reusable {
             while (i < maxIndex) {
                 char c = _prolog.array()[i++];
                 switch (state) {
-                    case READ_EQUAL:
-                        if (c == '=') {
-                            state = READ_QUOTE;
-                        }
-                        break;
-                    case READ_QUOTE:
-                        if (c == '"') {
-                            state = VALUE_DOUBLE_QUOTE;
-                            valueOffset = i;
-                        } else if (c == '\'') {
-                            state = VALUE_SIMPLE_QUOTE;
-                            valueOffset = i;
-                        }
-                        break;
-                    case VALUE_SIMPLE_QUOTE:
-                        if (c == '\'')
-                            return newSeq(valueOffset, i - valueOffset - 1);
-                        break;
-                    case VALUE_DOUBLE_QUOTE:
-                        if (c == '"')
-                            return newSeq(valueOffset, i - valueOffset - 1);
-                        break;
+                case READ_EQUAL:
+                    if (c == '=') {
+                        state = READ_QUOTE;
+                    }
+                    break;
+                case READ_QUOTE:
+                    if (c == '"') {
+                        state = VALUE_DOUBLE_QUOTE;
+                        valueOffset = i;
+                    } else if (c == '\'') {
+                        state = VALUE_SIMPLE_QUOTE;
+                        valueOffset = i;
+                    }
+                    break;
+                case VALUE_SIMPLE_QUOTE:
+                    if (c == '\'')
+                        return newSeq(valueOffset, i - valueOffset - 1);
+                    break;
+                case VALUE_DOUBLE_QUOTE:
+                    if (c == '"')
+                        return newSeq(valueOffset, i - valueOffset - 1);
+                    break;
                 }
             }
         }
