@@ -15,4 +15,7 @@ public class ValidationGroup {
 
     public interface ModifyExternalFinancingProposal {
     }
+
+    public interface ListProposalsV0 {
+    }
 }
