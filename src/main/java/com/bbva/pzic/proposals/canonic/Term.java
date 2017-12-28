@@ -26,6 +26,10 @@ public class Term implements Serializable {
      * Term value.
      */
     private BigDecimal value;
+    /**
+     * Term frequency.
+     */
+    private String frequency;
 
     public String getId() {
         return id;
@@ -39,7 +43,16 @@ public class Term implements Serializable {
         return value;
     }
 
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
+
     public void setValue(BigDecimal value) {
         this.value = value;
     }
+
 }

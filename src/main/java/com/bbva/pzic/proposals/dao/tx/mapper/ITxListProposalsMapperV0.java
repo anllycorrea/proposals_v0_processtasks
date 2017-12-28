@@ -1,7 +1,9 @@
 package com.bbva.pzic.proposals.dao.tx.mapper;
 
-import com.bbva.pzic.proposals.business.dto.DTOIntProposals;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
+import com.bbva.pzic.proposals.canonic.Proposal;
+import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR601;
+import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR602;
 
 /**
  * Created on 28/12/2017.
@@ -10,7 +12,7 @@ import com.bbva.pzic.proposals.business.dto.InputListProposals;
  */
 public interface ITxListProposalsMapperV0 {
 
-	Object mapIn(InputListProposals listProposals);
+	FormatoHYMR601 mapIn(InputListProposals listProposals);
 
-	DTOIntProposals mapOut(Object object, DTOIntProposals proposals);
+	Proposal mapOut(FormatoHYMR602 formatOut, Proposal proposal);
 }
