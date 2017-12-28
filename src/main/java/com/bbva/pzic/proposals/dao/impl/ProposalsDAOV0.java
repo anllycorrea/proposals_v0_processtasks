@@ -5,8 +5,8 @@ import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.dao.IProposalsDAOV0;
+import com.bbva.pzic.proposals.dao.tx.RestSimulateProposals;
 import com.bbva.pzic.proposals.dao.tx.TxListProposalsV0;
-import com.bbva.pzic.proposals.dao.tx.TxSimulateProposals;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class ProposalsDAOV0 implements IProposalsDAOV0 {
     private TxListProposalsV0 txListProposalsV0;
 
     @Autowired
-    private TxSimulateProposals txSimulateProposals;
+    private RestSimulateProposals restSimulateProposals;
 
     @Override
     public DTOIntProposals listProposals(final InputListProposals listProposals) {
@@ -36,6 +36,6 @@ public class ProposalsDAOV0 implements IProposalsDAOV0 {
     @Override
     public SimulatedProposalsData simulateProposals(final DTOIntSimulatedProposal simulatedProposal) {
         LOG.info("... Invoking method ProposalsDAO.simulateProposals ...");
-        return null;//txSimulateProposals.invoke(simulatedProposal);
+        return restSimulateProposals.invoke(simulatedProposal);
     }
 }
