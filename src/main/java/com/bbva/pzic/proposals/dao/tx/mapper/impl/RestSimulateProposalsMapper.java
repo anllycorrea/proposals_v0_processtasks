@@ -2,6 +2,8 @@ package com.bbva.pzic.proposals.dao.tx.mapper.impl;
 
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
+import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequest;
+import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalsResponse;
 import com.bbva.pzic.proposals.dao.tx.mapper.IRestSimulateProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 
@@ -13,13 +15,15 @@ import com.bbva.pzic.proposals.util.mappers.Mapper;
 @Mapper
 public class RestSimulateProposalsMapper implements IRestSimulateProposalsMapper {
 
+
+
     @Override
-    public Object mapIn(DTOIntSimulatedProposal dtoIn) {
+    public SimulatedProposalRequest mapIn(DTOIntSimulatedProposal dtoIn) {
         return null;
     }
 
     @Override
-    public SimulatedProposalsData mapOut(Object response) {
+    public SimulatedProposalsData mapOut(SimulatedProposalsResponse response) {
         return null;
     }
 }
