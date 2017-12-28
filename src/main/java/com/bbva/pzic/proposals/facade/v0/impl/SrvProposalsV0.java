@@ -9,7 +9,7 @@ import com.bbva.pzic.proposals.canonic.Proposals;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.facade.v0.ISrvProposalsV0;
-import com.bbva.pzic.proposals.facade.v0.mapper.IListProposalsMapper;
+import com.bbva.pzic.proposals.facade.v0.mapper.IListProposalsMapperV0;
 import com.bbva.pzic.proposals.facade.v0.mapper.ISimulateProposalsMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,7 +47,7 @@ public class SrvProposalsV0
     @Autowired
     private ISrvIntProposalsV0 srvIntProposals;
     @Autowired
-    private IListProposalsMapper listProposalsMapper;
+    private IListProposalsMapperV0 listProposalsMapper;
     @Autowired
     private ISimulateProposalsMapper simulateProposalsMapper;
 

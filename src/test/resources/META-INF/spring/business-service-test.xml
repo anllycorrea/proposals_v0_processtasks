@@ -47,6 +47,7 @@
 
     <jaxrs:server address="/${sa:logicalId}">
         <jaxrs:serviceBeans>
+            <ref bean="srvProposalsV0"/>
             <ref bean="srvProposalsV01"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>

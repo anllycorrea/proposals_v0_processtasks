@@ -3,7 +3,7 @@ package com.bbva.pzic.proposals.facade.v0.mapper.impl;
 import com.bbva.pzic.proposals.business.dto.DTOIntProposals;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.Proposals;
-import com.bbva.pzic.proposals.facade.v0.mapper.IListProposalsMapper;
+import com.bbva.pzic.proposals.facade.v0.mapper.IListProposalsMapperV0;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,16 +14,16 @@ import org.apache.commons.logging.LogFactory;
  * @author Entelgy
  */
 @Mapper
-public class ListProposalsMapper implements IListProposalsMapper {
+public class ListProposalsMapperV0 implements IListProposalsMapperV0 {
 
-	private static final Log LOG = LogFactory.getLog(ListProposalsMapper.class);
+	private static final Log LOG = LogFactory.getLog(ListProposalsMapperV0.class);
 
 	@Override
 	public InputListProposals mapIn(
 			final String participantIdentityDocumentDocumentTypeId,
 			final String participantIdentityDocumentDocumentNumber,
 			final String customerId) {
-		LOG.info("... called method ListProposalsMapper.mapIn ...");
+		LOG.info("... called method ListProposalsMapperV0.mapIn ...");
 		InputListProposals inputListProposals = new InputListProposals();
 		inputListProposals
 				.setParticipantIdentityDocumentDocumentTypeId(participantIdentityDocumentDocumentTypeId);
@@ -35,7 +35,7 @@ public class ListProposalsMapper implements IListProposalsMapper {
 
 	@Override
 	public Proposals mapOut(final DTOIntProposals dtoIntProposals) {
-		LOG.info("... called method ListProposalsMapper.mapOut ...");
+		LOG.info("... called method ListProposalsMapperV0.mapOut ...");
 		if (dtoIntProposals.getData() == null) {
 			return null;
 		}

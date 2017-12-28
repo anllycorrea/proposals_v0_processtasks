@@ -15,12 +15,12 @@ import org.apache.commons.logging.LogFactory;
 @Mapper
 public class SimulateProposalsMapper implements ISimulateProposalsMapper {
 
-    private static final Log LOG = LogFactory
-            .getLog(SimulateProposalsMapper.class);
+    private static final Log LOG = LogFactory.getLog(SimulateProposalsMapper.class);
+
+
 
     @Override
-    public DTOIntSimulatedProposal mapIn(
-            final SimulatedProposal simulatedProposal) {
+    public DTOIntSimulatedProposal mapIn(final SimulatedProposal simulatedProposal) {
         LOG.info("... called method SimulateProposalsMapper.mapIn ...");
         DTOIntSimulatedProposal dTOIntSimulatedProposal = new DTOIntSimulatedProposal();
         return dTOIntSimulatedProposal;
