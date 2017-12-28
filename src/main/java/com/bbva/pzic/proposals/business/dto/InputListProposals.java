@@ -1,41 +1,44 @@
 package com.bbva.pzic.proposals.business.dto;
 
 
+import javax.validation.constraints.Size;
 
 /**
  * Created on 28/12/2017.
- * 
+ *
  * @author Entelgy
  */
 public class InputListProposals {
 
-	private String participantIdentityDocumentDocumentTypeId;
-	private String participantIdentityDocumentDocumentNumber;
-	private String customerId;
+    @Size(max = 1, groups = ValidationGroup.ListProposalsV0.class)
 
-	public String getParticipantIdentityDocumentDocumentTypeId() {
-		return participantIdentityDocumentDocumentTypeId;
-	}
+    private String documentTypeId;
+    @Size(max = 11, groups = ValidationGroup.ListProposalsV0.class)
+    private String documentNumber;
+    @Size(max = 8, groups = ValidationGroup.ListProposalsV0.class)
+    private String customerId;
 
-	public void setParticipantIdentityDocumentDocumentTypeId(
-			String participantIdentityDocumentDocumentTypeId) {
-		this.participantIdentityDocumentDocumentTypeId = participantIdentityDocumentDocumentTypeId;
-	}
+    public String getDocumentTypeId() {
+        return documentTypeId;
+    }
 
-	public String getParticipantIdentityDocumentDocumentNumber() {
-		return participantIdentityDocumentDocumentNumber;
-	}
+    public void setDocumentTypeId(String documentTypeId) {
+        this.documentTypeId = documentTypeId;
+    }
 
-	public void setParticipantIdentityDocumentDocumentNumber(
-			String participantIdentityDocumentDocumentNumber) {
-		this.participantIdentityDocumentDocumentNumber = participantIdentityDocumentDocumentNumber;
-	}
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
 
-	public String getCustomerId() {
-		return customerId;
-	}
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
+    }
 
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 }

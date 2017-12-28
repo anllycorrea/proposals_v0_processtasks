@@ -1,10 +1,12 @@
 package com.bbva.pzic.proposals.business.impl;
 
+import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.business.ISrvIntProposalsV0;
 import com.bbva.pzic.proposals.business.dto.DTOIntProposals;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.business.dto.ValidationGroup;
 import com.bbva.pzic.proposals.dao.IProposalsDAOV0;
+import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.validation.Validator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,10 +28,18 @@ public class SrvIntProposalsV0 implements ISrvIntProposalsV0 {
     private Validator validator;
 
     @Override
-    public DTOIntProposals listProposals(final InputListProposals listProposals) {
+    public DTOIntProposals listProposals(final InputListProposals inputListProposals) {
         LOG.info("... Invoking method SrvIntProposals.listProposals ...");
         LOG.info("... Validating listProposals input parameter ...");
-        validator.validate(listProposals, ValidationGroup.ListProposalsV0.class);
-        return proposalsDAOV0.listProposals(listProposals);
+        validator.validate(inputListProposals, ValidationGroup.ListProposalsV0.class);
+
+        if (inputListProposals.getCustomerId() == null &&
+                (inputListProposals.getDocumentTypeId() == null&& inputListProposals.getDocumentNumber() == null)) {
+            throw new BusinessServiceException(Errors.MANDATORY_PARAMETERS_MISSING);
+        } else if (inputListProposals.getCustomerId() == null && (inputListProposals.getDocumentTypeId() == null
+                || inputListProposals.getDocumentNumber() == null)) {
+            throw new BusinessServiceException(Errors.PARAMETERS_MISSING);
+        }
+        return proposalsDAOV0.listProposals(inputListProposals);
     }
 }
