@@ -2,8 +2,10 @@ package com.bbva.pzic.proposals.business.impl;
 
 import com.bbva.pzic.proposals.business.ISrvIntProposalsV0;
 import com.bbva.pzic.proposals.business.dto.DTOIntProposals;
+import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.business.dto.ValidationGroup;
+import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.dao.IProposalsDAOV0;
 import com.bbva.pzic.proposals.util.validation.Validator;
 import org.apache.commons.logging.Log;
@@ -31,5 +33,13 @@ public class SrvIntProposalsV0 implements ISrvIntProposalsV0 {
         LOG.info("... Validating listProposals input parameter ...");
         validator.validate(listProposals, ValidationGroup.ListProposalsV0.class);
         return proposalsDAOV0.listProposals(listProposals);
+    }
+
+    @Override
+    public SimulatedProposalsData simulateProposals(final DTOIntSimulatedProposal simulatedProposal) {
+        LOG.info("... Invoking method SrvIntProposals.simulateProposals ...");
+        LOG.info("... Validating simulateProposals input parameter ...");
+        validator.validate(simulatedProposal, ValidationGroup.SimulateProposals.class);
+        return proposalsDAOV0.simulateProposals(simulatedProposal);
     }
 }

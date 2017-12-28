@@ -18,4 +18,7 @@ public class ValidationGroup {
 
     public interface ListProposalsV0 {
     }
+
+    public interface SimulateProposals {
+    }
 }
