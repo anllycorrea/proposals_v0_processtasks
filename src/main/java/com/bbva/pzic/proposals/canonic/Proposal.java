@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -67,9 +68,25 @@ public class Proposal implements Serializable {
      * List of limits related to the product proposal.
      */
     private List<Limit> limits;
+
+    /**
+     * Is the amount granted by the bank to the proposal’s owner. This amount is
+     * calculated based on a financial analysis of the person made by the bank.
+     */
+    private GrantedAmount grantedAmount;
+    /**
+     * Approximated installment payment that the person would pay, in a certain
+     * period of time, in case accepts the proposal.
+     */
+    private InstallmentPayment installmentPayment;
     /**
      * Risk type of the Proposal.
      */
+    /**
+     * Interest annual rate of the proposal.
+     */
+    private BigDecimal interestAnnualRate;
+
     private RiskType riskType;
 
     public String getId() {
@@ -174,5 +191,29 @@ public class Proposal implements Serializable {
 
     public void setRiskType(RiskType riskType) {
         this.riskType = riskType;
+    }
+
+    public GrantedAmount getGrantedAmount() {
+        return grantedAmount;
+    }
+
+    public void setGrantedAmount(GrantedAmount grantedAmount) {
+        this.grantedAmount = grantedAmount;
+    }
+
+    public InstallmentPayment getInstallmentPayment() {
+        return installmentPayment;
+    }
+
+    public void setInstallmentPayment(InstallmentPayment installmentPayment) {
+        this.installmentPayment = installmentPayment;
+    }
+
+    public BigDecimal getInterestAnnualRate() {
+        return interestAnnualRate;
+    }
+
+    public void setInterestAnnualRate(BigDecimal interestAnnualRate) {
+        this.interestAnnualRate = interestAnnualRate;
     }
 }

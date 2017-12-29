@@ -9,13 +9,14 @@ import com.bbva.pzic.proposals.canonic.Proposals;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.facade.v0.ISrvProposalsV0;
-import com.bbva.pzic.proposals.facade.v0.mapper.IListProposalsMapperV0;
+import com.bbva.pzic.proposals.facade.v0.mapper.IListProposalsMapper;
 import com.bbva.pzic.proposals.facade.v0.mapper.ISimulateProposalsMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -46,8 +47,8 @@ public class SrvProposalsV0
     public UriInfo uriInfo;
     @Autowired
     private ISrvIntProposalsV0 srvIntProposals;
-    @Autowired
-    private IListProposalsMapperV0 listProposalsMapper;
+    @Resource(name = "listProposalsMapperV0")
+    private IListProposalsMapper listProposalsMapper;
     @Autowired
     private ISimulateProposalsMapper simulateProposalsMapper;
 

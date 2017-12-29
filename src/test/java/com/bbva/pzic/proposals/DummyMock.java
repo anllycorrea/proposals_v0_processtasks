@@ -4,6 +4,7 @@ import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposa
 import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
+import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.facade.v01.mapper.impl.ListExternalFinancingProposalsMapperTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +24,9 @@ public class DummyMock {
     public final static String EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_VALUE = "DIGITAL";
     public final static String STATUS_ID = "8";
     public final static String STATUS_VALUE = "PENDING_SIGNATURE";
+    public final static String CUSTOMER_ID = "12345678";
+    public final static String DOCUMENT_NUMBER = "12345678";
+    public final static String DOCUMENT_TYPE_ID = "DNI";
 
     private ObjectMapper objectMapper;
 
@@ -68,5 +72,13 @@ public class DummyMock {
     public ExternalFinancingProposal getExternalFinancingProposal() throws IOException {
         return objectMapper.readValue(Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream("json/externalFinancingProposal.json"), ExternalFinancingProposal.class);
+    }
+
+    public InputListProposals buildInputListProposals() {
+        InputListProposals proposals = new InputListProposals();
+        proposals.setCustomerId(CUSTOMER_ID);
+        proposals.setDocumentTypeId(DOCUMENT_TYPE_ID);
+        proposals.setDocumentNumber(DOCUMENT_NUMBER);
+        return proposals;
     }
 }
