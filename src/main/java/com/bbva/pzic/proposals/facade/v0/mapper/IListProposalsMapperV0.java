@@ -9,7 +9,7 @@ import com.bbva.pzic.proposals.canonic.Proposals;
  * 
  * @author Entelgy
  */
-public interface IListProposalsMapper {
+public interface IListProposalsMapperV0 {
 
 	InputListProposals mapIn(String participantIdentityDocumentDocumentTypeId,
 							 String participantIdentityDocumentDocumentNumber, String customerId);

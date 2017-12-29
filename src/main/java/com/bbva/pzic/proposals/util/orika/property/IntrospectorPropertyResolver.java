@@ -18,10 +18,6 @@
 
 package com.bbva.pzic.proposals.util.orika.property;
 
-import com.bbva.pzic.proposals.util.orika.MappingException;
-import com.bbva.pzic.proposals.util.orika.metadata.Property;
-import com.bbva.pzic.proposals.util.orika.metadata.Type;
-
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -29,18 +25,23 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+import com.bbva.pzic.proposals.util.orika.MappingException;
+import com.bbva.pzic.proposals.util.orika.metadata.Property;
+import com.bbva.pzic.proposals.util.orika.metadata.Type;
+
 /**
  * IntrospectionPropertyResolver leverages JavaBeans introspector to resolve
  * properties for provided types.<br>
- *
+ * 
  * @author
+ * 
  */
 public class IntrospectorPropertyResolver extends PropertyResolver {
-
-
+    
+    
     /**
      * Constructs a new IntrospectorPropertyResolver
-     *
+     * 
      * @param includePublicFields whether properties for public fields should be processed as properties
      */
     public IntrospectorPropertyResolver(boolean includePublicFields) {
@@ -53,22 +54,22 @@ public class IntrospectorPropertyResolver extends PropertyResolver {
     public IntrospectorPropertyResolver() {
         super(true);
     }
-
+    
     /**
      * Collects all properties for the specified type.
-     *
-     * @param type          the type for which to collect properties
+     * 
+     * @param type the type for which to collect properties
      * @param referenceType the reference type for use in resolving generic parameters as needed
-     * @param properties    the properties collected for the current type
+     * @param properties the properties collected for the current type
      */
     protected void collectProperties(Class<?> type, Type<?> referenceType, Map<String, Property> properties) {
-
+        
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(type);
             PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
-
+            
             for (final PropertyDescriptor pd : descriptors) {
-
+                
                 try {
                     final String capitalName = capitalize(pd.getName());
                     Method readMethod;
@@ -97,10 +98,10 @@ public class IntrospectorPropertyResolver extends PropertyResolver {
                             writeMethod = null;
                         }
                     }
-
+                    
                     processProperty(pd.getName(), pd.getPropertyType(), readMethod, writeMethod, type, referenceType,
                             properties);
-
+                    
                 } catch (final Exception e) {
                     /*
                      * Wrap with info for the property we were
@@ -114,5 +115,5 @@ public class IntrospectorPropertyResolver extends PropertyResolver {
             throw new MappingException(e);
         }
     }
-
+    
 }

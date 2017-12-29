@@ -8,14 +8,15 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.xml.stream;
 
-import com.bbva.pzic.proposals.util.orika.javolution.text.CharArray;
-
+import java.lang.CharSequence;
 import java.util.Iterator;
+
+import com.bbva.pzic.proposals.util.orika.javolution.text.CharArray;
 
 /**
  * This interface represents the XML namespace context stack while parsing.
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.0, September 12, 2006
  */
 public interface NamespaceContext {
@@ -27,7 +28,7 @@ public interface NamespaceContext {
      * @param prefix prefix to look up
      * @return the namespace URI.
      * @throws IllegalArgumentException if <code>prefix</code> is
-     *                                  <code>null</code>
+     *         <code>null</code>
      */
     CharArray getNamespaceURI(CharSequence prefix);
 
@@ -38,7 +39,7 @@ public interface NamespaceContext {
      * @param namespaceURI URI of the namespace to lookup.
      * @return the prefix bound to the namespace URI.
      * @throws IllegalArgumentException if <code>namespaceURI</code> is
-     *                                  <code>null</code>
+     *         <code>null</code>
      */
     CharArray getPrefix(CharSequence namespaceURI);
 
@@ -49,8 +50,8 @@ public interface NamespaceContext {
      * @param namespaceURI URI of Namespace to lookup
      * @return an <code>Iterator</code> over {@link CharArray} prefixes.
      * @throws IllegalArgumentException if <code>namespaceURI</code> is
-     *                                  <code>null</code>
+     *         <code>null</code>
      */
     Iterator getPrefixes(CharSequence namespaceURI);
-
+    
 }

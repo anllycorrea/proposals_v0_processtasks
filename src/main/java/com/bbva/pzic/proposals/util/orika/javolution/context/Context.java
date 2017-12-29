@@ -8,40 +8,44 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.context;
 
+import java.lang.IllegalStateException;
+import java.lang.ThreadLocal;
+import java.lang.UnsupportedOperationException;
+
 import com.bbva.pzic.proposals.util.orika.javolution.xml.XMLSerializable;
 
 /**
- * <p> This class represents an execution context; they can be associated to
- * particular threads or objects.</p>
- * <p/>
- * <p> Context-aware applications may extend the context base class or any
- * predefined contexts in order to facilitate <a
- * href="package-summary.html#package_description">
- * separation of concerns</a>.</p>
- * <p/>
- * <p> The scope of a {@link Context} should be surrounded by a <code>try,
- * finally</code> block statement to ensure correct behavior in case
- * of exceptions being raised. For example:[code]
- * LocalContext.enter(); // Current thread enter a local context.
- * try
- * ModuloInteger.setModulus(m); // No impact on other threads!
- * z = x.times(y); // Multiplication modulo m.
- * } finally {
- * LocalContext.exit();
- * }[/code]</p>
- * <p/>
- * <p> Context objects can be inherited by multiple threads (see
- * {@link ConcurrentContext}}, but only one thread may
- * {@link #enter(com.bbva.czic.routine.mapper.javolution.context.Context) enter} a particular context
- * instance at any given time (and becomes its {@link #getOwner() owner}.
- * When the owner thread exits its context, the
- * context is automatically {@link ObjectFactory#recycle(java.lang.Object)
- * recycled}. Consequently,  whether or not context objects are reused
- * between multiple threads depends upon the {@link AllocatorContext} policy
- * with regards to recycling. Threads executing in a {@link PoolContext}
- * for example, will reuse the same pool of context objects.</p>
+ * <p> This class represents an execution context; they can be associated to 
+ *     particular threads or objects.</p>
+ *     
+ * <p> Context-aware applications may extend the context base class or any 
+ *     predefined contexts in order to facilitate <a 
+ *     href="package-summary.html#package_description">
+ *     separation of concerns</a>.</p>
+ *     
+ * <p> The scope of a {@link Context} should be surrounded by a <code>try, 
+ *     finally</code> block statement to ensure correct behavior in case 
+ *     of exceptions being raised. For example:[code]
+ *     LocalContext.enter(); // Current thread enter a local context.
+ *     try 
+ *         ModuloInteger.setModulus(m); // No impact on other threads!
+ *         z = x.times(y); // Multiplication modulo m.
+ *     } finally {
+ *         LocalContext.exit();
+ *     }[/code]</p>
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * <p> Context objects can be inherited by multiple threads (see
+ *     {@link ConcurrentContext}}, but only one thread may
+ *     {@link #enter(com.bbva.pzic.proposals.util.orika.javolution.context.Context) enter} a particular context
+ *     instance at any given time (and becomes its {@link #getOwner() owner}.
+ *     When the owner thread exits its context, the
+ *     context is automatically {@link ObjectFactory#recycle(java.lang.Object)
+ *     recycled}. Consequently,  whether or not context objects are reused
+ *     between multiple threads depends upon the {@link AllocatorContext} policy
+ *     with regards to recycling. Threads executing in a {@link PoolContext}
+ *     for example, will reuse the same pool of context objects.</p>
+ *      
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.0, April 15, 2007
  */
 public abstract class Context implements XMLSerializable {
@@ -61,7 +65,7 @@ public abstract class Context implements XMLSerializable {
         }
     };
     /**
-     * Holds the current owner of this context or <code>null</code> if global
+     * Holds the current owner of this context or <code>null</code> if global 
      * context.
      */
     private Thread _owner;
@@ -70,7 +74,7 @@ public abstract class Context implements XMLSerializable {
      */
     private Context _outer;
     /**
-     * Holds the factory having produced this context if any (for recycling
+     * Holds the factory having produced this context if any (for recycling 
      * purpose upon exit).
      */
     private ObjectFactory _factory;
@@ -80,13 +84,13 @@ public abstract class Context implements XMLSerializable {
     private AllocatorContext _allocator;
 
     /**
-     * Default constructor.
+     * Default constructor. 
      */
     protected Context() {
     }
 
     /**
-     * Returns the current context for the current thread.
+     * Returns the current context for the current thread. 
      *
      * @return the current context.
      */
@@ -118,9 +122,9 @@ public abstract class Context implements XMLSerializable {
     }
 
     /**
-     * Returns the string representation of this context (default
+     * Returns the string representation of this context (default 
      * <code>"Instance of " + this.getClass().getName()</code>).
-     *
+     * 
      * @return the string representation of this context.
      */
     public String toString() {
@@ -128,13 +132,13 @@ public abstract class Context implements XMLSerializable {
     }
 
     /**
-     * The action to be performed after this context becomes the current
+     * The action to be performed after this context becomes the current 
      * context.
      */
     protected abstract void enterAction();
 
     /**
-     * The action to be performed before this context is no more the current
+     * The action to be performed before this context is no more the current 
      * context.
      */
     protected abstract void exitAction();
@@ -155,7 +159,7 @@ public abstract class Context implements XMLSerializable {
         Context.CURRENT.set(context);
         context.enterAction();
     }
-
+ 
     /**
      * Exits the specified context.
      *
@@ -174,12 +178,12 @@ public abstract class Context implements XMLSerializable {
      * upon {@link #exit exit}. If the specified contextType has no public
      * no-arg constructor accessible, then the object factory for the class
      * should be {@link ObjectFactory#setInstance explicitely set} (typically
-     * in a static initializer).
+     * in a static initializer).  
      *
      * @param contextType the type of context being entered.
      * @see ObjectFactory#getInstance(Class)
      */
-    public static final void enter(Class<? extends Context> contextType) {
+    public static final void enter(Class <? extends Context>  contextType) {
         ObjectFactory factory = ObjectFactory.getInstance(contextType);
         Context context = (Context) factory.object();
         context._factory = factory;
@@ -189,12 +193,12 @@ public abstract class Context implements XMLSerializable {
     /**
      * Exits the current context (the {@link #getOuter outer} context
      * becomes the current context).
-     *
+     * 
      * @param contextType the type of context being entered.
-     * @throws IllegalStateException if this context is the {@link #ROOT}
-     *                               context or the current thread is not the context owner.
+     * @throws IllegalStateException if this context is the {@link #ROOT} 
+     *         context or the current thread is not the context owner.
      */
-    public static void exit(Class<? extends Context> contextType) {
+    public static void exit(Class <? extends Context>  contextType) {
         Context context = Context.getCurrentContext();
         Context outer = context._outer;
         if (outer == null)
@@ -220,7 +224,7 @@ public abstract class Context implements XMLSerializable {
     /**
      * Sets the current context, used by {@link ConcurrentContext}
      * exclusively.
-     *
+     * 
      * @param context the concurrent context.
      */
     protected static void setConcurrentContext(ConcurrentContext context) {
@@ -229,7 +233,7 @@ public abstract class Context implements XMLSerializable {
 
     /**
      * Returns the allocator context used while in this context (shortcut).
-     *
+     * 
      * @return the allocator context for this context.
      */
     final AllocatorContext getAllocatorContext() {
@@ -248,9 +252,7 @@ public abstract class Context implements XMLSerializable {
             throw new UnsupportedOperationException(
                     "Cannot enter the root context");
         }
-    }
+    };
 
-    ;
-
-
+ 
 }

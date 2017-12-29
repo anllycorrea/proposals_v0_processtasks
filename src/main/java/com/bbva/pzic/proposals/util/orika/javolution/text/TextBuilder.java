@@ -8,29 +8,33 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.text;
 
+import java.io.IOException;
+import java.io.Writer;
+import java.io.Serializable;
+import java.lang.CharSequence;
+import java.lang.Number;
+
 import com.bbva.pzic.proposals.util.orika.javax.realtime.MemoryArea;
+import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
 import com.bbva.pzic.proposals.util.orika.javolution.io.UTF8StreamWriter;
 import com.bbva.pzic.proposals.util.orika.javolution.lang.MathLib;
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
-import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
 import com.bbva.pzic.proposals.util.orika.javolution.lang.Realtime;
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.io.Writer;
+import java.lang.Appendable;
 
 /**
- * <p> This class represents an {@link Appendable} text whose capacity expands
- * gently without incurring expensive resize/copy operations ever.</p>
- * <p/>
- * <p> This class is not intended for large documents manipulations which
- * should be performed with the {@link Text} class directly
- * (<code>O(Log(n))</code> {@link Text#insert insertion} and
- * {@link Text#delete deletion} capabilities).</p>
- * <p/>
+ * <p> This class represents an {@link Appendable} text whose capacity expands 
+ *     gently without incurring expensive resize/copy operations ever.</p>
+ *     
+ * <p> This class is not intended for large documents manipulations which 
+ *     should be performed with the {@link Text} class directly 
+ *     (<code>O(Log(n))</code> {@link Text#insert insertion} and 
+ *     {@link Text#delete deletion} capabilities).</p>
+ *     
  * <p> This implementation is not synchronized.</p>
- *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ *     
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.3, January 20, 2008
  */
 public class TextBuilder implements Appendable,
@@ -78,7 +82,7 @@ public class TextBuilder implements Appendable,
     /**
      * Creates a text builder holding the specified <code>String</code>
      * (convenience method).
-     *
+     * 
      * @param str the initial string content of this text builder.
      */
     public TextBuilder(String str) {
@@ -88,9 +92,9 @@ public class TextBuilder implements Appendable,
 
     /**
      * Creates a text builder of specified initial capacity.
-     * Unless the text length exceeds the specified capacity, operations
+     * Unless the text length exceeds the specified capacity, operations 
      * on this text builder will not allocate memory.
-     *
+     * 
      * @param capacity the initial capacity.
      */
     public TextBuilder(int capacity) {
@@ -102,7 +106,7 @@ public class TextBuilder implements Appendable,
 
     /**
      * Returns a new, preallocated or {@link #recycle recycled} text builder
-     * (on the stack when executing in a {@link com.bbva.czic.routine.mapper.javolution.context.StackContext
+     * (on the stack when executing in a {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext
      * StackContext}).
      *
      * @return a new, preallocated or recycled text builder instance.
@@ -115,8 +119,8 @@ public class TextBuilder implements Appendable,
 
     /**
      * Recycles a text builder {@link #newInstance() instance} immediately
-     * (on the stack when executing in a {@link com.bbva.czic.routine.mapper.javolution.context.StackContext
-     * StackContext}).
+     * (on the stack when executing in a {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext
+     * StackContext}). 
      */
     public static void recycle(TextBuilder instance) {
         FACTORY.recycle(instance);
@@ -134,10 +138,10 @@ public class TextBuilder implements Appendable,
     /**
      * Returns the character at the specified index.
      *
-     * @param index the index of the character.
+     * @param  index the index of the character.
      * @return the character at the specified index.
-     * @throws IndexOutOfBoundsException if
-     *                                   <code>(index < 0) || (index >= this.length())</code>.
+     * @throws IndexOutOfBoundsException if 
+     *         <code>(index < 0) || (index >= this.length())</code>.
      */
     public final char charAt(int index) {
         if (index >= _length)
@@ -147,21 +151,21 @@ public class TextBuilder implements Appendable,
 
     /**
      * Copies the character from this text builder into the destination
-     * character array.
+     * character array. 
      *
      * @param srcBegin this text start index.
-     * @param srcEnd   this text end index (not included).
-     * @param dst      the destination array to copy the data into.
-     * @param dstBegin the offset into the destination array.
+     * @param srcEnd this text end index (not included).
+     * @param dst the destination array to copy the data into.
+     * @param dstBegin the offset into the destination array. 
      * @throws IndexOutOfBoundsException if <code>(srcBegin < 0) ||
-     *                                   (dstBegin < 0) || (srcBegin > srcEnd) || (srcEnd > this.length())
-     *                                   || ((dstBegin + srcEnd - srcBegin) >  dst.length)</code>
+     *  (dstBegin < 0) || (srcBegin > srcEnd) || (srcEnd > this.length())
+     *  || ((dstBegin + srcEnd - srcBegin) >  dst.length)</code>
      */
     public final void getChars(int srcBegin, int srcEnd, char[] dst,
-                               int dstBegin) {
+            int dstBegin) {
         if ((srcBegin < 0) || (srcBegin > srcEnd) || (srcEnd > this._length))
             throw new IndexOutOfBoundsException();
-        for (int i = srcBegin, j = dstBegin; i < srcEnd; ) {
+        for (int i = srcBegin, j = dstBegin; i < srcEnd;) {
             char[] chars0 = _high[i >> B1];
             int i0 = i & M1;
             int length = MathLib.min(C1 - i0, srcEnd - i);
@@ -175,9 +179,9 @@ public class TextBuilder implements Appendable,
      * Sets the character at the specified position.
      *
      * @param index the index of the character to modify.
-     * @param c     the new character.
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index >= this.length())</code>
+     * @param c the new character. 
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *          (index >= this.length())</code>
      */
     public final void setCharAt(int index, char c) {
         if ((index < 0) || (index >= _length))
@@ -187,7 +191,7 @@ public class TextBuilder implements Appendable,
 
     /**
      * Convenience method equivalent to {@link #setLength(int, char)
-     * setLength(newLength, '\u0000')}.
+     *  setLength(newLength, '\u0000')}.
      *
      * @param newLength the new length of this builder.
      * @throws IndexOutOfBoundsException if <code>(newLength < 0)</code>
@@ -198,11 +202,11 @@ public class TextBuilder implements Appendable,
 
     /**
      * Sets the length of this character builder.
-     * If the length is greater than the current length; the
+     * If the length is greater than the current length; the 
      * specified character is inserted.
      *
      * @param newLength the new length of this builder.
-     * @param fillChar  the character to be appended if required.
+     * @param fillChar the character to be appended if required.
      * @throws IndexOutOfBoundsException if <code>(newLength < 0)</code>
      */
     public final void setLength(int newLength, char fillChar) {
@@ -211,20 +215,20 @@ public class TextBuilder implements Appendable,
         if (newLength <= _length)
             _length = newLength;
         else
-            for (int i = _length; i++ < newLength; ) {
+            for (int i = _length; i++ < newLength;) {
                 append(fillChar);
             }
     }
 
     /**
-     * Returns a {@link java.lang.CharSequence} corresponding
+     * Returns a {@link java.lang.CharSequence} corresponding 
      * to the character sequence between the specified indexes.
      *
-     * @param start the index of the first character inclusive.
-     * @param end   the index of the last character exclusive.
+     * @param  start the index of the first character inclusive.
+     * @param  end the index of the last character exclusive.
      * @return a character sequence.
      * @throws IndexOutOfBoundsException if <code>(start < 0) || (end < 0) ||
-     *                                   (start > end) || (end > this.length())</code>
+     *         (start > end) || (end > this.length())</code>
      */
     public final java.lang.CharSequence subSequence(int start, int end) {
         if ((start < 0) || (end < 0) || (start > end) || (end > _length))
@@ -235,10 +239,10 @@ public class TextBuilder implements Appendable,
     /**
      * Appends the specified character.
      *
-     * @param c the character to append.
+     * @param  c the character to append.
      * @return <code>this</code>
      */
-    public final TextBuilder append(char c) {
+    public final  TextBuilder  append(char c) {
         if (_length >= _capacity)
             increaseCapacity();
         _high[_length >> B1][_length & M1] = c;
@@ -247,7 +251,7 @@ public class TextBuilder implements Appendable,
     }
 
     /**
-     * Appends the textual representation of the specified object.
+     * Appends the textual representation of the specified object. 
      * This method is equivalent to <code>append(Text.valueOf(obj))</code>
      *
      * @param obj the object to represent or <code>null</code>.
@@ -260,7 +264,7 @@ public class TextBuilder implements Appendable,
         if (obj instanceof Realtime)
             return append(((Realtime) obj).toText());
         if (obj instanceof Number)
-            return appendNumber((Number) obj);
+            return appendNumber((Number)obj);
         return append(String.valueOf(obj));
     }
 
@@ -282,41 +286,41 @@ public class TextBuilder implements Appendable,
      * sequence is <code>null</code> this method is equivalent to
      * <code>append("null")</code>.
      *
-     * @param csq the character sequence to append or <code>null</code>.
+     * @param  csq the character sequence to append or <code>null</code>.
      * @return <code>this</code>
      */
-    public final TextBuilder append(java.lang.CharSequence csq) {
+    public final  TextBuilder  append(java.lang.CharSequence csq) {
         return (csq == null) ? append("null") : append(csq, 0, csq.length());
     }
 
     /**
      * Appends a subsequence of the specified character sequence.
-     * If the specified character sequence is <code>null</code> this method
-     * is equivalent to <code>append("null")</code>.
+     * If the specified character sequence is <code>null</code> this method 
+     * is equivalent to <code>append("null")</code>. 
      *
-     * @param csq   the character sequence to append or <code>null</code>.
-     * @param start the index of the first character to append.
-     * @param end   the index after the last character to append.
+     * @param  csq the character sequence to append or <code>null</code>.
+     * @param  start the index of the first character to append.
+     * @param  end the index after the last character to append.
      * @return <code>this</code>
-     * @throws IndexOutOfBoundsException if <code>(start < 0) || (end < 0)
-     *                                   || (start > end) || (end > csq.length())</code>
+     * @throws IndexOutOfBoundsException if <code>(start < 0) || (end < 0) 
+     *         || (start > end) || (end > csq.length())</code>
      */
-    public final TextBuilder append(java.lang.CharSequence csq, int start,
-                                    int end) {
+    public final  TextBuilder  append(java.lang.CharSequence csq, int start,
+            int end) {
         if (csq == null)
             return append("null");
         if ((start < 0) || (end < 0) || (start > end) || (end > csq.length()))
             throw new IndexOutOfBoundsException();
-        for (int i = start; i < end; ) {
+        for (int i = start; i < end;) {
             append(csq.charAt(i++));
         }
         return this;
     }
 
     /**
-     * Appends the specified string to this text builder.
-     * If the specified string is <code>null</code> this method
-     * is equivalent to <code>append("null")</code>.
+     * Appends the specified string to this text builder. 
+     * If the specified string is <code>null</code> this method 
+     * is equivalent to <code>append("null")</code>. 
      *
      * @param str the string to append or <code>null</code>.
      * @return <code>this</code>
@@ -327,15 +331,15 @@ public class TextBuilder implements Appendable,
 
     /**
      * Appends a subsequence of the specified string.
-     * If the specified character sequence is <code>null</code> this method
-     * is equivalent to <code>append("null")</code>.
+     * If the specified character sequence is <code>null</code> this method 
+     * is equivalent to <code>append("null")</code>. 
      *
-     * @param str   the string to append or <code>null</code>.
-     * @param start the index of the first character to append.
-     * @param end   the index after the last character to append.
+     * @param  str the string to append or <code>null</code>.
+     * @param  start the index of the first character to append.
+     * @param  end the index after the last character to append.
      * @return <code>this</code>
-     * @throws IndexOutOfBoundsException if <code>(start < 0) || (end < 0)
-     *                                   || (start > end) || (end > str.length())</code>
+     * @throws IndexOutOfBoundsException if <code>(start < 0) || (end < 0) 
+     *         || (start > end) || (end > str.length())</code>
      */
     public final TextBuilder append(String str, int start, int end) {
         if (str == null)
@@ -346,7 +350,7 @@ public class TextBuilder implements Appendable,
         while (_capacity < newLength) {
             increaseCapacity();
         }
-        for (int i = start, j = _length; i < end; ) {
+        for (int i = start, j = _length; i < end;) {
             char[] chars = _high[j >> B1];
             int dstBegin = j & M1;
             int inc = MathLib.min(C1 - dstBegin, end - i);
@@ -358,9 +362,9 @@ public class TextBuilder implements Appendable,
     }
 
     /**
-     * Appends the specified text to this text builder.
-     * If the specified text is <code>null</code> this method
-     * is equivalent to <code>append("null")</code>.
+     * Appends the specified text to this text builder. 
+     * If the specified text is <code>null</code> this method 
+     * is equivalent to <code>append("null")</code>. 
      *
      * @param txt the text to append or <code>null</code>.
      * @return <code>this</code>
@@ -371,15 +375,15 @@ public class TextBuilder implements Appendable,
 
     /**
      * Appends a subsequence of the specified text.
-     * If the specified character sequence is <code>null</code> this method
-     * is equivalent to <code>append("null")</code>.
+     * If the specified character sequence is <code>null</code> this method 
+     * is equivalent to <code>append("null")</code>. 
      *
-     * @param txt   the text to append or <code>null</code>.
-     * @param start the index of the first character to append.
-     * @param end   the index after the last character to append.
+     * @param  txt the text to append or <code>null</code>.
+     * @param  start the index of the first character to append.
+     * @param  end the index after the last character to append.
      * @return <code>this</code>
-     * @throws IndexOutOfBoundsException if <code>(start < 0) || (end < 0)
-     *                                   || (start > end) || (end > txt.length())</code>
+     * @throws IndexOutOfBoundsException if <code>(start < 0) || (end < 0) 
+     *         || (start > end) || (end > txt.length())</code>
      */
     public final TextBuilder append(Text txt, int start, int end) {
         if (txt == null)
@@ -390,7 +394,7 @@ public class TextBuilder implements Appendable,
         while (_capacity < newLength) {
             increaseCapacity();
         }
-        for (int i = start, j = _length; i < end; ) {
+        for (int i = start, j = _length; i < end;) {
             char[] chars = _high[j >> B1];
             int dstBegin = j & M1;
             int inc = MathLib.min(C1 - dstBegin, end - i);
@@ -404,7 +408,7 @@ public class TextBuilder implements Appendable,
     /**
      * Appends the characters from the char array argument.
      *
-     * @param chars the character array source.
+     * @param  chars the character array source.
      * @return <code>this</code>
      */
     public final TextBuilder append(char chars[]) {
@@ -415,12 +419,12 @@ public class TextBuilder implements Appendable,
     /**
      * Appends the characters from a subarray of the char array argument.
      *
-     * @param chars  the character array source.
-     * @param offset the index of the first character to append.
-     * @param length the number of character to append.
+     * @param  chars the character array source.
+     * @param  offset the index of the first character to append.
+     * @param  length the number of character to append.
      * @return <code>this</code>
-     * @throws IndexOutOfBoundsException if <code>(offset < 0) ||
-     *                                   (length < 0) || ((offset + length) > chars.length)</code>
+     * @throws IndexOutOfBoundsException if <code>(offset < 0) || 
+     *         (length < 0) || ((offset + length) > chars.length)</code>
      */
     public final TextBuilder append(char chars[], int offset, int length) {
         final int end = offset + length;
@@ -430,7 +434,7 @@ public class TextBuilder implements Appendable,
         while (_capacity < newLength) {
             increaseCapacity();
         }
-        for (int i = offset, j = _length; i < end; ) {
+        for (int i = offset, j = _length; i < end;) {
             char[] dstChars = _high[j >> B1];
             int dstBegin = j & M1;
             int inc = MathLib.min(C1 - dstBegin, end - i);
@@ -446,9 +450,9 @@ public class TextBuilder implements Appendable,
      * Appends the textual representation of the specified <code>boolean</code>
      * argument.
      *
-     * @param b the <code>boolean</code> to format.
+     * @param  b the <code>boolean</code> to format.
      * @return <code>this</code>
-     * @see TypeFormat
+     * @see    TypeFormat
      */
     public final TextBuilder append(boolean b) {
         return b ? append("true") : append("false");
@@ -458,7 +462,7 @@ public class TextBuilder implements Appendable,
      * Appends the decimal representation of the specified <code>int</code>
      * argument.
      *
-     * @param i the <code>int</code> to format.
+     * @param  i the <code>int</code> to format.
      * @return <code>this</code>
      */
     public final TextBuilder append(int i) {
@@ -474,7 +478,7 @@ public class TextBuilder implements Appendable,
         if (_capacity < _length + digits)
             increaseCapacity();
         _length += digits;
-        for (int index = _length - 1; ; index--) {
+        for (int index = _length - 1;; index--) {
             int j = i / 10;
             _high[index >> B1][index & M1] = (char) ('0' + i - (j * 10));
             if (j == 0)
@@ -487,8 +491,8 @@ public class TextBuilder implements Appendable,
      * Appends the radix representation of the specified <code>int</code>
      * argument.
      *
-     * @param i     the <code>int</code> to format.
-     * @param radix the radix (e.g. <code>16</code> for hexadecimal).
+     * @param  i the <code>int</code> to format.
+     * @param  radix the radix (e.g. <code>16</code> for hexadecimal).
      * @return <code>this</code>
      */
     public final TextBuilder append(int i, int radix) {
@@ -528,18 +532,17 @@ public class TextBuilder implements Appendable,
         } else
             append(DIGIT_TO_CHAR[l1]);
     }
-
     private final static char[] DIGIT_TO_CHAR = {'0', '1', '2', '3', '4', '5',
-            '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-            'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-            'w', 'x', 'y', 'z'
+        '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+        'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+        'w', 'x', 'y', 'z'
     };
 
     /**
      * Appends the decimal representation of the specified <code>long</code>
      * argument.
      *
-     * @param l the <code>long</code> to format.
+     * @param  l the <code>long</code> to format.
      * @return <code>this</code>
      */
     public final TextBuilder append(long l) {
@@ -564,8 +567,8 @@ public class TextBuilder implements Appendable,
      * Appends the radix representation of the specified <code>long</code>
      * argument.
      *
-     * @param l     the <code>long</code> to format.
-     * @param radix the radix (e.g. <code>16</code> for hexadecimal).
+     * @param  l the <code>long</code> to format.
+     * @param  radix the radix (e.g. <code>16</code> for hexadecimal).
      * @return <code>this</code>
      */
     public final TextBuilder append(long l, int radix) {
@@ -609,7 +612,7 @@ public class TextBuilder implements Appendable,
     /**
      * Appends the textual representation of the specified <code>float</code>.
      *
-     * @param f the <code>float</code> to format.
+     * @param  f the <code>float</code> to format.
      * @return <code>append(f, 10, (abs(f) &gt;= 1E7) || (abs(f) &lt; 0.001), false)</code>
      */
     public final TextBuilder append(float f) {
@@ -618,13 +621,13 @@ public class TextBuilder implements Appendable,
 
     /**
      * Appends the textual representation of the specified <code>double</code>;
-     * the number of digits is 17 or 16 when the 16 digits representation
+     * the number of digits is 17 or 16 when the 16 digits representation 
      * can be parsed back to the same <code>double</code> (mimic the standard
      * library formatting).
-     *
-     * @param d the <code>double</code> to format.
+     * 
+     * @param  d the <code>double</code> to format.
      * @return <code>append(d, -1, (MathLib.abs(d) >= 1E7) ||
-     * (MathLib.abs(d) < 0.001), false)</code>
+     *        (MathLib.abs(d) < 0.001), false)</code>
      */
     public final TextBuilder append(double d) {
         return append(d, -1, (MathLib.abs(d) >= 1E7) ||
@@ -635,19 +638,19 @@ public class TextBuilder implements Appendable,
      * Appends the textual representation of the specified <code>double</code>
      * according to the specified formatting arguments.
      *
-     * @param d          the <code>double</code> value.
-     * @param digits     the number of significative digits (excludes exponent) or
-     *                   <code>-1</code> to mimic the standard library (16 or 17 digits).
-     * @param scientific <code>true</code> to forces the use of the scientific
-     *                   notation (e.g. <code>1.23E3</code>); <code>false</code>
-     *                   otherwise.
-     * @param showZero   <code>true</code> if trailing fractional zeros are
-     *                   represented; <code>false</code> otherwise.
+     * @param  d the <code>double</code> value.
+     * @param  digits the number of significative digits (excludes exponent) or
+     *         <code>-1</code> to mimic the standard library (16 or 17 digits).
+     * @param  scientific <code>true</code> to forces the use of the scientific 
+     *         notation (e.g. <code>1.23E3</code>); <code>false</code> 
+     *         otherwise. 
+     * @param  showZero <code>true</code> if trailing fractional zeros are 
+     *         represented; <code>false</code> otherwise.
      * @return <code>TypeFormat.format(d, digits, scientific, showZero, this)</code>
      * @throws IllegalArgumentException if <code>(digits &gt; 19)</code>)
      */
     public final TextBuilder append(double d, int digits,
-                                    boolean scientific, boolean showZero) {
+            boolean scientific, boolean showZero) {
         if (digits > 19)
             throw new IllegalArgumentException("digits: " + digits);
         if (d != d) // NaN
@@ -738,21 +741,20 @@ public class TextBuilder implements Appendable,
             append(l);
         }
     }
-
     private static final long[] POW10_LONG = new long[]{1L, 10L, 100L, 1000L,
-            10000L, 100000L, 1000000L, 10000000L, 100000000L, 1000000000L,
-            10000000000L, 100000000000L, 1000000000000L, 10000000000000L,
-            100000000000000L, 1000000000000000L, 10000000000000000L,
-            100000000000000000L, 1000000000000000000L};
+        10000L, 100000L, 1000000L, 10000000L, 100000000L, 1000000000L,
+        10000000000L, 100000000000L, 1000000000000L, 10000000000000L,
+        100000000000000L, 1000000000000000L, 10000000000000000L,
+        100000000000000000L, 1000000000000000000L};
 
     /**
      * Inserts the specified character sequence at the specified location.
      *
      * @param index the insertion position.
-     * @param csq   the character sequence being inserted.
+     * @param csq the character sequence being inserted.
      * @return <code>this</code>
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index > this.length())</code>
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *         (index > this.length())</code>
      */
     public final TextBuilder insert(int index, java.lang.CharSequence csq) {
         if ((index < 0) || (index > _length))
@@ -762,19 +764,19 @@ public class TextBuilder implements Appendable,
         while (_length >= _capacity) {
             increaseCapacity();
         }
-        for (int i = _length - shift; --i >= index; ) {
+        for (int i = _length - shift; --i >= index;) {
             this.setCharAt(i + shift, this.charAt(i));
         }
-        for (int i = csq.length(); --i >= 0; ) {
+        for (int i = csq.length(); --i >= 0;) {
             this.setCharAt(index + i, csq.charAt(i));
         }
         return this;
     }
 
     /**
-     * Removes all the characters of this text builder
+     * Removes all the characters of this text builder 
      * (equivalent to <code>this.delete(start, this.length())</code>).
-     *
+     * 
      * @return <code>this.delete(0, this.length())</code>
      */
     public final TextBuilder clear() {
@@ -784,17 +786,17 @@ public class TextBuilder implements Appendable,
 
     /**
      * Removes the characters between the specified indices.
-     *
+     * 
      * @param start the beginning index, inclusive.
-     * @param end   the ending index, exclusive.
+     * @param end the ending index, exclusive.
      * @return <code>this</code>
-     * @throws IndexOutOfBoundsException if <code>(start < 0) || (end < 0)
-     *                                   || (start > end) || (end > this.length())</code>
+     * @throws IndexOutOfBoundsException if <code>(start < 0) || (end < 0) 
+     *         || (start > end) || (end > this.length())</code>
      */
     public final TextBuilder delete(int start, int end) {
         if ((start < 0) || (end < 0) || (start > end) || (end > this.length()))
             throw new IndexOutOfBoundsException();
-        for (int i = end, j = start; i < _length; ) {
+        for (int i = end, j = start; i < _length;) {
             this.setCharAt(j++, this.charAt(i++));
         }
         _length -= end - start;
@@ -808,7 +810,7 @@ public class TextBuilder implements Appendable,
      */
     public final TextBuilder reverse() {
         final int n = _length - 1;
-        for (int j = (n - 1) >> 1; j >= 0; ) {
+        for (int j = (n - 1) >> 1; j >= 0;) {
             char c = charAt(j);
             setCharAt(j, charAt(n - j));
             setCharAt(n - j--, c);
@@ -818,8 +820,8 @@ public class TextBuilder implements Appendable,
 
     /**
      * Returns the {@link Text} corresponding to this {@link TextBuilder}
-     * (allocated on the "stack" when executing in a
-     * {@link com.bbva.czic.routine.mapper.javolution.context.StackContext StackContext}).
+     * (allocated on the "stack" when executing in a 
+     * {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext StackContext}).
      *
      * @return the corresponding {@link Text} instance.
      */
@@ -828,7 +830,7 @@ public class TextBuilder implements Appendable,
     }
 
     /**
-     * Returns the <code>String</code> representation of this
+     * Returns the <code>String</code> representation of this 
      * {@link TextBuilder}.
      *
      * @return the <code>java.lang.String</code> for this text builder.
@@ -872,7 +874,7 @@ public class TextBuilder implements Appendable,
      */
     public final int hashCode() {
         int h = 0;
-        for (int i = 0; i < _length; ) {
+        for (int i = 0; i < _length;) {
             h = 31 * h + charAt(i++);
         }
         return h;
@@ -880,12 +882,12 @@ public class TextBuilder implements Appendable,
 
     /**
      * Compares this text builder against the specified object for equality.
-     * Returns <code>true</code> if the specified object is a text builder
+     * Returns <code>true</code> if the specified object is a text builder 
      * having the same character content.
-     *
-     * @param obj the object to compare with or <code>null</code>.
-     * @return <code>true</code> if that is a text builder with the same
-     * character content as this text; <code>false</code> otherwise.
+     * 
+     * @param  obj the object to compare with or <code>null</code>.
+     * @return <code>true</code> if that is a text builder with the same 
+     *         character content as this text; <code>false</code> otherwise.
      */
     public final boolean equals(Object obj) {
         if (this == obj)
@@ -895,7 +897,7 @@ public class TextBuilder implements Appendable,
         TextBuilder that = (TextBuilder) obj;
         if (this._length != that._length)
             return false;
-        for (int i = 0; i < _length; ) {
+        for (int i = 0; i < _length;) {
             if (this.charAt(i) != that.charAt(i++))
                 return false;
         }
@@ -905,12 +907,12 @@ public class TextBuilder implements Appendable,
     /**
      * Prints out this text builder to <code>System.out</code> (UTF-8 encoding).
      * This method is equivalent to:[code]
-     * synchronized(OUT) {
-     * print(OUT);
-     * OUT.flush();
-     * }
-     * ...
-     * static final OUT = new UTF8StreamWriter().setOutput(System.out);
+     *     synchronized(OUT) {
+     *         print(OUT);
+     *         OUT.flush();
+     *     }
+     *     ...
+     *     static final OUT = new UTF8StreamWriter().setOutput(System.out);
      * [/code]
      */
     public void print() {
@@ -923,18 +925,17 @@ public class TextBuilder implements Appendable,
             throw new Error(e.getMessage());
         }
     }
-
     private static final UTF8StreamWriter SYSTEM_OUT_WRITER = new UTF8StreamWriter().setOutput(System.out);
 
     /**
-     * Prints out this text builder to <code>System.out</code> and then
+     * Prints out this text builder to <code>System.out</code> and then 
      * terminates the line. This method is equivalent to:[code]
-     * synchronized(OUT) {
-     * println(OUT);
-     * OUT.flush();
-     * }
-     * ...
-     * static final OUT = new UTF8StreamWriter().setOutput(System.out);
+     *     synchronized(OUT) {
+     *         println(OUT);
+     *         OUT.flush();
+     *     }
+     *     ...
+     *     static final OUT = new UTF8StreamWriter().setOutput(System.out);
      * [/code]
      */
     public void println() {
@@ -950,7 +951,7 @@ public class TextBuilder implements Appendable,
 
     /**
      * Prints out this text builder to the specified writer.
-     *
+     * 
      * @param writer the destination writer.
      */
     public void print(Writer writer) throws IOException {
@@ -961,9 +962,9 @@ public class TextBuilder implements Appendable,
     }
 
     /**
-     * Prints out this text builder to the specified writer and then terminates
+     * Prints out this text builder to the specified writer and then terminates 
      * the line.
-     *
+     * 
      * @param writer the destination writer.
      */
     public void println(Writer writer) throws IOException {
@@ -972,17 +973,17 @@ public class TextBuilder implements Appendable,
     }
 
     /**
-     * Indicates if this text builder has the same character content as the
+     * Indicates if this text builder has the same character content as the 
      * specified character sequence.
      *
      * @param csq the character sequence to compare with.
-     * @return <code>true</code> if the specified character sequence has the
-     * same character content as this text; <code>false</code> otherwise.
+     * @return <code>true</code> if the specified character sequence has the 
+     *        same character content as this text; <code>false</code> otherwise.
      */
     public final boolean contentEquals(java.lang.CharSequence csq) {
         if (csq.length() != _length)
             return false;
-        for (int i = 0; i < _length; ) {
+        for (int i = 0; i < _length;) {
             char c = i < C1 ? _low[i] : _high[i >> B1][i & M1];
             if (csq.charAt(i++) != c)
                 return false;
@@ -991,17 +992,17 @@ public class TextBuilder implements Appendable,
     }
 
     /**
-     * Equivalent to {@link #contentEquals(CharSequence)}
+     * Equivalent to {@link #contentEquals(CharSequence)} 
      * (for J2ME compability).
      *
      * @param csq the string character sequence to compare with.
-     * @return <code>true</code> if the specified string has the
-     * same character content as this text; <code>false</code> otherwise.
+     * @return <code>true</code> if the specified string has the 
+     *        same character content as this text; <code>false</code> otherwise.
      */
     public final boolean contentEquals(String csq) {
         if (csq.length() != _length)
             return false;
-        for (int i = 0; i < _length; ) {
+        for (int i = 0; i < _length;) {
             char c = i < C1 ? _low[i] : _high[i >> B1][i & M1];
             if (csq.charAt(i++) != c)
                 return false;

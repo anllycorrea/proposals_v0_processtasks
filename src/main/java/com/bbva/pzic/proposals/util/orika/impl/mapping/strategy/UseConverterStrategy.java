@@ -20,18 +20,18 @@ package com.bbva.pzic.proposals.util.orika.impl.mapping.strategy;
 
 import com.bbva.pzic.proposals.util.orika.Converter;
 import com.bbva.pzic.proposals.util.orika.MappingContext;
-import com.bbva.pzic.proposals.util.orika.unenhance.UnenhanceStrategy;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
+import com.bbva.pzic.proposals.util.orika.unenhance.UnenhanceStrategy;
 
 public class UseConverterStrategy implements MappingStrategy {
-
-    private final Converter<Object, Object> converter;
+    
+    private final Converter<Object,Object> converter;
     private final Type<Object> sourceType;
     private final Type<?> destinationType;
     private final UnenhanceStrategy unenhancer;
-
+    
     @SuppressWarnings("unchecked")
-    public UseConverterStrategy(Type<?> sourceType, Type<?> destinationType, Converter<Object, Object> converter, UnenhanceStrategy unenhancer) {
+    public UseConverterStrategy(Type<?> sourceType, Type<?> destinationType, Converter<Object,Object> converter, UnenhanceStrategy unenhancer) {
         this.sourceType = (Type<Object>) sourceType;
         this.destinationType = destinationType;
         this.converter = converter;

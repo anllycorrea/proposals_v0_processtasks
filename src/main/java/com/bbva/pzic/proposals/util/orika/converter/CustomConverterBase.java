@@ -17,58 +17,59 @@
  */
 package com.bbva.pzic.proposals.util.orika.converter;
 
-import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
+import java.lang.reflect.ParameterizedType;
+
 import com.bbva.pzic.proposals.util.orika.MapperFacade;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
-
-import java.lang.reflect.ParameterizedType;
+import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
 
 /**
  * CustomConverterBase provides a utility base for creating customized converters,
  * which determines type parameters automatically. <br><br>
- * <p/>
+ * 
  * It is recommend to extend this class to create your own custom converters.
+ * 
+ * @author matt.deboer@gmail.com
  *
  * @param <S> the source type
  * @param <D> the destination type
- * @author matt.deboer@gmail.com
  * @deprecated use {@link com.bbva.pzic.proposals.util.orika.CustomConverter} instead
  */
 @Deprecated
-public abstract class CustomConverterBase<S, D> implements Converter<S, D> {
-
+public abstract class CustomConverterBase<S, D> implements com.bbva.pzic.proposals.util.orika.converter.Converter<S, D> {
+    
     protected final Type<S> sourceType;
     protected final Type<D> destinationType;
     protected MapperFacade mapperFacade;
-
+    
     public CustomConverterBase() {
         java.lang.reflect.Type genericSuperclass = getClass().getGenericSuperclass();
         if (genericSuperclass != null && genericSuperclass instanceof ParameterizedType) {
-            ParameterizedType superType = (ParameterizedType) genericSuperclass;
+            ParameterizedType superType = (ParameterizedType)genericSuperclass;
             sourceType = TypeFactory.valueOf(superType.getActualTypeArguments()[0]);
             destinationType = TypeFactory.valueOf(superType.getActualTypeArguments()[1]);
         } else {
             throw new IllegalStateException("When you subclass the ConverterBase S and D type-parameters are required.");
         }
     }
-
+    
     public boolean canConvert(Class<S> sourceClass, Class<? extends D> destinationClass) {
-        return this.sourceType.getRawType().equals(sourceClass)
+        return this.sourceType.getRawType().equals(sourceClass) 
                 && this.destinationType.getRawType().equals(destinationClass);
     }
-
+    
     public boolean canConvert(Type<?> sourceClass, Type<?> destinationClass) {
         return this.sourceType.equals(sourceClass) && this.destinationType.equals(destinationClass);
     }
-
+    
     public void setMapperFacade(MapperFacade mapperFacade) {
-        this.mapperFacade = mapperFacade;
+    	this.mapperFacade = mapperFacade;
     }
-
+    
     public Type<S> getAType() {
         return (Type<S>) sourceType;
     }
-
+    
     public Type<D> getBType() {
         return (Type<D>) destinationType;
     }

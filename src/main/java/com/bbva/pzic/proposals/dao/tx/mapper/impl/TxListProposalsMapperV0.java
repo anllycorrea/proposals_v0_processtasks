@@ -2,7 +2,6 @@ package com.bbva.pzic.proposals.dao.tx.mapper.impl;
 
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.Proposal;
-import com.bbva.pzic.proposals.canonic.Term;
 import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR601;
 import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR602;
 import com.bbva.pzic.proposals.dao.tx.mapper.ITxListProposalsMapperV0;
@@ -37,7 +36,8 @@ public class TxListProposalsMapperV0 extends ConfigurableMapper implements ITxLi
 
         factory.classMap(FormatoHYMR602.class, Proposal.class)
                 .field("id", "id")
-                .field("plazo", "term.frequency")
+                .field("tipplaz", "term.frequency")
+                .field("plazo", "term.value")
                 .field("tippro", "product.productClassification.id")
                 .field("montprd", "grantedAmount.value")
                 .field("moneda", "grantedAmount.currency")
@@ -57,13 +57,11 @@ public class TxListProposalsMapperV0 extends ConfigurableMapper implements ITxLi
     public Proposal mapOut(final FormatoHYMR602 formatOut,
                            final Proposal proposal) {
         Proposal data = map(formatOut, Proposal.class);
-        String tipplaz = enumMapper.getEnumValue("conditions.period.id", formatOut.getTipplaz());
-        if (tipplaz != null) {
-            if (data.getTerm() == null) {
-                data.setTerm(new Term());
-            }
-            //TODO: settear el valor del enumerado cuando se confirme el campo
-            //data.getTerm().setValue(tipplaz);
+        //TODO: settear el valor del enumerado cuando se confirme el campo
+
+        if (formatOut.getTipplaz() != null) {
+            data.getTerm().setFrequency(
+                    enumMapper.getEnumValue("conditions.period.id", formatOut.getTipplaz()));
         }
         return data;
     }

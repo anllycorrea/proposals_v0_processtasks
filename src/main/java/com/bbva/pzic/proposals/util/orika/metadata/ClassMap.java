@@ -8,12 +8,12 @@
 
 package com.bbva.pzic.proposals.util.orika.metadata;
 
-import com.bbva.pzic.proposals.util.orika.MappedTypePair;
-import com.bbva.pzic.proposals.util.orika.Mapper;
-
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import com.bbva.pzic.proposals.util.orika.MappedTypePair;
+import com.bbva.pzic.proposals.util.orika.Mapper;
 
 /**
  * ClassMap represents a mapping association from one type to another.
@@ -23,188 +23,188 @@ import java.util.Set;
  */
 public class ClassMap<A, B> implements MappedTypePair<A, B> {
 
-    private final Type<A> aType;
+	private final Type<A> aType;
 
-    private final Type<B> bType;
+	private final Type<B> bType;
 
-    private final Set<FieldMap> fieldsMapping;
+	private final Set<FieldMap> fieldsMapping;
 
-    private final Set<MapperKey> usedMappers;
+	private final Set<MapperKey> usedMappers;
 
-    private final Mapper<A, B> customizedMapper;
+	private final Mapper<A, B> customizedMapper;
 
-    private final String[] constructorA;
+	private final String[] constructorA;
 
-    private final String[] constructorB;
+	private final String[] constructorB;
 
-    private final MapperKey mapperKey;
+	private final MapperKey mapperKey;
 
-    /**
-     * Constructs a new ClassMap
-     *
-     * @param aType            the 'A' type
-     * @param bType            the 'B' type
-     * @param fieldsMapping    the specific mapping of the fields from type 'A' to type 'B' and vise-versa
-     * @param customizedMapper the customized mapper that should be used
-     * @param usedMappers      the set of mappers used by this mapper to map ancestors' fields
-     * @param constructorA     a description of the parameter names of the constructor to use for type 'A'
-     * @param constructorB     a description of the parameter names of the constructor to use for type 'B'
-     */
-    public ClassMap(Type<A> aType, Type<B> bType, Set<FieldMap> fieldsMapping, Mapper<A, B> customizedMapper,
-                    Set<MapperKey> usedMappers, String[] constructorA, String[] constructorB) {
-        this.aType = aType;
-        this.bType = bType;
+	/**
+	 * Constructs a new ClassMap
+	 * 
+	 * @param aType the 'A' type
+	 * @param bType the 'B' type
+	 * @param fieldsMapping the specific mapping of the fields from type 'A' to type 'B' and vise-versa
+	 * @param customizedMapper the customized mapper that should be used
+	 * @param usedMappers the set of mappers used by this mapper to map ancestors' fields
+	 * @param constructorA a description of the parameter names of the constructor to use for type 'A'
+	 * @param constructorB a description of the parameter names of the constructor to use for type 'B'
+	 */
+	public ClassMap(Type<A> aType, Type<B> bType, Set<FieldMap> fieldsMapping, Mapper<A, B> customizedMapper,
+			Set<MapperKey> usedMappers, String[] constructorA, String[] constructorB) {
+		this.aType = aType;
+		this.bType = bType;
 
-        this.customizedMapper = customizedMapper;
+		this.customizedMapper = customizedMapper;
 
-        this.fieldsMapping = Collections.unmodifiableSet(fieldsMapping);
-        this.usedMappers = Collections.unmodifiableSet(usedMappers);
+		this.fieldsMapping = Collections.unmodifiableSet(fieldsMapping);
+		this.usedMappers = Collections.unmodifiableSet(usedMappers);
 
-        this.mapperKey = new MapperKey(aType, bType);
+		this.mapperKey = new MapperKey(aType, bType);
 
-        if (constructorA != null) {
-            this.constructorA = constructorA.clone();
-        } else {
-            this.constructorA = null;
-        }
+		if (constructorA != null) {
+			this.constructorA = constructorA.clone();
+		} else {
+			this.constructorA = null;
+		}
 
-        if (constructorB != null) {
-            this.constructorB = constructorB.clone();
-        } else {
-            this.constructorB = null;
-        }
-    }
+		if (constructorB != null) {
+			this.constructorB = constructorB.clone();
+		} else {
+			this.constructorB = null;
+		}
+	}
 
-    public ClassMap<A, B> copy(Set<FieldMap> fieldsMapping) {
-        Set<MapperKey> usedMappers = new LinkedHashSet<MapperKey>();
-        usedMappers.addAll(this.usedMappers);
-        String[] constructorA = this.constructorA == null ? null : this.constructorA.clone();
-        String[] constructorB = this.constructorB == null ? null : this.constructorB.clone();
+	public ClassMap<A, B> copy(Set<FieldMap> fieldsMapping) {
+		Set<MapperKey> usedMappers = new LinkedHashSet<MapperKey>();
+		usedMappers.addAll(this.usedMappers);
+		String[] constructorA = this.constructorA == null ? null : this.constructorA.clone();
+		String[] constructorB = this.constructorB == null ? null : this.constructorB.clone();
 
-        return new ClassMap<A, B>(aType, bType, fieldsMapping, customizedMapper, usedMappers, constructorA,
-                constructorB);
-    }
+		return new ClassMap<A, B>(aType, bType, fieldsMapping, customizedMapper, usedMappers, constructorA,
+				constructorB);
+	}
 
-    public MapperKey getMapperKey() {
-        return mapperKey;
-    }
+	public MapperKey getMapperKey() {
+		return mapperKey;
+	}
 
-    /**
-     * @param fieldMap
-     */
-    public void addFieldMap(FieldMap fieldMap) {
-        fieldsMapping.add(fieldMap);
-    }
+	/**
+	 * @param fieldMap
+	 */
+	public void addFieldMap(FieldMap fieldMap) {
+		fieldsMapping.add(fieldMap);
+	}
 
-    /**
-     * @return the 'A' type for the mapping
-     */
-    @Override
-    public Type<A> getAType() {
-        return aType;
-    }
+	/**
+	 * @return the 'A' type for the mapping
+	 */
+	@Override
+	public Type<A> getAType() {
+		return aType;
+	}
 
-    /**
-     * @return the 'B' type for the mapping
-     */
-    @Override
-    public Type<B> getBType() {
-        return bType;
-    }
+	/**
+	 * @return the 'B' type for the mapping
+	 */
+	@Override
+	public Type<B> getBType() {
+		return bType;
+	}
 
-    /**
-     * @return the mapping of fields between the two types of this mapping
-     */
-    public Set<FieldMap> getFieldsMapping() {
-        return fieldsMapping;
-    }
+	/**
+	 * @return the mapping of fields between the two types of this mapping
+	 */
+	public Set<FieldMap> getFieldsMapping() {
+		return fieldsMapping;
+	}
 
-    /**
-     * @return the name of the 'A' type
-     */
-    public String getATypeName() {
-        return aType.getSimpleName();
-    }
+	/**
+	 * @return the name of the 'A' type
+	 */
+	public String getATypeName() {
+		return aType.getSimpleName();
+	}
 
-    /**
-     * @return the name of the 'B' type
-     */
-    public String getBTypeName() {
-        return bType.getSimpleName();
-    }
+	/**
+	 * @return the name of the 'B' type
+	 */
+	public String getBTypeName() {
+		return bType.getSimpleName();
+	}
 
-    /**
-     * @return the customized Mapper to be used for this mapping
-     */
-    public Mapper<A, B> getCustomizedMapper() {
-        return customizedMapper;
-    }
+	/**
+	 * @return the customized Mapper to be used for this mapping
+	 */
+	public Mapper<A, B> getCustomizedMapper() {
+		return customizedMapper;
+	}
 
-    /**
-     * @return
-     */
-    public String getMapperClassName() {
-        return "4Ever_" + getBTypeName() + "_" + getATypeName() + "_Mapper";
-    }
+	/**
+	 * @return
+	 */
+	public String getMapperClassName() {
+		return "4Ever_" + getBTypeName() + "_" + getATypeName() + "_Mapper";
+	}
 
-    /**
-     * @return
-     */
-    public String[] getConstructorA() {
-        return constructorA;
-    }
+	/**
+	 * @return
+	 */
+	public String[] getConstructorA() {
+		return constructorA;
+	}
 
-    /**
-     * @return
-     */
-    public String[] getConstructorB() {
-        return constructorB;
-    }
+	/**
+	 * @return
+	 */
+	public String[] getConstructorB() {
+		return constructorB;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = 31;
-        result = result + (aType == null ? 0 : aType.hashCode());
-        result = result + (bType == null ? 0 : bType.hashCode());
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		int result = 31;
+		result = result + (aType == null ? 0 : aType.hashCode());
+		result = result + (bType == null ? 0 : bType.hashCode());
+		return result;
+	}
 
-    public Set<MapperKey> getUsedMappers() {
-        return usedMappers;
-    }
+	public Set<MapperKey> getUsedMappers() {
+		return usedMappers;
+	}
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "([A]:" + aType + ", [B]:" + bType + ")";
-    }
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + "([A]:" + aType + ", [B]:" + bType + ")";
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ClassMap<?, ?> other = (ClassMap<?, ?>) obj;
-        if (aType == null) {
-            if (other.aType != null) {
-                return false;
-            }
-        } else if (!aType.equals(other.aType)) {
-            return false;
-        }
-        if (bType == null) {
-            if (other.bType != null) {
-                return false;
-            }
-        } else if (!bType.equals(other.bType)) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final ClassMap<?, ?> other = (ClassMap<?, ?>)obj;
+		if (aType == null) {
+			if (other.aType != null) {
+				return false;
+			}
+		} else if (!aType.equals(other.aType)) {
+			return false;
+		}
+		if (bType == null) {
+			if (other.bType != null) {
+				return false;
+			}
+		} else if (!bType.equals(other.bType)) {
+			return false;
+		}
+		return true;
+	}
 
 }

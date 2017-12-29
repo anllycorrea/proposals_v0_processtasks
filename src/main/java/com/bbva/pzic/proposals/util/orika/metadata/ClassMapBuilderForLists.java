@@ -18,8 +18,8 @@
 
 package com.bbva.pzic.proposals.util.orika.metadata;
 
-import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.DefaultFieldMapper;
+import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.property.PropertyResolverStrategy;
 
 /**
@@ -29,27 +29,27 @@ import com.bbva.pzic.proposals.util.orika.property.PropertyResolverStrategy;
  * @param <A>
  * @param <B>
  */
-public class ClassMapBuilderForLists<A, B> extends ClassMapBuilderForMaps<A, B> {
+public class ClassMapBuilderForLists<A, B> extends ClassMapBuilderForMaps<A,B> {
+    
+	
+	public static class Factory extends ClassMapBuilderFactory {
 
-
-    public static class Factory extends ClassMapBuilderFactory {
-
-        /* (non-Javadoc)
-         * @see ma.glasnost.orika.metadata.ClassMapBuilderFactory#newClassMapBuilder(ma.glasnost.orika.metadata.Type, ma.glasnost.orika.metadata.Type, ma.glasnost.orika.property.PropertyResolverStrategy, ma.glasnost.orika.DefaultFieldMapper[])
-         */
+		/* (non-Javadoc)
+		 * @see ma.glasnost.orika.metadata.ClassMapBuilderFactory#newClassMapBuilder(ma.glasnost.orika.metadata.Type, ma.glasnost.orika.metadata.Type, ma.glasnost.orika.property.PropertyResolverStrategy, ma.glasnost.orika.DefaultFieldMapper[])
+		 */
         @Override
-        protected <A, B> ClassMapBuilder<A, B> newClassMapBuilder(
-                Type<A> aType, Type<B> bType,
-                MapperFactory mapperFactory,
-                PropertyResolverStrategy propertyResolver,
-                DefaultFieldMapper[] defaults) {
-
-            return new ClassMapBuilderForLists<A, B>(aType, bType, mapperFactory, propertyResolver, defaults);
-        }
-    }
-
-    private int currentIndex = 0;
-
+		protected <A, B> ClassMapBuilder<A,B> newClassMapBuilder(
+				Type<A> aType, Type<B> bType,
+				MapperFactory mapperFactory,
+				PropertyResolverStrategy propertyResolver,
+				DefaultFieldMapper[] defaults) {
+			
+			return new ClassMapBuilderForLists<A,B>(aType, bType, mapperFactory, propertyResolver, defaults);
+		}
+	}
+	
+	private int currentIndex = 0;
+	
     /**
      * @param aType
      * @param bType
@@ -57,60 +57,61 @@ public class ClassMapBuilderForLists<A, B> extends ClassMapBuilderForMaps<A, B> 
      * @param defaults
      */
     protected ClassMapBuilderForLists(Type<A> aType, Type<B> bType, MapperFactory mapperFactory, PropertyResolverStrategy propertyResolver, DefaultFieldMapper... defaults) {
-        super(aType, bType, mapperFactory, propertyResolver, defaults);
-    }
-
+	    super(aType, bType, mapperFactory, propertyResolver, defaults);
+	}
+       
     protected ClassMapBuilderForLists<A, B> self() {
         return this;
-    }
-
+    }           
+    
     protected boolean isATypeBean() {
         return !getAType().isList();
     }
-
+    
     protected boolean isSpecialCaseType(Type<?> type) {
         return type.isList();
     }
-
+    
     protected int resolveAndIncrementIndex(String expr) {
         int nextIndex;
         try {
             nextIndex = Integer.valueOf(expr.replaceAll("[\\[\\]]", ""));
         } catch (NumberFormatException e) {
-            nextIndex = currentIndex + 1;
+            nextIndex =  currentIndex + 1;
         }
         currentIndex = nextIndex;
         return nextIndex;
     }
-
+    
     public FieldMapBuilder<A, B> fieldMap(String fieldNameA, String fieldNameB, boolean byDefault) {
-
+        
         if (isATypeBean()) {
             fieldNameB = "" + resolveAndIncrementIndex(fieldNameB);
         } else {
             fieldNameA = "" + resolveAndIncrementIndex(fieldNameA);
         }
-
+         
         return super.fieldMap(fieldNameA, fieldNameB, byDefault);
     }
-
+     
     protected Property resolveCustomProperty(String expr, Type<?> propertyType) {
         int index = Integer.valueOf(expr.replaceAll("[\\[\\]]", ""));
         return new ListElementProperty(index, propertyType.getNestedType(0));
     }
-
+    
     /**
      * ListElementProperty is a special Property instance used to represent a value
      * which associated with a particular index in a list.
-     *
+     * 
      * @author matt.deboer@gmail.com
+     *
      */
     public static final class ListElementProperty extends Property {
 
         public ListElementProperty(int index, Type<?> propertyType) {
-            super("[" + index + "]", "[" + index + "]", "get(" + index + ")", "add(" + index + ", %s)", propertyType, null);
+            super("["+index + "]","["+index + "]","get(" + index + ")","add(" + index + ", %s)",propertyType,null);
         }
-
+        
         public boolean isListElement() {
             return true;
         }

@@ -18,53 +18,54 @@
 package com.bbva.pzic.proposals.util.orika.impl;
 
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
-import com.bbva.pzic.proposals.util.orika.MappingContextFactory;
 import com.bbva.pzic.proposals.util.orika.MappingContext;
+import com.bbva.pzic.proposals.util.orika.MappingContextFactory;
 
 /**
  * @author matt.deboer@gmail.com
+ * 
  */
 public class NonCyclicBoundMapperFacade<A, B> extends DefaultBoundMapperFacade<A, B> {
-
+    
     private static final class NonCyclicMappingContext extends MappingContext {
-
+        
         public <S, D> void cacheMappedObject(S source, D destination) {
             // No-op
         }
-
+        
         public <S, D> void cacheMappedObject(S source, java.lang.reflect.Type destinationType, D destination) {
             // No-op
         }
-
+        
         public <S, D> boolean isAlreadyMapped(S source, java.lang.reflect.Type destinationType) {
             return false;
         }
-
+        
         public <D> D getMappedObject(Object source, java.lang.reflect.Type destinationType) {
             return null;
         }
     }
-
+    
     private final MappingContext nonCyclicContext;
-
+    
     NonCyclicBoundMapperFacade(MapperFactory mapperFactory, MappingContextFactory contextFactory, java.lang.reflect.Type sourceType,
-                               java.lang.reflect.Type destinationType) {
+            java.lang.reflect.Type destinationType) {
         super(mapperFactory, contextFactory, sourceType, destinationType);
         this.nonCyclicContext = new NonCyclicMappingContext();
     }
-
+    
     public B map(A source) {
         return super.map(source, nonCyclicContext);
     }
-
+    
     public A mapReverse(B source) {
         return super.mapReverse(source, nonCyclicContext);
     }
-
+    
     public void map(A source, B destination) {
         super.map(source, destination, nonCyclicContext);
     }
-
+    
     public void mapReverse(B destination, A source) {
         super.mapReverse(destination, source, nonCyclicContext);
     }

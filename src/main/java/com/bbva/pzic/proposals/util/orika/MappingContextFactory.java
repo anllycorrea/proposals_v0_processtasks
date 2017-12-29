@@ -19,20 +19,21 @@ package com.bbva.pzic.proposals.util.orika;
 
 /**
  * @author matt.deboer@gmail.com
+ *
  */
 public interface MappingContextFactory {
-
+    
     /**
      * Gets an available instance of MappingContext
-     *
+     * 
      * @return an instance of MappingContext
      */
     public MappingContext getContext();
-
+    
     /**
      * Allows for implementations that reuse objects to clean-up/clear any resources
      * associated with the particular context instance once it is no longer needed.
-     *
+     * 
      * @param context the context to be recycled
      */
     public void release(MappingContext context);

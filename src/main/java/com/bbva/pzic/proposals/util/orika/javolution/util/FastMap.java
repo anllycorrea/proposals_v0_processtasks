@@ -10,117 +10,126 @@ package com.bbva.pzic.proposals.util.orika.javolution.util;
 
 import com.bbva.pzic.proposals.util.orika.javax.realtime.MemoryArea;
 import com.bbva.pzic.proposals.util.orika.javolution.context.ArrayFactory;
-import com.bbva.pzic.proposals.util.orika.javolution.context.PersistentContext;
-import com.bbva.pzic.proposals.util.orika.javolution.lang.MathLib;
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
-import com.bbva.pzic.proposals.util.orika.javolution.text.Text;
-import com.bbva.pzic.proposals.util.orika.javolution.xml.XMLSerializable;
 import com.bbva.pzic.proposals.util.orika.javolution.context.LogContext;
 import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
+import com.bbva.pzic.proposals.util.orika.javolution.context.PersistentContext;
+import com.bbva.pzic.proposals.util.orika.javolution.lang.MathLib;
 import com.bbva.pzic.proposals.util.orika.javolution.lang.Realtime;
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
+import com.bbva.pzic.proposals.util.orika.javolution.text.Text;
+import com.bbva.pzic.proposals.util.orika.javolution.util.FastCollection.Record;
+import com.bbva.pzic.proposals.util.orika.javolution.xml.XMLSerializable;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintStream;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 
 /**
- * <p> This class represents a hash map with real-time behavior;
- * smooth capacity increase and <i>thread-safe</i> without external
- * synchronization when {@link #shared shared}.</p>
- * <img src="doc-files/map-put.png"/>
- * <p/>
+ * <p> This class represents a hash map with real-time behavior; 
+ *     smooth capacity increase and <i>thread-safe</i> without external 
+ *     synchronization when {@link #shared shared}.</p>
+ *     <img src="doc-files/map-put.png"/>
+ *     
  * <p> {@link FastMap} has a predictable iteration order, which is the order in
- * which keys are inserted into the map (similar to
- * <code>java.util.LinkedHashMap</code> collection class). If the map is
- * marked {@link #shared shared} then all operations are
- * thread-safe including iterations over the map's collections.
- * Unlike <code>ConcurrentHashMap</code>, {@link #get(Object) access} never
- * blocks; retrieval reflects the map state not older than the last time the
- * accessing threads have been synchronized (for multi-processors systems
- * synchronizing ensures that the CPU internal cache is not stale).
- * In most application it is not a problem because thread synchronization
- * is done at high level (e.g. scheduler) and threads run freely
- * (and quickly) until the next synchronization point. In some cases the
- * "happen before" guarantee is necessary (e.g. to ensure unicity) and
- * threads have to be synchronized explicitly. Whenever possible such
- * synchronization should be performed on the key object itself and
- * not the whole map. For example:[code]
- * FastMap<Index, Object> sparseVector = new FastMap<Index, Object>().shared()
- * ... // Put
- * synchronized(index) { // javolution.util.Index instances are unique.
- * sparseVector.put(index, value);
- * }
- * ... // Get
- * synchronized(index) { // Blocking only when accessing the same index.
- * value = sparseVector.get(index); // Latest value guaranteed.
- * }[/code]</p>
- * <p/>
+ *     which keys are inserted into the map (similar to 
+ *     <code>java.util.LinkedHashMap</code> collection class). If the map is 
+ *     marked {@link #shared shared} then all operations are
+ *     thread-safe including iterations over the map's collections. 
+ *     Unlike <code>ConcurrentHashMap</code>, {@link #get(Object) access} never
+ *     blocks; retrieval reflects the map state not older than the last time the
+ *     accessing threads have been synchronized (for multi-processors systems
+ *     synchronizing ensures that the CPU internal cache is not stale).
+ *     In most application it is not a problem because thread synchronization
+ *     is done at high level (e.g. scheduler) and threads run freely
+ *     (and quickly) until the next synchronization point. In some cases the
+ *     "happen before" guarantee is necessary (e.g. to ensure unicity) and
+ *     threads have to be synchronized explicitly. Whenever possible such
+ *     synchronization should be performed on the key object itself and 
+ *     not the whole map. For example:[code]
+ *     FastMap<Index, Object> sparseVector = new FastMap<Index, Object>().shared()
+ *     ... // Put
+ *     synchronized(index) { // javolution.util.Index instances are unique.
+ *         sparseVector.put(index, value);
+ *     }
+ *     ... // Get
+ *     synchronized(index) { // Blocking only when accessing the same index.
+ *         value = sparseVector.get(index); // Latest value guaranteed.
+ *     }[/code]</p>
+ *     
  * <p> {@link FastMap} may use custom key comparators; the default comparator is
- * either {@link FastComparator#DIRECT DIRECT} or
- * {@link FastComparator#REHASH REHASH} based upon the current <a href=
- * "{@docRoot}/overview-summary.html#configuration">Javolution
- * Configuration</a>. Users may explicitly set the key comparator to
- * {@link FastComparator#DIRECT DIRECT} for optimum performance
- * when the hash codes are well distributed for all run-time platforms
- * (e.g. calculated hash codes).</p>
- * <p/>
+ *     either {@link FastComparator#DIRECT DIRECT} or 
+ *     {@link FastComparator#REHASH REHASH} based upon the current <a href=
+ *     "{@docRoot}/overview-summary.html#configuration">Javolution 
+ *     Configuration</a>. Users may explicitly set the key comparator to 
+ *     {@link FastComparator#DIRECT DIRECT} for optimum performance
+ *     when the hash codes are well distributed for all run-time platforms
+ *     (e.g. calculated hash codes).</p>
+ *     
  * <p> Custom key comparators are extremely useful for value retrieval when
- * map's keys and argument keys are not of the same class (such as
- * {@link String} and {@link com.bbva.czic.routine.mapper.javolution.text.Text Text}
- * ({@link FastComparator#LEXICAL LEXICAL})), to substitute more efficient
- * hash code calculations ({@link FastComparator#STRING STRING})
- * or for identity maps ({@link FastComparator#IDENTITY IDENTITY}):[code]
- * FastMap identityMap = new FastMap().setKeyComparator(FastComparator.IDENTITY);
- * [/code]</p>
- * <p/>
+ *     map's keys and argument keys are not of the same class (such as 
+ *     {@link String} and {@link com.bbva.pzic.proposals.util.orika.javolution.text.Text Text}
+ *     ({@link FastComparator#LEXICAL LEXICAL})), to substitute more efficient
+ *     hash code calculations ({@link FastComparator#STRING STRING}) 
+ *     or for identity maps ({@link FastComparator#IDENTITY IDENTITY}):[code]
+ *     FastMap identityMap = new FastMap().setKeyComparator(FastComparator.IDENTITY);
+ *     [/code]</p>
+ * 
  * <p> {@link FastMap.Entry} can quickly be iterated over (forward or backward)
- * without using iterators. For example:[code]
- * FastMap<String, Thread> map = ...;
- * for (FastMap.Entry<String, Thread> e = map.head(), end = map.tail(); (e = e.getNext()) != end;) {
- * String key = e.getKey(); // No typecast necessary.
- * Thread value = e.getValue(); // No typecast necessary.
- * }[/code]</p>
- * <p/>
- * <p> Custom map implementations may override the {@link #newEntry} method
- * in order to return their own  {@link Entry} implementation (with
- * additional fields for example).</p>
- * <p/>
- * <p> {@link FastMap} are {@link com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable reusable}; they maintain an
- * internal pool of <code>Map.Entry</code> objects. When an entry is removed
- * from a map, it is automatically restored to its pool. Any new entry is
- * allocated in the same memory area as the map itself (RTSJ). If the map
- * is shared, removed entries are not recycled but only dereferenced
- * (to maintain thread-safety) </p>
- * <p/>
+ *     without using iterators. For example:[code]
+ *     FastMap<String, Thread> map = ...;
+ *     for (FastMap.Entry<String, Thread> e = map.head(), end = map.tail(); (e = e.getNext()) != end;) {
+ *          String key = e.getKey(); // No typecast necessary.
+ *          Thread value = e.getValue(); // No typecast necessary.
+ *     }[/code]</p>
+ *     
+ * <p> Custom map implementations may override the {@link #newEntry} method 
+ *     in order to return their own  {@link Entry} implementation (with 
+ *     additional fields for example).</p>
+ *     
+ * <p> {@link FastMap} are {@link Reusable reusable}; they maintain an 
+ *     internal pool of <code>Map.Entry</code> objects. When an entry is removed
+ *     from a map, it is automatically restored to its pool. Any new entry is
+ *     allocated in the same memory area as the map itself (RTSJ). If the map
+ *     is shared, removed entries are not recycled but only dereferenced
+ *     (to maintain thread-safety) </p>
+ *     
  * <p> {@link #shared() Shared} maps do not use internal synchronization, except in case of
- * concurrent modifications of the map structure (entries being added/deleted).
- * Reads and iterations are never synchronized and never blocking.
- * With regards to the memory model, shared maps are equivalent to shared
- * non-volatile variables (no "happen before" guarantee). They can be used
- * as very efficient lookup tables. For example:[code]
- * public class Unit {
- * static FastMap<Unit, String> labels = new FastMap().shared();
- * ...
- * public String toString() {
- * String label = labels.get(this); // No synchronization.
- * if (label != null) return label;
- * label = makeLabel();
- * labels.put(this, label);
- * return label;
- * }
- * }[/code]</p>
- * <p/>
+ *     concurrent modifications of the map structure (entries being added/deleted).
+ *     Reads and iterations are never synchronized and never blocking.
+ *     With regards to the memory model, shared maps are equivalent to shared 
+ *     non-volatile variables (no "happen before" guarantee). They can be used 
+ *     as very efficient lookup tables. For example:[code]
+ *     public class Unit {
+ *         static FastMap<Unit, String> labels = new FastMap().shared();
+ *         ...
+ *         public String toString() {
+ *             String label = labels.get(this); // No synchronization.
+ *             if (label != null) return label;
+ *             label = makeLabel();
+ *             labels.put(this, label);
+ *             return label;
+ *         }
+ *    }[/code]</p>
+ *            
  * <p> <b>Implementation Note:</b> To maintain time-determinism, rehash/resize
- * is performed only when the map's size is small (see chart). For large
- * maps (size > 512), the map is divided recursively into (64)
- * smaller sub-maps. The cost of the dispatching (based upon hashcode
- * value) has been measured to be at most 20% of the access time
- * (and most often way less).</p>
- *
+ *     is performed only when the map's size is small (see chart). For large 
+ *     maps (size > 512), the map is divided recursively into (64)
+ *     smaller sub-maps. The cost of the dispatching (based upon hashcode 
+ *     value) has been measured to be at most 20% of the access time 
+ *     (and most often way less).</p>
+ *            
  * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle </a>
  * @version 5.2, September 11, 2007
  */
-public class FastMap<K, V> implements Map<K, V>, Reusable,
+public class FastMap <K,V>  implements Map <K,V> , Reusable,
         XMLSerializable, Realtime {
 
     // We do a full resize (and rehash) only when the capacity is less than C1.
@@ -135,16 +144,16 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
      * Holds the head entry to which the first entry attaches.
      * The head entry never changes (entries always added last).
      */
-    private transient Entry<K, V> _head;
+    private transient Entry <K,V>  _head;
     /**
      * Holds the tail entry to which the last entry attaches.
      * The tail entry changes as entries are added/removed.
      */
-    private transient Entry<K, V> _tail;
+    private transient Entry <K,V>  _tail;
     /**
-     * Holds the map's entries.
+     * Holds the map's entries. 
      */
-    private transient Entry<K, V>[] _entries;
+    private transient Entry <K,V> [] _entries;
     /**
      * Holds the number of user entry in the entry table.
      */
@@ -155,7 +164,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
      */
     private transient int _nullCount;
     /**
-     * Holds sub-maps (for large collection).
+     * Holds sub-maps (for large collection). 
      */
     private transient FastMap[] _subMaps;
     /**
@@ -181,7 +190,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     /**
      * Holds the unmodifiable view.
      */
-    private transient Map<K, V> _unmodifiable;
+    private transient Map <K,V>  _unmodifiable;
     /**
      * Holds the key comparator.
      */
@@ -200,7 +209,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     private transient boolean _isShared;
 
     /**
-     * Creates a map whose capacity increment smoothly without large resize
+     * Creates a map whose capacity increment smoothly without large resize 
      * operations.
      */
     public FastMap() {
@@ -210,7 +219,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     /**
      * Creates a persistent map associated to the specified unique identifier
      * (convenience method).
-     *
+     * 
      * @param id the unique identifier for this map.
      * @throws IllegalArgumentException if the identifier is not unique.
      * @see com.bbva.DtoIntReference.routine.mapper.javolution.context.PersistentContext.Reference
@@ -227,9 +236,9 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     }
 
     /**
-     * Creates a map of specified maximum size (a full resize may occur if the
+     * Creates a map of specified maximum size (a full resize may occur if the 
      * specififed capacity is exceeded).
-     *
+     * 
      * @param capacity the maximum capacity.
      */
     public FastMap(int capacity) {
@@ -243,13 +252,13 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
         while (tableLength < capacity) {
             tableLength <<= 1;
         }
-        _entries = (Entry<K, V>[]) new Entry[tableLength << 1];
+        _entries = (Entry <K,V> []) new Entry[tableLength << 1];
         _head = newEntry();
         _tail = newEntry();
         _head._next = _tail;
         _tail._previous = _head;
         Entry previous = _tail;
-        for (int i = 0; i++ < capacity; ) {
+        for (int i = 0; i++ < capacity;) {
             Entry newEntry = newEntry();
             newEntry._previous = previous;
             previous._next = newEntry;
@@ -263,7 +272,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
      *
      * @param map the map whose entries are to be placed into this map.
      */
-    public FastMap(Map<? extends K, ? extends V> map) {
+    public FastMap(Map <? extends K, ? extends V>  map) {
         this(map.size());
         putAll(map);
     }
@@ -280,13 +289,13 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
      *
      * @return a new, preallocated or recycled map instance.
      */
-    public static <K, V> FastMap<K, V> newInstance() {
-        return (FastMap<K, V>) FACTORY.object();
+    public static <K,V>  FastMap <K,V>  newInstance() {
+        return (FastMap <K,V> ) FACTORY.object();
     }
 
     /**
      * Recycles the specified map instance.
-     *
+     * 
      * @param instance the map instance to recycle.
      */
     public static void recycle(FastMap instance) {
@@ -294,15 +303,15 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     }
 
     /**
-     * Returns the reverse mapping of this map (for which the keys are this
+     * Returns the reverse mapping of this map (for which the keys are this 
      * map's values and the values are this map's keys).
      *
-     * @return the map having for keys this map values and for values
-     * this map's key.
+     * @return the map having for keys this map values and for values 
+     *         this map's key.
      */
-    public final FastMap<V, K> reverse() {
-        FastMap<V, K> map = (FastMap<V, K>) FACTORY.object();
-        for (Entry<K, V> e = _head, n = _tail; (e = e._next) != n; ) {
+    public final FastMap <V,K>  reverse() {
+        FastMap <V,K>  map = (FastMap <V,K> ) FACTORY.object();
+        for (Entry <K,V>  e = _head,  n = _tail; (e = e._next) != n;) {
             map.put(e._value, e._key);
         }
         return map;
@@ -311,10 +320,10 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     /**
      * Returns the head entry of this map.
      *
-     * @return the entry such as <code>head().getNext()</code> holds
-     * the first map entry.
+     * @return the entry such as <code>head().getNext()</code> holds 
+     *         the first map entry.
      */
-    public final Entry<K, V> head() {
+    public final Entry <K,V>  head() {
         return _head;
     }
 
@@ -322,18 +331,18 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
      * Returns the tail entry of this map.
      *
      * @return the entry such as <code>tail().getPrevious()</code>
-     * holds the last map entry.
+     *         holds the last map entry.
      */
-    public final Entry<K, V> tail() {
+    public final Entry <K,V>  tail() {
         return _tail;
     }
 
     /**
      * Returns the number of key-value mappings in this {@link FastMap}.
-     * <p/>
-     * <p>Note: If concurrent updates are performed, application should not
-     * rely upon the size during iterations.</p>
-     *
+     * 
+     * <p>Note: If concurrent updates are performed, application should not 
+     *          rely upon the size during iterations.</p> 
+     * 
      * @return this map's size.
      */
     public final int size() {
@@ -341,7 +350,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
             return _entryCount;
         }
         int sum = 0;
-        for (int i = 0; i < _subMaps.length; ) {
+        for (int i = 0; i < _subMaps.length;) {
             sum += _subMaps[i++].size();
         }
         return sum;
@@ -349,9 +358,9 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     /**
      * Indicates if this map contains no key-value mappings.
-     *
+     * 
      * @return <code>true</code> if this map contains no key-value mappings;
-     * <code>false</code> otherwise.
+     *         <code>false</code> otherwise.
      */
     public final boolean isEmpty() {
         return _head._next == _tail;
@@ -359,10 +368,10 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     /**
      * Indicates if this map contains a mapping for the specified key.
-     *
+     * 
      * @param key the key whose presence in this map is to be tested.
      * @return <code>true</code> if this map contains a mapping for the
-     * specified key; <code>false</code> otherwise.
+     *         specified key; <code>false</code> otherwise.
      * @throws NullPointerException if the key is <code>null</code>.
      */
     public final boolean containsKey(Object key) {
@@ -371,10 +380,10 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     /**
      * Indicates if this map associates one or more keys to the specified value.
-     *
+     * 
      * @param value the value whose presence in this map is to be tested.
      * @return <code>true</code> if this map maps one or more keys to the
-     * specified value.
+     *         specified value.
      * @throws NullPointerException if the key is <code>null</code>.
      */
     public final boolean containsValue(Object value) {
@@ -383,27 +392,27 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     /**
      * Returns the value to which this map associates the specified key.
-     * This method is always thread-safe regardless whether or not the map
+     * This method is always thread-safe regardless whether or not the map 
      * is marked {@link #isShared() shared}.
-     *
+     * 
      * @param key the key whose associated value is to be returned.
      * @return the value to which this map maps the specified key, or
-     * <code>null</code> if there is no mapping for the key.
+     *         <code>null</code> if there is no mapping for the key.
      * @throws NullPointerException if key is <code>null</code>.
      */
-    public final V get(Object key) {
-        Entry<K, V> entry = getEntry(key);
+    public final  V  get(Object key) {
+        Entry <K,V>  entry = getEntry(key);
         return (entry != null) ? entry._value : null;
     }
 
     /**
      * Returns the entry with the specified key.
      * This method is always thread-safe without synchronization.
-     *
+     * 
      * @param key the key whose associated entry is to be returned.
      * @return the entry for the specified key or <code>null</code> if none.
      */
-    public final Entry<K, V> getEntry(Object key) {
+    public final Entry <K,V>  getEntry(Object key) {
         return getEntry(key, _isDirectKeyComparator ? key.hashCode()
                 : _keyComparator.hashCodeOf(key));
     }
@@ -412,7 +421,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
         final FastMap map = getSubMap(keyHash);
         final Entry[] entries = map._entries; // Atomic.
         final int mask = entries.length - 1;
-        for (int i = keyHash >> map._keyShift; ; i++) {
+        for (int i = keyHash >> map._keyShift;; i++) {
             Entry entry = entries[i & mask];
             if (entry == null) {
                 return null;
@@ -433,27 +442,27 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
      * If this map previously contained a mapping for this key, the old value
      * is replaced. For {@link #isShared() shared} map, internal synchronization
      * is performed only when new entries are created.
-     *
-     * @param key   the key with which the specified value is to be associated.
+     * 
+     * @param key the key with which the specified value is to be associated.
      * @param value the value to be associated with the specified key.
      * @return the previous value associated with specified key, or
-     * <code>null</code> if there was no mapping for key. A
-     * <code>null</code> return can also indicate that the map
-     * previously associated <code>null</code> with the specified key.
+     *         <code>null</code> if there was no mapping for key. A
+     *         <code>null</code> return can also indicate that the map
+     *         previously associated <code>null</code> with the specified key.
      * @throws NullPointerException if the key is <code>null</code>.
      */
-    public final V put(K key, V value) {
-        return (V) put(key, value, _isDirectKeyComparator ? key.hashCode() : _keyComparator.hashCodeOf(key), _isShared, false,
+    public final  V  put( K  key,  V  value) {
+        return ( V ) put(key, value, _isDirectKeyComparator ? key.hashCode() : _keyComparator.hashCodeOf(key), _isShared, false,
                 false);
     }
 
     private final Object put(Object key, Object value, int keyHash,
-                             boolean concurrent, boolean noReplace, boolean returnEntry) {
+            boolean concurrent, boolean noReplace, boolean returnEntry) {
         final FastMap map = getSubMap(keyHash);
         final Entry[] entries = map._entries; // Atomic.
         final int mask = entries.length - 1;
         int slot = -1;
-        for (int i = keyHash >> map._keyShift; ; i++) {
+        for (int i = keyHash >> map._keyShift;; i++) {
             Entry entry = entries[i & mask];
             if (entry == null) {
                 slot = slot < 0 ? i & mask : slot;
@@ -480,7 +489,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
         // Setup entry.
         final Entry entry;
-        if (!_isShared) {
+        if(!_isShared) {
             entry = _tail;
             entry._key = key;
             entry._value = value;
@@ -492,34 +501,34 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
             map._entryCount += ONE_VOLATILE; // Prevents reordering.
             _tail = _tail._next;
         } else {
-            // keep _tail as the same object
+        	// keep _tail as the same object
             // check entry caches
             if (_tail._next == null) {
                 createNewEntries();
             }
             // assign entry
             entry = _tail._next;
-
+            
             // step forward in the entry cache
             _tail._next = entry._next;
-
+            
             // populate entry
             entry._key = key;
             entry._value = value;
             entry._keyHash = keyHash;
             entry._next = _tail;
             entry._previous = _tail._previous; // backwards
-
-            // set the hash table slots
+            
+              // set the hash table slots
             entries[slot] = entry;
             map._entryCount += ONE_VOLATILE; // Prevents reordering.
             // insert into chain at correct location
             entry._next._previous = entry; // backwards
             entry._previous._next = entry; // forwards
         }
-
+        
         if (map._entryCount + map._nullCount > (entries.length >> 1)) { // Table more than half empty.
-            map.resizeTable(_isShared);
+        	map.resizeTable(_isShared);
         }
         return returnEntry ? entry : null;
     }
@@ -530,7 +539,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
             public void run() {
                 Entry previous = _tail;
                 for (int i = 0; i < 8; i++) { // Creates 8 entries at a time.
-                    Entry<K, V> newEntry = newEntry();
+                    Entry <K,V>  newEntry = newEntry();
                     newEntry._previous = previous;
                     previous._next = newEntry;
                     previous = newEntry;
@@ -581,7 +590,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
                 }
 
                 // Copies the current entries to sub-maps. 
-                for (int i = 0; i < _entries.length; ) {
+                for (int i = 0; i < _entries.length;) {
                     Entry entry = _entries[i++];
                     if ((entry == null) || (entry == Entry.NULL)) {
                         continue;
@@ -598,14 +607,14 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
                         return;
                     }
                 }
-
-                if (isShared) {
-                    // clear the entries which now are held by submaps
+                
+                if(isShared) {
+                	// clear the entries which now are held by submaps
                     FastMap.reset(_entries);
                     _nullCount = 0;
                     _entryCount = 0;
                 }
-
+                
                 _useSubMaps = ONE_VOLATILE == 1 ? true : false; // Prevents reordering.   
             }
         });
@@ -624,7 +633,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     // Adds the specified entry to this map table.
     private void mapEntry(Entry entry) {
         final int mask = _entries.length - 1;
-        for (int i = entry._keyHash >> _keyShift; ; i++) {
+        for (int i = entry._keyHash >> _keyShift;; i++) {
             Entry e = _entries[i & mask];
             if (e == null) {
                 _entries[i & mask] = entry;
@@ -637,12 +646,12 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     // The destination table must be empty.
     private void copyEntries(Object[] from, Entry[] to, int count) {
         final int mask = to.length - 1;
-        for (int i = 0; i < count; ) {
+        for (int i = 0; i < count;) {
             Entry entry = (Entry) from[i++];
             if ((entry == null) || (entry == Entry.NULL)) {
                 continue;
             }
-            for (int j = entry._keyHash >> _keyShift; ; j++) {
+            for (int j = entry._keyHash >> _keyShift;; j++) {
                 Entry tmp = to[j & mask];
                 if (tmp == null) {
                     to[j & mask] = entry;
@@ -653,29 +662,29 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     }
 
     /**
-     * Associates the specified value with the specified key in this map and
+     * Associates the specified value with the specified key in this map and 
      * returns the corresponding entry.
-     *
-     * @param key   the key with which the specified value is to be associated.
+     * 
+     * @param key the key with which the specified value is to be associated.
      * @param value the value to be associated with the specified key.
      * @return the entry being added.
      * @throws NullPointerException if the key is <code>null</code>.
      */
-    public final Entry<K, V> putEntry(K key, V value) {
-        return (Entry<K, V>) put(key, value, _isDirectKeyComparator ? key.hashCode() : _keyComparator.hashCodeOf(key), _isShared, false,
+    public final Entry <K,V>  putEntry( K  key,  V  value) {
+        return (Entry <K,V> ) put(key, value, _isDirectKeyComparator ? key.hashCode() : _keyComparator.hashCodeOf(key), _isShared, false,
                 true);
     }
 
     /**
      * Copies all of the mappings from the specified map to this map.
-     *
+     * 
      * @param map the mappings to be stored in this map.
      * @throws NullPointerException the specified map is <code>null</code>,
-     *                              or the specified map contains <code>null</code> keys.
+     *         or the specified map contains <code>null</code> keys.
      */
-    public final void putAll(Map<? extends K, ? extends V> map) {
-        for (Iterator i = map.entrySet().iterator(); i.hasNext(); ) {
-            Map.Entry<K, V> e = (Map.Entry<K, V>) i.next();
+    public final void putAll(Map <? extends K, ? extends V>  map) {
+        for (Iterator i = map.entrySet().iterator(); i.hasNext();) {
+            Map.Entry <K,V>  e = (Map.Entry <K,V> ) i.next();
             put(e.getKey(), e.getValue());
         }
     }
@@ -683,54 +692,54 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     /**
      * Associates the specified value only if the specified key is not already
      * associated. This is equivalent to:[code]
-     * if (!map.containsKey(key))
-     * return map.put(key, value);
-     * else
-     * return map.get(key);[/code]
+     *   if (!map.containsKey(key))
+     *       return map.put(key, value);
+     *   else
+     *       return map.get(key);[/code]
      * except that for shared maps the action is performed atomically.
-     * For shared maps, this method guarantees that if two threads try to
+     * For shared maps, this method guarantees that if two threads try to 
      * put the same key concurrently only one of them will succeed.
      *
-     * @param key   the key with which the specified value is to be associated.
+     * @param key the key with which the specified value is to be associated.
      * @param value the value to be associated with the specified key.
      * @return the previous value associated with specified key, or
-     * <code>null</code> if there was no mapping for key. A
-     * <code>null</code> return can also indicate that the map
-     * previously associated <code>null</code> with the specified key.
+     *         <code>null</code> if there was no mapping for key. A
+     *         <code>null</code> return can also indicate that the map
+     *         previously associated <code>null</code> with the specified key.
      * @throws NullPointerException if the key is <code>null</code>.
      */
-    public final V putIfAbsent(K key,
-                               V value) {
-        return (V) put(key, value, _isDirectKeyComparator ? key.hashCode() : _keyComparator.hashCodeOf(key), _isShared, true,
+    public final  V  putIfAbsent( K  key,
+             V  value) {
+        return ( V ) put(key, value, _isDirectKeyComparator ? key.hashCode() : _keyComparator.hashCodeOf(key), _isShared, true,
                 false);
     }
 
     /**
-     * Removes the entry for the specified key if present. The entry
+     * Removes the entry for the specified key if present. The entry 
      * is recycled if the map is not marked as {@link #isShared shared};
      * otherwise the entry is candidate for garbage collection.
-     * <p/>
+     * 
      * <p> Note: Shared maps in ImmortalMemory (e.g. static) should not remove
-     * their entries as it could cause a memory leak (ImmortalMemory
-     * is never garbage collected), instead they should set their
-     * entry values to <code>null</code>.</p>
-     *
+     *           their entries as it could cause a memory leak (ImmortalMemory
+     *           is never garbage collected), instead they should set their 
+     *           entry values to <code>null</code>.</p> 
+     * 
      * @param key the key whose mapping is to be removed from the map.
      * @return previous value associated with specified key, or
-     * <code>null</code> if there was no mapping for key. A
-     * <code>null</code> return can also indicate that the map
-     * previously associated <code>null</code> with the specified key.
+     *         <code>null</code> if there was no mapping for key. A
+     *         <code>null</code> return can also indicate that the map
+     *         previously associated <code>null</code> with the specified key.
      * @throws NullPointerException if the key is <code>null</code>.
      */
-    public final V remove(Object key) {
-        return (V) remove(key, _isDirectKeyComparator ? key.hashCode() : _keyComparator.hashCodeOf(key), _isShared);
+    public final  V  remove(Object key) {
+        return ( V ) remove(key, _isDirectKeyComparator ? key.hashCode() : _keyComparator.hashCodeOf(key), _isShared);
     }
 
     private final Object remove(Object key, int keyHash, boolean concurrent) {
         final FastMap map = getSubMap(keyHash);
         final Entry[] entries = map._entries; // Atomic.
         final int mask = entries.length - 1;
-        for (int i = keyHash >> map._keyShift; ; i++) {
+        for (int i = keyHash >> map._keyShift;; i++) {
             Entry entry = entries[i & mask];
             if (entry == null) {
                 return null;
@@ -767,27 +776,27 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
                     }
                 } else {
                     // do nothing, preserving the iterator-free iterations of other threads
-                }
+                }                       
                 return prevValue;
             }
         }
     }
 
     /**
-     * <p> Sets the shared status of this map (whether the map is thread-safe
-     * or not). Shared maps are typically used for lookup table (e.g. static
-     * instances in ImmortalMemory). They support concurrent access
-     * (e.g. iterations) without synchronization, the maps updates
-     * themselves are synchronized internally.</p>
-     * <p> Unlike <code>ConcurrentHashMap</code> access to a shared map never
-     * blocks. Retrieval reflects the map state not older than the last
-     * time the accessing thread has been synchronized (for multi-processors
-     * systems synchronizing ensures that the CPU internal cache is not
-     * stale).</p>
-     *
+     * <p> Sets the shared status of this map (whether the map is thread-safe 
+     *     or not). Shared maps are typically used for lookup table (e.g. static 
+     *     instances in ImmortalMemory). They support concurrent access 
+     *     (e.g. iterations) without synchronization, the maps updates 
+     *     themselves are synchronized internally.</p>
+     * <p> Unlike <code>ConcurrentHashMap</code> access to a shared map never 
+     *     blocks. Retrieval reflects the map state not older than the last 
+     *     time the accessing thread has been synchronized (for multi-processors
+     *     systems synchronizing ensures that the CPU internal cache is not 
+     *     stale).</p>
+     * 
      * @return <code>this</code>
      */
-    public FastMap<K, V> shared() {
+    public FastMap <K,V>  shared() {
         _isShared = true;
         return this;
     }
@@ -795,17 +804,17 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     /**
      * @deprecated Replaced by {@link #shared}
      */
-    public FastMap<K, V> setShared(boolean isShared) {
+    public FastMap <K,V>  setShared(boolean isShared) {
         _isShared = isShared;
         return this;
     }
 
     /**
-     * Indicates if this map supports concurrent operations without
+     * Indicates if this map supports concurrent operations without 
      * synchronization (default unshared).
-     *
-     * @return <code>true</code> if this map is thread-safe; <code>false</code>
-     * otherwise.
+     * 
+     * @return <code>true</code> if this map is thread-safe; <code>false</code> 
+     *         otherwise.
      */
     public boolean isShared() {
         return _isShared;
@@ -813,12 +822,12 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     /**
      * Sets the key comparator for this fast map.
-     *
+     * 
      * @param keyComparator the key comparator.
      * @return <code>this</code>
      */
-    public FastMap<K, V> setKeyComparator(
-            FastComparator<? super K> keyComparator) {
+    public FastMap <K,V>  setKeyComparator(
+            FastComparator <? super K>  keyComparator) {
         _keyComparator = keyComparator;
         _isDirectKeyComparator = (keyComparator == FastComparator.DIRECT) || ((_keyComparator == FastComparator.DEFAULT) && !((Boolean) FastComparator.REHASH_SYSTEM_HASHCODE.get()).booleanValue());
         return this;
@@ -826,43 +835,43 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     /**
      * Returns the key comparator for this fast map.
-     *
+     * 
      * @return the key comparator.
      */
-    public FastComparator<? super K> getKeyComparator() {
+    public FastComparator <? super K>  getKeyComparator() {
         return _keyComparator;
     }
 
     /**
      * Sets the value comparator for this map.
-     *
+     * 
      * @param valueComparator the value comparator.
      * @return <code>this</code>
      */
-    public FastMap<K, V> setValueComparator(
-            FastComparator<? super V> valueComparator) {
+    public FastMap <K,V>  setValueComparator(
+            FastComparator <? super V>  valueComparator) {
         _valueComparator = valueComparator;
         return this;
     }
 
     /**
      * Returns the value comparator for this fast map.
-     *
+     * 
      * @return the value comparator.
      */
-    public FastComparator<? super V> getValueComparator() {
+    public FastComparator <? super V>  getValueComparator() {
         return _valueComparator;
     }
 
     /**
-     * Removes all map's entries. The entries are removed and recycled;
-     * unless this map is {@link #isShared shared} in which case the entries
+     * Removes all map's entries. The entries are removed and recycled; 
+     * unless this map is {@link #isShared shared} in which case the entries 
      * are candidate for garbage collection.
-     * <p/>
+     * 
      * <p> Note: Shared maps in ImmortalMemory (e.g. static) should not remove
-     * their entries as it could cause a memory leak (ImmortalMemory
-     * is never garbage collected), instead they should set their
-     * entry values to <code>null</code>.</p>
+     *           their entries as it could cause a memory leak (ImmortalMemory
+     *           is never garbage collected), instead they should set their 
+     *           entry values to <code>null</code>.</p> 
      */
     public final void clear() {
         if (_isShared) {
@@ -870,7 +879,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
             return;
         }
         // Clears keys, values and recycle entries.
-        for (Entry e = _head, end = _tail; (e = e._next) != end; ) {
+        for (Entry e = _head,  end = _tail; (e = e._next) != end;) {
             e._key = null;
             e._value = null;
         }
@@ -880,7 +889,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     private void clearTables() {
         if (_useSubMaps) {
-            for (int i = 0; i < C2; ) {
+            for (int i = 0; i < C2;) {
                 _subMaps[i++].clearTables();
             }
             _useSubMaps = false;
@@ -902,7 +911,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
         MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
 
             public void run() {
-                _entries = (Entry<K, V>[]) new Entry[C0];
+                _entries = (Entry <K,V> []) new Entry[C0];
                 if (_useSubMaps) {
                     _useSubMaps = false;
                     _subMaps = newSubMaps(C0);
@@ -918,16 +927,16 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
      * Returns <code>true</code> if the given object is also a map and the two
      * maps represent the same mappings (regardless of collection iteration
      * order).
-     *
+     * 
      * @param obj the object to be compared for equality with this map.
      * @return <code>true</code> if the specified object is equal to this map;
-     * <code>false</code> otherwise.
+     *         <code>false</code> otherwise.
      */
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         } else if (obj instanceof Map) {
-            Map<?, ?> that = (Map) obj;
+            Map <?,?>  that = (Map) obj;
             return this.entrySet().equals(that.entrySet());
         } else {
             return false;
@@ -936,12 +945,12 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     /**
      * Returns the hash code value for this map.
-     *
+     * 
      * @return the hash code value for this map.
      */
     public int hashCode() {
         int code = 0;
-        for (Entry e = _head, end = _tail; (e = e._next) != end; ) {
+        for (Entry e = _head,  end = _tail; (e = e._next) != end;) {
             code += e.hashCode();
         }
         return code;
@@ -949,7 +958,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     /**
      * Returns the textual representation of this map.
-     *
+     * 
      * @return the textual representation of the entry set.
      */
     public Text toText() {
@@ -957,7 +966,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     }
 
     /**
-     * Returns the <code>String</code> representation of this
+     * Returns the <code>String</code> representation of this 
      * {@link FastMap}.
      *
      * @return <code>toText().toString()</code>
@@ -967,21 +976,21 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     }
 
     /**
-     * Returns a new entry for this map; this method can be overriden by
-     * custom map implementations.
+     * Returns a new entry for this map; this method can be overriden by 
+     * custom map implementations. 
      *
      * @return a new entry.
      */
-    protected Entry<K, V> newEntry() {
+    protected Entry <K,V>  newEntry() {
         return new Entry();
     }
 
     /**
      * Prints the current statistics on this map.
      * This method may help identify poorly defined hash functions.
-     * The average distance should be less than 20% (most of the entries
-     * are in their slots or close).
-     *
+     * The average distance should be less than 20% (most of the entries 
+     * are in their slots or close). 
+     *  
      * @param out the stream to use for output (e.g. <code>System.out</code>)
      */
     public void printStatistics(PrintStream out) {
@@ -1016,7 +1025,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     private int getCapacity() {
         int capacity = 0;
-        for (Entry e = _head; (e = e._next) != null; ) {
+        for (Entry e = _head; (e = e._next) != null;) {
             capacity++;
         }
         return capacity - 1;
@@ -1085,18 +1094,18 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     /**
      * Returns a {@link FastCollection} view of the values contained in this
      * map. The collection is backed by the map, so changes to the
-     * map are reflected in the collection, and vice-versa. The collection
+     * map are reflected in the collection, and vice-versa. The collection 
      * supports element removal, which removes the corresponding mapping from
-     * this map, via the <code>Iterator.remove</code>,
+     * this map, via the <code>Iterator.remove</code>, 
      * <code>Collection.remove</code>, <code>removeAll</code>,
-     * <code>retainAll</code> and <code>clear</code> operations.
-     * It does not support the <code>add</code> or <code>addAll</code>
+     * <code>retainAll</code> and <code>clear</code> operations. 
+     * It does not support the <code>add</code> or <code>addAll</code> 
      * operations.
-     *
-     * @return a collection view of the values contained in this map
-     * (instance of {@link FastCollection}).
+     * 
+     * @return a collection view of the values contained in this map 
+     *         (instance of {@link FastCollection}).
      */
-    public final Collection<V> values() {
+    public final Collection <V>  values() {
         if (_values == null) {
             MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
 
@@ -1202,7 +1211,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     /**
      * Returns a {@link FastCollection} view of the mappings contained in this
-     * map. Each element in the returned collection is a
+     * map. Each element in the returned collection is a 
      * <code>FastMap.Entry</code>. The collection is backed by the map, so
      * changes to the map are reflected in the collection, and vice-versa. The
      * collection supports element removal, which removes the corresponding
@@ -1210,11 +1219,11 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
      * <code>Collection.remove</code>,<code>removeAll</code>,
      * <code>retainAll</code>, and <code>clear</code> operations. It does
      * not support the <code>add</code> or <code>addAll</code> operations.
-     *
+     * 
      * @return a collection view of the mappings contained in this map
-     * (instance of {@link FastCollection}).
+     *         (instance of {@link FastCollection}).
      */
-    public final Set<Map.Entry<K, V>> entrySet() {
+    public final Set <Map.Entry<K,V>>  entrySet() {
         if (_entrySet == null) {
             MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
 
@@ -1269,7 +1278,6 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
         public FastComparator getValueComparator() {
             return _entryComparator;
         }
-
         private final FastComparator _entryComparator = new FastComparator() {
 
             public boolean areEqual(Object o1, Object o2) {
@@ -1354,19 +1362,19 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     }
 
     /**
-     * Returns a {@link FastCollection} view of the keys contained in this
+     * Returns a {@link FastCollection} view of the keys contained in this 
      * map. The set is backed by the map, so changes to the map are reflected
-     * in the set, and vice-versa. The set supports element removal, which
-     * removes the corresponding mapping from this map, via the
+     * in the set, and vice-versa. The set supports element removal, which 
+     * removes the corresponding mapping from this map, via the 
      * <code>Iterator.remove</code>,
-     * <code>Collection.remove</code>,<code>removeAll<f/code>,
+    <code>Collection.remove</code>,<code>removeAll<f/code>,
      * <code>retainAll</code>, and <code>clear</code> operations. It does
      * not support the <code>add</code> or <code>addAll</code> operations.
-     *
+     * 
      * @return a set view of the keys contained in this map
-     * (instance of {@link FastCollection}).
+     *         (instance of {@link FastCollection}).
      */
-    public final Set<K> keySet() {
+    public final Set <K>  keySet() {
         if (_keySet == null) {
             MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
 
@@ -1480,16 +1488,16 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     /**
      * Returns the unmodifiable view associated to this map.
-     * Attempts to modify the returned map or to directly access its
+     * Attempts to modify the returned map or to directly access its  
      * (modifiable) map entries (e.g. <code>unmodifiable().entrySet()</code>)
      * result in an {@link UnsupportedOperationException} being thrown.
      * Unmodifiable {@link FastCollection} views of this map keys and values
-     * are nonetheless obtainable (e.g. <code>unmodifiable().keySet(),
-     * <code>unmodifiable().values()</code>).
-     *
+     * are nonetheless obtainable (e.g. <code>unmodifiable().keySet(), 
+     * <code>unmodifiable().values()</code>). 
+     *  
      * @return an unmodifiable view of this map.
      */
-    public final Map<K, V> unmodifiable() {
+    public final Map <K,V>  unmodifiable() {
         if (_unmodifiable == null) {
             MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
 
@@ -1512,10 +1520,10 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     /**
      * Requires special handling during de-serialization process.
      *
-     * @param stream the object input stream.
-     * @throws IOException            if an I/O error occurs.
+     * @param  stream the object input stream.
+     * @throws IOException if an I/O error occurs.
      * @throws ClassNotFoundException if the class for the object de-serialized
-     *                                is not found.
+     *         is not found.
      */
     private void readObject(ObjectInputStream stream) throws IOException,
             ClassNotFoundException {
@@ -1525,8 +1533,8 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
         final int size = stream.readInt();
         setup(size);
         for (int i = 0; i < size; i++) {
-            K key = (K) stream.readObject();
-            V value = (V) stream.readObject();
+             K  key = ( K ) stream.readObject();
+             V  value = ( V ) stream.readObject();
             put(key, value);
         }
     }
@@ -1534,7 +1542,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
     /**
      * Requires special handling during serialization process.
      *
-     * @param stream the object output stream.
+     * @param  stream the object output stream.
      * @throws IOException if an I/O error occurs.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -1542,7 +1550,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
         stream.writeObject(getValueComparator());
         stream.writeBoolean(_isShared);
         stream.writeInt(size());
-        for (Entry e = _head, end = _tail; (e = e._next) != end; ) {
+        for (Entry e = _head,  end = _tail; (e = e._next) != end;) {
             stream.writeObject(e._key);
             stream.writeObject(e._value);
         }
@@ -1552,16 +1560,16 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
      * This class represents a {@link FastMap} entry.
      * Custom {@link FastMap} may use a derived implementation.
      * For example:[code]
-     * static class MyMap<K,V,X> extends FastMap<K,V> {
-     * protected MyEntry newEntry() {
-     * return new MyEntry();
-     * }
-     * class MyEntry extends Entry<K,V> {
-     * X xxx; // Additional entry field (e.g. cross references).
-     * }
-     * }[/code]
+     *    static class MyMap<K,V,X> extends FastMap<K,V> {
+     *        protected MyEntry newEntry() {
+     *            return new MyEntry();
+     *        }
+     *        class MyEntry extends Entry<K,V> {
+     *            X xxx; // Additional entry field (e.g. cross references).
+     *        }        
+     *    }[/code]
      */
-    public static class Entry<K, V> implements Map.Entry<K, V>, FastCollection.Record, Realtime {
+    public static class Entry <K,V>  implements Map.Entry <K,V> , Record, Realtime {
 
         /**
          * Holds NULL entries (to fill empty hole).
@@ -1570,19 +1578,19 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
         /**
          * Holds the next node.
          */
-        private Entry<K, V> _next;
+        private Entry <K,V>  _next;
         /**
          * Holds the previous node.
          */
-        private Entry<K, V> _previous;
+        private Entry <K,V>  _previous;
         /**
          * Holds the entry key.
          */
-        private K _key;
+        private  K  _key;
         /**
          * Holds the entry value.
          */
-        private V _value;
+        private  V  _value;
         /**
          * Holds the key hash code.
          */
@@ -1596,48 +1604,48 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
         /**
          * Returns the entry after this one.
-         *
+         * 
          * @return the next entry.
          */
-        public final Entry<K, V> getNext() {
+        public final Entry<K,V> getNext() {
             return _next;
         }
 
         /**
          * Returns the entry before this one.
-         *
+         * 
          * @return the previous entry.
          */
-        public final Entry<K, V> getPrevious() {
+        public final Entry<K,V> getPrevious() {
             return _previous;
         }
 
         /**
          * Returns the key for this entry.
-         *
+         * 
          * @return the entry key.
          */
-        public final K getKey() {
+        public final  K  getKey() {
             return _key;
         }
 
         /**
          * Returns the value for this entry.
-         *
+         * 
          * @return the entry value.
          */
-        public final V getValue() {
+        public final  V  getValue() {
             return _value;
         }
 
         /**
          * Sets the value for this entry.
-         *
+         * 
          * @param value the new value.
          * @return the previous value.
          */
-        public final V setValue(V value) {
-            V old = _value;
+        public final  V  setValue( V  value) {
+             V  old = _value;
             _value = value;
             return old;
         }
@@ -1645,10 +1653,10 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
         /**
          * Indicates if this entry is considered equals to the specified entry
          * (using default value and key equality comparator to ensure symetry).
-         *
+         * 
          * @param that the object to test for equality.
          * @return <code>true<code> if both entry have equal keys and values.
-         * <code>false<code> otherwise.
+         *         <code>false<code> otherwise.
          */
         public boolean equals(Object that) {
             if (that instanceof Map.Entry) {
@@ -1661,7 +1669,7 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
         /**
          * Returns the hash code for this entry.
-         *
+         * 
          * @return this entry hash code.
          */
         public int hashCode() {
@@ -1754,13 +1762,12 @@ public class FastMap<K, V> implements Map<K, V>, Reusable,
 
     // Reset the specified table.
     private static void reset(Object[] entries) {
-        for (int i = 0; i < entries.length; ) {
+        for (int i = 0; i < entries.length;) {
             int count = MathLib.min(entries.length - i, C1);
             System.arraycopy(NULL_ENTRIES, 0, entries, i, count);
             i += count;
         }
     }
-
     private static final Entry[] NULL_ENTRIES = new Entry[C1];
     static volatile int ONE_VOLATILE = 1; // To prevent reordering.
     private static final long serialVersionUID = 1L;

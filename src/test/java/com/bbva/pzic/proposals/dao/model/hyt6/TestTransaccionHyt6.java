@@ -2,6 +2,7 @@ package com.bbva.pzic.proposals.dao.model.hyt6;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExec
         "classpath:/META-INF/spring/business-service-test.xml"
     }
 )
+@Ignore
 @TestExecutionListeners(listeners = { MockInvocationContextTestExecutionListener.class, DependencyInjectionTestExecutionListener.class })
 public class TestTransaccionHyt6 {
 	

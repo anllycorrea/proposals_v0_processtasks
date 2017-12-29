@@ -18,33 +18,34 @@
 
 package com.bbva.pzic.proposals.util.orika.property;
 
+import java.util.Map;
+
 import com.bbva.pzic.proposals.util.orika.metadata.NestedProperty;
 import com.bbva.pzic.proposals.util.orika.metadata.Property;
-
-import java.util.Map;
 
 /**
  * PropertyResolverStrategy specifies a contract for resolution of
  * mappable properties for a java type.
- *
+ * 
  * @author matt.deboer@gmail.com
+ *
  */
 public interface PropertyResolverStrategy {
-
+    
     /**
      * Collects and returns the (mappable) properties for the given type.
-     * Such properties are not required to have both getter and setter,
+     * Such properties are not required to have both getter and setter, 
      * as in some cases, they will participate in one-way mappings.
-     *
-     * @param type the type for which to resolve properties
+     * 
+     * @param type the type for which to resolve properties 
      * @return
      */
     Map<String, Property> getProperties(java.lang.reflect.Type type);
-
+    
     /**
      * Resolves a nested property for the provided type, based on the specified
      * property expression (a sequence property names qualified by '.').
-     *
+     * 
      * @param type
      * @param propertyExpression
      * @return
@@ -52,11 +53,11 @@ public interface PropertyResolverStrategy {
      */
     @Deprecated
     NestedProperty getNestedProperty(java.lang.reflect.Type type, String propertyExpression);
-
+    
     /**
      * Resolves a property for the specified type; nested and dynamically defined properties
      * should be handled automatically.
-     *
+     * 
      * @param type
      * @param dynamicPropertyExpression
      * @return

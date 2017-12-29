@@ -21,63 +21,63 @@ package com.bbva.pzic.proposals.util.orika.metadata;
 import com.bbva.pzic.proposals.util.orika.MappedTypePair;
 
 
-public class MapperKey implements MappedTypePair<Object, Object> {
+public class MapperKey implements MappedTypePair<Object,Object>{
 
-    private Type<Object> aType;
-    private Type<Object> bType;
+	private Type<Object> aType;
+	private Type<Object> bType;
 
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
     public MapperKey(Type<?> aType, Type<?> bType) {
-        this.aType = (Type<Object>) aType;
-        this.bType = (Type<Object>) bType;
-    }
+		this.aType = (Type<Object>) aType;
+		this.bType = (Type<Object>) bType;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+		if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
-        final MapperKey mapperKey = (MapperKey) o;
+		final MapperKey mapperKey = (MapperKey) o;
 
-        return equals(aType, mapperKey.aType) && equals(bType, mapperKey.bType)
-                || equals(aType, mapperKey.bType) || equals(bType, mapperKey.aType);
+		return equals(aType, mapperKey.aType) && equals(bType, mapperKey.bType)
+				|| equals(aType, mapperKey.bType) || equals(bType, mapperKey.aType);
 
-    }
+	}
 
-    private boolean equals(Type<?> a, Type<?> b) {
-        return a == null ? b == null : a.equals(b);
-    }
+	private boolean equals(Type<?> a, Type<?> b) {
+		return a == null ? b == null : a.equals(b);
+	}
 
-    public String toString() {
-        return "{[A]" + aType + ",[B]" + bType + "}";
-    }
+	public String toString() {
+	    return "{[A]"+aType+",[B]"+bType+"}";
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = aType != null ? aType.hashCode() : 0;
+		result = result + (bType != null ? bType.hashCode() : 0);
+		return result;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = aType != null ? aType.hashCode() : 0;
-        result = result + (bType != null ? bType.hashCode() : 0);
-        return result;
-    }
+	public Type<Object> getAType() {
+		return aType;
+	}
 
-    public Type<Object> getAType() {
-        return aType;
-    }
-
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
     public void setAType(Type<? super Object> aType) {
-        this.aType = (Type<Object>) aType;
-    }
+		this.aType = (Type<Object>) aType;
+	}
 
-    public Type<Object> getBType() {
-        return bType;
-    }
+	public Type<Object> getBType() {
+		return bType;
+	}
 
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
     public void setBType(Type<?> bType) {
-        this.bType = (Type<Object>) bType;
-    }
+		this.bType = (Type<Object>) bType;
+	}
 }

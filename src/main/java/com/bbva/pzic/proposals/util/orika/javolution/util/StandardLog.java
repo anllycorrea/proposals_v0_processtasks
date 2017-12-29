@@ -8,29 +8,31 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.util;
 
-import com.bbva.pzic.proposals.util.orika.javolution.context.LogContext;
-
+import java.lang.CharSequence;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+import com.bbva.pzic.proposals.util.orika.javolution.context.LogContext;
+
 /**
- * <p> This class represents a specialized logging context forwarding events
- * to a standard logger (<code>java.util.logging.Logger</code>).</p>
- * <p/>
- * <p> This class leverages the capabilities of the standard logging facility
- * and extends it to support specialized {@link com.bbva.pzic.proposals.util.orika.javolution.context.LogContext logging} on a
- * thread or object basis. For example:[code]
- * StandardLog remoteLog = new StandardLog(Logger.getLogger("remote"));
- * StandardLog.enter(remoteLog);
- * try {
- * StandardLog.fine("Current thread uses a remote logger");
- * ...
- * } finally {
- * StandardLog.exit(remoteLog); // Reverts to previous logging context.
- * }[/code]</p>
+ * <p> This class represents a specialized logging context forwarding events 
+ *     to a standard logger (<code>java.util.logging.Logger</code>).</p>
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * <p> This class leverages the capabilities of the standard logging facility 
+ *     and extends it to support specialized {@link LogContext logging} on a 
+ *     thread or object basis. For example:[code]
+ *     StandardLog remoteLog = new StandardLog(Logger.getLogger("remote"));
+ *     StandardLog.enter(remoteLog); 
+ *     try {
+ *         StandardLog.fine("Current thread uses a remote logger");
+ *         ...       
+ *     } finally {
+ *         StandardLog.exit(remoteLog); // Reverts to previous logging context.
+ *     }[/code]</p>
+ *     
+ *     
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.3, March 13, 2007
  */
 public class StandardLog extends LogContext {
@@ -41,7 +43,7 @@ public class StandardLog extends LogContext {
     private Logger _logger;
 
     /**
-     * Creates a logging context forwarding events to the root logger
+     * Creates a logging context forwarding events to the root logger 
      * (<code>Logger.getLogger("")</code>).
      */
     public StandardLog() {
@@ -49,9 +51,9 @@ public class StandardLog extends LogContext {
     }
 
     /**
-     * Creates a standard log context forwarding events to the specified
+     * Creates a standard log context forwarding events to the specified 
      * logger.
-     *
+     * 
      * @param logger the logger to which log events are forwarded to.
      */
     public StandardLog(Logger logger) {
@@ -60,7 +62,7 @@ public class StandardLog extends LogContext {
 
     /**
      * Returns the logger to which this context forwards the events to.
-     *
+     * 
      * @return the logger for this standard logging context.
      */
     public final Logger getLogger() {
@@ -73,7 +75,7 @@ public class StandardLog extends LogContext {
      *
      * @param level the message logging level
      * @return <code>true</code> if a message of specified level would actually
-     * be logged;<code>false</code> otherwise.
+     *        be logged;<code>false</code> otherwise.
      */
     public static boolean isLoggable(Level level) {
         LogContext log = (LogContext) LogContext.getCurrentLogContext();
@@ -121,10 +123,10 @@ public class StandardLog extends LogContext {
     }
 
     /**
-     * Logs a {@link Level#SEVERE SEVERE} message. If the current logging
+     * Logs a {@link Level#SEVERE SEVERE} message. If the current logging 
      * context is not a {@link StandardLog} a {@link LogContext#error
      * error} message is logged.
-     *
+     * 
      * @param msg the severe message.
      */
     public static void severe(String msg) {
@@ -137,9 +139,9 @@ public class StandardLog extends LogContext {
     }
 
     /**
-     * Logs a {@link Level#CONFIG CONFIG} message. If the current logging
+     * Logs a {@link Level#CONFIG CONFIG} message. If the current logging 
      * context is not a {@link StandardLog} no message is logged.
-     *
+     * 
      * @param msg the config message.
      */
     public static void config(String msg) {
@@ -150,9 +152,9 @@ public class StandardLog extends LogContext {
     }
 
     /**
-     * Logs a {@link Level#FINE FINE} message. If the current logging
+     * Logs a {@link Level#FINE FINE} message. If the current logging 
      * context is not a {@link StandardLog} no message is logged.
-     *
+     * 
      * @param msg the fine message.
      */
     public static void fine(String msg) {
@@ -163,9 +165,9 @@ public class StandardLog extends LogContext {
     }
 
     /**
-     * Logs a {@link Level#FINER FINER} message. If the current logging
+     * Logs a {@link Level#FINER FINER} message. If the current logging 
      * context is not a {@link StandardLog} no message is logged.
-     *
+     * 
      * @param msg the finer message.
      */
     public static void finer(String msg) {
@@ -176,9 +178,9 @@ public class StandardLog extends LogContext {
     }
 
     /**
-     * Logs a {@link Level#FINEST FINEST} message. If the current logging
+     * Logs a {@link Level#FINEST FINEST} message. If the current logging 
      * context is not a {@link StandardLog} no message is logged.
-     *
+     * 
      * @param msg the finest message.
      */
     public static void finest(String msg) {
@@ -189,15 +191,15 @@ public class StandardLog extends LogContext {
     }
 
     /**
-     * Logs throwing an exception. If the current logging context is not a
+     * Logs throwing an exception. If the current logging context is not a 
      * {@link StandardLog} an {@link LogContext#error error} is logged.
-     *
-     * @param sourceClass  name of class that issued the logging request.
+     * 
+     * @param sourceClass name of class that issued the logging request.
      * @param sourceMethod name of the method.
-     * @param thrown       the error that is being thrown.
+     * @param thrown the error that is being thrown.
      */
     public static void throwing(String sourceClass, String sourceMethod,
-                                Throwable thrown) {
+            Throwable thrown) {
         LogContext log = (LogContext) LogContext.getCurrentLogContext();
         if (log instanceof StandardLog) {
             ((StandardLog) log)._logger.throwing(sourceClass, sourceMethod,
@@ -208,10 +210,10 @@ public class StandardLog extends LogContext {
     }
 
     /**
-     * Log a method entry. If the current logging context is not a
+     * Log a method entry. If the current logging context is not a 
      * {@link StandardLog} a debug message is logged.
-     *
-     * @param sourceClass  name of class that issued the logging request.
+     * 
+     * @param sourceClass name of class that issued the logging request.
      * @param sourceMethod name of method that is being entered.
      */
     public static void entering(String sourceClass, String sourceMethod) {
@@ -219,15 +221,15 @@ public class StandardLog extends LogContext {
         if (log instanceof StandardLog) {
             ((StandardLog) log)._logger.entering(sourceClass, sourceMethod);
         } else {
-            LogContext.debug("Entering " + sourceClass + "." + sourceMethod);
+             LogContext.debug("Entering " + sourceClass + "." + sourceMethod);
         }
     }
 
     /**
-     * Log a method return. If the current logging context is not a
+     * Log a method return. If the current logging context is not a 
      * {@link StandardLog} no return is logged.
-     *
-     * @param sourceClass  name of class that issued the logging request.
+     * 
+     * @param sourceClass name of class that issued the logging request.
      * @param sourceMethod name of method that is being returned.
      */
     public static void exiting(String sourceClass, String sourceMethod) {
@@ -235,23 +237,23 @@ public class StandardLog extends LogContext {
         if (log instanceof StandardLog) {
             ((StandardLog) log)._logger.exiting(sourceClass, sourceMethod);
         } else {
-            LogContext.debug("Exiting " + sourceClass + "." + sourceMethod);
+             LogContext.debug("Exiting " + sourceClass + "." + sourceMethod);
         }
     }
 
     protected boolean isLogged(String category) {
         if (category.equals("debug"))
-            return _logger.isLoggable(Level.FINE);
+         return _logger.isLoggable(Level.FINE);
         if (category.equals("info"))
-            return _logger.isLoggable(Level.INFO);
+         return _logger.isLoggable(Level.INFO);
         if (category.equals("warning"))
-            return _logger.isLoggable(Level.WARNING);
+         return _logger.isLoggable(Level.WARNING);
         if (category.equals("error"))
-            return _logger.isLoggable(Level.SEVERE);
+         return _logger.isLoggable(Level.SEVERE);
         return true;
     }
 
-    public void logDebug(CharSequence message) {
+     public void logDebug(CharSequence message) {
         _logger.fine(message.toString());
     }
 

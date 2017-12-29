@@ -8,28 +8,29 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.xml.stream;
 
+import java.lang.CharSequence;
+import java.util.Iterator;
+
 import com.bbva.pzic.proposals.util.orika.javax.realtime.MemoryArea;
 import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 import com.bbva.pzic.proposals.util.orika.javolution.text.CharArray;
 import com.bbva.pzic.proposals.util.orika.javolution.util.FastList;
 
-import java.util.Iterator;
-
 /**
  * This class represents the namespaces stack while parsing.
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 3.2, April 2, 2005
  */
 final class NamespacesImpl implements Reusable, NamespaceContext {
 
-    /**
+    /** 
      * Holds the number of predefined namespaces.
      */
     static final int NBR_PREDEFINED_NAMESPACES = 3;
 
-    /**
-     * Holds useful CharArray instances (non-static to avoid potential
+    /** 
+     * Holds useful CharArray instances (non-static to avoid potential 
      * inter-thread corruption).
      */
     final CharArray _nullNsURI = new CharArray(""); // No namespace URI.
@@ -45,37 +46,37 @@ final class NamespacesImpl implements Reusable, NamespaceContext {
 
     final CharArray _xmlnsURI = new CharArray("http://www.w3.org/2000/xmlns/");
 
-    /**
+    /** 
      * Holds the current nesting level.
      */
     private int _nesting = 0;
 
-    /**
+    /** 
      * Holds the currently mapped prefixes.
      */
     CharArray[] _prefixes = new CharArray[16];
 
-    /**
+    /** 
      * Holds the currently mapped namespaces.
      */
     CharArray[] _namespaces = new CharArray[_prefixes.length];
 
-    /**
+    /** 
      * Indicates if the prefix has to been written (when writing).
      */
     boolean[] _prefixesWritten = new boolean[_prefixes.length];
 
-    /**
+    /** 
      * Holds the number of prefix/namespace association per nesting level.
      */
     int[] _namespacesCount = new int[16];
 
-    /**
+    /** 
      * Holds the default namespace.
      */
     CharArray _defaultNamespace = _nullNsURI;
 
-    /**
+    /** 
      * Holds the default namespace index.
      */
     int _defaultNamespaceIndex;
@@ -95,16 +96,15 @@ final class NamespacesImpl implements Reusable, NamespaceContext {
 
     // Implements NamespaceContext
     public CharArray getNamespaceURI(CharSequence prefix) {
-        if (prefix == null)
+        if (prefix == null) 
             throw new IllegalArgumentException("null prefix not allowed");
         return getNamespaceURINullAllowed(prefix);
     }
-
     CharArray getNamespaceURINullAllowed(CharSequence prefix) {
         if ((prefix == null) || (prefix.length() == 0))
             return _defaultNamespace;
         final int count = _namespacesCount[_nesting];
-        for (int i = count; --i >= 0; ) {
+        for (int i = count; --i >= 0;) {
             if (_prefixes[i].equals(prefix))
                 return _namespaces[i];
         }
@@ -113,14 +113,14 @@ final class NamespacesImpl implements Reusable, NamespaceContext {
 
     // Implements NamespaceContext
     public CharArray getPrefix(CharSequence uri) {
-        if (uri == null)
+        if (uri == null) 
             throw new IllegalArgumentException("null namespace URI not allowed");
         return _defaultNamespace.equals(uri) ? _defaultNsPrefix : getPrefix(
                 uri, _namespacesCount[_nesting]);
     }
 
     CharArray getPrefix(CharSequence uri, int count) {
-        for (int i = count; --i >= 0; ) {
+        for (int i = count; --i >= 0;) {
             CharArray prefix = _prefixes[i];
             CharArray namespace = _namespaces[i];
             if (namespace.equals(uri)) { // Find matching uri.
@@ -142,7 +142,7 @@ final class NamespacesImpl implements Reusable, NamespaceContext {
     // Implements NamespaceContext
     public Iterator getPrefixes(CharSequence namespaceURI) {
         FastList prefixes = new FastList();
-        for (int i = _namespacesCount[_nesting]; --i >= 0; ) {
+        for (int i = _namespacesCount[_nesting]; --i >= 0;) {
             if (_namespaces[i].equals(namespaceURI)) {
                 prefixes.add(_prefixes[i]);
             }
@@ -166,11 +166,11 @@ final class NamespacesImpl implements Reusable, NamespaceContext {
     // Used only by XMLStreamWriter (converts CharSequence to CharArray).
     // Null values are not allowed.
     void setPrefix(final CharSequence prefix, CharSequence uri,
-                   boolean isWritten) {
+            boolean isWritten) {
         final int index = _namespacesCount[_nesting];
         _prefixesWritten[index] = isWritten;
         final int prefixLength = prefix.length();
-        CharArray prefixTmp = _prefixesTmp[index];
+        CharArray prefixTmp = _prefixesTmp[index]; 
         if ((prefixTmp == null)
                 || (prefixTmp.array().length < prefixLength)) {
             MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
@@ -186,7 +186,7 @@ final class NamespacesImpl implements Reusable, NamespaceContext {
         prefixTmp.setArray(prefixTmp.array(), 0, prefixLength);
 
         final int uriLength = uri.length();
-        CharArray namespaceTmp = _namespacesTmp[index];
+        CharArray namespaceTmp = _namespacesTmp[index]; 
         if ((namespaceTmp == null)
                 || (namespaceTmp.array().length < uriLength)) {
             MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
@@ -200,7 +200,7 @@ final class NamespacesImpl implements Reusable, NamespaceContext {
             namespaceTmp.array()[i] = uri.charAt(i);
         }
         namespaceTmp.setArray(namespaceTmp.array(), 0, uriLength);
-
+        
         // Sets the prefix using CharArray instances.
         setPrefix(prefixTmp, namespaceTmp);
     }
@@ -217,7 +217,7 @@ final class NamespacesImpl implements Reusable, NamespaceContext {
 
     private void searchDefaultNamespace() {
         int count = _namespacesCount[_nesting];
-        for (int i = count; --i >= 0; ) {
+        for (int i = count; --i >= 0;) {
             if (_prefixes[i].length() == 0) {
                 _defaultNamespaceIndex = i;
                 return;

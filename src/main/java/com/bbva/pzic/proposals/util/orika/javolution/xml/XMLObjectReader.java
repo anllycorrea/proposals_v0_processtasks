@@ -9,34 +9,36 @@
 package com.bbva.pzic.proposals.util.orika.javolution.xml;
 
 
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
-import com.bbva.pzic.proposals.util.orika.javolution.xml.stream.XMLStreamReader;
-import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
-import com.bbva.pzic.proposals.util.orika.javolution.xml.stream.XMLStreamException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.lang.IllegalStateException;
+
+import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
+import com.bbva.pzic.proposals.util.orika.javolution.xml.stream.XMLStreamException;
+import com.bbva.pzic.proposals.util.orika.javolution.xml.stream.XMLStreamReader;
+import com.bbva.pzic.proposals.util.orika.javolution.xml.stream.XMLStreamReaderImpl;
 
 
 /**
  * <p> This class restores objects which have been serialized in XML
- * format using an {@link XMLObjectWriter}.</p>
- * <p/>
+ *     format using an {@link XMLObjectWriter}.</p>
+ *     
  * <p> When the XML document is parsed, each elements are recursively
- * processed and Java objects are created using the {@link XMLFormat}
- * of the class as identified by the {@link XMLBinding}.</p>
- * <p/>
+ *     processed and Java objects are created using the {@link XMLFormat}
+ *     of the class as identified by the {@link XMLBinding}.</p>
+ *     
  * <p> Multiple objects can be read from the same XML input.
- * For example:[code]
- * XMLObjectReader reader = XMLObjectReader.newInstance(inputStream);
- * while (reader.hasNext()) {
- * Message message = reader.read("Message", Message.class);
- * }
- * reader.close(); // Reader is recycled, the underlying stream is closed.
- * [/code]</p>
- *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ *     For example:[code]
+ *     XMLObjectReader reader = XMLObjectReader.newInstance(inputStream);
+ *     while (reader.hasNext()) {
+ *         Message message = reader.read("Message", Message.class);
+ *     }
+ *     reader.close(); // Reader is recycled, the underlying stream is closed.
+ *     [/code]</p>
+ *     
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.0, September 4, 2006
  */
 public class XMLObjectReader implements Reusable {
@@ -48,8 +50,8 @@ public class XMLObjectReader implements Reusable {
 
         protected Object create() {
             return new XMLObjectReader();
-        }
-
+        } 
+        
     };
 
     /**
@@ -75,7 +77,7 @@ public class XMLObjectReader implements Reusable {
     /**
      * Returns a XML object reader (potentially recycled) having the specified
      * input stream as input.
-     *
+     * 
      * @param in the input stream.
      */
     public static XMLObjectReader newInstance(InputStream in) throws XMLStreamException {
@@ -88,8 +90,8 @@ public class XMLObjectReader implements Reusable {
     /**
      * Returns a XML object reader (potentially recycled) having the specified
      * input stream/encoding as input.
-     *
-     * @param in       the input stream.
+     * 
+     * @param in the input stream.
      * @param encoding the input stream encoding
      */
     public static XMLObjectReader newInstance(InputStream in, String encoding) throws XMLStreamException {
@@ -102,7 +104,7 @@ public class XMLObjectReader implements Reusable {
     /**
      * Returns a XML object reader (potentially recycled) having the specified
      * reader as input.
-     *
+     * 
      * @param in the reader source.
      */
     public static XMLObjectReader newInstance(Reader in) throws XMLStreamException {
@@ -128,9 +130,9 @@ public class XMLObjectReader implements Reusable {
     }
 
     /**
-     * Returns the stream reader being used by this reader (it can be
+     * Returns the stream reader being used by this reader (it can be 
      * used to set prefix, read prologs, etc).
-     *
+     * 
      * @return the stream reader.
      */
     public XMLStreamReader getStreamReader() {
@@ -140,10 +142,10 @@ public class XMLObjectReader implements Reusable {
     /**
      * Sets the input stream source for this XML object reader
      * (encoding retrieved from XML prolog if any).
-     *
-     * @param in the source input stream.
+     * 
+     * @param  in the source input stream.
      * @return <code>this</code>
-     * @see com.bbva.pzic.proposals.util.orika.javolution.xml.stream.XMLStreamReaderImpl#setInput(InputStream)
+     * @see    XMLStreamReaderImpl#setInput(InputStream)
      */
     public XMLObjectReader setInput(InputStream in) throws XMLStreamException {
         if ((_inputStream != null) || (_reader != null))
@@ -155,11 +157,11 @@ public class XMLObjectReader implements Reusable {
 
     /**
      * Sets the input stream source and encoding for this XML object reader.
-     *
-     * @param in       the input source.
+     * 
+     * @param in the input source.
      * @param encoding the associated encoding.
      * @return <code>this</code>
-     * @see com.bbva.pzic.proposals.util.orika.javolution.xml.stream.XMLStreamReaderImpl#setInput(InputStream, String)
+     * @see    XMLStreamReaderImpl#setInput(InputStream, String)
      */
     public XMLObjectReader setInput(InputStream in, String encoding)
             throws XMLStreamException {
@@ -171,11 +173,11 @@ public class XMLObjectReader implements Reusable {
     }
 
     /**
-     * Sets the reader input source for this XML stream reader.
-     *
-     * @param in the source reader.
+     * Sets the reader input source for this XML stream reader. 
+     * 
+     * @param  in the source reader.
      * @return <code>this</code>
-     * @see com.bbva.pzic.proposals.util.orika.javolution.xml.stream.XMLStreamReaderImpl#setInput(Reader)
+     * @see    XMLStreamReaderImpl#setInput(Reader)
      */
     public XMLObjectReader setInput(Reader in) throws XMLStreamException {
         if ((_inputStream != null) || (_reader != null))
@@ -187,7 +189,7 @@ public class XMLObjectReader implements Reusable {
 
     /**
      * Sets the XML binding to use with this object reader.
-     *
+     * 
      * @param binding the XML binding to use.
      * @return <code>this</code>
      */
@@ -199,7 +201,7 @@ public class XMLObjectReader implements Reusable {
     /**
      * Sets the XML reference resolver to use with this object reader
      * (the same resolver can be used accross multiple readers).
-     *
+     * 
      * @param referenceResolver the XML reference resolver.
      * @return <code>this</code>
      */
@@ -210,13 +212,13 @@ public class XMLObjectReader implements Reusable {
     }
 
     /**
-     * Indicates if more elements can be read. This method
+     * Indicates if more elements can be read. This method 
      * positions the reader at the start of the
      * next element to be read (if any).
      *
-     * @return <code>true</code> if more element/data to be read;
-     * <code>false</code> otherwise.
-     * @see XMLFormat.InputElement#hasNext()
+     * @return <code>true</code> if more element/data to be read; 
+     *         <code>false</code> otherwise.
+     * @see    XMLFormat.InputElement#hasNext()
      */
     public boolean hasNext() throws XMLStreamException {
         return _xml.hasNext();
@@ -227,66 +229,66 @@ public class XMLObjectReader implements Reusable {
      *
      * @return the next nested object (can be <code>null</code>)
      * @throws XMLStreamException if <code>hasNext() == false</code>
-     * @see XMLFormat.InputElement#getNext()
+     * @see    XMLFormat.InputElement#getNext()
      */
-    public <T> T read() throws XMLStreamException {
-        return (T) _xml.getNext();
+    public  <T>  T  read() throws XMLStreamException {
+        return ( T )_xml.getNext();
     }
 
     /**
-     * Returns the object corresponding to the next nested element only
-     * if it has the specified local name.
+     * Returns the object corresponding to the next nested element only 
+     * if it has the specified local name. 
      *
      * @param name the local name of the next element.
-     * @return the next content object or <code>null</code> if the
-     * local name does not match.
-     * @see XMLFormat.InputElement#get(String)
+     * @return the next content object or <code>null</code> if the 
+     *         local name does not match.
+     * @see    XMLFormat.InputElement#get(String)
      */
-    public <T> T read(String name) throws XMLStreamException {
-        return (T) _xml.get(name);
+    public  <T>  T  read(String name) throws XMLStreamException {
+        return ( T ) _xml.get(name);
     }
 
     /**
-     * Returns the object corresponding to the next nested element only
+     * Returns the object corresponding to the next nested element only 
      * if it has the specified local name and namespace URI.
      *
      * @param localName the local name.
-     * @param uri       the namespace URI.
-     * @return the next content object or <code>null</code> if the
-     * name/uri does not match.
-     * @see XMLFormat.InputElement#get(String, String)
+     * @param uri the namespace URI.
+     * @return the next content object or <code>null</code> if the 
+     *         name/uri does not match.
+     * @see    XMLFormat.InputElement#get(String, String)
      */
-    public <T> T read(String localName, String uri)
+    public  <T>  T  read(String localName, String uri)
             throws XMLStreamException {
-        return (T) _xml.get(localName, uri);
+        return ( T ) _xml.get(localName, uri);
     }
 
     /**
-     * Returns the object corresponding to the next nested element only
-     * if it has the specified local name; the actual object type is identified
-     * by the specified class parameter.
-     *
+     * Returns the object corresponding to the next nested element only 
+     * if it has the specified local name; the actual object type is identified 
+     * by the specified class parameter. 
+     *      
      * @param name the name of the element to match.
-     * @param cls  the non-abstract class identifying the object to return.
+     * @param cls the non-abstract class identifying the object to return.
      * @return <code>read(name, null, cls)</code>
      */
-    public <T> T read(String name, Class<T> cls)
+    public <T>  T read(String name, Class <T> cls)
             throws XMLStreamException {
         return _xml.get(name, cls);
     }
 
     /**
-     * Returns the object corresponding to the next nested element only
-     * if it has the specified local name and namespace URI; the
-     * actual object type is identified by the specified class parameter.
-     *
+     * Returns the object corresponding to the next nested element only 
+     * if it has the specified local name and namespace URI; the 
+     * actual object type is identified by the specified class parameter. 
+     *      
      * @param localName the local name.
-     * @param uri       the namespace URI.
-     * @param cls       the non-abstract class identifying the object to return.
+     * @param uri the namespace URI.
+     * @param cls the non-abstract class identifying the object to return.
      * @return the next content object or <code>null</code> if no match.
      */
-    public <T> T read(String localName, String uri,
-                      Class<T> cls) throws XMLStreamException {
+    public <T>  T read(String localName, String uri,
+            Class <T> cls) throws XMLStreamException {
         return _xml.get(localName, uri, cls);
     }
 

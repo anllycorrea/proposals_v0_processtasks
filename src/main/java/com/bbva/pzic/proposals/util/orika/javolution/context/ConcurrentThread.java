@@ -13,12 +13,12 @@ import com.bbva.pzic.proposals.util.orika.javax.realtime.RealtimeThread;
 import com.bbva.pzic.proposals.util.orika.javolution.lang.Reflection;
 
 /**
- * <p> This class represents the concurrent executors used by the default
- * implementation of {@link ConcurrentContext}. Executions
- * are performed in the same memory area and at the same priority
- * as the calling thread.</p>
+ * <p> This class represents the concurrent executors used by the default 
+ *     implementation of {@link ConcurrentContext}. Executions
+ *     are performed in the same memory area and at the same priority
+ *     as the calling thread.</p>
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.1, July 1, 2007
  */
 class ConcurrentThread extends RealtimeThread {
@@ -97,8 +97,8 @@ class ConcurrentThread extends RealtimeThread {
 
     /**
      * Executes the specified logic by this thread if ready.
-     *
-     * @param logic   the logic to execute.
+     * 
+     * @param logic the logic to execute.
      * @param context the concurrent context.
      */
     public boolean execute(Runnable logic, ConcurrentContext.Default context) {
@@ -126,9 +126,9 @@ class ConcurrentThread extends RealtimeThread {
     }
 
     /**
-     * Returns the name of this concurrent thread as well as its calling source
+     * Returns the name of this concurrent thread as well as its calling source 
      * (in parenthesis).
-     *
+     * 
      * @return the string representation of this thread.
      */
     public String toString() {
@@ -137,11 +137,11 @@ class ConcurrentThread extends RealtimeThread {
 
     /**
      * Returns the source of this concurrent thread (a non-concurrent thread).
-     *
+     * 
      * @return the thread source.
      */
     public Thread getSource() {
         return _parent instanceof ConcurrentThread ?
-                ((ConcurrentThread) _parent).getSource() : _parent;
+                ((ConcurrentThread)_parent).getSource() : _parent;
     }
 }

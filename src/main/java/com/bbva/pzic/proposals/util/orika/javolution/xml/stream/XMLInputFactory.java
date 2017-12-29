@@ -8,45 +8,45 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.xml.stream;
 
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Configurable;
-import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
-
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.Map;
 
+import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Configurable;
+
 /**
  * <p> The class represents the factory for getting {@link XMLStreamReader}
- * intances.
- * <p/>
- * <p> The {@link #newInstance() default implementation} automatically
- * {@link ObjectFactory#recycle recycles} any reader which has been
- * {@link XMLStreamReader#close() closed}.</p>
- * <p/>
+ *     intances.
+ *     
+ * <p> The {@link #newInstance() default implementation} automatically 
+ *     {@link ObjectFactory#recycle recycles} any reader which has been 
+ *     {@link XMLStreamReader#close() closed}.</p>
+ *     
  * <P> Usage example:[code]
- * <p/>
- * // Lets read a CharSequence input.
- * String xml = "...";
- * CharSequenceReader in = new CharSequenceReader().setInput(xml);
- * <p/>
- * // Creates a factory of readers coalescing adjacent character data.
- * XMLInputFactory factory = XMLInputFactory.newInstance();
- * factory.setProperty(XMLInputFactory.IS_COALESCING, true);
- * <p/>
- * // Creates a new reader (potentially recycled).
- * XMLStreamReader reader = factory.createXMLStreamReader(in);
- * <p/>
- * // Parses XML.
- * for (int e=reader.next(); e != XMLStreamConstants.END_DOCUMENT; e = reader.next()) {
- * switch (e) { // Event.
- * ...
- * }
- * }
- * reader.close(); // Automatically recycles this writer.
- * in.close(); // Underlying input should be closed explicitly.
- * [/code]</p>
- *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * 
+ *     // Lets read a CharSequence input.
+ *     String xml = "...";
+ *     CharSequenceReader in = new CharSequenceReader().setInput(xml);
+
+ *     // Creates a factory of readers coalescing adjacent character data.
+ *     XMLInputFactory factory = XMLInputFactory.newInstance();
+ *     factory.setProperty(XMLInputFactory.IS_COALESCING, true);
+ *     
+ *     // Creates a new reader (potentially recycled).
+ *     XMLStreamReader reader = factory.createXMLStreamReader(in);
+ *     
+ *     // Parses XML.
+ *     for (int e=reader.next(); e != XMLStreamConstants.END_DOCUMENT; e = reader.next()) {
+ *         switch (e) { // Event.
+ *             ...
+ *         }
+ *     }
+ *     reader.close(); // Automatically recycles this writer. 
+ *     in.close(); // Underlying input should be closed explicitly.
+ *     [/code]</p>
+ * 
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.0, September 4, 2006
  */
 public abstract class XMLInputFactory {
@@ -54,9 +54,8 @@ public abstract class XMLInputFactory {
     /**
      * Holds the XMLInputFactory implementation (configurable).
      */
-    public static final Configurable<Class<? extends XMLInputFactory>>
-            CLASS = new Configurable<Class<? extends XMLInputFactory>>(Default.class) {
-    };
+    public static final Configurable <Class<? extends XMLInputFactory>> 
+        CLASS = new Configurable <Class<? extends XMLInputFactory>> (Default.class) {};
 
     /**
      * The property that requires the parser to coalesce adjacent character data
@@ -65,16 +64,16 @@ public abstract class XMLInputFactory {
     public static final String IS_COALESCING = "javolution.xml.stream.isCoalescing";
 
     /**
-     * Property used to specify additional entities to be recognized by the
+     * Property used to specify additional entities to be recognized by the 
      * readers (type: <code>java.util.Map</code>, default: <code>null</code>).
      * For example:[code]
-     * FastMap<String, String> HTML_ENTITIES = new FastMap<String, String>();
-     * HTML_ENTITIES.put("nbsp", " ");
-     * HTML_ENTITIES.put("copy", "©");
-     * HTML_ENTITIES.put("eacute", "é");
-     * ...
-     * XMLInputFactory factory = XMLInputFactory.newInstance();
-     * factory.setProperty(ENTITIES, HTML_ENTITIES);
+     *     FastMap<String, String> HTML_ENTITIES = new FastMap<String, String>();
+     *     HTML_ENTITIES.put("nbsp", " ");
+     *     HTML_ENTITIES.put("copy", "©");
+     *     HTML_ENTITIES.put("eacute", "é");
+     *     ...
+     *     XMLInputFactory factory = XMLInputFactory.newInstance();
+     *     factory.setProperty(ENTITIES, HTML_ENTITIES);
      * [/code]
      */
     public static final String ENTITIES = "javolution.xml.stream.entities";
@@ -87,10 +86,10 @@ public abstract class XMLInputFactory {
 
     /**
      * Returns a new instance of the {@link #CLASS} input factory
-     * implementation which may be configurated by the user
+     * implementation which may be configurated by the user 
      * (see {@link #setProperty(String, Object)}). The input factory
      * instance is allocated through {@link ObjectFactory#getInstance(Class)}.
-     *
+     * 
      * @return a new factory instance.
      */
     public static XMLInputFactory newInstance() {
@@ -100,7 +99,7 @@ public abstract class XMLInputFactory {
 
     /**
      * Returns a XML stream reader for the specified I/O reader.
-     *
+     * 
      * @param reader the XML data to read from.
      * @throws XMLStreamException
      */
@@ -108,9 +107,9 @@ public abstract class XMLInputFactory {
             throws XMLStreamException;
 
     /**
-     * Returns a XML stream reader for the specified input stream
+     * Returns a XML stream reader for the specified input stream 
      * (encoding autodetected).
-     *
+     * 
      * @param stream the input stream to read from.
      * @throws XMLStreamException
      */
@@ -120,13 +119,13 @@ public abstract class XMLInputFactory {
     /**
      * Returns a XML stream reader for the specified input stream using the
      * specified encoding.
-     *
-     * @param stream   the input stream to read from.
+     * 
+     * @param stream the input stream to read from.
      * @param encoding the character encoding of the stream.
      * @throws XMLStreamException
      */
     public abstract XMLStreamReader createXMLStreamReader(InputStream stream,
-                                                          String encoding) throws XMLStreamException;
+            String encoding) throws XMLStreamException;
 
     /**
      * Allows the user to set specific feature/property on the underlying
@@ -134,8 +133,8 @@ public abstract class XMLInputFactory {
      * every setting of every property in the specification and may use
      * <code>IllegalArgumentException</code> to signal that an unsupported
      * property may not be set with the specified value.
-     *
-     * @param name  the name of the property.
+     * 
+     * @param name the name of the property.
      * @param value the value of the property
      * @throws IllegalArgumentException if the property is not supported.
      */
@@ -144,7 +143,7 @@ public abstract class XMLInputFactory {
 
     /**
      * Gets the value of a feature/property from the underlying implementation.
-     *
+     * 
      * @param name the name of the property (may not be null).
      * @return the value of the property.
      * @throws IllegalArgumentException if the property is not supported.
@@ -154,10 +153,10 @@ public abstract class XMLInputFactory {
 
     /**
      * Queries the set of properties that this factory supports.
-     *
+     * 
      * @param name the name of the property.
      * @return <code>true</code> if the property is supported;
-     * <code>false</code> otherwise.
+     *         <code>false</code> otherwise.
      */
     public abstract boolean isPropertySupported(String name);
 
@@ -186,7 +185,7 @@ public abstract class XMLInputFactory {
 
         // Implements XMLInputFactory abstract method.
         public XMLStreamReader createXMLStreamReader(InputStream stream,
-                                                     String encoding) throws XMLStreamException {
+                String encoding) throws XMLStreamException {
             XMLStreamReaderImpl xmlReader = newReader();
             xmlReader.setInput(stream, encoding);
             return xmlReader;
@@ -249,7 +248,5 @@ public abstract class XMLInputFactory {
         ObjectFactory.setInstance(new ObjectFactory() {
             protected Object create() {
                 return new Default();
-            }
-        }, Default.class);
-    }
-}
+            } }, Default.class);
+    }}

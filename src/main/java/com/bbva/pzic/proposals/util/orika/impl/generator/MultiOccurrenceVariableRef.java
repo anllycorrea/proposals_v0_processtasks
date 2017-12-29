@@ -17,13 +17,13 @@
  */
 package com.bbva.pzic.proposals.util.orika.impl.generator;
 
-import com.bbva.pzic.proposals.util.orika.metadata.Property;
-import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
-import com.bbva.pzic.proposals.util.orika.MapEntry;
-import com.bbva.pzic.proposals.util.orika.metadata.Type;
-
 import java.util.Map;
 import java.util.Set;
+
+import com.bbva.pzic.proposals.util.orika.MapEntry;
+import com.bbva.pzic.proposals.util.orika.metadata.Property;
+import com.bbva.pzic.proposals.util.orika.metadata.Type;
+import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
 
 /**
  * VariableRef represents a reference to a given variable or property; it
@@ -31,18 +31,20 @@ import java.util.Set;
  * it's underlying property or type. It also returns a properly type-safe cast
  * of it as the toString() method, so it can safely be used directly as a
  * replacement parameter for source code statements.
- *
+ * 
+ * 
  * @author matt.deboer@gmail.com
+ * 
  */
 public class MultiOccurrenceVariableRef extends VariableRef {
-
+    
     private String iteratorName;
     private boolean iteratorDeclared;
-
+    
     /**
      * up-converts the specified standard VariableRef into a
      * MultiOccurrenceVariableRef
-     *
+     * 
      * @param r
      * @return
      */
@@ -53,19 +55,19 @@ public class MultiOccurrenceVariableRef extends VariableRef {
             return new MultiOccurrenceVariableRef(r.type(), r.name);
         }
     }
-
+    
     public MultiOccurrenceVariableRef(Property property, String name) {
         super(property, name);
     }
-
+    
     public MultiOccurrenceVariableRef(Property property, MultiOccurrenceVariableRef anchor) {
         super(property, anchor);
     }
-
+    
     public MultiOccurrenceVariableRef(Type<?> type, String name) {
         super(type, name);
     }
-
+    
     private String getIteratorName() {
         if (iteratorName == null) {
             if (isArray()) {
@@ -76,7 +78,7 @@ public class MultiOccurrenceVariableRef extends VariableRef {
         }
         return iteratorName;
     }
-
+    
     public String declareIterator() {
         if (iteratorDeclared) {
             throw new IllegalStateException("Iterator has already been declared");
@@ -92,7 +94,7 @@ public class MultiOccurrenceVariableRef extends VariableRef {
         iteratorDeclared = true;
         return iterator;
     }
-
+    
     public String nextElement() {
         if (!iteratorDeclared) {
             throw new IllegalStateException("Iterator has not been declared");
@@ -105,7 +107,7 @@ public class MultiOccurrenceVariableRef extends VariableRef {
         }
         return next;
     }
-
+    
     public String iteratorHasNext() {
         if (!iteratorDeclared) {
             throw new IllegalStateException("Iterator has not been declared");
@@ -118,9 +120,9 @@ public class MultiOccurrenceVariableRef extends VariableRef {
         }
         return hasNext;
     }
-
+    
     public String add(VariableRef value) {
-
+        
         if (isArray()) {
             if (!iteratorDeclared) {
                 throw new IllegalStateException("Iterator must be declared in order to add elements to destination array");
@@ -134,7 +136,7 @@ public class MultiOccurrenceVariableRef extends VariableRef {
             throw new IllegalArgumentException(type() + " does not support adding elements of type " + value.type());
         }
     }
-
+    
     public String collectionType() {
         String collection;
         if (isList()) {
@@ -151,11 +153,11 @@ public class MultiOccurrenceVariableRef extends VariableRef {
         }
         return collection;
     }
-
+    
     public String newCollection() {
         return newInstance("");
     }
-
+    
     public String newInstance(String sizeExpr) {
         if (isArray()) {
             return "new " + rawType().getComponentType().getCanonicalName() + "[" + sizeExpr + "]";
@@ -167,42 +169,42 @@ public class MultiOccurrenceVariableRef extends VariableRef {
             return "new java.util.ArrayList(" + sizeExpr + ")";
         }
     }
-
+    
     public String newMap(String sizeExpr) {
         return "new java.util.LinkedHashMap(" + sizeExpr + ")";
     }
-
+    
     public String newMap() {
         return newMap("");
     }
-
+    
     /**
      * Generates java code for a reference to the "size" of this VariableRef
-     *
+     * 
      * @return
      */
     public String size() {
         return getter() + "." + (rawType().isArray() ? "length" : "size()");
     }
-
+    
     public static class EntrySetRef extends MultiOccurrenceVariableRef {
-
+        
         private String name;
-
+        
         public EntrySetRef(VariableRef sourceMap) {
             this(sourceMap, null);
         }
-
+        
         public EntrySetRef(VariableRef sourceMap, String variableName) {
             super(getSourceEntryType(sourceMap), sourceMap + ".entrySet()");
             this.name = variableName;
         }
-
+        
         @SuppressWarnings("unchecked")
         private static Type<?> getSourceEntryType(VariableRef sourceMap) {
             return TypeFactory.valueOf(Set.class, MapEntry.entryType((Type<? extends Map<Object, Object>>) sourceMap.type()));
         }
-
+        
         public String name() {
             if (this.name != null) {
                 return this.name;
@@ -211,5 +213,5 @@ public class MultiOccurrenceVariableRef extends VariableRef {
             }
         }
     }
-
+    
 }

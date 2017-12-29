@@ -30,11 +30,11 @@ import java.util.Set;
  * The main runtime interface between a Java application and Orika. This is the
  * central interface abstracting the service of a Java bean mapping. <br>
  * <br>
- * <p/>
+ * <p>
  * The main operation of <code>MapperFacade</code> is <code>map()</code> that
  * copy from a deeply structured one object to an other.<br>
  * <br>
- * <p/>
+ * <p>
  * MapperFacade manages the state of a mapping operation through MappingContext.<br>
  * The operation of mapping may include : <br>
  * <ul>
@@ -43,10 +43,10 @@ import java.util.Set;
  * <li>Mapping recursively an object to an other class : <code>map()</code></li>
  * </ul>
  * <br>
- * <p/>
+ * <p>
  * Example of code to map an instance of <code>Entity</code>(<code>entity</code>
  * ) to <code>DTO</code> class:<br>
- * <p/>
+ * <p>
  * <pre>
  * ...
  * DTO newDTO = mapperFacade.map(entity, DTO.class);
@@ -229,9 +229,10 @@ public interface MapperFacade {
     /**
      * Maps the source Array into a new Array of type<code>D</code>.
      *
+     * @param destination
      * @param source           the Array from which to map
      * @param destinationClass the type of elements to be contained in the returned Set.
-     * @param context          the context from the current mapping request
+     *                         the context from the current mapping request
      * @return a new Array containing elements of type
      * <code>destinationClass</code> mapped from the elements of
      * <code>source</code>.

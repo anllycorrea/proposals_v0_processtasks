@@ -18,27 +18,28 @@
 
 package com.bbva.pzic.proposals.util.orika;
 
-import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
-import com.bbva.pzic.proposals.util.orika.metadata.Type;
-
 import java.lang.reflect.ParameterizedType;
+
+import com.bbva.pzic.proposals.util.orika.metadata.Type;
+import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
 
 /**
  * Abstract super-class for all generated mappers and user custom mappers.
- *
- * @author S.M. El Aatifi
+ * 
  * @see com.bbva.pzic.proposals.util.orika.metadata.ClassMapBuilder
+ * @author S.M. El Aatifi
+ * 
  */
 public abstract class CustomMapper<A, B> implements Mapper<A, B> {
-
+    
     protected MapperFacade mapperFacade;
     protected Type<A> aType;
     protected Type<B> bType;
-
+    
     public CustomMapper() {
         java.lang.reflect.Type genericSuperclass = getClass().getGenericSuperclass();
         if (genericSuperclass != null && genericSuperclass instanceof ParameterizedType) {
-            ParameterizedType superType = (ParameterizedType) getClass().getGenericSuperclass();
+            ParameterizedType superType = (ParameterizedType)getClass().getGenericSuperclass();
             try {
                 aType = TypeFactory.valueOf(superType.getActualTypeArguments()[0]);
                 bType = TypeFactory.valueOf(superType.getActualTypeArguments()[1]);
@@ -49,41 +50,41 @@ public abstract class CustomMapper<A, B> implements Mapper<A, B> {
             }
         }
     }
-
+    
     public void mapAtoB(A a, B b, MappingContext context) {
         /* */
     }
-
+    
     public void mapBtoA(B b, A a, MappingContext context) {
         /* */
     }
-
+    
     public void setMapperFacade(MapperFacade mapper) {
         this.mapperFacade = mapper;
     }
-
+    
     public Type<A> getAType() {
-        if (aType == null) {
+        if (aType==null) {
             throw new IllegalStateException("getAType() must be overridden when Type parameters are not supplied");
         }
         return aType;
     }
-
+    
     public Type<B> getBType() {
-        if (bType == null) {
+        if (bType==null) {
             throw new IllegalStateException("getBType() must be overridden when Type parameters are not supplied");
         }
         return bType;
     }
-
+    
     public void setUsedMappers(Mapper<Object, Object>[] mapper) {
         throw throwShouldNotCalledCustomMapper();
     }
-
+    
     public void setUsedTypes(Type<Object>[] usedTypes) {
         throw throwShouldNotCalledCustomMapper();
     }
-
+    
     private IllegalStateException throwShouldNotCalledCustomMapper() {
         return new IllegalStateException("Should not be called for a user custom mapper.");
     }

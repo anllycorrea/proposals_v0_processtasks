@@ -2,7 +2,7 @@ package com.bbva.pzic.proposals.dao.tx;
 
 import com.bbva.jee.arq.spring.core.host.InvocadorTransaccion;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
-import com.bbva.pzic.proposals.canonic.Proposals;
+import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR601;
 import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR602;
 import com.bbva.pzic.proposals.dao.model.hyt6.PeticionTransaccionHyt6;
@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * @author Entelgy
  */
 @Tx
-public class TxListProposalsV0 extends AbstractSimpleListTransaction<InputListProposals, FormatoHYMR601, Proposals, FormatoHYMR602> {
+public class TxListProposalsV0 extends AbstractSimpleListTransaction<InputListProposals, FormatoHYMR601, Proposal, FormatoHYMR602> {
 
     @Autowired
     private ITxListProposalsMapperV0 txListProposalsMapper;
@@ -34,7 +34,7 @@ public class TxListProposalsV0 extends AbstractSimpleListTransaction<InputListPr
     }
 
     @Override
-    protected Proposals mapResponseFormatToDtoOut(FormatoHYMR602 formatOutput, InputListProposals dtoIn, Proposals dtoOut) {
+    protected Proposal mapResponseFormatToDtoOut(FormatoHYMR602 formatOutput, InputListProposals dtoIn, Proposal dtoOut) {
         return txListProposalsMapper.mapOut(formatOutput, dtoOut);
     }
 

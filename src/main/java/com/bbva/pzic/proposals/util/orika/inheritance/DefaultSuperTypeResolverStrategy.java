@@ -22,17 +22,17 @@ import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
 public abstract class DefaultSuperTypeResolverStrategy implements SuperTypeResolverStrategy {
 
-    public abstract boolean isAcceptable(Type<?> type);
+	public abstract boolean isAcceptable(Type<?> type);
+	
+	public boolean accept(Type<?> type) {
+		return isAcceptable(type);
+	}
 
-    public boolean accept(Type<?> type) {
-        return isAcceptable(type);
-    }
+	public boolean shouldLookupSuperType(Type<?> type) {
+		return !isAcceptable(type);
+	}
 
-    public boolean shouldLookupSuperType(Type<?> type) {
-        return !isAcceptable(type);
-    }
-
-    public boolean shouldPreferClassOverInterface() {
-        return true;
-    }
+	public boolean shouldPreferClassOverInterface() {
+		return true;
+	}
 };

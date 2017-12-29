@@ -8,6 +8,8 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.context;
 
+import java.lang.CharSequence;
+
 import com.bbva.pzic.proposals.util.orika.javolution.lang.Configurable;
 import com.bbva.pzic.proposals.util.orika.javolution.text.Text;
 import com.bbva.pzic.proposals.util.orika.javolution.text.TextBuilder;
@@ -15,78 +17,78 @@ import com.bbva.pzic.proposals.util.orika.javolution.util.StandardLog;
 
 /**
  * <p> This class represents a context for object-based/thread-based logging
- * capabilities.</p>
- * <p/>
- * <p> LogContext removes low level code dependency with the logging framework.
- * The same code can run using system out/err, standard logging
- * (<code>java.util.logging</code>), Log4J or even OSGI Log services.
- * Selection can be done at run-time through {@link #DEFAULT
- * configuration}).</p>
- * <p/>
- * <p> The {@link #DEFAULT default} logging context is {@link
- * com.bbva.pzic.proposals.util.orika.javolution.util.StandardLog StandardLog} to leverage <code>java.util.logging</code>
- * capabilities.</p>
- * <p/>
- * <p> Logging a message is quite simple:(code)
- * LogContext.info("my message");(/code]
- * Because string formatting can be slow, we also find:[code]
- * if (LogContext.isInfoLogged())
- * LogContext.info("message part 1" + aVar + "message part 2");[/code]
- * Or equivalent but simpler:[code]
- * LogContext.info("message part 1", aVar, "message part 2");[/code]</p>
- * <p/>
- * <p> Logging can be temporarily altered on a thread or object basis.
- * For example:[code]
- * public static main(String[] args) {
- * LogContext.enter(LogContext.NULL); // Temporarily disables logging.
- * try {
- * ClassInitializer.initializeAll();  // Initializes bootstrap, extensions and classpath classes.
- * } finally {
- * LogContext.exit(LogContext.NULL); // Goes back to default logging.
- * }
- * ...
- * }[/code]</p>
- * <p/>
- * <p> Applications may extend this base class to address specific logging
- * requirements. For example:[code]
- * // This class allows for custom logging of session events.
- * public abstract class SessionLog extends LogContext  {
- * public static void start(Session session) {
- * LogContext log = LogContext.current();
- * if (log instanceof SessionLog.Loggable) {
- * ((SessionLog.Loggable)log).logStart(session);
- * } else if (log.infoLogged()){
- * log.logInfo("Session " + session.id() + " started");
- * }
- * }
- * public static void end(Session session) { ... }
- * public interface Loggable {
- * void logStart(Session session);
- * void logEnd(Session session);
- * }
- * }[/code]</p>
- * <p/>
- * <p> The use of interfaces (such as <code>Loggable</code> above) makes it easy
- * for any context to support customs logging events.
- * For example:[code]
- * class MyLog extends StandardLog implements SessionLog.Loggable, DatabaseLog.Loggable {
- * ...   // Specialized logging for session and database events.
- * }
- * MyLog myLog = new MyLog();
- * LogContext.enter(myLog);
- * try {
- * ...
- * LogContext.info("Informative message"); // Standard logging.
- * ...
- * DatabaseLog.fail(transaction); // Database custom logging.
- * ...
- * SessionLog.start(session); // Session custom logging.
- * ...
- * } finally {
- * LogContext.exit(myLog);
- * }[/code]</p>
+ *     capabilities.</p>
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * <p> LogContext removes low level code dependency with the logging framework.
+ *     The same code can run using system out/err, standard logging
+ *     (<code>java.util.logging</code>), Log4J or even OSGI Log services.
+ *     Selection can be done at run-time through {@link #DEFAULT
+ *     configuration}).</p>
+ *
+ * <p> The {@link #DEFAULT default} logging context is {@link
+ *     StandardLog StandardLog} to leverage <code>java.util.logging</code>
+ *     capabilities.</p>
+ *
+ * <p> Logging a message is quite simple:(code)
+ *         LogContext.info("my message");(/code]
+ *     Because string formatting can be slow, we also find:[code]
+ *         if (LogContext.isInfoLogged())
+ *             LogContext.info("message part 1" + aVar + "message part 2");[/code]
+ *     Or equivalent but simpler:[code]
+ *         LogContext.info("message part 1", aVar, "message part 2");[/code]</p>
+ *
+ * <p> Logging can be temporarily altered on a thread or object basis.
+ *     For example:[code]
+ *     public static main(String[] args) {
+ *         LogContext.enter(LogContext.NULL); // Temporarily disables logging.
+ *         try { 
+ *             ClassInitializer.initializeAll();  // Initializes bootstrap, extensions and classpath classes.
+ *         } finally {
+ *             LogContext.exit(LogContext.NULL); // Goes back to default logging.
+ *         }
+ *         ...
+ *     }[/code]</p>
+ *
+ * <p> Applications may extend this base class to address specific logging
+ *     requirements. For example:[code]
+ *     // This class allows for custom logging of session events. 
+ *     public abstract class SessionLog extends LogContext  {
+ *         public static void start(Session session) {
+ *             LogContext log = LogContext.current();
+ *             if (log instanceof SessionLog.Loggable) { 
+ *                 ((SessionLog.Loggable)log).logStart(session);
+ *             } else if (log.infoLogged()){
+ *                 log.logInfo("Session " + session.id() + " started");
+ *             }
+ *         }
+ *         public static void end(Session session) { ... }
+ *         public interface Loggable { 
+ *             void logStart(Session session);
+ *             void logEnd(Session session);
+ *         }
+ *     }[/code]</p>
+ *     
+ * <p> The use of interfaces (such as <code>Loggable</code> above) makes it easy
+ *     for any context to support customs logging events.
+ *     For example:[code]
+ *     class MyLog extends StandardLog implements SessionLog.Loggable, DatabaseLog.Loggable { 
+ *         ...   // Specialized logging for session and database events. 
+ *     }
+ *     MyLog myLog = new MyLog();
+ *     LogContext.enter(myLog);
+ *     try {
+ *         ...
+ *         LogContext.info("Informative message"); // Standard logging.   
+ *         ...
+ *         DatabaseLog.fail(transaction); // Database custom logging.
+ *         ... 
+ *         SessionLog.start(session); // Session custom logging.
+ *         ...
+ *     } finally {
+ *         LogContext.exit(myLog);
+ *     }[/code]</p>
+ *     
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.3, March 5, 2009
  */
 public abstract class LogContext extends Context {
@@ -97,35 +99,35 @@ public abstract class LogContext extends Context {
     private static volatile LogContext _Default = new StandardLog();
 
     /**
-     * Holds the logging context implementation forwarding log events to the
+     * Holds the logging context implementation forwarding log events to the 
      * root <code>java.util.logging.Logger</code> (default logging context).
      * The debug/info/warning/error events are mapped to the
      * debug/info/warning/severe log levels respectively.
      */
-    public static final Class<? extends LogContext> STANDARD = StandardLog.class;
+    public static final Class <? extends LogContext>  STANDARD = StandardLog.class;
 
     /**
      * Holds a logging context implementation ignoring logging events.
      */
-    public static final Class<? extends LogContext> NULL = Null.class;
+    public static final Class <? extends LogContext>  NULL = Null.class;
 
     /**
      * Holds a context logging debug/informative/warning/error messages
      * to <code>System.out</code>.
      */
-    public static final Class<? extends LogContext> SYSTEM_OUT = SystemOut.class;
+    public static final Class <? extends LogContext>  SYSTEM_OUT = SystemOut.class;
 
     /**
      * Holds a context logging debug/informative/warnings/errors events to
      * the system console (JVM 1.6+).
      */
-    public static final Class<? extends LogContext> CONSOLE = Console.class;
+    public static final Class <? extends LogContext>  CONSOLE = Console.class;
 
     /**
-     * Holds the logging context default implementation (configurable,
+     * Holds the logging context default implementation (configurable, 
      * default value {@link #STANDARD}).
      */
-    public static final Configurable<Class<? extends LogContext>> DEFAULT = new Configurable(STANDARD) {
+    public static final Configurable <Class<? extends LogContext>>  DEFAULT = new Configurable(STANDARD) {
 
         protected void notifyChange(Object oldValue, Object newValue) {
             _Default = (LogContext) ObjectFactory.getInstance((Class) newValue).object();
@@ -139,13 +141,13 @@ public abstract class LogContext extends Context {
     }
 
     /**
-     * Returns the current logging context. If the current thread has not
+     * Returns the current logging context. If the current thread has not 
      * entered any logging context the {@link #getDefault()} is returned.
      *
      * @return the current logging context.
      */
     public static LogContext getCurrentLogContext() {
-        for (Context ctx = getCurrentContext(); ctx != null; ctx = ctx.getOuter()) {
+        for (Context ctx = Context.getCurrentContext(); ctx != null; ctx = ctx.getOuter()) {
             if (ctx instanceof LogContext)
                 return (LogContext) ctx;
         }
@@ -165,7 +167,7 @@ public abstract class LogContext extends Context {
      * Indicates if debug messages are currently logged.
      *
      * @return <code>true</code> if debug messages are logged;
-     * <code>false</code> otherwise.
+     *         <code>false</code> otherwise.
      */
     public static boolean isDebugLogged() {
         return ((LogContext) LogContext.getCurrentLogContext()).isLogged("debug");
@@ -199,24 +201,23 @@ public abstract class LogContext extends Context {
      * is done only if debug is logged.
      *
      * @param messages the messages to log.
-     */
+    */
     public static void debug(Object... messages) {
-        LogContext logContext = (LogContext) LogContext.getCurrentLogContext();
-        if (!logContext.isLogged("debug"))
-            return;
-        Text tmp = Text.valueOf(messages[0]);
-        for (int i = 1; i < messages.length; i++) {
-            tmp = tmp.plus(messages[i]);
-        }
-        logContext.logDebug(tmp);
+    LogContext logContext = (LogContext) LogContext.getCurrentLogContext();
+    if (!logContext.isLogged("debug"))
+    return;
+    Text tmp = Text.valueOf(messages[0]);
+    for (int i=1; i < messages.length; i++) {
+    tmp = tmp.plus(messages[i]);
+    }
+    logContext.logDebug(tmp);
     }
     /**/
-
     /**
      * Indicates if info messages are currently logged.
      *
      * @return <code>true</code> if info messages are logged;
-     * <code>false</code> otherwise.
+     *         <code>false</code> otherwise.
      */
     public static boolean isInfoLogged() {
         return ((LogContext) LogContext.getCurrentLogContext()).isLogged("info");
@@ -224,7 +225,7 @@ public abstract class LogContext extends Context {
 
     /**
      * Logs the specified informative message.
-     *
+     * 
      * @param message the informative message being logged.
      * @see #logInfo(CharSequence)
      */
@@ -250,24 +251,23 @@ public abstract class LogContext extends Context {
      * is done only if info is logged.
      *
      * @param messages the messages to log.
-     */
+    */
     public static void info(Object... messages) {
-        LogContext logContext = (LogContext) LogContext.getCurrentLogContext();
-        if (!logContext.isLogged("info"))
-            return;
-        Text tmp = Text.valueOf(messages[0]);
-        for (int i = 1; i < messages.length; i++) {
-            tmp = tmp.plus(messages[i]);
-        }
-        logContext.logInfo(tmp);
+    LogContext logContext = (LogContext) LogContext.getCurrentLogContext();
+    if (!logContext.isLogged("info"))
+    return;
+    Text tmp = Text.valueOf(messages[0]);
+    for (int i = 1; i < messages.length; i++) {
+    tmp = tmp.plus(messages[i]);
+    }
+    logContext.logInfo(tmp);
     }
     /**/
-
     /**
      * Indicates if warning messages are currently logged.
      *
      * @return <code>true</code> if warning messages are logged;
-     * <code>false</code> otherwise.
+     *         <code>false</code> otherwise.
      */
     public static boolean isWarningLogged() {
         return ((LogContext) LogContext.getCurrentLogContext()).isLogged("warning");
@@ -301,24 +301,23 @@ public abstract class LogContext extends Context {
      * is done only if warning is logged.
      *
      * @param messages the messages to log.
-     */
+    */
     public static void warning(Object... messages) {
-        LogContext logContext = (LogContext) LogContext.getCurrentLogContext();
-        if (!logContext.isLogged("warning"))
-            return;
-        Text tmp = Text.valueOf(messages[0]);
-        for (int i = 1; i < messages.length; i++) {
-            tmp = tmp.plus(messages[i]);
-        }
-        logContext.logWarning(tmp);
+    LogContext logContext = (LogContext) LogContext.getCurrentLogContext();
+    if (!logContext.isLogged("warning"))
+    return;
+    Text tmp = Text.valueOf(messages[0]);
+    for (int i = 1; i < messages.length; i++) {
+    tmp = tmp.plus(messages[i]);
+    }
+    logContext.logWarning(tmp);
     }
     /**/
-
     /**
      * Indicates if error messages are currently logged.
      *
      * @return <code>true</code> if error messages are logged;
-     * <code>false</code> otherwise.
+     *         <code>false</code> otherwise.
      */
     public static boolean isErrorLogged() {
         return ((LogContext) LogContext.getCurrentLogContext()).isLogged("error");
@@ -326,7 +325,7 @@ public abstract class LogContext extends Context {
 
     /**
      * Logs the specified error to the current logging context.
-     *
+     * 
      * @param error the error being logged.
      */
     public static void error(Throwable error) {
@@ -335,9 +334,9 @@ public abstract class LogContext extends Context {
 
     /**
      * Logs the specified error and error message to the current logging
-     * context.
-     *
-     * @param error   the error being logged.
+     * context. 
+     * 
+     * @param error the error being logged.
      * @param message the supplementary message.
      */
     public static void error(Throwable error, CharSequence message) {
@@ -348,7 +347,7 @@ public abstract class LogContext extends Context {
      * Equivalent to {@link #error(Throwable, CharSequence)} except that
      * formatting is done only if error is logged.
      *
-     * @param error   the error being logged.
+     * @param error the error being logged.
      * @param message the supplementary message.
      */
     public static void error(Throwable error, Object message) {
@@ -362,25 +361,24 @@ public abstract class LogContext extends Context {
      * Equivalent to {@link #error(Throwable, CharSequence)}
      * except that formatting is done only if error is logged.
      *
-     * @param error    the error being logged.
+     * @param error the error being logged.
      * @param messages the supplementary messages.
-     */
+    */
     public static void error(Throwable error, Object... messages) {
-        LogContext logContext = (LogContext) LogContext.getCurrentLogContext();
-        if (!logContext.isLogged("error"))
-            return;
-        Text tmp = Text.valueOf(messages[0]);
-        for (int i = 1; i < messages.length; i++) {
-            tmp = tmp.plus(messages[i]);
-        }
-        logContext.logError(error, tmp);
+    LogContext logContext = (LogContext) LogContext.getCurrentLogContext();
+    if (!logContext.isLogged("error"))
+    return;
+    Text tmp = Text.valueOf(messages[0]);
+    for (int i = 1; i < messages.length; i++) {
+    tmp = tmp.plus(messages[i]);
+    }
+    logContext.logError(error, tmp);
     }
     /**/
-
     /**
      * Logs the specified error message to the current logging
-     * context.
-     *
+     * context. 
+     * 
      * @param message the error message being logged.
      */
     public static void error(CharSequence message) {
@@ -405,41 +403,40 @@ public abstract class LogContext extends Context {
      * except that formatting is done only if error is logged.
      *
      * @param messages the messages to log.
-     */
+    */
     public static void error(Object... messages) {
-        LogContext logContext = (LogContext) LogContext.getCurrentLogContext();
-        if (!logContext.isLogged("error"))
-            return;
-        Text tmp = Text.valueOf(messages[0]);
-        for (int i = 1; i < messages.length; i++) {
-            tmp = tmp.plus(messages[i]);
-        }
-        logContext.logError(null, tmp);
+    LogContext logContext = (LogContext) LogContext.getCurrentLogContext();
+    if (!logContext.isLogged("error"))
+    return;
+    Text tmp = Text.valueOf(messages[0]);
+    for (int i = 1; i < messages.length; i++) {
+    tmp = tmp.plus(messages[i]);
+    }
+    logContext.logError(null, tmp);
     }
     /**/
-
     /**
      * Logs the message of specified category (examples of category are
      * "debug", "info", "warning", "error").
      *
      * @param category an identifier of the category of the messages logged.
-     * @param message  the message itself.
+     * @param message the message itself.
      */
     protected abstract void logMessage(String category, CharSequence message);
 
     /**
      * Indicates if the messages of the specified category are being logged
      * (default <code>true</code> all messages are being logged).
-     * <p/>
+     * 
      * <p>Note: This method is an indicator only, not a directive.
-     * It allows users to bypass the logging processing if no
-     * actual logging is performed. If the category is not
-     * known then this method should return <code>true</code>
-     * (no optimization performed).</p>
-     *
+     *          It allows users to bypass the logging processing if no
+     *          actual logging is performed. If the category is not
+     *          known then this method should return <code>true</code>
+     *          (no optimization performed).</p>
+     * 
      * @param category an identifier of the category for the messages logged.
      * @return <code>true</code> if the messages of the specified category
-     * are being logged; <code>false</code> otherwise.
+     *         are being logged; <code>false</code> otherwise.
      */
     protected boolean isLogged(String category) {
         return true;
@@ -447,7 +444,7 @@ public abstract class LogContext extends Context {
 
     /**
      * Logs the specified debug message.
-     *
+     * 
      * @param message the debug message to be logged.
      * @see #logMessage
      */
@@ -478,7 +475,7 @@ public abstract class LogContext extends Context {
      * The default implementation logs the message and the error stack trace
      * (calls <code>logMessage("", message + stackTrace)</code>.
      *
-     * @param error   the error being logged or <code>null</code> if none.
+     * @param error the error being logged or <code>null</code> if none.
      * @param message the associated message or <code>null</code> if none.
      */
     protected void logError(Throwable error, CharSequence message) {
@@ -496,8 +493,8 @@ public abstract class LogContext extends Context {
                 /**/
                 StackTraceElement[] trace = error.getStackTrace();
                 for (int i = 0; i < trace.length; i++) {
-                    tmp.append("\n\tat ");
-                    tmp.append(trace[i]);
+                tmp.append("\n\tat ");
+                tmp.append(trace[i]);
                 }
                 /**/
             }
