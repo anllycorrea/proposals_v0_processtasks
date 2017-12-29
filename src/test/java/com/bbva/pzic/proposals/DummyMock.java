@@ -3,6 +3,7 @@ package com.bbva.pzic.proposals;
 import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals;
 import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
+import com.bbva.pzic.proposals.business.dto.DTOIntProposals;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
@@ -81,4 +82,10 @@ public class DummyMock {
         proposals.setDocumentNumber(DOCUMENT_NUMBER);
         return proposals;
     }
+
+    public DTOIntProposals buildDtoIntProposals() throws IOException {
+        return objectMapper.readValue(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("json/list-proporsal-response.json"), DTOIntProposals.class);
+    }
+
 }

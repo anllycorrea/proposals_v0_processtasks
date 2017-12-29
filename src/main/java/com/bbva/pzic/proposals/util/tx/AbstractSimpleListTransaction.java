@@ -98,6 +98,10 @@ public abstract class AbstractSimpleListTransaction<I, E, O, S> {
 
             LOG.info(String.format("......... Copies obtenidos de Host %d ........", copysSalida.size()));
 
+            if (copysSalida.isEmpty()) {
+                return null;
+            }
+
             final List<O> salidaList = new ArrayList<>();
 
             final ParameterizedType typeInterfaceOutput = (ParameterizedType) this.getClass().getGenericSuperclass();
