@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 public class InputListProposals {
 
     @Size(max = 1, groups = ValidationGroup.ListProposalsV0.class)
-
     private String documentTypeId;
     @Size(max = 11, groups = ValidationGroup.ListProposalsV0.class)
     private String documentNumber;

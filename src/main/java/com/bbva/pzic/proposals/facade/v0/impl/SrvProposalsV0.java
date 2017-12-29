@@ -1,5 +1,6 @@
 package com.bbva.pzic.proposals.facade.v0.impl;
 
+import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
 import com.bbva.jee.arq.spring.core.servicing.annotations.SMC;
 import com.bbva.jee.arq.spring.core.servicing.annotations.SN;
 import com.bbva.jee.arq.spring.core.servicing.annotations.VN;
@@ -59,14 +60,15 @@ public class SrvProposalsV0
     @Path("/proposals")
     @SMC(registryID = "SMCPE1720157", logicalID = "listProposals")
     public Proposals listProposals(
-            @QueryParam("participant.identityDocument.documentType.id") final String participantIdentityDocumentDocumentTypeId,
-            @QueryParam("participant.identityDocument.documentNumber") final String participantIdentityDocumentDocumentNumber,
+            @QueryParam("participant.identityDocument.documentType.id") final String documentTypeId,
+            @DatoAuditable(omitir = true)
+            @QueryParam("participant.identityDocument.documentNumber") final String documentNumber,
             @QueryParam("customer.id") final String customerId) {
         LOG.info("----- Invoking service listProposals -----");
         return listProposalsMapper.mapOut(srvIntProposals
                 .listProposals(listProposalsMapper.mapIn(
-                        participantIdentityDocumentDocumentTypeId,
-                        participantIdentityDocumentDocumentNumber, customerId)));
+                        documentTypeId,
+                        documentNumber, customerId)));
     }
 
     /**
