@@ -23,6 +23,10 @@ public class Term implements Serializable {
      */
     private String id;
     /**
+     * Frequency of the term.
+     */
+    private String frequency;
+    /**
      * Term value.
      */
     private BigDecimal value;
@@ -33,6 +37,14 @@ public class Term implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
     }
 
     public BigDecimal getValue() {

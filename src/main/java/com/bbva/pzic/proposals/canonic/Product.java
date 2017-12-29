@@ -32,6 +32,10 @@ public class Product implements Serializable {
      */
     private Title title;
     /**
+     * Risk group that is used to evaluate how the product will be proposed.
+     */
+    private String riskGroup;
+    /**
      * Product Configuration, related to the risk groups.
      */
     private ProductConfiguration productConfiguration;
@@ -66,6 +70,14 @@ public class Product implements Serializable {
 
     public void setTitle(Title title) {
         this.title = title;
+    }
+
+    public String getRiskGroup() {
+        return riskGroup;
+    }
+
+    public void setRiskGroup(String riskGroup) {
+        this.riskGroup = riskGroup;
     }
 
     public ProductConfiguration getProductConfiguration() {

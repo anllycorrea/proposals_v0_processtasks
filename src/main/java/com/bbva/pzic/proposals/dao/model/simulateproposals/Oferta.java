@@ -19,8 +19,8 @@ public class Oferta {
     private String stRiesgo;
     private String divisa;
     private String familiaProducto;
-    private Integer rangoMin;
-    private Integer rangoMax;
+    private BigDecimal rangoMin;
+    private BigDecimal rangoMax;
     private BigDecimal valTasa;
     private BigDecimal valCuotaContrato;
     private BigDecimal valCuotaAjust;
@@ -121,19 +121,19 @@ public class Oferta {
         this.familiaProducto = familiaProducto;
     }
 
-    public Integer getRangoMin() {
+    public BigDecimal getRangoMin() {
         return rangoMin;
     }
 
-    public void setRangoMin(Integer rangoMin) {
+    public void setRangoMin(BigDecimal rangoMin) {
         this.rangoMin = rangoMin;
     }
 
-    public Integer getRangoMax() {
+    public BigDecimal getRangoMax() {
         return rangoMax;
     }
 
-    public void setRangoMax(Integer rangoMax) {
+    public void setRangoMax(BigDecimal rangoMax) {
         this.rangoMax = rangoMax;
     }
 
