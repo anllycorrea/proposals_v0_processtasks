@@ -30,11 +30,9 @@ public class SimulateProposalsMapper extends ConfigurableMapper implements ISimu
     protected void configure(MapperFactory factory) {
         super.configure(factory);
         factory.classMap(SimulatedProposal.class, DTOIntSimulatedProposal.class)
-                .field("involvementType.id", "id")
                 .field("participant.id", "participant.id")
                 .field("participant.identityDocument.documentType.id", "participant.identityDocument.documentType.id")
                 .field("participant.identityDocument.documentNumber", "participant.identityDocument.documentNumber")
-                .field("products[n].productClassification.id", "products[n].productClassification.id")
                 .field("proposal.term.frequency", "proposal.term.frequency")
                 .field("proposal.term.value", "proposal.term.value")
                 .field("proposal.product.productClassification.id", "proposal.product.productClassification.id")
