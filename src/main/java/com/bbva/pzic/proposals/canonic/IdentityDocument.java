@@ -1,5 +1,7 @@
 package com.bbva.pzic.proposals.canonic;
 
+import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,6 +26,7 @@ public class IdentityDocument implements Serializable {
     /**
      * Identity document number.
      */
+    @DatoAuditable(omitir = true)
     private String documentNumber;
 
     public DocumentType getDocumentType() {

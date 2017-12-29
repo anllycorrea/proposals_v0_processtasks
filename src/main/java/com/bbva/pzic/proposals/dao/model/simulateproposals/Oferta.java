@@ -1,5 +1,7 @@
 package com.bbva.pzic.proposals.dao.model.simulateproposals;
 
+import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
+
 import java.math.BigDecimal;
 
 /**
@@ -41,6 +43,7 @@ public class Oferta {
     private String codConfigProducto;
     private String codInterno;
     private String documentType;
+    @DatoAuditable(omitir = true)
     private String documentNumber;
     private String codigoSegmento;
     private String indicadorRiesgo;
