@@ -3,7 +3,7 @@ package com.bbva.pzic.proposals.facade.v0.mapper.impl;
 import com.bbva.pzic.proposals.business.dto.DTOIntProposals;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.Proposals;
-import com.bbva.pzic.proposals.facade.v0.mapper.IListProposalsMapperV0;
+import com.bbva.pzic.proposals.facade.v0.mapper.IListProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import org.apache.commons.logging.Log;
@@ -15,10 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 
  * @author Entelgy
  */
-@Mapper
-public class ListProposalsMapperV0 implements IListProposalsMapperV0 {
+@Mapper("listProposalsMapperV0")
+public class ListProposalsMapper implements IListProposalsMapper {
 
-	private static final Log LOG = LogFactory.getLog(ListProposalsMapperV0.class);
+	private static final Log LOG = LogFactory.getLog(ListProposalsMapper.class);
 
     @Autowired
     private EnumMapper enumMapper;

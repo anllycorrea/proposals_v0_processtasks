@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * Created on 10/05/2017.
@@ -25,7 +24,7 @@ public class Term implements Serializable {
     /**
      * Term value.
      */
-    private BigDecimal value;
+    private Integer value;
     /**
      * Term frequency.
      */
@@ -39,7 +38,7 @@ public class Term implements Serializable {
         this.id = id;
     }
 
-    public BigDecimal getValue() {
+    public Integer getValue() {
         return value;
     }
 
@@ -51,7 +50,7 @@ public class Term implements Serializable {
         this.frequency = frequency;
     }
 
-    public void setValue(BigDecimal value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 

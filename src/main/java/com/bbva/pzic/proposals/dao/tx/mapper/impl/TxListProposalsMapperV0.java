@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Entelgy
  */
-@Mapper
+@Mapper("txListProposalsMapperV0")
 public class TxListProposalsMapperV0 extends ConfigurableMapper implements ITxListProposalsMapperV0 {
     private static final Log LOG = LogFactory.getLog(TxListProposalsMapperV0.class);
     @Autowired

@@ -10,7 +10,6 @@ import com.bbva.pzic.proposals.dao.model.hyt6.RespuestaTransaccionHyt6;
 import com.bbva.pzic.proposals.dao.tx.mapper.ITxListProposalsMapperV0;
 import com.bbva.pzic.proposals.util.tx.AbstractSimpleListTransaction;
 import com.bbva.pzic.proposals.util.tx.Tx;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 
@@ -22,7 +21,7 @@ import javax.annotation.Resource;
 @Tx
 public class TxListProposalsV0 extends AbstractSimpleListTransaction<InputListProposals, FormatoHYMR601, Proposal, FormatoHYMR602> {
 
-    @Autowired
+    @Resource(name = "txListProposalsMapperV0")
     private ITxListProposalsMapperV0 txListProposalsMapper;
 
     @Resource(name = "transaccionHyt6")

@@ -12,7 +12,7 @@ public class FormatProposal {
     private String campanha;
     private String codConfigProducto;
     private String codFlujoOpe;
-    private BigDecimal codPlazo;
+    private Integer codPlazo;
     private String codInterno;
     private String codProducto;
     private String codSubProducto;
@@ -65,11 +65,11 @@ public class FormatProposal {
         this.codFlujoOpe = codFlujoOpe;
     }
 
-    public BigDecimal getCodPlazo() {
+    public Integer getCodPlazo() {
         return codPlazo;
     }
 
-    public void setCodPlazo(BigDecimal codPlazo) {
+    public void setCodPlazo(Integer codPlazo) {
         this.codPlazo = codPlazo;
     }
 
