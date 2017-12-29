@@ -4,7 +4,6 @@ import com.bbva.jee.arq.spring.core.servicing.annotations.SMC;
 import com.bbva.jee.arq.spring.core.servicing.annotations.SN;
 import com.bbva.jee.arq.spring.core.servicing.annotations.VN;
 import com.bbva.pzic.proposals.business.ISrvIntProposalsV0;
-import com.bbva.pzic.proposals.business.dto.DTOIntProposals;
 import com.bbva.pzic.proposals.canonic.Proposals;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
@@ -64,15 +63,10 @@ public class SrvProposalsV0
             @QueryParam("participant.identityDocument.documentNumber") final String participantIdentityDocumentDocumentNumber,
             @QueryParam("customer.id") final String customerId) {
         LOG.info("----- Invoking service listProposals -----");
-        DTOIntProposals dTOIntProposals = srvIntProposals
+        return listProposalsMapper.mapOut(srvIntProposals
                 .listProposals(listProposalsMapper.mapIn(
                         participantIdentityDocumentDocumentTypeId,
-                        participantIdentityDocumentDocumentNumber, customerId));
-        Proposals proposals = listProposalsMapper.mapOut(dTOIntProposals);
-        if (proposals == null) {
-            return null;
-        }
-        return proposals;
+                        participantIdentityDocumentDocumentNumber, customerId)));
     }
 
     /**

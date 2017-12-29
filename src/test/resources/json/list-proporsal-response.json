@@ -1,46 +1,44 @@
-{
-  "data": [
-    {
-      "id": "100",
-      "term": {
-        "frequency": "MONTHLY",
-        "value": 24
-      },
-      "product": {
-        "productClassification": {
-          "id": "CREDIT_CARD"
-        }
-      },
-      "grantedAmount": {
-        "value": 5409.00,
-        "currency": "PEN"
-      },
-      "installmentPayment": {
-        "amount": 347,
-        "currency": "PEN"
-      },
-      "interestAnnualRate": 13.9
+[
+  {
+    "id": "100",
+    "term": {
+      "frequency": "MONTHLY",
+      "value": 24
     },
-    {
-      "id": "100",
-      "term": {
-        "frequency": "MONTHLY",
-        "value": 24
-      },
-      "product": {
-        "productClassification": {
-          "id": "CREDIT_CARD"
-        }
-      },
-      "grantedAmount": {
-        "value": 5409.00,
-        "currency": "PEN"
-      },
-      "installmentPayment": {
-        "amount": 347,
-        "currency": "PEN"
-      },
-      "interestAnnualRate": 13.9
-    }
-  ]
-}
+    "product": {
+      "productClassification": {
+        "id": "CREDIT_CARD"
+      }
+    },
+    "grantedAmount": {
+      "value": 5409.00,
+      "currency": "PEN"
+    },
+    "installmentPayment": {
+      "amount": 347,
+      "currency": "PEN"
+    },
+    "interestAnnualRate": 13.9
+  },
+  {
+    "id": "100",
+    "term": {
+      "frequency": "MONTHLY",
+      "value": 24
+    },
+    "product": {
+      "productClassification": {
+        "id": "CREDIT_CARD"
+      }
+    },
+    "grantedAmount": {
+      "value": 5409.00,
+      "currency": "PEN"
+    },
+    "installmentPayment": {
+      "amount": 347,
+      "currency": "PEN"
+    },
+    "interestAnnualRate": 13.9
+  }
+]

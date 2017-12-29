@@ -3,14 +3,16 @@ package com.bbva.pzic.proposals;
 import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals;
 import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
-import com.bbva.pzic.proposals.business.dto.DTOIntProposals;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
+import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.facade.v01.mapper.impl.ListExternalFinancingProposalsMapperTest;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created on 13/04/2017.
@@ -83,9 +85,10 @@ public class DummyMock {
         return proposals;
     }
 
-    public DTOIntProposals buildDtoIntProposals() throws IOException {
+    public List<Proposal> buildDtoIntProposals() throws IOException {
         return objectMapper.readValue(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("json/list-proporsal-response.json"), DTOIntProposals.class);
+                .getResourceAsStream("json/list-proporsal-response.json"), new TypeReference<List<Proposal>>() {
+        });
     }
 
 }

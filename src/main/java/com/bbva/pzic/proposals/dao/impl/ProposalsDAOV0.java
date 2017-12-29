@@ -1,8 +1,8 @@
 package com.bbva.pzic.proposals.dao.impl;
 
-import com.bbva.pzic.proposals.business.dto.DTOIntProposals;
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
+import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.dao.IProposalsDAOV0;
 import com.bbva.pzic.proposals.dao.tx.RestSimulateProposals;
@@ -11,6 +11,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created on 28/12/2017.
@@ -28,9 +30,9 @@ public class ProposalsDAOV0 implements IProposalsDAOV0 {
     private RestSimulateProposals restSimulateProposals;
 
     @Override
-    public DTOIntProposals listProposals(final InputListProposals listProposals) {
+    public List<Proposal> listProposals(final InputListProposals listProposals) {
         LOG.info("... Invoking method ProposalsDAO.listProposals ...");
-        return null;
+        return txListProposalsV0.invoke(listProposals);
     }
 
     @Override
