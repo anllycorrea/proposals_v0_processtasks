@@ -20,8 +20,8 @@ public interface ISrvProposalsV0 {
 	 * @param customerId
 	 * @return {@link Proposals}
 	 */
-	Proposals listProposals(String participantIdentityDocumentDocumentTypeId,
-			String participantIdentityDocumentDocumentNumber, String customerId);
+	Proposals listProposals(String documentTypeId,
+			String documentNumber, String customerId);
 
 	/**
 	 * Service for simulating a set of proposals.

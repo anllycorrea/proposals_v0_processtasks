@@ -19,8 +19,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import static com.bbva.pzic.proposals.DummyMock.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static com.bbva.pzic.proposals.dao.model.hyt6.mock.TransaccionHyt6Mock.TEST_EMPTY;
+import static com.bbva.pzic.proposals.dao.model.hyt6.mock.TransaccionHyt6Mock.TEST_NULL;
+import static org.junit.Assert.*;
 
 /**
  * Created on 29/12/2017.
@@ -117,5 +118,41 @@ public class SrvListProposalsV0IntegrationTest {
         assertNotNull(result.getData());
 
         assertEquals(3, result.getData().size());
+    }
+
+    @Test
+    public void listProposalsWrongCustomerIdTest() {
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
+        srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, DOCUMENT_NUMBER, "123456789");
+    }
+
+    @Test
+    public void listProposalsWrongDocumentNumberTest() {
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
+        srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, "123456789101", CUSTOMER_ID);
+    }
+
+    @Test
+    public void listProposalsWrongDocumentTypeIdTest() {
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
+        srvProposalsV0.listProposals("VISA", DOCUMENT_NUMBER, CUSTOMER_ID);
+    }
+
+    @Test
+    public void listProposalsNullTest() {
+        final Proposals result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, DOCUMENT_NUMBER, TEST_NULL);
+        assertNull(result);
+    }
+
+    @Test
+    public void listProposalsEmptyTest() {
+        final Proposals result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, DOCUMENT_NUMBER, TEST_EMPTY);
+
+        assertNotNull(result);
+        assertNotNull(result.getData());
+        assertEquals(2, result.getData().size());
     }
 }

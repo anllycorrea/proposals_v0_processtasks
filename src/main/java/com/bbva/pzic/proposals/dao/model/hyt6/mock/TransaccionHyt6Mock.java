@@ -43,7 +43,6 @@ public class TransaccionHyt6Mock implements InvocadorTransaccion<PeticionTransac
                 response.getCuerpo().getPartes().addAll(buildDataCopies(mock.buildFormatoHYMR602sEmpty()));
             } else {
                 response.getCuerpo().getPartes().addAll(buildDataCopies(mock.buildFormatoHYMR602s()));
-
             }
         } catch (IOException e) {
             throw new IllegalArgumentException(e);

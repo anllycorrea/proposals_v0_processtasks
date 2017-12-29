@@ -44,7 +44,7 @@ public class ListProposalsMapper implements IListProposalsMapper {
     @Override
     public Proposals mapOut(final List<Proposal> proposalList) {
         LOG.info("... called method ListProposalsMapper.mapOut ...");
-        if (proposalList.isEmpty()) {
+        if (proposalList == null) {
             return null;
         }
         Proposals proposals = new Proposals();

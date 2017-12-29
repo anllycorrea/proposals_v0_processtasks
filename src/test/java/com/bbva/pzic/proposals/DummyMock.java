@@ -28,7 +28,7 @@ public class DummyMock {
     public final static String STATUS_ID = "8";
     public final static String STATUS_VALUE = "PENDING_SIGNATURE";
     public final static String CUSTOMER_ID = "12345678";
-    public final static String DOCUMENT_NUMBER = "12345678";
+    public final static String DOCUMENT_NUMBER = "12345678910";
     public final static String DOCUMENT_TYPE_ID = "DNI";
 
     private ObjectMapper objectMapper;
