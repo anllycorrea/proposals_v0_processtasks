@@ -1,6 +1,7 @@
 package com.bbva.pzic.proposals.dao.tx.mapper.impl;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 
@@ -9,6 +10,7 @@ import org.mockito.InjectMocks;
  *
  * @author Entelgy
  */
+@Ignore
 public class RestSimulateProposalsMapperTest {
 
     @InjectMocks

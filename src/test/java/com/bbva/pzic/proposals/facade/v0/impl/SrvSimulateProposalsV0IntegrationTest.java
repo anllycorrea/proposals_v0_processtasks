@@ -4,6 +4,7 @@ import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoa
 import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExecutionListener;
 import com.bbva.pzic.proposals.facade.v0.ISrvProposalsV0;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -26,6 +27,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 @TestExecutionListeners(listeners = {
 		MockInvocationContextTestExecutionListener.class,
 		DependencyInjectionTestExecutionListener.class})
+@Ignore
 public class SrvSimulateProposalsV0IntegrationTest {
 
 	@Rule

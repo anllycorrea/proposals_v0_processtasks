@@ -3,6 +3,7 @@ package com.bbva.pzic.proposals.facade.v0.mapper.impl;
 import com.bbva.pzic.proposals.facade.v0.mapper.ISimulateProposalsMapper;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -10,6 +11,7 @@ import org.junit.Test;
  * 
  * @author Entelgy
  */
+@Ignore
 public class SimulateProposalsMapperTest {
 
 	private ISimulateProposalsMapper simulateProposalsMapper;

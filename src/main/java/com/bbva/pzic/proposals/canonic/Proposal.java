@@ -87,6 +87,12 @@ public class Proposal implements Serializable {
      */
     private BigDecimal interestAnnualRate;
 
+    /**
+     * Interest rate related to the product. This must be the ADJUSTED interest
+     * rate.
+     */
+    private BigDecimal interestRate;
+
     private RiskType riskType;
 
     public String getId() {
@@ -183,6 +189,14 @@ public class Proposal implements Serializable {
 
     public void setLimits(List<Limit> limits) {
         this.limits = limits;
+    }
+
+    public BigDecimal getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(BigDecimal interestRate) {
+        this.interestRate = interestRate;
     }
 
     public RiskType getRiskType() {

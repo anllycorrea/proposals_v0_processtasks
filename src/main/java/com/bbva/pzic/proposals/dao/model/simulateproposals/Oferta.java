@@ -40,6 +40,11 @@ public class Oferta {
     private String tipplazo;
     private String codConfigProducto;
     private String codInterno;
+    private String documentType;
+    private String documentNumber;
+    private String codigoSegmento;
+    private String indicadorRiesgo;
+    private String desIndicadorRiesgo;
 
     public String getValBin() {
         return valBin;
@@ -287,5 +292,45 @@ public class Oferta {
 
     public void setCodInterno(String codInterno) {
         this.codInterno = codInterno;
+    }
+
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
+    }
+
+    public String getCodigoSegmento() {
+        return codigoSegmento;
+    }
+
+    public void setCodigoSegmento(String codigoSegmento) {
+        this.codigoSegmento = codigoSegmento;
+    }
+
+    public String getIndicadorRiesgo() {
+        return indicadorRiesgo;
+    }
+
+    public void setIndicadorRiesgo(String indicadorRiesgo) {
+        this.indicadorRiesgo = indicadorRiesgo;
+    }
+
+    public String getDesIndicadorRiesgo() {
+        return desIndicadorRiesgo;
+    }
+
+    public void setDesIndicadorRiesgo(String desIndicadorRiesgo) {
+        this.desIndicadorRiesgo = desIndicadorRiesgo;
     }
 }
