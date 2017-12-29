@@ -57,7 +57,6 @@ public class TxListProposalsMapperV0 extends ConfigurableMapper implements ITxLi
     public Proposal mapOut(final FormatoHYMR602 formatOut,
                            final Proposal proposal) {
         Proposal data = map(formatOut, Proposal.class);
-        //TODO: settear el valor del enumerado cuando se confirme el campo
 
         if (formatOut.getTipplaz() != null) {
             data.getTerm().setFrequency(

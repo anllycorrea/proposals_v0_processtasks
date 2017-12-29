@@ -165,6 +165,39 @@ public class TxListProposalsMapperV0Test {
         Assert.assertEquals(mock.getMoneda(), result.getInstallmentPayment().getCurrency());
         Assert.assertEquals(mock.getTea(), result.getInterestAnnualRate());
 
+    }
+
+    @Test
+    public void mapOutEmptyTest() throws IOException {
+        FormatoHYMR602 mock = formatoHYMRMock.buildFormatoHYMR602sEmpty().get(0);
+        Proposal result = proposalsMapperV0.mapOut(mock, new Proposal());
+
+        Assert.assertNull(result.getGrantedAmount().getCurrency());
+        Assert.assertNull(result.getInstallmentPayment().getCurrency());
+        Assert.assertNull(result.getTerm().getFrequency());
+        Assert.assertNull(result.getProduct());
+
+        Assert.assertEquals(mock.getId(), result.getId());
+        Assert.assertEquals(mock.getPlazo(), result.getTerm().getValue());
+        Assert.assertEquals(mock.getMontprd(), result.getGrantedAmount().getValue());
+        Assert.assertEquals(mock.getMoneda(), result.getGrantedAmount().getCurrency());
+        Assert.assertEquals(mock.getCuoprd(), result.getInstallmentPayment().getAmount());
+        Assert.assertEquals(mock.getTea(), result.getInterestAnnualRate());
+
+        mock = formatoHYMRMock.buildFormatoHYMR602sEmpty().get(1);
+        result = proposalsMapperV0.mapOut(mock, new Proposal());
+
+        Assert.assertNull(result.getGrantedAmount().getCurrency());
+        Assert.assertNull(result.getInstallmentPayment().getCurrency());
+        Assert.assertNull(result.getTerm().getFrequency());
+        Assert.assertNull(result.getProduct());
+
+        Assert.assertEquals(mock.getId(), result.getId());
+        Assert.assertEquals(mock.getPlazo(), result.getTerm().getValue());
+        Assert.assertEquals(mock.getMontprd(), result.getGrantedAmount().getValue());
+        Assert.assertEquals(mock.getMoneda(), result.getGrantedAmount().getCurrency());
+        Assert.assertEquals(mock.getCuoprd(), result.getInstallmentPayment().getAmount());
+        Assert.assertEquals(mock.getTea(), result.getInterestAnnualRate());
 
     }
 
