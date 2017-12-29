@@ -6,6 +6,7 @@ import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
+import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.facade.v01.mapper.impl.ListExternalFinancingProposalsMapperTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -80,5 +81,10 @@ public class DummyMock {
         proposals.setDocumentTypeId(DOCUMENT_TYPE_ID);
         proposals.setDocumentNumber(DOCUMENT_NUMBER);
         return proposals;
+    }
+
+    public SimulatedProposal getSimulatedProposal() throws IOException {
+        return objectMapper.readValue(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("json/simulatedProposal.json"), SimulatedProposal.class);
     }
 }
