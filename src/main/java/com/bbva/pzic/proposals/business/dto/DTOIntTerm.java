@@ -1,8 +1,6 @@
 package com.bbva.pzic.proposals.business.dto;
 
 
-import java.math.BigDecimal;
-
 /**
  * Created on 28/12/2017.
  * 
@@ -11,7 +9,7 @@ import java.math.BigDecimal;
 public class DTOIntTerm {
 
 	private String frequency;
-	private BigDecimal value;
+	private Integer value;
 
 	public String getFrequency() {
 		return frequency;
@@ -21,11 +19,11 @@ public class DTOIntTerm {
 		this.frequency = frequency;
 	}
 
-	public BigDecimal getValue() {
+	public Integer getValue() {
 		return value;
 	}
 
-	public void setValue(BigDecimal value) {
+	public void setValue(Integer value) {
 		this.value = value;
 	}
 }

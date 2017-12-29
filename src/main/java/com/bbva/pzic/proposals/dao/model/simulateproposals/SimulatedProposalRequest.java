@@ -10,16 +10,25 @@ import java.util.List;
  */
 public class SimulatedProposalRequest {
 
+    private String customerId;
     private String documentType;
     private String documentNumber;
     private List<ProductClassification> productClassifications;
-    private Integer codPlazoSel;
+    private BigDecimal codPlazoSel;
     private String tipplazoSel;
     private BigDecimal valCuotaSel;
     private BigDecimal valMontoSel;
     private BigDecimal tasaSel;
     private String codProductoSel;
     private String divisa;
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 
     public String getDocumentType() {
         return documentType;
@@ -45,11 +54,11 @@ public class SimulatedProposalRequest {
         this.productClassifications = productClassifications;
     }
 
-    public Integer getCodPlazoSel() {
+    public BigDecimal getCodPlazoSel() {
         return codPlazoSel;
     }
 
-    public void setCodPlazoSel(Integer codPlazoSel) {
+    public void setCodPlazoSel(BigDecimal codPlazoSel) {
         this.codPlazoSel = codPlazoSel;
     }
 

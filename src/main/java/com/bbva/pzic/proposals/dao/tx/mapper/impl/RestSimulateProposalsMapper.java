@@ -1,5 +1,6 @@
 package com.bbva.pzic.proposals.dao.tx.mapper.impl;
 
+import com.bbva.jee.arq.spring.core.servicing.context.ServiceInvocationContext;
 import com.bbva.pzic.proposals.business.dto.DTOIntProduct;
 import com.bbva.pzic.proposals.business.dto.DTOIntProductClassification;
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
@@ -39,13 +40,15 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
     @Autowired
     private EnumMapper enumMapper;
 
+    @Autowired
+    private ServiceInvocationContext invocationContext;
+
     @Override
     protected void configure(MapperFactory factory) {
         super.configure(factory);
         factory.getConverterFactory().registerConverter(new BooleanToStringConverter());
 
         factory.classMap(DTOIntSimulatedProposal.class, SimulatedProposalRequest.class)
-                //.field("participant.id", "customerId")
                 .field("participant.identityDocument.documentType.id", "documentType")
                 .field("participant.identityDocument.documentNumber", "documentNumber")
                 .field("proposal.term.frequency", "tipplazoSel")
@@ -68,8 +71,6 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
                 .field("internalCode", "codInterno")
                 .field("procurementFlow.procurementFlowType.id", "codFlujoOpe")
                 .field("procurementFlow.procurementFlowType.name", "flujoOperativo")
-                .field("indicators[0].isActive", "vdomiciliaria")
-                .field("indicators[1].isActive", "vlaboral")
                 .field("campaign.code", "campanha")
                 .field("term.frequency", "tipplazo")
                 .field("term.value", "codPlazo")
@@ -88,6 +89,8 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
     @Override
     public SimulatedProposalRequest mapIn(final DTOIntSimulatedProposal dtoIn) {
         SimulatedProposalRequest simulatedProposalRequest = map(dtoIn, SimulatedProposalRequest.class);
+
+        simulatedProposalRequest.setCustomerId(invocationContext.getUser());
 
         List<DTOIntProduct> dtoInProducts = dtoIn.getProducts();
         if (dtoInProducts != null && !dtoInProducts.isEmpty()) {
@@ -116,7 +119,7 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
 
     @Override
     public SimulatedProposalsData mapOut(final SimulatedProposalsResponse response) {
-        if (response.getListaOfertas() == null || !response.getListaOfertas().isEmpty()) {
+        if (response.getListaOfertas() == null || response.getListaOfertas().isEmpty()) {
             return null;
         }
 
