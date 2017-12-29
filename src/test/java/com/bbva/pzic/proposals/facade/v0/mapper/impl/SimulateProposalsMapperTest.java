@@ -52,7 +52,7 @@ public class SimulateProposalsMapperTest {
         assertEquals("CO", result.getProducts().get(0).getProductClassification().getId());
         assertEquals("TC", result.getProducts().get(1).getProductClassification().getId());
         assertEquals("MONTHLY", result.getProposal().getTerm().getFrequency());
-        assertEquals(new BigDecimal("36"), result.getProposal().getTerm().getValue());
+        assertEquals(new Integer("36"), result.getProposal().getTerm().getValue());
         assertEquals("TC", result.getProposal().getProduct().getProductClassification().getId());
         assertEquals(new BigDecimal("6100.00"), result.getProposal().getGrantedAmount().getValue());
         assertEquals("PEN", result.getProposal().getGrantedAmount().getCurrency());
