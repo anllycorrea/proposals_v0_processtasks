@@ -30,7 +30,7 @@ public class RestSimulateProposalsMock extends RestSimulateProposals {
     public SimulatedProposalsResponse connect(final String urlPropertyValue, final SimulatedProposalRequest entityPayload) {
         SimulatedProposalsResponse build = restSimulateProposalsBuilder.buildSimulatedProposalsResponse();
 
-        if (EMPTY_DATA.equals(entityPayload.getCustomerId())) {
+        if (EMPTY_DATA.equals(entityPayload.getDocumentNumber())) {
             build.setListaOfertas(null);
             return build;
         }
