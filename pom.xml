@@ -23,8 +23,6 @@
         <dependency>
             <groupId>com.bbva.pzic</groupId>
             <artifactId>testUtils</artifactId>
-            <version>${testUtils.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- INICIO Arquitectura Servicios -->

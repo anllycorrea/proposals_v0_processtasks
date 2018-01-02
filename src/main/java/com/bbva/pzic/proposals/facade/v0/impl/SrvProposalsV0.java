@@ -17,12 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
@@ -37,10 +32,7 @@ import javax.ws.rs.core.UriInfo;
 @SN(registryID = "SNPE1700055", logicalID = "proposals")
 @VN(vnn = "v0")
 @Service
-public class SrvProposalsV0
-        implements
-        ISrvProposalsV0,
-        com.bbva.jee.arq.spring.core.servicing.utils.ContextAware {
+public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.core.servicing.utils.ContextAware {
 
     private static final Log LOG = LogFactory.getLog(SrvProposalsV0.class);
     public HttpHeaders httpHeaders;
@@ -51,6 +43,16 @@ public class SrvProposalsV0
     private IListProposalsMapper listProposalsMapper;
     @Autowired
     private ISimulateProposalsMapper simulateProposalsMapper;
+
+    @Override
+    public void setHttpHeaders(HttpHeaders httpHeaders) {
+        this.httpHeaders = httpHeaders;
+    }
+
+    @Override
+    public void setUriInfo(UriInfo uriInfo) {
+        this.uriInfo = uriInfo;
+    }
 
     /**
      * {@inheritDoc}
@@ -82,15 +84,5 @@ public class SrvProposalsV0
     public SimulatedProposalsData simulateProposals(final SimulatedProposal simulatedProposal) {
         LOG.info("----- Invoking service simulateProposals -----");
         return srvIntProposals.simulateProposals(simulateProposalsMapper.mapIn(simulatedProposal));
-    }
-
-    @Override
-    public void setHttpHeaders(HttpHeaders httpHeaders) {
-        this.httpHeaders = httpHeaders;
-    }
-
-    @Override
-    public void setUriInfo(UriInfo uriInfo) {
-        this.uriInfo = uriInfo;
     }
 }
