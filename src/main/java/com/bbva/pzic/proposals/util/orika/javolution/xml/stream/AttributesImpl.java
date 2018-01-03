@@ -1,5 +1,7 @@
 package com.bbva.pzic.proposals.util.orika.javolution.xml.stream;
 
+import java.lang.CharSequence;
+
 import com.bbva.pzic.proposals.util.orika.javax.realtime.MemoryArea;
 import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 import com.bbva.pzic.proposals.util.orika.javolution.text.CharArray;
@@ -7,9 +9,9 @@ import com.bbva.pzic.proposals.util.orika.javolution.text.Text;
 import com.bbva.pzic.proposals.util.orika.javolution.xml.sax.Attributes;
 
 /**
- * This class provides the implementation of the {@link com.bbva.pzic.proposals.util.orika.javolution.xml.sax.Attributes}
- * interface for the StAX parser.
- *
+ * This class provides the implementation of the {@link Attributes}
+ * interface for the StAX parser. 
+ * 
  * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  */
 final class AttributesImpl implements Attributes, Reusable {
@@ -95,7 +97,7 @@ final class AttributesImpl implements Attributes, Reusable {
 
     // Implements Attributes.
     public int getIndex(CharSequence uri, CharSequence localName) {
-        if (uri == null)
+        if (uri == null) 
             throw new IllegalArgumentException(
                     "null namespace URI is not allowed");
         for (int i = 0; i < _length; i++) {
@@ -150,14 +152,14 @@ final class AttributesImpl implements Attributes, Reusable {
 
     /**
      * Adds an attribute to the end of the attribute list.
-     *
+     * 
      * @param localName the local name.
-     * @param prefix    the prefix or <code>null</code> if none.
-     * @param qName     the qualified (prefixed) name.
-     * @param value     the attribute value.
+     * @param prefix the prefix or <code>null</code> if none.
+     * @param qName the qualified (prefixed) name.
+     * @param value the attribute value.
      */
     public void addAttribute(CharArray localName, CharArray prefix,
-                             CharArray qName, CharArray value) {
+            CharArray qName, CharArray value) {
         if (_length >= _localNames.length) {
             increaseCapacity();
         }
@@ -169,14 +171,14 @@ final class AttributesImpl implements Attributes, Reusable {
 
     /**
      * Returns the string representation of these attributes.
-     *
+     * 
      * @return this attributes textual representation.
      */
     public String toString() {
         Text text = Text.valueOf('[');
         final Text equ = Text.valueOf('=');
         final Text sep = Text.valueOf(", ");
-        for (int i = 0; i < _length; ) {
+        for (int i = 0; i < _length;) {
             text = text.concat(Text.valueOf(_qNames[i]).concat(equ).concat(
                     Text.valueOf(_values[i])));
             if (++i != _length) {

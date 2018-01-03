@@ -89,7 +89,7 @@ public class ExternalFinancingProposal implements Serializable {
      */
     private Integer billingDay;
     /**
-      * Day of the calendar on which the billing is closed.
+     * Day of the calendar on which the billing is closed.
      */
     private ThirdPartyProvider thirdPartyProvider;
 

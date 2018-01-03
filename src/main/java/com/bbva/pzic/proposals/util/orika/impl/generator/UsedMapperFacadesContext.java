@@ -17,33 +17,36 @@
  */
 package com.bbva.pzic.proposals.util.orika.impl.generator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.bbva.pzic.proposals.util.orika.BoundMapperFacade;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
+ * 
  * @author matt.deboer@gmail.com
+ *
  */
 public class UsedMapperFacadesContext {
-
+    
     public static class UsedMapperFacadesIndex {
         public Integer index;
         public boolean isReversed;
     }
 
-    private List<BoundMapperFacade<Object, Object>> usedMapperFacades = new ArrayList<BoundMapperFacade<Object, Object>>();
+    private List<BoundMapperFacade<Object,Object>> usedMapperFacades = new ArrayList<BoundMapperFacade<Object,Object>>();
     private int usedTypeIndex = 0;
 
 
+    
     /**
      * Returns an index within the dedicated mapper facades contained in this context
      * for the given pair of types. <br>
      * If the mapping direction is reversed, a negative value is returned, where the absolute
      * value still corresponds to the correct index.<br>
-     *
+     * 
      * @param sourceType
      * @param destinationType
      * @return
@@ -54,8 +57,8 @@ public class UsedMapperFacadesContext {
             throw new NullPointerException("sourceType and destinationType must not be null");
         }
         UsedMapperFacadesIndex result = new UsedMapperFacadesIndex();
-        for (int i = 0, len = usedMapperFacades.size(); i < len; ++i) {
-            BoundMapperFacade<Object, Object> dedicatedFacade = usedMapperFacades.get(i);
+        for (int i=0, len = usedMapperFacades.size(); i < len; ++i) {
+            BoundMapperFacade<Object,Object> dedicatedFacade = usedMapperFacades.get(i);
             if (dedicatedFacade.getAType().equals(sourceType) && dedicatedFacade.getBType().equals(destinationType)) {
                 result.index = i;
                 break;
@@ -65,16 +68,16 @@ public class UsedMapperFacadesContext {
                 break;
             }
         }
-
+        
         if (result.index == null) {
             result.index = Integer.valueOf(usedTypeIndex++);
-            usedMapperFacades.add((BoundMapperFacade<Object, Object>) mapperFactory.getMapperFacade(sourceType, destinationType));
+            usedMapperFacades.add((BoundMapperFacade<Object, Object>)mapperFactory.getMapperFacade(sourceType, destinationType));
         }
         return result;
     }
-
+    
     @SuppressWarnings("unchecked")
-    public BoundMapperFacade<Object, Object>[] toArray() {
+    public BoundMapperFacade<Object,Object>[] toArray() {
         return usedMapperFacades.toArray(new BoundMapperFacade[0]);
     }
 }

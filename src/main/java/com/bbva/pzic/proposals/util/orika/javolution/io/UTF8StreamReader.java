@@ -9,41 +9,43 @@
 package com.bbva.pzic.proposals.util.orika.javolution.io;
 
 
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
-
-import java.io.CharConversionException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.io.CharConversionException;
+import java.lang.IllegalStateException;
+import java.lang.Appendable;
+
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 
 
 /**
  * <p> This class represents a UTF-8 stream reader.</p>
- * <p/>
- * <p> This reader supports surrogate <code>char</code> pairs (representing
- * characters in the range [U+10000 .. U+10FFFF]). It can also be used
- * to read characters unicodes (31 bits) directly
- * (ref. {@link #read()}).</p>
- * <p/>
- * <p> Each invocation of one of the <code>read()</code> methods may cause one
- * or more bytes to be read from the underlying byte-input stream.
- * To enable the efficient conversion of bytes to characters, more bytes may
- * be read ahead from the underlying stream than are necessary to satisfy
- * the current read operation.</p>
- * <p/>
- * <p> Instances of this class can be reused for different input streams
- * and can be part of a higher level component (e.g. parser) in order
- * to avoid dynamic buffer allocation when the input source changes.
- * Also wrapping using a <code>java.io.BufferedReader</code> is unnescessary
- * as instances of this class embed their own data buffers.</p>
- * <p/>
- * <p> Note: This reader is unsynchronized and does not test if the UTF-8
- * encoding is well-formed (e.g. UTF-8 sequences longer than
- * necessary to encode a character).</p>
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * <p> This reader supports surrogate <code>char</code> pairs (representing
+ *     characters in the range [U+10000 .. U+10FFFF]). It can also be used
+ *     to read characters unicodes (31 bits) directly
+ *     (ref. {@link #read()}).</p>
+ *
+ * <p> Each invocation of one of the <code>read()</code> methods may cause one
+ *     or more bytes to be read from the underlying byte-input stream.
+ *     To enable the efficient conversion of bytes to characters, more bytes may
+ *     be read ahead from the underlying stream than are necessary to satisfy
+ *     the current read operation.</p>
+ *
+ * <p> Instances of this class can be reused for different input streams
+ *     and can be part of a higher level component (e.g. parser) in order
+ *     to avoid dynamic buffer allocation when the input source changes.
+ *     Also wrapping using a <code>java.io.BufferedReader</code> is unnescessary
+ *     as instances of this class embed their own data buffers.</p>
+ *
+ * <p> Note: This reader is unsynchronized and does not test if the UTF-8
+ *           encoding is well-formed (e.g. UTF-8 sequences longer than
+ *           necessary to encode a character).</p>
+ *
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 2.0, December 9, 2004
- * @see UTF8StreamWriter
+ * @see     UTF8StreamWriter
  */
 public final class UTF8StreamReader extends Reader implements Reusable {
 
@@ -76,7 +78,7 @@ public final class UTF8StreamReader extends Reader implements Reusable {
 
     /**
      * Creates a UTF-8 reader having a byte buffer of specified capacity.
-     *
+     * 
      * @param capacity the capacity of the byte buffer.
      */
     public UTF8StreamReader(int capacity) {
@@ -86,15 +88,15 @@ public final class UTF8StreamReader extends Reader implements Reusable {
     /**
      * Sets the input stream to use for reading until this reader is closed.
      * For example:[code]
-     * Reader reader = new UTF8StreamReader().setInput(inStream);
+     *     Reader reader = new UTF8StreamReader().setInput(inStream);
      * [/code] is equivalent but reads twice as fast as [code]
-     * Reader reader = new java.io.InputStreamReader(inStream, "UTF-8");
+     *     Reader reader = new java.io.InputStreamReader(inStream, "UTF-8");
      * [/code]
      *
-     * @param inStream the input stream.
+     * @param  inStream the input stream.
      * @return this UTF-8 reader.
-     * @throws IllegalStateException if this reader is being reused and
-     *                               it has not been {@link #close closed} or {@link #reset reset}.
+     * @throws IllegalStateException if this reader is being reused and 
+     *         it has not been {@link #close closed} or {@link #reset reset}.
      */
     public UTF8StreamReader setInput(InputStream inStream) {
         if (_inputStream != null)
@@ -107,8 +109,8 @@ public final class UTF8StreamReader extends Reader implements Reusable {
      * Indicates if this stream is ready to be read.
      *
      * @return <code>true</code> if the next read() is guaranteed not to block
-     * for input; <code>false</code> otherwise.
-     * @throws IOException if an I/O error occurs.
+     *         for input; <code>false</code> otherwise.
+     * @throws  IOException if an I/O error occurs.
      */
     public boolean ready() throws IOException {
         if (_inputStream == null)
@@ -133,7 +135,7 @@ public final class UTF8StreamReader extends Reader implements Reusable {
      * available, an I/O error occurs or the end of the stream is reached.
      *
      * @return the 31-bits Unicode of the character read, or -1 if the end of
-     * the stream has been reached.
+     *         the stream has been reached.
      * @throws IOException if an I/O error occurs.
      */
     public int read() throws IOException {
@@ -210,17 +212,17 @@ public final class UTF8StreamReader extends Reader implements Reusable {
 
     /**
      * Reads characters into a portion of an array.  This method will block
-     * until some input is available, an I/O error occurs or the end of
+     * until some input is available, an I/O error occurs or the end of 
      * the stream is reached.
-     * <p/>
-     * <p> Note: Characters between U+10000 and U+10FFFF are represented
-     * by surrogate pairs (two <code>char</code>).</p>
      *
-     * @param cbuf the destination buffer.
-     * @param off  the offset at which to start storing characters.
-     * @param len  the maximum number of characters to read
+     * <p> Note: Characters between U+10000 and U+10FFFF are represented
+     *     by surrogate pairs (two <code>char</code>).</p>
+     *
+     * @param  cbuf the destination buffer.
+     * @param  off the offset at which to start storing characters.
+     * @param  len the maximum number of characters to read
      * @return the number of characters read, or -1 if the end of the
-     * stream has been reached
+     *         stream has been reached
      * @throws IOException if an I/O error occurs.
      */
     public int read(char cbuf[], int off, int len) throws IOException {
@@ -234,7 +236,7 @@ public final class UTF8StreamReader extends Reader implements Reusable {
             }
         }
         final int off_plus_len = off + len;
-        for (int i = off; i < off_plus_len; ) {
+        for (int i = off; i < off_plus_len;) {
             // assert(_start < _end)
             byte b = _bytes[_start];
             if ((b >= 0) && (++_start < _end)) {
@@ -269,7 +271,7 @@ public final class UTF8StreamReader extends Reader implements Reusable {
      * Reads characters into the specified appendable.  This method will block
      * until the end of the stream is reached.
      *
-     * @param dest the destination buffer.
+     * @param  dest the destination buffer.
      * @throws IOException if an I/O error occurs.
      */
     public void read(Appendable dest) throws IOException {

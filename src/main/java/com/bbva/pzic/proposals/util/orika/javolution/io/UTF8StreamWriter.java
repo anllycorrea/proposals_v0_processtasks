@@ -8,32 +8,34 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.io;
 
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
-
-import java.io.CharConversionException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.io.CharConversionException;
+import java.lang.CharSequence;
+import java.lang.IllegalStateException;
+
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 
 
 /**
  * <p> This class represents a UTF-8 stream writer.</p>
- * <p/>
- * <p> This writer supports surrogate <code>char</code> pairs (representing
- * characters in the range [U+10000 .. U+10FFFF]). It can also be used
- * to write characters from their unicodes (31 bits) directly
- * (ref. {@link #write(int)}).</p>
- * <p/>
- * <p> Instances of this class can be reused for different output streams
- * and can be part of a higher level component (e.g. serializer) in order
- * to avoid dynamic buffer allocation when the destination output changes.
- * Also wrapping using a <code>java.io.BufferedWriter</code> is unnescessary
- * as instances of this class embed their own data buffers.</p>
- * <p/>
- * <p> Note: This writer is unsynchronized and always produces well-formed
- * UTF-8 sequences.</p>
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * <p> This writer supports surrogate <code>char</code> pairs (representing
+ *     characters in the range [U+10000 .. U+10FFFF]). It can also be used
+ *     to write characters from their unicodes (31 bits) directly
+ *     (ref. {@link #write(int)}).</p>
+ *
+ * <p> Instances of this class can be reused for different output streams
+ *     and can be part of a higher level component (e.g. serializer) in order
+ *     to avoid dynamic buffer allocation when the destination output changes.
+ *     Also wrapping using a <code>java.io.BufferedWriter</code> is unnescessary
+ *     as instances of this class embed their own data buffers.</p>
+ * 
+ * <p> Note: This writer is unsynchronized and always produces well-formed
+ *           UTF-8 sequences.</p>
+ *
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 2.0, December 9, 2004
  */
 public final class UTF8StreamWriter extends Writer implements Reusable {
@@ -62,7 +64,7 @@ public final class UTF8StreamWriter extends Writer implements Reusable {
 
     /**
      * Creates a UTF-8 writer having a byte buffer of specified capacity.
-     *
+     * 
      * @param capacity the capacity of the byte buffer.
      */
     public UTF8StreamWriter(int capacity) {
@@ -72,15 +74,15 @@ public final class UTF8StreamWriter extends Writer implements Reusable {
     /**
      * Sets the output stream to use for writing until this writer is closed.
      * For example:[code]
-     * Writer writer = new UTF8StreamWriter().setOutputStream(out);
+     *     Writer writer = new UTF8StreamWriter().setOutputStream(out);
      * [/code] is equivalent but writes faster than [code]
-     * Writer writer = new java.io.OutputStreamWriter(out, "UTF-8");
+     *     Writer writer = new java.io.OutputStreamWriter(out, "UTF-8");
      * [/code]
      *
-     * @param out the output stream.
+     * @param  out the output stream.
      * @return this UTF-8 writer.
-     * @throws IllegalStateException if this writer is being reused and
-     *                               it has not been {@link #close closed} or {@link #reset reset}.
+     * @throws IllegalStateException if this writer is being reused and 
+     *         it has not been {@link #close closed} or {@link #reset reset}.
      */
     public UTF8StreamWriter setOutput(OutputStream out) {
         if (_outputStream != null)
@@ -93,8 +95,8 @@ public final class UTF8StreamWriter extends Writer implements Reusable {
      * Writes a single character. This method supports 16-bits
      * character surrogates.
      *
-     * @param c <code>char</code> the character to be written (possibly
-     *          a surrogate).
+     * @param  c <code>char</code> the character to be written (possibly
+     *        a surrogate).
      * @throws IOException if an I/O error occurs.
      */
     public void write(char c) throws IOException {
@@ -114,7 +116,7 @@ public final class UTF8StreamWriter extends Writer implements Reusable {
     /**
      * Writes a character given its 31-bits Unicode.
      *
-     * @param code the 31 bits Unicode of the character to be written.
+     * @param  code the 31 bits Unicode of the character to be written.
      * @throws IOException if an I/O error occurs.
      */
     public void write(int code) throws IOException {
@@ -223,14 +225,14 @@ public final class UTF8StreamWriter extends Writer implements Reusable {
     /**
      * Writes a portion of an array of characters.
      *
-     * @param cbuf the array of characters.
-     * @param off  the offset from which to start writing characters.
-     * @param len  the number of characters to write.
+     * @param  cbuf the array of characters.
+     * @param  off the offset from which to start writing characters.
+     * @param  len the number of characters to write.
      * @throws IOException if an I/O error occurs.
      */
     public void write(char cbuf[], int off, int len) throws IOException {
         final int off_plus_len = off + len;
-        for (int i = off; i < off_plus_len; ) {
+        for (int i = off; i < off_plus_len;) {
             char c = cbuf[i++];
             if (c < 0x80) {
                 _bytes[_index] = (byte) c;
@@ -246,14 +248,14 @@ public final class UTF8StreamWriter extends Writer implements Reusable {
     /**
      * Writes a portion of a string.
      *
-     * @param str a String.
-     * @param off the offset from which to start writing characters.
-     * @param len the number of characters to write.
+     * @param  str a String.
+     * @param  off the offset from which to start writing characters.
+     * @param  len the number of characters to write.
      * @throws IOException if an I/O error occurs
      */
     public void write(String str, int off, int len) throws IOException {
         final int off_plus_len = off + len;
-        for (int i = off; i < off_plus_len; ) {
+        for (int i = off; i < off_plus_len;) {
             char c = str.charAt(i++);
             if (c < 0x80) {
                 _bytes[_index] = (byte) c;
@@ -269,12 +271,12 @@ public final class UTF8StreamWriter extends Writer implements Reusable {
     /**
      * Writes the specified character sequence.
      *
-     * @param csq the character sequence.
+     * @param  csq the character sequence.
      * @throws IOException if an I/O error occurs
      */
     public void write(CharSequence csq) throws IOException {
         final int length = csq.length();
-        for (int i = 0; i < length; ) {
+        for (int i = 0; i < length;) {
             char c = csq.charAt(i++);
             if (c < 0x80) {
                 _bytes[_index] = (byte) c;
@@ -332,7 +334,7 @@ public final class UTF8StreamWriter extends Writer implements Reusable {
         _index = 0;
         _outputStream = null;
     }
-
+    
     /**
      * @deprecated Replaced by {@link #setOutput(OutputStream)}
      */

@@ -8,24 +8,26 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.xml;
 
+import java.lang.CharSequence;
+
 import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 import com.bbva.pzic.proposals.util.orika.javolution.text.CharArray;
 import com.bbva.pzic.proposals.util.orika.javolution.text.TextBuilder;
+import com.bbva.pzic.proposals.util.orika.javolution.util.FastComparator;
 import com.bbva.pzic.proposals.util.orika.javolution.util.FastMap;
 import com.bbva.pzic.proposals.util.orika.javolution.util.FastTable;
 import com.bbva.pzic.proposals.util.orika.javolution.util.Index;
-import com.bbva.pzic.proposals.util.orika.javolution.util.FastComparator;
 import com.bbva.pzic.proposals.util.orika.javolution.xml.stream.XMLStreamException;
 
 /**
- * <p> This class represents a resolver for XML cross references during
- * the marshalling/unmarshalling process.</p>
- * <p/>
- * <p> Instances of this class may only be shared by {@link XMLObjectReader}/
- * {@link XMLObjectWriter} running sequentially (for cross references
- * spawning multiple documents).</p>
- *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * <p> This class represents a resolver for XML cross references during 
+ *     the marshalling/unmarshalling process.</p>
+ *     
+ * <p> Instances of this class may only be shared by {@link XMLObjectReader}/ 
+ *     {@link XMLObjectWriter} running sequentially (for cross references 
+ *     spawning multiple documents).</p>
+ *     
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.0, September 4, 2006
  */
 public class XMLReferenceResolver implements Reusable {
@@ -76,7 +78,7 @@ public class XMLReferenceResolver implements Reusable {
      * Sets the name of the identifier attribute (by default<code>"id"</code>).
      * If the name is <code>null</code> then the identifier attribute
      * is never read/written (which may prevent unmarshalling).
-     *
+     * 
      * @param name the name of the attribute or <code>null</code>.
      */
     public void setIdentifierAttribute(String name) {
@@ -85,10 +87,10 @@ public class XMLReferenceResolver implements Reusable {
 
     /**
      * Sets the local name and namespace URI of the identifier attribute.
-     *
+     * 
      * @param localName the local name of the attribute or <code>null</code>.
-     * @param uri       the URI of the attribute or <code>null</code> if the attribute
-     *                  has no namespace URI.
+     * @param uri the URI of the attribute or <code>null</code> if the attribute
+     *        has no namespace URI.
      */
     public void setIdentifierAttribute(String localName, String uri) {
         _idName = localName;
@@ -99,7 +101,7 @@ public class XMLReferenceResolver implements Reusable {
      * Sets the name of the reference attribute (by default<code>"ref"</code>).
      * If the name is <code>null</code> then the reference attribute
      * is never read/written (which may prevent unmarshalling).
-     *
+     * 
      * @param name the name of the attribute or <code>null</code>.
      */
     public void setReferenceAttribute(String name) {
@@ -108,10 +110,10 @@ public class XMLReferenceResolver implements Reusable {
 
     /**
      * Sets the local name and namespace URI of the identifier attribute.
-     *
+     * 
      * @param localName the local name of the attribute or <code>null</code>.
-     * @param uri       the URI of the attribute or <code>null</code> if the attribute
-     *                  has no namespace URI.
+     * @param uri the URI of the attribute or <code>null</code> if the attribute
+     *        has no namespace URI.
      */
     public void setReferenceAttribute(String localName, String uri) {
         _refName = localName;
@@ -120,14 +122,14 @@ public class XMLReferenceResolver implements Reusable {
 
     /**
      * Writes a reference to the specified object into the specified XML
-     * element. The default implementation writes the reference into the
-     * reference attribute and for the first occurences an identifier
-     * (counter starting at 1) is written into the identifier attribute.
-     *
-     * @param obj the object for which the reference is written.
-     * @param xml the output XML element.
+     * element. The default implementation writes the reference into the 
+     * reference attribute and for the first occurences an identifier 
+     * (counter starting at 1) is written into the identifier attribute. 
+     * 
+     * @param  obj the object for which the reference is written.
+     * @param  xml the output XML element.
      * @return <code>true</code> if a reference is written;
-     * <code>false</code> if a new identifier is written.
+     *         <code>false</code> if a new identifier is written.
      */
     public boolean writeReference(Object obj, XMLFormat.OutputElement xml)
             throws XMLStreamException {
@@ -160,12 +162,12 @@ public class XMLReferenceResolver implements Reusable {
 
     /**
      * Reads the object referenced by the specified xml input element if any.
-     * The default implementation reads the reference attribute to retrieve
-     * the object.
-     *
-     * @param xml the input XML element.
-     * @return the referenced object or <code>null</code> if the specified
-     * XML input does not have a reference attribute.
+     * The default implementation reads the reference attribute to retrieve 
+     * the object. 
+     * 
+     * @param  xml the input XML element.
+     * @return the referenced object or <code>null</code> if the specified 
+     *         XML input does not have a reference attribute.
      */
     public Object readReference(XMLFormat.InputElement xml)
             throws XMLStreamException {
@@ -183,10 +185,10 @@ public class XMLReferenceResolver implements Reusable {
      * Creates a reference for the specified object (the identifier
      * being specified by the input XML element).
      * The default implementation reads the identifier attribute (if any)
-     * and associates it to the specified object.
-     *
-     * @param obj the object being referenced.
-     * @param xml the input XML element holding the reference identifier.
+     * and associates it to the specified object. 
+     * 
+     * @param  obj the object being referenced.
+     * @param  xml the input XML element holding the reference identifier.
      */
     public void createReference(Object obj, XMLFormat.InputElement xml)
             throws XMLStreamException {

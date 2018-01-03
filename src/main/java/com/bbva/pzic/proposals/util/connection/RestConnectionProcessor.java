@@ -3,6 +3,8 @@ package com.bbva.pzic.proposals.util.connection;
 import com.bbva.jee.arq.spring.core.rest.RestConnector;
 import com.bbva.jee.arq.spring.core.rest.RestConnectorResponse;
 import com.bbva.jee.arq.spring.core.servicing.configuration.ConfigurationManager;
+import com.bbva.jee.arq.spring.core.servicing.context.BackendContext;
+import com.bbva.jee.arq.spring.core.servicing.context.ServiceInvocationContext;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
@@ -16,6 +18,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,6 +31,9 @@ public class RestConnectionProcessor {
     private static final Log LOG = LogFactory.getLog(RestConnectionProcessor.class);
 
     private static final String BACKEND_ID_PROPERTY = "servicing.connector.rest.backend.id";
+
+    @Autowired
+    protected ServiceInvocationContext serviceInvocationContext;
 
     @Autowired
     protected RestConnector restConnector;
@@ -58,6 +64,18 @@ public class RestConnectionProcessor {
             LOG.error(String.format("Error converting JSON: %s", e.getMessage()), e);
             throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
         }
+    }
+
+    protected HashMap<String, String> buildOptionalHeaders() {
+        String callingChannel = serviceInvocationContext.getProperty(BackendContext.CALLING_CHANNEL);
+        if (callingChannel == null) {
+            LOG.info("No se han podido capturar el valor CALLING_CHANNEL");
+            return null;
+        }
+        HashMap<String, String> optionalHeaders = new HashMap<>();
+        LOG.info(String.format("Se ha capturado el CALLING_CHANNEL '%s'", callingChannel));
+        optionalHeaders.put("callingChannel", callingChannel);
+        return optionalHeaders;
     }
 
     protected <S> S evaluateResponse(final RestConnectorResponse rcr, final int actualTypeArgumentIndex) {

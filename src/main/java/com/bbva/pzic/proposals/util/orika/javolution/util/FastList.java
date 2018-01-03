@@ -9,49 +9,53 @@
 package com.bbva.pzic.proposals.util.orika.javolution.util;
 
 import com.bbva.pzic.proposals.util.orika.javax.realtime.MemoryArea;
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
 import com.bbva.pzic.proposals.util.orika.javolution.context.PersistentContext;
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 /**
- * <p> This class represents a linked list with real-time behavior;
- * smooth capacity increase and no memory allocation as long as the
- * list size does not exceed its initial capacity.</p>
- * <p/>
+ * <p> This class represents a linked list with real-time behavior; 
+ *     smooth capacity increase and no memory allocation as long as the
+ *     list size does not exceed its initial capacity.</p>
+ * 
  * <p> All of the operations perform as could be expected for a doubly-linked
- * list ({@link #addLast insertion}/{@link #removeLast() deletion}
- * at the end of the list are nonetheless the fastest).
- * Operations that index into the list will traverse the list from
- * the begining or the end whichever is closer to the specified index.
- * Random access operations can be significantly accelerated by
- * {@link #subList splitting} the list into smaller ones.</p>
- * <p/>
+ *     list ({@link #addLast insertion}/{@link #removeLast() deletion}
+ *     at the end of the list are nonetheless the fastest). 
+ *     Operations that index into the list will traverse the list from
+ *     the begining or the end whichever is closer to the specified index. 
+ *     Random access operations can be significantly accelerated by 
+ *     {@link #subList splitting} the list into smaller ones.</p> 
+ * 
  * <p> {@link FastList} (as for any {@link FastCollection} sub-class) supports
- * fast iterations without using iterators.[code]
- * FastList<String> list = new FastList<String>();
- * for (FastList.Node<String> n = list.head(), end = list.tail(); (n = n.getNext()) != end;) {
- * String value = n.getValue(); // No typecast necessary.
- * }[/code]</p>
- * <p/>
- * <p> {@link FastList} are {@link com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable reusable}, they maintain
- * internal pools of {@link Node nodes} objects. When a node is removed
- * from its list, it is automatically restored to its pool.</p>
- * <p/>
- * <p> Custom list implementations may override the {@link #newNode} method
- * in order to return their own {@link Node} implementation (with
- * additional fields for example).</p>
- *
+ *     fast iterations without using iterators.[code]
+ *     FastList<String> list = new FastList<String>();
+ *     for (FastList.Node<String> n = list.head(), end = list.tail(); (n = n.getNext()) != end;) {
+ *         String value = n.getValue(); // No typecast necessary.    
+ *     }[/code]</p>
+ *     
+ * <p> {@link FastList} are {@link Reusable reusable}, they maintain
+ *     internal pools of {@link Node nodes} objects. When a node is removed
+ *     from its list, it is automatically restored to its pool.</p>
+ * 
+ * <p> Custom list implementations may override the {@link #newNode} method 
+ *     in order to return their own {@link Node} implementation (with 
+ *     additional fields for example).</p>
+ *     
  * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.2, December 18, 2006
  */
-public class FastList<E> extends FastCollection<E>
-        implements List<E>, Reusable {
+public class FastList <E> extends FastCollection <E> 
+implements List <E> , Reusable {
 
     /**
      * Holds the main list factory.
@@ -61,23 +65,23 @@ public class FastList<E> extends FastCollection<E>
         public Object create() {
             return new FastList();
         }
-
+        
     };
 
     /**
      * Holds the node marking the beginning of the list (not included).
      */
-    private transient Node<E> _head = newNode();
+    private transient Node <E> _head = newNode();
 
     /**
      * Holds the node marking the end of the list (not included).
      */
-    private transient Node<E> _tail = newNode();
+    private transient Node <E> _tail = newNode();
 
     /**
      * Holds the value comparator.
      */
-    private transient FastComparator<? super E> _valueComparator = FastComparator.DEFAULT;
+    private transient FastComparator <? super E> _valueComparator = FastComparator.DEFAULT;
 
     /**
      * Holds the current size.
@@ -94,7 +98,7 @@ public class FastList<E> extends FastCollection<E>
     /**
      * Creates a persistent list associated to the specified unique identifier
      * (convenience method).
-     *
+     * 
      * @param id the unique identifier for this map.
      * @throws IllegalArgumentException if the identifier is not unique.
      * @see com.bbva.DtoIntReference.routine.mapper.javolution.context.PersistentContext.Reference
@@ -110,18 +114,18 @@ public class FastList<E> extends FastCollection<E>
     }
 
     /**
-     * Creates a list of specified initial capacity; unless the list size
+     * Creates a list of specified initial capacity; unless the list size 
      * reaches the specified capacity, operations on this list will not allocate
      * memory (no lazy object creation).
-     *
+     * 
      * @param capacity the initial capacity.
      */
     public FastList(int capacity) {
         _head._next = _tail;
         _tail._previous = _head;
-        Node<E> previous = _tail;
-        for (int i = 0; i++ < capacity; ) {
-            Node<E> newNode = newNode();
+        Node <E> previous = _tail;
+        for (int i = 0; i++ < capacity;) {
+            Node <E> newNode = newNode();
             newNode._previous = previous;
             previous._next = newNode;
             previous = newNode;
@@ -134,26 +138,26 @@ public class FastList<E> extends FastCollection<E>
      *
      * @param values the values to be placed into this list.
      */
-    public FastList(Collection<? extends E> values) {
+    public FastList(Collection <? extends E> values) {
         this(values.size());
         addAll(values);
     }
 
     /**
      * Returns a new, preallocated or {@link #recycle recycled} list instance
-     * (on the stack when executing in a {@link com.bbva.czic.routine.mapper.javolution.context.StackContext
+     * (on the stack when executing in a {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext
      * StackContext}).
      *
      * @return a new, preallocated or recycled list instance.
      */
-    public static <E> FastList<E> newInstance() {
-        return (FastList<E>) FACTORY.object();
+    public static <E> FastList <E> newInstance() {
+        return (FastList <E> ) FACTORY.object();
     }
 
     /**
      * Recycles a list {@link #newInstance() instance} immediately
-     * (on the stack when executing in a {@link com.bbva.czic.routine.mapper.javolution.context.StackContext
-     * StackContext}).
+     * (on the stack when executing in a {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext
+     * StackContext}). 
      */
     public static void recycle(FastList instance) {
         FACTORY.recycle(instance);
@@ -165,22 +169,22 @@ public class FastList<E> extends FastCollection<E>
      *
      * @param value the value to be appended to this list.
      * @return <code>true</code> (as per the general contract of the
-     * <code>Collection.add</code> method).
+     *         <code>Collection.add</code> method).
      */
-    public final boolean add(E value) {
+    public final boolean add( E value) {
         addLast(value);
         return true;
     }
-
+ 
     /**
      * Returns the value at the specified position in this list.
      *
      * @param index the index of value to return.
      * @return the value at the specified position in this list.
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index >= size())</code>
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *         (index >= size())</code>
      */
-    public final E get(int index) {
+    public final  E get(int index) {
         if ((index < 0) || (index >= _size))
             throw new IndexOutOfBoundsException("index: " + index);
         return nodeAt(index)._value;
@@ -193,14 +197,14 @@ public class FastList<E> extends FastCollection<E>
      * @param index the index of value to replace.
      * @param value the value to be stored at the specified position.
      * @return the value previously at the specified position.
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index >= size())</code>
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *         (index >= size())</code>
      */
-    public final E set(int index, E value) {
+    public final  E set(int index,  E value) {
         if ((index < 0) || (index >= _size))
             throw new IndexOutOfBoundsException("index: " + index);
-        final Node<E> node = nodeAt(index);
-        E previousValue = node._value;
+        final Node <E> node = nodeAt(index);
+         E previousValue = node._value;
         node._value = value;
         return previousValue;
     }
@@ -213,10 +217,10 @@ public class FastList<E> extends FastCollection<E>
      *
      * @param index the index at which the specified value is to be inserted.
      * @param value the value to be inserted.
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index > size())</code>
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *         (index > size())</code>
      */
-    public final void add(int index, E value) {
+    public final void add(int index,  E value) {
         if ((index < 0) || (index > _size))
             throw new IndexOutOfBoundsException("index: " + index);
         addBefore(nodeAt(index), value);
@@ -225,22 +229,22 @@ public class FastList<E> extends FastCollection<E>
     /**
      * Inserts all of the values in the specified collection into this
      * list at the specified position. Shifts the value currently at that
-     * position (if any) and any subsequent values to the right
-     * (increases their indices).
+     * position (if any) and any subsequent values to the right 
+     * (increases their indices). 
      *
-     * @param index  the index at which to insert first value from the specified
-     *               collection.
+     * @param index the index at which to insert first value from the specified
+     *        collection.
      * @param values the values to be inserted into this list.
      * @return <code>true</code> if this list changed as a result of the call;
-     * <code>false</code> otherwise.
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index > size())</code>
+     *         <code>false</code> otherwise.
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *         (index > size())</code>
      */
-    public final boolean addAll(int index, Collection<? extends E> values) {
+    public final boolean addAll(int index, Collection <? extends E> values) {
         if ((index < 0) || (index > _size))
             throw new IndexOutOfBoundsException("index: " + index);
         final Node indexNode = nodeAt(index);
-        Iterator<? extends E> i = values.iterator();
+        Iterator <? extends E> i = values.iterator();
         while (i.hasNext()) {
             addBefore(indexNode, i.next());
         }
@@ -255,14 +259,14 @@ public class FastList<E> extends FastCollection<E>
      *
      * @param index the index of the value to removed.
      * @return the value previously at the specified position.
-     * @throws IndexOutOfBoundsException if <code>(index < 0) ||
-     *                                   (index >= size())</code>
+     * @throws IndexOutOfBoundsException if <code>(index < 0) || 
+     *         (index >= size())</code>
      */
-    public final E remove(int index) {
+    public final  E remove(int index) {
         if ((index < 0) || (index >= _size))
             throw new IndexOutOfBoundsException("index: " + index);
-        final Node<E> node = nodeAt(index);
-        E previousValue = node._value;
+        final Node <E> node = nodeAt(index);
+         E previousValue = node._value;
         delete(node);
         return previousValue;
     }
@@ -273,7 +277,7 @@ public class FastList<E> extends FastCollection<E>
      *
      * @param value the value to search for.
      * @return the index in this list of the first occurrence of the specified
-     * value, or -1 if this list does not contain this value.
+     *         value, or -1 if this list does not contain this value.
      */
     public final int indexOf(Object value) {
         final FastComparator comp = this.getValueComparator();
@@ -292,7 +296,7 @@ public class FastList<E> extends FastCollection<E>
      *
      * @param value the value to search for.
      * @return the index in this list of the last occurrence of the specified
-     * value, or -1 if this list does not contain this value.
+     *         value, or -1 if this list does not contain this value.
      */
     public final int lastIndexOf(Object value) {
         final FastComparator comp = this.getValueComparator();
@@ -306,45 +310,45 @@ public class FastList<E> extends FastCollection<E>
     }
 
     /**
-     * Returns a simple iterator over the elements in this list
-     * (allocated on the stack when executed in a
-     * {@link com.bbva.czic.routine.mapper.javolution.context.StackContext StackContext}).
+     * Returns a simple iterator over the elements in this list 
+     * (allocated on the stack when executed in a 
+     * {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext StackContext}).
      *
      * @return an iterator over this list values.
      */
-    public Iterator<E> iterator() {
+    public Iterator <E> iterator() {
         return listIterator();
     }
 
     /**
-     * Returns a list iterator over the elements in this list
-     * (allocated on the stack when executed in a
-     * {@link com.bbva.czic.routine.mapper.javolution.context.StackContext StackContext}).
+     * Returns a list iterator over the elements in this list 
+     * (allocated on the stack when executed in a 
+     * {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext StackContext}).
      *
      * @return an iterator over this list values.
      */
-    public ListIterator<E> listIterator() {
+    public ListIterator <E> listIterator() {
         return FastListIterator.valueOf(this, _head._next, 0, _size);
     }
 
     /**
      * Returns a list iterator from the specified position
-     * (allocated on the stack when executed in a
-     * {@link com.bbva.czic.routine.mapper.javolution.context.StackContext StackContext}).
-     * <p/>
+     * (allocated on the stack when executed in a 
+     * {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext StackContext}).
+     * 
      * The specified index indicates the first value that would be returned by
      * an initial call to the <code>next</code> method.  An initial call to
      * the <code>previous</code> method would return the value with the
      * specified index minus one.
      *
      * @param index index of first value to be returned from the
-     *              list iterator (by a call to the <code>next</code> method).
+     *        list iterator (by a call to the <code>next</code> method).
      * @return a list iterator over the values in this list
-     * starting at the specified position in this list.
+     *         starting at the specified position in this list.
      * @throws IndexOutOfBoundsException if the index is out of range
-     *                                   [code](index < 0 || index > size())[/code].
+     *        [code](index < 0 || index > size())[/code].
      */
-    public ListIterator<E> listIterator(int index) {
+    public ListIterator <E> listIterator(int index) {
         if ((index < 0) || (index > _size))
             throw new IndexOutOfBoundsException("index: " + index);
         return FastListIterator.valueOf(this, nodeAt(index), index, _size);
@@ -352,12 +356,12 @@ public class FastList<E> extends FastCollection<E>
 
     /**
      * Returns a view of the portion of this list between the specified
-     * indexes (allocated from the "stack" when executing in a
-     * {@link com.bbva.czic.routine.mapper.javolution.context.StackContext StackContext}).
-     * If the specified indexes are equal, the returned list is empty.
+     * indexes (allocated from the "stack" when executing in a 
+     * {@link com.bbva.pzic.proposals.util.orika.javolution.context.StackContext StackContext}).
+     * If the specified indexes are equal, the returned list is empty. 
      * The returned list is backed by this list, so non-structural changes in
-     * the returned list are reflected in this list, and vice-versa.
-     * <p/>
+     * the returned list are reflected in this list, and vice-versa. 
+     *
      * This method eliminates the need for explicit range operations (of
      * the sort that commonly exist for arrays). Any operation that expects
      * a list can be used as a range operation by passing a subList view
@@ -367,7 +371,7 @@ public class FastList<E> extends FastCollection<E>
      * Similar idioms may be constructed for <code>indexOf</code> and
      * <code>lastIndexOf</code>, and all of the algorithms in the
      * <code>Collections</code> class can be applied to a subList.
-     * <p/>
+     *
      * The semantics of the list returned by this method become undefined if
      * the backing list (i.e., this list) is <i>structurally modified</i> in
      * any way other than via the returned list (structural modifications are
@@ -375,12 +379,13 @@ public class FastList<E> extends FastCollection<E>
      * a fashion that iterations in progress may yield incorrect results).
      *
      * @param fromIndex low endpoint (inclusive) of the subList.
-     * @param toIndex   high endpoint (exclusive) of the subList.
+     * @param toIndex high endpoint (exclusive) of the subList.
      * @return a view of the specified range within this list.
+     * 
      * @throws IndexOutOfBoundsException if [code](fromIndex < 0 ||
-     *                                   toIndex > size || fromIndex < toIndex)[/code]
+     *          toIndex > size || fromIndex < toIndex)[/code]
      */
-    public final List<E> subList(int fromIndex, int toIndex) {
+    public final List <E> subList(int fromIndex, int toIndex) {
         if ((fromIndex < 0) || (toIndex > _size) || (fromIndex > toIndex))
             throw new IndexOutOfBoundsException("fromIndex: " + fromIndex
                     + ", toIndex: " + toIndex + " for list of size: " + _size);
@@ -394,8 +399,8 @@ public class FastList<E> extends FastCollection<E>
      * @return this list's first value.
      * @throws NoSuchElementException if this list is empty.
      */
-    public final E getFirst() {
-        final Node<E> node = _head._next;
+    public final  E getFirst() {
+        final Node <E> node = _head._next;
         if (node == _tail)
             throw new NoSuchElementException();
         return node._value;
@@ -407,8 +412,8 @@ public class FastList<E> extends FastCollection<E>
      * @return this list's last value.
      * @throws NoSuchElementException if this list is empty.
      */
-    public final E getLast() {
-        final Node<E> node = _tail._previous;
+    public final  E getLast() {
+        final Node <E> node = _tail._previous;
         if (node == _head)
             throw new NoSuchElementException();
         return node._value;
@@ -416,19 +421,19 @@ public class FastList<E> extends FastCollection<E>
 
     /**
      * Inserts the specified value at the beginning of this list.
-     *
+     * 
      * @param value the value to be inserted.
      */
-    public final void addFirst(E value) {
+    public final void addFirst( E value) {
         addBefore(_head._next, value);
     }
 
     /**
      * Appends the specified value to the end of this list <i>(fast)</i>.
-     *
+     * 
      * @param value the value to be inserted.
      */
-    public void addLast(E value) { // Optimized.
+    public void addLast( E value) { // Optimized.
         if (_tail._next == null) {
             increaseCapacity();
         }
@@ -443,11 +448,11 @@ public class FastList<E> extends FastCollection<E>
      * @return this list's first value before this call.
      * @throws NoSuchElementException if this list is empty.
      */
-    public final E removeFirst() {
-        final Node<E> first = _head._next;
+    public final  E removeFirst() {
+        final Node <E> first = _head._next;
         if (first == _tail)
             throw new NoSuchElementException();
-        E previousValue = first._value;
+         E previousValue = first._value;
         delete(first);
         return previousValue;
     }
@@ -458,12 +463,12 @@ public class FastList<E> extends FastCollection<E>
      * @return this list's last value before this call.
      * @throws NoSuchElementException if this list is empty.
      */
-    public final E removeLast() {
+    public final  E removeLast() {
         if (_size == 0)
             throw new NoSuchElementException();
         _size--;
-        final Node<E> last = _tail._previous;
-        final E previousValue = last._value;
+        final Node <E> last = _tail._previous;
+        final  E previousValue = last._value;
         _tail = last;
         last._value = null;
         return previousValue;
@@ -475,11 +480,11 @@ public class FastList<E> extends FastCollection<E>
 
     /**
      * Inserts the specified value before the specified Node.
-     *
-     * @param next  the Node before which this value is inserted.
-     * @param value the value to be inserted.
+     * 
+     * @param next the Node before which this value is inserted.
+     * @param value the value to be inserted.   
      */
-    public final void addBefore(Node<E> next, E value) {
+    public final void addBefore(Node <E> next,  E value) {
         if (_tail._next == null) {
             increaseCapacity();// Increases capacity.
         }
@@ -502,45 +507,45 @@ public class FastList<E> extends FastCollection<E>
 
     /**
      * Returns the node at the specified index. This method returns
-     * the {@link #headNode} node when [code]index < 0 [/code] or
+     * the {@link #headNode} node when [code]index < 0 [/code] or 
      * the {@link #tailNode} node when [code]index >= size()[/code].
-     *
+     * 
      * @param index the index of the Node to return.
      */
-    private final Node<E> nodeAt(int index) {
+    private final Node <E> nodeAt(int index) {
         // We cannot do backward search because of thread-safety.
-        Node<E> node = _head;
-        for (int i = index; i-- >= 0; ) {
+        Node <E> node = _head;
+        for (int i = index; i-- >= 0;) {
             node = node._next;
         }
         return node;
     }
 
     // Implements FastCollection abstract method.
-    public final Node<E> head() {
+    public final Node<E>head() {
         return _head;
     }
 
     // Implements FastCollection abstract method.
-    public final Node<E> tail() {
+    public final Node<E>tail() {
         return _tail;
     }
 
     // Implements FastCollection abstract method.
-    public final E valueOf(Record record) {
-        return ((Node<E>) record)._value;
+    public final  E valueOf(Record record) {
+        return ((Node <E> ) record)._value;
     }
 
     // Implements FastCollection abstract method.
     public final void delete(Record record) {
-        Node<E> node = (Node<E>) record;
+        Node <E> node = (Node <E> ) record;
         _size--;
         node._value = null;
         // Detaches.
         node._previous._next = node._next;
         node._next._previous = node._previous;
         // Inserts after _tail.
-        final Node<E> next = _tail._next;
+        final Node <E> next = _tail._next;
         node._previous = _tail;
         node._next = next;
         _tail._next = node;
@@ -566,7 +571,7 @@ public class FastList<E> extends FastCollection<E>
     // Overrides (optimization).
     public final void clear() {
         _size = 0;
-        for (Node<E> n = _head, end = _tail; (n = n._next) != end; ) {
+        for (Node <E> n = _head, end = _tail; (n = n._next) != end;) {
             n._value = null;
         }
         _tail = _head._next;
@@ -578,29 +583,29 @@ public class FastList<E> extends FastCollection<E>
      * @param comparator the value comparator.
      * @return <code>this</code>
      */
-    public FastList<E> setValueComparator(
-            FastComparator<? super E> comparator) {
+    public FastList <E> setValueComparator(
+            FastComparator <? super E> comparator) {
         _valueComparator = comparator;
         return this;
     }
 
     // Overrides.
-    public FastComparator<? super E> getValueComparator() {
+    public FastComparator <? super E> getValueComparator() {
         return _valueComparator;
     }
 
     // Overrides  to return a list (JDK1.5+).
-    public List<E> unmodifiable() {
-        return (List<E>) super.unmodifiable();
+    public  List<E> unmodifiable() {
+        return ( List<E> ) super.unmodifiable();
     }
 
     /**
-     * Returns a new node for this list; this method can be overriden by
-     * custom list implementation.
+     * Returns a new node for this list; this method can be overriden by 
+     * custom list implementation. 
      *
      * @return a new node.
      */
-    protected Node<E> newNode() {
+    protected Node <E> newNode() {
         return new Node();
     }
 
@@ -616,8 +621,8 @@ public class FastList<E> extends FastCollection<E>
 
         setValueComparator((FastComparator) stream.readObject());
         final int size = stream.readInt();
-        for (int i = size; i-- != 0; ) {
-            addLast((E) stream.readObject());
+        for (int i = size; i-- != 0;) {
+            addLast(( E ) stream.readObject());
         }
     }
 
@@ -626,7 +631,7 @@ public class FastList<E> extends FastCollection<E>
         stream.writeObject(getValueComparator());
         stream.writeInt(_size);
         Node node = _head;
-        for (int i = _size; i-- != 0; ) {
+        for (int i = _size; i-- != 0;) {
             node = node._next;
             stream.writeObject(node._value);
         }
@@ -636,19 +641,19 @@ public class FastList<E> extends FastCollection<E>
     private void increaseCapacity() {
         MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
             public void run() {
-                Node<E> newNode0 = newNode();
+                Node <E> newNode0 = newNode();
                 _tail._next = newNode0;
                 newNode0._previous = _tail;
 
-                Node<E> newNode1 = newNode();
+                Node <E> newNode1 = newNode();
                 newNode0._next = newNode1;
                 newNode1._previous = newNode0;
 
-                Node<E> newNode2 = newNode();
+                Node <E> newNode2 = newNode();
                 newNode1._next = newNode2;
                 newNode2._previous = newNode1;
 
-                Node<E> newNode3 = newNode();
+                Node <E> newNode3 = newNode();
                 newNode2._next = newNode3;
                 newNode3._previous = newNode2;
             }
@@ -663,35 +668,35 @@ public class FastList<E> extends FastCollection<E>
     }
 
     /**
-     * This class represents a {@link FastList} node; it allows for direct
+     * This class represents a {@link FastList} node; it allows for direct 
      * iteration over the list {@link #getValue values}.
      * Custom {@link FastList} may use a derived implementation.
      * For example:[code]
-     * static class MyList<E,X> extends FastList<E> {
-     * protected MyNode newNode() {
-     * return new MyNode();
-     * }
-     * class MyNode extends Node<E> {
-     * X xxx; // Additional node field (e.g. cross references).
-     * }
-     * }[/code]
+     *    static class MyList<E,X> extends FastList<E> {
+     *        protected MyNode newNode() {
+     *            return new MyNode();
+     *        }
+     *        class MyNode extends Node<E> {
+     *            X xxx; // Additional node field (e.g. cross references).
+     *        }        
+     *    }[/code]
      */
-    public static class Node<E> implements Record, Serializable {
+    public static class Node <E> implements Record, Serializable {
 
         /**
          * Holds the next node.
          */
-        private Node<E> _next;
+        private Node <E> _next;
 
         /**
          * Holds the previous node.
          */
-        private Node<E> _previous;
+        private Node <E> _previous;
 
         /**
          * Holds the node value.
          */
-        private E _value;
+        private  E _value;
 
         /**
          * Default constructor.
@@ -701,20 +706,20 @@ public class FastList<E> extends FastCollection<E>
 
         /**
          * Returns the value for this node.
-         *
+         * 
          * @return the node value.
          */
-        public final E getValue() {
+        public final  E getValue() {
             return _value;
         }
 
         // Implements Record interface.
-        public final Node<E> getNext() {
+        public final Node<E>getNext() {
             return _next;
         }
 
         // Implements Record interface.
-        public final Node<E> getPrevious() {
+        public final Node<E>getPrevious() {
             return _previous;
         }
 
@@ -748,7 +753,7 @@ public class FastList<E> extends FastCollection<E>
         private int _size;
 
         public static SubList valueOf(FastList list, Node head, Node tail,
-                                      int size) {
+                int size) {
             SubList subList = (SubList) FACTORY.object();
             subList._list = list;
             subList._head = head;
@@ -867,13 +872,13 @@ public class FastList<E> extends FastCollection<E>
         private final Node nodeAt(int index) {
             if (index <= (_size >> 1)) { // Forward search.
                 Node node = _head;
-                for (int i = index; i-- >= 0; ) {
+                for (int i = index; i-- >= 0;) {
                     node = node._next;
                 }
                 return node;
             } else { // Backward search.
                 Node node = _tail;
-                for (int i = _size - index; i-- > 0; ) {
+                for (int i = _size - index; i-- > 0;) {
                     node = node._previous;
                 }
                 return node;
@@ -910,7 +915,7 @@ public class FastList<E> extends FastCollection<E>
         private int _nextIndex;
 
         public static FastListIterator valueOf(FastList list, Node nextNode,
-                                               int nextIndex, int size) {
+                int nextIndex, int size) {
             FastListIterator itr = (FastListIterator) FACTORY.object();
             itr._list = list;
             itr._nextNode = nextNode;

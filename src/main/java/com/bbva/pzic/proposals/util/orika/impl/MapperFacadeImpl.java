@@ -19,16 +19,16 @@
 package com.bbva.pzic.proposals.util.orika.impl;
 
 import com.bbva.pzic.proposals.util.orika.*;
-import com.bbva.pzic.proposals.util.orika.impl.mapping.strategy.MappingStrategyKey;
-import com.bbva.pzic.proposals.util.orika.metadata.MapperKey;
-import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
-import com.bbva.pzic.proposals.util.orika.unenhance.UnenhanceStrategy;
 import com.bbva.pzic.proposals.util.orika.converter.ConverterFactory;
 import com.bbva.pzic.proposals.util.orika.impl.mapping.strategy.MappingStrategy;
+import com.bbva.pzic.proposals.util.orika.impl.mapping.strategy.MappingStrategyKey;
 import com.bbva.pzic.proposals.util.orika.impl.mapping.strategy.MappingStrategyRecorder;
 import com.bbva.pzic.proposals.util.orika.impl.util.ClassUtil;
 import com.bbva.pzic.proposals.util.orika.javolution.util.FastMap;
+import com.bbva.pzic.proposals.util.orika.metadata.MapperKey;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
+import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
+import com.bbva.pzic.proposals.util.orika.unenhance.UnenhanceStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -118,10 +118,13 @@ public class MapperFacadeImpl implements MapperFacade {
     /**
      * Resolves a reusable MappingStrategy for the given set of inputs.
      *
-     * @param sourceObject
-     * @param rawAType
-     * @param rawBType
-     * @param context
+     * @param sourceObject           the source object to map
+     * @param initialSourceType
+     * @param initialDestinationType
+     * @param mapInPlace
+     * @param context                the current MappingContext
+     * @param <S>
+     * @param <D>
      * @return
      */
     public <S, D> MappingStrategy resolveMappingStrategy(final S sourceObject, final java.lang.reflect.Type initialSourceType, final java.lang.reflect.Type initialDestinationType, boolean mapInPlace, final MappingContext context) {

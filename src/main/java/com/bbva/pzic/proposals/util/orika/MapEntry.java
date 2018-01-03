@@ -17,45 +17,45 @@
  */
 package com.bbva.pzic.proposals.util.orika;
 
-import com.bbva.pzic.proposals.util.orika.metadata.Type;
-import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.bbva.pzic.proposals.util.orika.metadata.Type;
+import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
+
 
 /**
  * MapEntry is a concrete implementation of Map.Entry which is created for
  * use in registering mappings that involve java.util.Map instances.<br><br>
- * <p/>
+ * 
  * MapEntry should be used as the type when registering a mapping between an
  * element type (iterable or array) and an entry type (map).
+ * 
+ * @author matt.deboer@gmail.com
  *
  * @param <K> the key type
  * @param <V> the value type
- * @author matt.deboer@gmail.com
  */
 public class MapEntry<K, V> implements Map.Entry<K, V> {
 
-    public MapEntry() {
-    }
-
+    public MapEntry() { }
+    
     public MapEntry(K key, V value) {
-        this.key = key;
-        this.value = value;
+    	this.key = key;
+    	this.value = value;
     }
-
+    
     private MapEntry(Entry<K, V> copy) {
         this.key = copy.getKey();
         this.value = copy.getValue();
     }
-
+    
     private K key;
     public V value;
-
+    
     public K getKey() {
         return key;
     }
@@ -63,7 +63,7 @@ public class MapEntry<K, V> implements Map.Entry<K, V> {
     public V getValue() {
         return value;
     }
-
+    
     public void setKey(K key) {
         this.key = key;
     }
@@ -73,45 +73,45 @@ public class MapEntry<K, V> implements Map.Entry<K, V> {
         this.value = value;
         return originalValue;
     }
-
+    
     /**
      * Returns the concrete <code>MapEntry&lt;K,V&gt;</code> type that represents the entries of the given map
-     *
+     * 
      * @param mapType
      * @return
      */
     @SuppressWarnings("unchecked")
     public static <K, V> Type<MapEntry<K, V>> concreteEntryType(Type<? extends Map<K, V>> mapType) {
-
-        Type<?> type = TypeFactory.valueOf(MapEntry.class, mapType.getActualTypeArguments());
-        return (Type<MapEntry<K, V>>) type;
+        
+        Type<?> type = TypeFactory.valueOf(MapEntry.class, mapType.getActualTypeArguments()); 
+        return (Type<MapEntry<K, V>>)type; 
     }
-
+    
     /**
      * Returns the <code>Map.Entry&lt;K,V&gt;</code> type that represents the entries of the given map
-     *
+     * 
      * @param mapType
      * @return
      */
     @SuppressWarnings("unchecked")
     public static <K, V> Type<Map.Entry<K, V>> entryType(Type<? extends Map<K, V>> mapType) {
-
-        Type<?> type = TypeFactory.valueOf(Map.Entry.class, mapType.getActualTypeArguments());
-        return (Type<Map.Entry<K, V>>) type;
+        
+        Type<?> type = TypeFactory.valueOf(Map.Entry.class, mapType.getActualTypeArguments()); 
+        return (Type<Map.Entry<K, V>>)type; 
     }
-
+    
     public static <K, V> Set<MapEntry<K, V>> entrySet(Map<K, V> map) {
         return new MapEntrySet<K, V>(map.entrySet());
     }
-
+    
     private static class MapEntrySet<K, V> implements Set<MapEntry<K, V>> {
 
         private Set<Map.Entry<K, V>> delegate;
-
+        
         private MapEntrySet(Set<Map.Entry<K, V>> delegate) {
             this.delegate = delegate;
         }
-
+        
         public int size() {
             return delegate.size();
         }
@@ -166,15 +166,15 @@ public class MapEntry<K, V> implements Map.Entry<K, V> {
             throw new UnsupportedOperationException();
         }
     }
-
+    
     private static class MapEntryIterator<K, V> implements Iterator<MapEntry<K, V>> {
 
         private Iterator<Map.Entry<K, V>> delegate;
-
+        
         private MapEntryIterator(Iterator<Map.Entry<K, V>> delegate) {
             this.delegate = delegate;
         }
-
+        
         public boolean hasNext() {
             return delegate.hasNext();
         }

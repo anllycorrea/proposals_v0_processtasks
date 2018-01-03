@@ -18,151 +18,152 @@
 
 package com.bbva.pzic.proposals.util.orika;
 
-import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
-import com.bbva.pzic.proposals.util.orika.javolution.util.FastList;
-import com.bbva.pzic.proposals.util.orika.javolution.util.FastMap;
-import com.bbva.pzic.proposals.util.orika.metadata.MapperKey;
-import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
-import com.bbva.pzic.proposals.util.orika.impl.mapping.strategy.MappingStrategy;
-import com.bbva.pzic.proposals.util.orika.metadata.ClassMap;
-import com.bbva.pzic.proposals.util.orika.metadata.Type;
-
 import java.util.IdentityHashMap;
 import java.util.Map;
 
+import com.bbva.pzic.proposals.util.orika.impl.mapping.strategy.MappingStrategy;
+import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
+import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
+import com.bbva.pzic.proposals.util.orika.javolution.util.FastList;
+import com.bbva.pzic.proposals.util.orika.javolution.util.FastMap;
+import com.bbva.pzic.proposals.util.orika.metadata.ClassMap;
+import com.bbva.pzic.proposals.util.orika.metadata.MapperKey;
+import com.bbva.pzic.proposals.util.orika.metadata.Type;
+import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
+
 public class MappingContext implements Reusable {
-
-    private final Map<Type<?>, Type<?>> mapping;
-    private final Map<java.lang.reflect.Type, Map<Object, Object>> cache;
-    private FastList<FastMap<MapperKey, ClassMap<?, ?>>> mappersSeen;
-    private MappingStrategy strategy;
-    private boolean isNew = true;
-    private int depth;
-
-    public static class Factory extends com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory<MappingContext> implements MappingContextFactory {
+	
+	private final Map<Type<?>, Type<?>> mapping;
+	private final Map<java.lang.reflect.Type, Map<Object, Object>> cache;
+	private FastList<FastMap<MapperKey, ClassMap<?,?>>> mappersSeen;
+	private MappingStrategy strategy;
+	private boolean isNew = true;
+	private int depth;
+	
+	public static class Factory extends ObjectFactory<MappingContext> implements MappingContextFactory {
 
         @Override
         protected MappingContext create() {
             return new MappingContext();
         }
-
+        
         public MappingContext getContext() {
             return object();
         }
-
+        
         public void release(MappingContext context) {
             recycle(context);
         }
+	    
+	}
+	
 
-    }
+	public MappingContext() {
+		mapping = new FastMap<Type<?>, Type<?>>();
+		cache = new FastMap<java.lang.reflect.Type, Map<Object, Object>>();
+	}
+	
+	public void setResolvedMappingStrategy(MappingStrategy strategy) {
+	    this.strategy = strategy;
+	}
+	
+	public MappingStrategy getResolvedMappingStrategy() {
+	    return this.strategy;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <S, D> Type<? extends D> getConcreteClass(Type<S> sourceType,
+			Type<D> destinationType) {
+	    if (isNew) {
+	        return null;
+	    }
+		final Type<?> type = mapping.get(sourceType);
+		if (type != null && destinationType.isAssignableFrom(type)) {
+			return (Type<? extends D>) type;
+		}
+		return null;
+	}
 
+	public void registerConcreteClass(Type<?> subjectClass,
+			Type<?> concreteClass) {
+		mapping.put(subjectClass, concreteClass);
+		isNew = false;
+	}
 
-    public MappingContext() {
-        mapping = new FastMap<Type<?>, Type<?>>();
-        cache = new FastMap<java.lang.reflect.Type, Map<Object, Object>>();
-    }
+	@Deprecated
+	public <S, D> void cacheMappedObject(S source, D destination) {
+		cacheMappedObject(source, TypeFactory.typeOf(destination), destination);
+	}
 
-    public void setResolvedMappingStrategy(MappingStrategy strategy) {
-        this.strategy = strategy;
-    }
+	public <S, D> void cacheMappedObject(S source, java.lang.reflect.Type destinationType,
+			D destination) {
+		Map<Object, Object> localCache = cache.get(destinationType);
+		if (localCache == null) {
+			localCache = new IdentityHashMap<Object, Object>(2);
+			cache.put(destinationType, localCache);
+		}
+		localCache.put(source, destination);
+		isNew = false;
+	}
 
-    public MappingStrategy getResolvedMappingStrategy() {
-        return this.strategy;
-    }
+	/**
+	 * @param source
+	 * @param destinationType
+	 * @return
+	 * @deprecated use {@link #getMappedObject(Object, java.lang.reflect.Type)} instead
+	 */
+	@Deprecated
+	public <S, D> boolean isAlreadyMapped(S source, java.lang.reflect.Type destinationType) {
+		if (isNew) {
+		    return false;
+		}
+		Map<Object, Object> localCache = cache.get(destinationType);
+		return (localCache != null && localCache.get(source) != null);
+	}
 
-    @SuppressWarnings("unchecked")
-    public <S, D> Type<? extends D> getConcreteClass(Type<S> sourceType,
-                                                     Type<D> destinationType) {
-        if (isNew) {
-            return null;
-        }
-        final Type<?> type = mapping.get(sourceType);
-        if (type != null && destinationType.isAssignableFrom(type)) {
-            return (Type<? extends D>) type;
-        }
-        return null;
-    }
+	@SuppressWarnings("unchecked")
+	public <D> D getMappedObject(Object source, java.lang.reflect.Type destinationType) {
+		
+	    if (isNew) {
+	        return null;
+	    }
+	    Map<Object, Object> localCache = cache.get(destinationType);
+		return (D) (localCache == null ? null : localCache.get(source));
+	}
 
-    public void registerConcreteClass(Type<?> subjectClass,
-                                      Type<?> concreteClass) {
-        mapping.put(subjectClass, concreteClass);
-        isNew = false;
-    }
-
-    @Deprecated
-    public <S, D> void cacheMappedObject(S source, D destination) {
-        cacheMappedObject(source, TypeFactory.typeOf(destination), destination);
-    }
-
-    public <S, D> void cacheMappedObject(S source, java.lang.reflect.Type destinationType,
-                                         D destination) {
-        Map<Object, Object> localCache = cache.get(destinationType);
-        if (localCache == null) {
-            localCache = new IdentityHashMap<Object, Object>(2);
-            cache.put(destinationType, localCache);
-        }
-        localCache.put(source, destination);
-        isNew = false;
-    }
-
-    /**
-     * @param source
-     * @param destinationType
-     * @return
-     * @deprecated use {@link #getMappedObject(Object, Type)} instead
-     */
-    @Deprecated
-    public <S, D> boolean isAlreadyMapped(S source, java.lang.reflect.Type destinationType) {
-        if (isNew) {
-            return false;
-        }
-        Map<Object, Object> localCache = cache.get(destinationType);
-        return (localCache != null && localCache.get(source) != null);
-    }
-
-    @SuppressWarnings("unchecked")
-    public <D> D getMappedObject(Object source, java.lang.reflect.Type destinationType) {
-
-        if (isNew) {
-            return null;
-        }
-        Map<Object, Object> localCache = cache.get(destinationType);
-        return (D) (localCache == null ? null : localCache.get(source));
-    }
-
-    /**
-     * Registers a ClassMap marking it as mapped within the current context
-     *
-     * @param classMap
-     */
-    public void registerMapperGeneration(ClassMap<?, ?> classMap) {
-        if (mappersSeen == null) {
-            mappersSeen = new FastList<FastMap<MapperKey, ClassMap<?, ?>>>();
-        }
-        FastMap<MapperKey, ClassMap<?, ?>> list = mappersSeen.isEmpty() ? null : this.mappersSeen.get(depth - 1);
-        if (list == null) {
-            list = new FastMap<MapperKey, ClassMap<?, ?>>();
-        }
-        list.put(classMap.getMapperKey(), classMap);
-    }
-
-    public ClassMap<?, ?> getMapperGeneration(MapperKey mapperKey) {
-        ClassMap<?, ?> result = null;
-        FastMap<MapperKey, ClassMap<?, ?>> map = (mappersSeen == null || mappersSeen.isEmpty()) ? null : this.mappersSeen.get(depth - 1);
-        if (map != null) {
-            result = map.get(mapperKey);
-        }
-        return result;
-    }
-
-    public void beginMapping() {
-        ++depth;
-    }
-
-    public void endMapping() {
-        --depth;
-    }
-
+	/**
+	 * Registers a ClassMap marking it as mapped within the current context
+	 * 
+	 * @param classMap
+	 */
+	public void registerMapperGeneration(ClassMap<?,?> classMap) {
+	    if (mappersSeen == null) {
+	        mappersSeen = new FastList<FastMap<MapperKey, ClassMap<?,?>>>();
+	    }
+	    FastMap<MapperKey, ClassMap<?,?>> list = mappersSeen.isEmpty() ? null : this.mappersSeen.get(depth-1);
+	    if (list == null) {
+	        list = new FastMap<MapperKey, ClassMap<?,?>>();
+	    }
+	    list.put(classMap.getMapperKey(), classMap);
+	}
+	
+	public ClassMap<?,?> getMapperGeneration(MapperKey mapperKey) {
+	    ClassMap<?,?> result = null;
+	    FastMap<MapperKey, ClassMap<?,?>> map = (mappersSeen == null || mappersSeen.isEmpty()) ? null : this.mappersSeen.get(depth-1);
+	    if (map != null) {
+	        result = map.get(mapperKey);
+	    }
+	    return result;
+	}
+	
+	public void beginMapping() {
+	    ++depth;
+	}
+	
+	public void endMapping() {
+	    --depth;
+	}
+	
     /* (non-Javadoc)
      * @see javolution.lang.Reusable#reset()
      */
@@ -176,5 +177,5 @@ public class MappingContext implements Reusable {
         isNew = true;
         depth = 0;
     }
-
+	
 }

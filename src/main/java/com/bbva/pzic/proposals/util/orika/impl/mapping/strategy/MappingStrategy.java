@@ -23,20 +23,21 @@ import com.bbva.pzic.proposals.util.orika.MappingContext;
 /**
  * MappingStrategy defines the contract for a pre-resolved classification of mapping
  * which may be cached for quick lookup based on raw inputs.
- *
+ * 
  * @author matt.deboer@gmail.com
+ *
  */
 public interface MappingStrategy {
-
+    
     /**
      * Perform the mapping
-     *
-     * @param sourceObject      the source object to map
+     * 
+     * @param sourceObject the source object to map
      * @param destinationObject the pre-instantiated destination object onto which properties
-     *                          should be copied; may be null
-     * @param context           the current mapping context
+     * should be copied; may be null
+     * @param context the current mapping context
      * @return the mapping result
      */
     public Object map(Object sourceObject, Object destinationObject, MappingContext context);
-
+ 
 }

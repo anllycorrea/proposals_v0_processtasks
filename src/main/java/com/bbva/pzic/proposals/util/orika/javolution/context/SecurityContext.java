@@ -11,60 +11,60 @@ package com.bbva.pzic.proposals.util.orika.javolution.context;
 import com.bbva.pzic.proposals.util.orika.javolution.lang.Configurable;
 
 /**
- * <p> This class represents a high-level security context (low level
- * security being addressed by the system security manager).</p>
- * <p/>
+ * <p> This class represents a high-level security context (low level 
+ *     security being addressed by the system security manager).</p>
+ *     
  * <p> Applications may extend this base class to address specific security
- * requirements. For example:[code]
- * // This class defines custom policy with regards to database access.
- * public abstract class DatabaseAccess extends SecurityContext  {
- * public static boolean isReadAllowed(Table table) {
- * SecurityContext policy = SecurityContext.current();
- * return (policy instanceof DatabaseAccess.Permission) ?
- * ((DatabaseAccess.Permission)policy).isReadable(table) : false;
- * }
- * public interface Permission {
- * boolean isReadable(Table table);
- * boolean isWritable(Table table);
- * }
- * }[/code]</p>
- * <p/>
- * <p> The use of interfaces (such as <code>Permission</code> above) makes
- * it easy for custom policies to support any security actions.
- * For example:[code]
- * class Policy extends SecurityContext implements DatabaseAccess.Permission, FileAccess.Permission {
- * public boolean isReadable(Table table) {
- * return !table.isPrivate();
- * }
- * public boolean isWritable(Table table) {
- * return Session.getSession().getUser().isAdministrator();
- * }
- * public boolean isReadable(File file) {
- * return true;
- * }
- * public boolean isWritable(File file) {
- * return false;
- * }
- * }
- * ...
- * Policy localPolicy = new Policy();
- * SecurityContext.enter(localPolicy); // Current thread overrides default policy (configurable)
- * try {                               // (if allowed, ref. SecurityContext.isReplaceable())
- * ...
- * DatabaseAccess.isReadAllowed(table);
- * ...
- * FileAccess.isWriteAllowed(file);
- * ...
- * } finally {
- * SecurityContext.exit();
- * }[/code]</p>
- * <p/>
+ *     requirements. For example:[code]
+ *     // This class defines custom policy with regards to database access. 
+ *     public abstract class DatabaseAccess extends SecurityContext  {
+ *         public static boolean isReadAllowed(Table table) {
+ *             SecurityContext policy = SecurityContext.current();
+ *             return (policy instanceof DatabaseAccess.Permission) ?
+ *                 ((DatabaseAccess.Permission)policy).isReadable(table) : false;
+ *         }
+ *         public interface Permission { 
+ *             boolean isReadable(Table table);
+ *             boolean isWritable(Table table);
+ *         }
+ *     }[/code]</p>
+ *     
+ * <p> The use of interfaces (such as <code>Permission</code> above) makes 
+ *     it easy for custom policies to support any security actions.
+ *     For example:[code]
+ *     class Policy extends SecurityContext implements DatabaseAccess.Permission, FileAccess.Permission {
+ *          public boolean isReadable(Table table) { 
+ *              return !table.isPrivate();
+ *          }
+ *          public boolean isWritable(Table table) { 
+ *              return Session.getSession().getUser().isAdministrator();
+ *          }
+ *          public boolean isReadable(File file) { 
+ *              return true;
+ *          }
+ *          public boolean isWritable(File file) { 
+ *              return false;
+ *          }
+ *     }
+ *     ...
+ *     Policy localPolicy = new Policy();
+ *     SecurityContext.enter(localPolicy); // Current thread overrides default policy (configurable)  
+ *     try {                               // (if allowed, ref. SecurityContext.isReplaceable())
+ *         ...
+ *         DatabaseAccess.isReadAllowed(table);   
+ *         ...
+ *         FileAccess.isWriteAllowed(file);
+ *         ...
+ *     } finally {
+ *         SecurityContext.exit();
+ *     }[/code]</p>    
+ *     
  * <p> The default permissions managed by the {@link #DEFAULT} implementation
- * are the permission to {@link #isReplaceable replace} the current security
- * context by default) and the permission to {@link #isConfigurable configure}
- * the application.</p>
+ *     are the permission to {@link #isReplaceable replace} the current security
+ *     context by default) and the permission to {@link #isConfigurable configure}
+ *     the application.</p>
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.2, August 5, 2007
  */
 public abstract class SecurityContext extends Context {
@@ -76,7 +76,7 @@ public abstract class SecurityContext extends Context {
     /**
      * Holds the default security context implementation (configurable).
      */
-    public static final Configurable<Class<? extends SecurityContext>> DEFAULT = new Configurable(Default.class) {
+    public static final Configurable <Class<? extends SecurityContext>>  DEFAULT = new Configurable(Default.class) {
 
         protected void notifyChange(Object oldValue, Object newValue) {
             _Default = (SecurityContext) ObjectFactory.getInstance((Class) newValue).object();
@@ -90,13 +90,13 @@ public abstract class SecurityContext extends Context {
     }
 
     /**
-     * Returns the current security context. If the current thread has not
+     * Returns the current security context. If the current thread has not 
      * entered any security context then  {@link #getDefault()} is returned.
      *
      * @return the current security context.
      */
-    public static SecurityContext getCurrentSecurityContext() {
-        for (Context ctx = getCurrentContext(); ctx != null; ctx = ctx.getOuter()) {
+    public static SecurityContext  getCurrentSecurityContext() {
+        for (Context ctx = Context.getCurrentContext(); ctx != null; ctx = ctx.getOuter()) {
             if (ctx instanceof SecurityContext)
                 return (SecurityContext) ctx;
         }
@@ -132,15 +132,15 @@ public abstract class SecurityContext extends Context {
     }
 
     /**
-     * Indicates if a new security context can be entered (default
-     * <code>true</code>). Applications may return <code>false</code> and
-     * prevent untrusted code to increase their privileges. Usually,
-     * such security setting should also prevent reconfiguring of the
+     * Indicates if a new security context can be entered (default 
+     * <code>true</code>). Applications may return <code>false</code> and 
+     * prevent untrusted code to increase their privileges. Usually, 
+     * such security setting should also prevent reconfiguring of the 
      * {@link #DEFAULT default} security context by making
      * {@link #DEFAULT} not replaceable.
-     *
+     * 
      * @return <code>true</code> if a new security context can be entered;
-     * <code>false</code> otherwise.
+     *         <code>false</code> otherwise.
      */
     public boolean isReplaceable() {
         return true;
@@ -148,21 +148,21 @@ public abstract class SecurityContext extends Context {
 
     /**
      * Indicates if this security context allows changes in the specified
-     * {@link com.bbva.czic.routine.mapper.javolution.lang.Configurable Configurable}
+     * {@link com.bbva.pzic.proposals.util.orika.javolution.lang.Configurable Configurable}
      * (default <code>true</code>). Applications may override this method
-     * to return <code>false</code> and prevent untrusted code to update the
+     * to return <code>false</code> and prevent untrusted code to update the 
      * some or all configuration parameters.
-     *
-     * @param cfg the configurable to check if changes are allowed.
+     * 
+     * @param  cfg the configurable to check if changes are allowed.
      * @return <code>true</code> if the specified configurable can be modified;
-     * <code>false</code> otherwise.
+     *         <code>false</code> otherwise.
      */
     public boolean isConfigurable(Configurable cfg) {
         return true;
     }
 
     /**
-     * Default implementation.
+     * Default implementation. 
      */
     private static class Default extends SecurityContext {
     }

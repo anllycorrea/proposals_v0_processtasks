@@ -8,36 +8,37 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.context;
 
-import com.bbva.pzic.proposals.util.orika.javolution.xml.XMLFormat;
-import com.bbva.pzic.proposals.util.orika.javolution.util.FastMap;
-import com.bbva.pzic.proposals.util.orika.javolution.xml.stream.XMLStreamException;
-
+import java.lang.Comparable;
 import java.util.Map;
 
+import com.bbva.pzic.proposals.util.orika.javolution.util.FastMap;
+import com.bbva.pzic.proposals.util.orika.javolution.xml.XMLFormat;
+import com.bbva.pzic.proposals.util.orika.javolution.xml.stream.XMLStreamException;
+
 /**
- * <p> This class represents a context persistent accross multiple program
- * executions. It is typically used to hold
- * {@link Reference persistent references}.</p>
- * <p/>
- * <p> How this context is loaded/saved is application specific.
- * Although, the simplest way is to use Javolution XML serialization
- * facility. For example:[code]
- * import javolution.xml.XMLObjectReader;
- * import javolution.xml.XMLObjectWriter;
- * public void main(String[]) {
- * // Loads persistent context (typically at start-up).
- * XMLObjectReader reader = XMLObjectReader.newInstance(new FileInputStream("C:/persistent.xml"));
- * PersistentContext.setCurrentPersistentContext(reader.read());
- * reader.close();
- * ...
- * ...
- * // Saves persistent context for future execution.
- * XMLObjectWriter writer = XMLObjectWriter.newInstance(new FileOutputStream("C:/persistent.xml"));
- * writer.write(PersistentContext.getCurrentPersistentContext());
- * writer.close();
- * }[/code]</p>
- *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * <p> This class represents a context persistent accross multiple program 
+ *     executions. It is typically used to hold  
+ *     {@link Reference persistent references}.</p>  
+ *     
+ * <p> How this context is loaded/saved is application specific. 
+ *     Although, the simplest way is to use Javolution XML serialization 
+ *     facility. For example:[code]
+ *      import javolution.xml.XMLObjectReader;
+ *      import javolution.xml.XMLObjectWriter;
+ *      public void main(String[]) {
+ *           // Loads persistent context (typically at start-up).
+ *           XMLObjectReader reader = XMLObjectReader.newInstance(new FileInputStream("C:/persistent.xml"));
+ *           PersistentContext.setCurrentPersistentContext(reader.read());
+ *           reader.close();
+ *           ...
+ *           ...
+ *           // Saves persistent context for future execution.
+ *           XMLObjectWriter writer = XMLObjectWriter.newInstance(new FileOutputStream("C:/persistent.xml"));
+ *           writer.write(PersistentContext.getCurrentPersistentContext());
+ *           writer.close();
+ *      }[/code]</p>
+ *     
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.2, December 31, 2006
  */
 public class PersistentContext extends Context {
@@ -58,15 +59,15 @@ public class PersistentContext extends Context {
     }
 
     /**
-     * Sets the persistent instance.
-     *
+     * Sets the persistent instance. 
+     * 
      * @param ctx the persistent instance.
      */
     public static void setCurrentPersistentContext(PersistentContext ctx) {
         _PersistentContext = ctx;
         synchronized (Reference.INSTANCES) {
             for (FastMap.Entry e = Reference.INSTANCES.head(), end = Reference.INSTANCES.tail();
-                 (e = (FastMap.Entry) e.getNext()) != end; ) {
+                    (e = (FastMap.Entry) e.getNext()) != end;) {
                 Reference reference = (Reference) e.getValue();
                 if (ctx._idToValue.containsKey(reference._id))
                     reference.set(ctx._idToValue.get(reference._id));
@@ -75,7 +76,7 @@ public class PersistentContext extends Context {
     }
 
     /**
-     * Returns the persistent context instance (singleton).
+     * Returns the persistent context instance (singleton).  
      *
      * @return the persistent context instance.
      */
@@ -84,17 +85,17 @@ public class PersistentContext extends Context {
     }
 
     /**
-     * Returns the ID to value mapping for this persistent context.
+     * Returns the ID to value mapping for this persistent context.  
      *
      * @return the persistent value indexed by identifiers.
      */
-    public Map<String, Object> getIdToValue() {
+    public Map <String, Object>  getIdToValue() {
         return _idToValue;
     }
 
     /**
      * Throws <code>UnsupportedOperationException</code> persistent context
-     * are global to all threads (singleton).
+     * are global to all threads (singleton).  
      */
     protected void enterAction() {
         throw new java.lang.UnsupportedOperationException(
@@ -103,7 +104,7 @@ public class PersistentContext extends Context {
 
     /**
      * Throws <code>UnsupportedOperationException</code> persistent context
-     * are global to all threads (singleton).
+     * are global to all threads (singleton).  
      */
     protected void exitAction() {
         throw new java.lang.UnsupportedOperationException(
@@ -111,50 +112,50 @@ public class PersistentContext extends Context {
     }
 
     /**
-     * <p> This class represents a reference over an object which can be kept
-     * persistent accross multiple program executions. Instances of this class
-     * are typically used to hold global data time consuming to regenerate.
-     * For example:[code]
-     * public class FastMap<K,V> implements Map<K, V> {
-     * // Provides a constructor for persistent maps.
-     * public FastMap(String id) {
-     * new PersistentContext<Map<K, V>.Reference(id, this) {
-     * protected void notifyChange() {
-     * FastMap.this.clear();
-     * FastMap.this.putAll(this.get());
-     * }
-     * };
-     * }
-     * }
-     * ...
-     * // Persistent lookup table for units multiplications.
-     * static FastMap<Unit, FastMap<Unit, Unit>> UNITS_MULT_LOOKUP
-     * =  new FastMap<Unit, FastMap<Unit, Unit>>("UNITS_MULT_LOOKUP").shared();
-     * [/code]</p>
-     * <p/>
-     * <p> Persistent references may also be used to hold optimum configuration
-     * values set from previous executions. For example:[code]
-     * public Targets {
-     * private static PersistentContext.Reference<Integer> CAPACITY
-     * = new PersistentContext.Reference<Integer>("Targets#CAPACITY", 256);
-     * private Target[] _targets = new Target[CAPACITY.get()];
-     * private int _count;
-     * public void add(Target target) {
-     * if (_count == _targets.length) { // Ooops, resizes.
-     * Target[] tmp = new Target[_count * 2];
-     * System.arraycopy(_targets, 0, tmp, 0, _count);
-     * _targets = tmp;
-     * CAPACITY.setMinimum(_targets.length); // Persists.
-     * }
-     * _targets[_count++] target;
-     * }
-     * }[/code]
+     * <p> This class represents a reference over an object which can be kept 
+     *     persistent accross multiple program executions. Instances of this class 
+     *     are typically used to hold global data time consuming to regenerate. 
+     *     For example:[code]
+     *     public class FastMap<K,V> implements Map<K, V> {
+     *         // Provides a constructor for persistent maps.
+     *         public FastMap(String id) {
+     *             new PersistentContext<Map<K, V>.Reference(id, this) {
+     *                  protected void notifyChange() {
+     *                      FastMap.this.clear();
+     *                      FastMap.this.putAll(this.get());
+     *                  }
+     *             };
+     *         }
+     *     }
+     *     ...
+     *     // Persistent lookup table for units multiplications.
+     *     static FastMap<Unit, FastMap<Unit, Unit>> UNITS_MULT_LOOKUP 
+     *          =  new FastMap<Unit, FastMap<Unit, Unit>>("UNITS_MULT_LOOKUP").shared();
+     *    [/code]</p>
+     *    
+     * <p> Persistent references may also be used to hold optimum configuration 
+     *     values set from previous executions. For example:[code]
+     *     public Targets {  
+     *          private static PersistentContext.Reference<Integer> CAPACITY 
+     *               = new PersistentContext.Reference<Integer>("Targets#CAPACITY", 256);
+     *          private Target[] _targets = new Target[CAPACITY.get()];
+     *          private int _count;
+     *          public void add(Target target) {
+     *              if (_count == _targets.length) { // Ooops, resizes.
+     *                  Target[] tmp = new Target[_count * 2];
+     *                  System.arraycopy(_targets, 0, tmp, 0, _count);
+     *                  _targets = tmp;
+     *                  CAPACITY.setMinimum(_targets.length); // Persists. 
+     *              }
+     *              _targets[_count++] target;
+     *         }
+     *     }[/code]
      *
-     * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+     * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
      * @version 4.0, September 4, 2006
      */
-    public static class Reference<T> implements
-            com.bbva.pzic.proposals.util.orika.javolution.lang.Reference<T> {
+    public static class Reference  <T>  implements
+            com.bbva.pzic.proposals.util.orika.javolution.lang.Reference <T>  {
 
         /**
          * Holds the instances.
@@ -167,17 +168,17 @@ public class PersistentContext extends Context {
         /**
          * Holds the current value.
          */
-        private T _value;
+        private  T  _value;
 
         /**
-         * Creates a persistent reference identified by the specified name and
+         * Creates a persistent reference identified by the specified name and 
          * having the specified default value.
-         *
-         * @param id           the unique identifier.
+         * 
+         * @param id the unique identifier.
          * @param defaultValue the default value.
          * @throws IllegalArgumentException if the name is not unique.
          */
-        public Reference(String id, T defaultValue) {
+        public Reference(String id,  T  defaultValue) {
             _id = id;
             _value = defaultValue;
             synchronized (INSTANCES) {
@@ -186,32 +187,32 @@ public class PersistentContext extends Context {
                 INSTANCES.put(id, this);
             }
             if (_PersistentContext._idToValue.containsKey(id)) {
-                set((T) _PersistentContext._idToValue.get(id));
+                set(( T ) _PersistentContext._idToValue.get(id));
             } else {
                 _PersistentContext._idToValue.put(id, defaultValue);
             }
         }
 
         // Implements Reference interface.
-        public T get() {
+        public  T  get() {
             return _value;
         }
 
         // Implements Reference interface.
-        public void set(T value) {
+        public void set( T  value) {
             _value = value;
             notifyChange();
         }
 
         /**
-         * Sets this reference to the specified value only if
+         * Sets this reference to the specified value only if 
          * <code>(value.compareTo(this.get()) &gt; 0)</code>.
-         *
+         * 
          * @param value the minimum value for this reference.
-         * @throws IllegalArgumentException if the specified value is not
-         *                                  {@link Comparable} or an {@link Integer} instance (J2ME).
+         * @throws IllegalArgumentException if the specified value is not 
+         *         {@link Comparable} or an {@link Integer} instance (J2ME).
          */
-        public void setMinimum(T value) {
+        public void setMinimum( T  value) {
             synchronized (this) {
                 if (value instanceof Comparable) {
                     Object prevValue = get();
@@ -227,14 +228,14 @@ public class PersistentContext extends Context {
         }
 
         /**
-         * Sets this reference to the specified value only if
+         * Sets this reference to the specified value only if 
          * <code>(value.compareTo(this.get()) &lt; 0)</code>.
-         *
+         * 
          * @param value the maximum value for this reference.
-         * @throws IllegalArgumentException if the specified value is not
-         *                                  {@link Comparable} or an {@link Integer} instance (J2ME).
+         * @throws IllegalArgumentException if the specified value is not 
+         *         {@link Comparable} or an {@link Integer} instance (J2ME).
          */
-        public void setMaximum(T value) {
+        public void setMaximum( T  value) {
             synchronized (this) {
                 if (value instanceof Comparable) {
                     Object prevValue = get();
@@ -250,7 +251,7 @@ public class PersistentContext extends Context {
         }
 
         /**
-         * Returns the string representation of the current value of this
+         * Returns the string representation of the current value of this 
          * reference.
          *
          * @return <code>String.valueOf(this.get())</code>

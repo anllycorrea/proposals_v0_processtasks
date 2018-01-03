@@ -22,17 +22,18 @@ package com.bbva.pzic.proposals.util.orika.impl.mapping.strategy;
 /**
  * MappingStrategyKey defines the minimum information necessary to cache a
  * particular mapping strategy
- *
+ * 
  * @author matt.deboer@gmail.com
+ *
  */
 public final class MappingStrategyKey {
-
-    private final Class<?> rawSourceType;
-    private final java.lang.reflect.Type sourceType;
-    private final java.lang.reflect.Type destinationType;
-    private final boolean destinationProvided;
+    
+	private final Class<?> rawSourceType;
+	private final java.lang.reflect.Type sourceType;
+	private final java.lang.reflect.Type destinationType;
+	private final boolean destinationProvided;
     private final int hashCode;
-
+    
     public MappingStrategyKey(Class<?> rawSourceType, java.lang.reflect.Type sourceType, java.lang.reflect.Type destinationType, boolean destinationProvided) {
         this.rawSourceType = rawSourceType;
         this.sourceType = sourceType;
@@ -40,7 +41,7 @@ public final class MappingStrategyKey {
         this.destinationProvided = destinationProvided;
         this.hashCode = computeHashCode();
     }
-
+    
     protected Class<?> getRawSourceType() {
         return rawSourceType;
     }
@@ -52,16 +53,16 @@ public final class MappingStrategyKey {
     protected java.lang.reflect.Type getDestinationType() {
         return destinationType;
     }
-
+    
     protected boolean isDestinationProvided() {
-        return destinationProvided;
+    	return destinationProvided;
     }
-
+    
     @Override
     public int hashCode() {
         return hashCode;
     }
-
+    
     private int computeHashCode() {
         final int prime = 31;
         int result = 1;
@@ -82,7 +83,7 @@ public final class MappingStrategyKey {
             return false;
         MappingStrategyKey other = (MappingStrategyKey) obj;
         if (destinationProvided != other.destinationProvided)
-            return false;
+        	return false;
         if (getDestinationType() == null) {
             if (other.destinationType != null)
                 return false;
@@ -98,12 +99,12 @@ public final class MappingStrategyKey {
                 return false;
         } else if (!sourceType.equals(other.sourceType))
             return false;
-
-
+        
+        
         return true;
     }
-
+    
     public String toString() {
-        return "[" + rawSourceType.getSimpleName() + ", " + sourceType + ", " + destinationType + "]";
+    	return "[" + rawSourceType.getSimpleName() + ", " + sourceType + ", " + destinationType +"]";
     }
 }

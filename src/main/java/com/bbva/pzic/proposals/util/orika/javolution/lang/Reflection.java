@@ -8,60 +8,61 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.lang;
 
-import com.bbva.pzic.proposals.util.orika.javolution.util.FastSet;
+import java.lang.CharSequence;
+import java.util.Collection;
+import java.util.Iterator;
+
 import com.bbva.pzic.proposals.util.orika.javolution.context.LogContext;
 import com.bbva.pzic.proposals.util.orika.javolution.text.TextBuilder;
 import com.bbva.pzic.proposals.util.orika.javolution.util.FastComparator;
 import com.bbva.pzic.proposals.util.orika.javolution.util.FastMap;
-
-import java.util.Collection;
-import java.util.Iterator;
+import com.bbva.pzic.proposals.util.orika.javolution.util.FastSet;
 
 /**
- * <p> This utility class greatly facilitates the use of reflection to invoke
- * constructors or methods which may or may not exist at runtime or
- * may be loaded/unloaded dynamically such as when running on a
- * <a href="http://www.osgi.org/">OSGi Platform</a>. For example:[code]
- * public class Activator implements BundleActivator {
- * public void start(BundleContext context) throws Exception {
- * Reflection.getInstance().add(Activator.class.getClassLoader());
- * ...
- * }
- * public void stop(BundleContext context) throws Exception {
- * Reflection.getInstance().remove(Activator.class.getClassLoader());
- * ...
- * }
- * }[/code]
- * <p/>
- * <p> The constructors/methods are identified through their signatures
- * represented as a {@link String}. When the constructor/method does
- * not exist (e.g. class not found) or when the platform does not support
- * reflection, the constructor/method is <code>null</code>
- * (no exception raised). Here is an example of timer taking advantage
- * of the new (JRE1.5+) high resolution time when available:[code]
- * public static long microTime() {
- * if (NANO_TIME_METHOD != null) { // JRE 1.5+
- * Long time = (Long) NANO_TIME_METHOD.invoke(null); // Static method.
- * return time.longValue() / 1000;
- * } else { // Use the less accurate time in milliseconds.
- * return System.currentTimeMillis() * 1000;
- * }
- * }
- * private static final Reflection.Method NANO_TIME_METHOD
- * = Reflection.getInstance().getMethod("java.lang.System.nanoTime()");[/code]</p>
- * <p/>
- * <p> Arrays and primitive types are supported. For example:[code]
- * Reflection.Constructor sbc = Reflection.getInstance().getConstructor("java.lang.StringBuilder(int)");
- * if (sbc != null) { // JDK 1.5+
- * Object sb = sbc.newInstance(new Integer(32));
- * Reflection.Method append = Reflection.getInstance().getMethod("java.lang.StringBuilder.append(char[], int, int)");
- * append.invoke(sb, new char[] { 'h', 'i' }, new Integer(0), new Integer(2));
- * System.out.println(sb);
- * }
- * <p/>
- * > hi[/code]</p>
+ * <p> This utility class greatly facilitates the use of reflection to invoke 
+ *     constructors or methods which may or may not exist at runtime or
+ *     may be loaded/unloaded dynamically such as when running on a
+ *     <a href="http://www.osgi.org/">OSGi Platform</a>. For example:[code]
+ *         public class Activator implements BundleActivator {
+ *              public void start(BundleContext context) throws Exception {
+ *                   Reflection.getInstance().add(Activator.class.getClassLoader());
+ *                   ...
+ *              }
+ *              public void stop(BundleContext context) throws Exception {
+ *                   Reflection.getInstance().remove(Activator.class.getClassLoader());
+ *                   ...
+ *              }
+ *         }[/code]
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * <p> The constructors/methods are identified through their signatures
+ *     represented as a {@link String}. When the constructor/method does
+ *     not exist (e.g. class not found) or when the platform does not support
+ *     reflection, the constructor/method is <code>null</code> 
+ *     (no exception raised). Here is an example of timer taking advantage 
+ *     of the new (JRE1.5+) high resolution time when available:[code]
+ *     public static long microTime() {
+ *         if (NANO_TIME_METHOD != null) { // JRE 1.5+
+ *             Long time = (Long) NANO_TIME_METHOD.invoke(null); // Static method.
+ *             return time.longValue() / 1000;
+ *         } else { // Use the less accurate time in milliseconds.
+ *             return System.currentTimeMillis() * 1000;
+ *         }
+ *     }
+ *     private static final Reflection.Method NANO_TIME_METHOD 
+ *         = Reflection.getInstance().getMethod("java.lang.System.nanoTime()");[/code]</p>
+ *   
+ * <p> Arrays and primitive types are supported. For example:[code]
+ *     Reflection.Constructor sbc = Reflection.getInstance().getConstructor("java.lang.StringBuilder(int)");
+ *     if (sbc != null) { // JDK 1.5+
+ *        Object sb = sbc.newInstance(new Integer(32));
+ *        Reflection.Method append = Reflection.getInstance().getMethod("java.lang.StringBuilder.append(char[], int, int)");
+ *        append.invoke(sb, new char[] { 'h', 'i' }, new Integer(0), new Integer(2));
+ *        System.out.println(sb);
+ *    }
+ * 
+ *    > hi[/code]</p>
+ * 
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.5, April 20, 2009
  */
 public abstract class Reflection {
@@ -74,7 +75,7 @@ public abstract class Reflection {
     /**
      * Holds the default implementation (configurable).
      */
-    public static final Configurable<Class<? extends Reflection>> CLASS = new Configurable(Default.class) {
+    public static final Configurable <Class<? extends Reflection>>  CLASS = new Configurable(Default.class) {
 
         protected void notifyChange(Object oldValue, Object newValue) {
             try {
@@ -152,7 +153,7 @@ public abstract class Reflection {
      *
      * @param forClass the class for which the parent class is returned.
      * @return the parent class of the specified class or <code>null</code>
-     * if none (e.g. Object.class or top interface).
+     *         if none (e.g. Object.class or top interface).
      */
     public abstract Class getSuperclass(Class forClass);
 
@@ -169,7 +170,7 @@ public abstract class Reflection {
      *
      * @param signature the textual representation of the constructor signature.
      * @return the corresponding constructor or <code>null</code> if none
-     * found.
+     *         found.
      */
     public abstract Constructor getConstructor(String signature);
 
@@ -178,7 +179,7 @@ public abstract class Reflection {
      *
      * @param signature the textual representation of the method signature.
      * @return the corresponding constructor or <code>null</code> if none
-     * found.
+     *         found.
      */
     public abstract Method getMethod(String signature);
 
@@ -189,39 +190,39 @@ public abstract class Reflection {
      * searched. The method forces the initialization of the specified
      * <code>forClass</code>.
      *
-     * @param forClass  the base class for which the attached field is searched.
-     * @param type      the type of field being searched for.
+     * @param forClass the base class for which the attached field is searched.
+     * @param type the type of field being searched for.
      * @param inherited indicates if the class hierarchy is searched too.
      * @return an attached field of specified type possibly inherited or <code>null</code>
-     * if none found.
-     * @see #setField(java.lang.Object, java.lang.Class, java.lang.Class)
+     *         if none found.
+     * @see    #setField(java.lang.Object, java.lang.Class, java.lang.Class)
      */
-    public abstract <T> T getField(Class forClass, Class<T> type, boolean inherited);
+    public abstract  <T>   T  getField(Class forClass, Class <T>  type, boolean inherited);
 
     /**
      * Attaches a field of specified type to a class (the attached field is
      * dereferenced when the class is unloaded).
      *
-     * @param obj      the field object being attached.
+     * @param obj the field object being attached.
      * @param forClass the class to which the field is attached.
-     * @param type     the category type of the field being attached.
+     * @param type the category type of the field being attached.
      * @throws IllegalArgumentException if a field of specified type is already
-     *                                  attached to the specified class.
+     *         attached to the specified class.
      */
-    public abstract <T> void setField(T obj, Class forClass, Class<T> type);
+    public abstract  <T>  void setField( T  obj, Class forClass, Class <T>  type);
 
     /**
      * This interface represents a run-time constructor obtained through reflection.
-     * <p/>
+     *
      * Here are few examples of utilization:[code]
      * // Default constructor (fastList = new FastList())
      * Reflection.Constructor fastListConstructor
-     * = Reflection.getInstance().getConstructor("javolution.util.FastList()");
+     *     = Reflection.getInstance().getConstructor("javolution.util.FastList()");
      * Object fastList = fastListConstructor.newInstance();
-     * <p/>
+     *
      * // Constructor with arguments (fastMap = new FastMap(64))
      * Reflection.Constructor fastMapConstructor
-     * = Reflection.getInstance().getConstructor("javolution.util.FastMap(int)");
+     *     = Reflection.getInstance().getConstructor("javolution.util.FastMap(int)");
      * Object fastMap = fastMapConstructor.newInstance(new Integer(64));
      * [/code]
      */
@@ -240,7 +241,7 @@ public abstract class Reflection {
          *
          * @return the object being instantiated.
          * @throws IllegalArgumentException if
-         *                                  <code>this.getParametersTypes().length != 0</code>
+         *          <code>this.getParametersTypes().length != 0</code>
          */
         Object newInstance();
 
@@ -250,7 +251,7 @@ public abstract class Reflection {
          * @param arg0 the first argument.
          * @return the object being instantiated.
          * @throws IllegalArgumentException if
-         *                                  <code>this.getParametersTypes().length != 1</code>
+         *          <code>this.getParametersTypes().length != 1</code>
          */
         Object newInstance(Object arg0);
 
@@ -261,7 +262,7 @@ public abstract class Reflection {
          * @param arg1 the second argument.
          * @return the object being instantiated.
          * @throws IllegalArgumentException if
-         *                                  <code>this.getParametersTypes().length != 2</code>
+         *          <code>this.getParametersTypes().length != 2</code>
          */
         Object newInstance(Object arg0, Object arg1);
 
@@ -273,35 +274,34 @@ public abstract class Reflection {
          * @param arg2 the third argument.
          * @return the object being instantiated.
          * @throws IllegalArgumentException if
-         *                                  <code>this.getParametersTypes().length != 3</code>
+         *          <code>this.getParametersTypes().length != 3</code>
          */
         Object newInstance(Object arg0, Object arg1, Object arg2);
-
         /**
          * Invokes this constructor with the specified arguments.
          *
          * @param args the arguments.
          * @return the object being instantiated.
          * @throws IllegalArgumentException if
-         *                                  <code>this.getParametersTypes().length != args.length</code>
-         */
+         *          <code>this.getParametersTypes().length != args.length</code>
+        */
         Object newInstance(Object... args);
         /**/
     }
 
     /**
      * This interface represents a run-time method obtained through reflection.
-     * <p/>
+     *
      * Here are few examples of utilization:[code]
      * // Non-static method: fastMap.put(myKey, myValue)
      * Reflection.Method putKeyValue
-     * = Reflection.getInstance().getMethod(
-     * "javolution.util.FastMap.put(java.lang.Object, java.lang.Object)");
+     *     = Reflection.getInstance().getMethod(
+     *         "javolution.util.FastMap.put(java.lang.Object, java.lang.Object)");
      * Object previous = putKeyValue.invoke(fastMap, myKey, myValue);
-     * <p/>
+     *
      * // Static method: System.nanoTime()  (JRE1.5+)
      * Reflection.Method nanoTime
-     * = Reflection.getInstance().getMethod("java.lang.System.nanoTime()");
+     *     = Reflection.getInstance().getMethod("java.lang.System.nanoTime()");
      * long time = ((Long)nanoTime.invoke(null)).longValue();[/code]
      */
     public interface Method {
@@ -319,10 +319,10 @@ public abstract class Reflection {
          * <code>null</code> if the method is static (convenience method).
          *
          * @param thisObject the object upon which this method is invoked
-         *                   or <code>null</code> for static methods.
+         *        or <code>null</code> for static methods.
          * @return the result of the invocation.
          * @throws IllegalArgumentException if
-         *                                  <code>this.getParametersTypes().length != 0</code>
+         *          <code>this.getParametersTypes().length != 0</code>
          */
         Object invoke(Object thisObject);
 
@@ -332,11 +332,11 @@ public abstract class Reflection {
          * if the method is static (convenience method).
          *
          * @param thisObject the object upon which this method is invoked
-         *                   or <code>null</code> for static methods.
-         * @param arg0       the single argument.
+         *        or <code>null</code> for static methods.
+         * @param arg0 the single argument.
          * @return the result of the invocation.
          * @throws IllegalArgumentException if
-         *                                  <code>this.getParametersTypes().length != 1</code>
+         *          <code>this.getParametersTypes().length != 1</code>
          */
         Object invoke(Object thisObject, Object arg0);
 
@@ -346,12 +346,12 @@ public abstract class Reflection {
          * if the method is static (convenience method).
          *
          * @param thisObject the object upon which this method is invoked
-         *                   or <code>null</code> for static methods.
-         * @param arg0       the first argument.
-         * @param arg1       the second argument.
+         *        or <code>null</code> for static methods.
+         * @param arg0 the first argument.
+         * @param arg1 the second argument.
          * @return the result of the invocation.
          * @throws IllegalArgumentException if
-         *                                  <code>this.getParametersTypes().length != 2</code>
+         *          <code>this.getParametersTypes().length != 2</code>
          */
         Object invoke(Object thisObject, Object arg0, Object arg1);
 
@@ -361,34 +361,33 @@ public abstract class Reflection {
          * if the method is static.
          *
          * @param thisObject the object upon which this method is invoked
-         *                   or <code>null</code> for static methods.
-         * @param arg0       the first argument (convenience method).
-         * @param arg1       the second argument.
-         * @param arg2       the third argument.
+         *        or <code>null</code> for static methods.
+         * @param arg0 the first argument (convenience method).
+         * @param arg1 the second argument.
+         * @param arg2 the third argument.
          * @return the result of the invocation.
          * @throws IllegalArgumentException if
-         *                                  <code>this.getParametersTypes().length != 3</code>
+         *          <code>this.getParametersTypes().length != 3</code>
          */
         Object invoke(Object thisObject, Object arg0, Object arg1,
-                      Object arg2);
-
+                Object arg2);
         /**
          * Invokes this method with the specified arguments
          * on the specified object which might be <code>null</code>
          * if the method is static.
          *
          * @param thisObject the object upon which this method is invoked
-         *                   or <code>null</code> for static methods.
-         * @param args       the arguments.
+         *        or <code>null</code> for static methods.
+         * @param args the arguments.
          * @return the result of the invocation.
          * @throws IllegalArgumentException if
-         *                                  <code>this.getParametersTypes().length != args.length</code>
-         */
+         *          <code>this.getParametersTypes().length != args.length</code>
+        */
         Object invoke(Object thisObject, Object... args);
         /**/
     }
 
-    //////////////////////////////////
+//////////////////////////////////
 // Holds Default Implementation //
 //////////////////////////////////
     private static final class Default extends Reflection {
@@ -406,7 +405,7 @@ public abstract class Reflection {
         public void remove(Object classLoader) {
             _classLoaders.remove(classLoader);
             _nameToClass.clear(); // Clear cache.
-            for (Iterator i = _fields.entrySet().iterator(); i.hasNext(); ) {
+            for (Iterator i = _fields.entrySet().iterator(); i.hasNext();) {
                 FastMap.Entry entry = (FastMap.Entry) i.next();
                 Class cls = (Class) entry.getKey();
                 if (cls.getClassLoader().equals(classLoader)) {
@@ -426,13 +425,13 @@ public abstract class Reflection {
                 cls = Class.forName(name);
             } catch (ClassNotFoundException e1) {
                 /* */
-                for (Iterator i = _classLoaders.iterator(); i.hasNext(); ) {
-                    ClassLoader classLoader = (ClassLoader) i.next();
-                    try {
-                        cls = Class.forName(name, true, classLoader);
-                    } catch (ClassNotFoundException e2) {
-                        // Not found, continue.
-                    }
+                for (Iterator i = _classLoaders.iterator(); i.hasNext();) {
+                ClassLoader classLoader = (ClassLoader) i.next();
+                try {
+                cls = Class.forName(name, true, classLoader);
+                } catch (ClassNotFoundException e2) {
+                // Not found, continue.
+                }
                 }
                 /**/
             }
@@ -464,8 +463,8 @@ public abstract class Reflection {
             Class[] argsTypes = classesFor(args);
             if (argsTypes == null) return null;
             try {
-                return new ReflectConstructor(theClass.getConstructor(argsTypes),
-                        signature);
+            return new ReflectConstructor(theClass.getConstructor(argsTypes),
+            signature);
             } catch (NoSuchMethodException e) {
             }
             /**/
@@ -494,24 +493,24 @@ public abstract class Reflection {
             /**/
             int argStart = signature.indexOf('(') + 1;
             if (argStart < 0) {
-                throw new IllegalArgumentException("Parenthesis '(' not found");
+            throw new IllegalArgumentException("Parenthesis '(' not found");
             }
             int argEnd = signature.indexOf(')');
             if (argEnd < 0) {
-                throw new IllegalArgumentException("Parenthesis ')' not found");
+            throw new IllegalArgumentException("Parenthesis ')' not found");
             }
             int nameStart = signature.substring(0, argStart).lastIndexOf('.') + 1;
             try {
 
-                String className = signature.substring(0, nameStart - 1);
-                Class theClass = getClass(className);
-                if (theClass == null) return null;
-                String methodName = signature.substring(nameStart, argStart - 1);
-                String args = signature.substring(argStart, argEnd);
-                Class[] argsTypes = classesFor(args);
-                if (argsTypes == null) return null;
-                return new ReflectMethod(theClass.getMethod(methodName, argsTypes),
-                        signature);
+            String className = signature.substring(0, nameStart - 1);
+            Class theClass = getClass(className);
+            if (theClass == null) return null;
+            String methodName = signature.substring(nameStart, argStart - 1);
+            String args = signature.substring(argStart, argEnd);
+            Class[] argsTypes = classesFor(args);
+            if (argsTypes == null) return null;
+            return new ReflectMethod(theClass.getMethod(methodName, argsTypes),
+            signature);
             } catch (Throwable t) {
             }
             /**/
@@ -524,7 +523,6 @@ public abstract class Reflection {
             ClassInitializer.initialize(forClass);
             return getField2(forClass, type, inherited);
         }
-
         private Object getField2(Class forClass, Class type, boolean inherited) {
             FastMap typeToField = (FastMap) _fields.get(forClass);
             if (typeToField != null) {
@@ -609,14 +607,13 @@ public abstract class Reflection {
                 Object[] args = {arg0, arg1, arg2};
                 return allocate(args);
             }
-
             /**
-             */
+            */
             public final Object newInstance(Object... args) {
-                if (_parameterTypes.length != args.length)
-                    throw new IllegalArgumentException(
-                            "Expected number of parameters is " + _parameterTypes.length);
-                return allocate(args);
+            if (_parameterTypes.length != args.length)
+            throw new IllegalArgumentException(
+            "Expected number of parameters is " + _parameterTypes.length);
+            return allocate(args);
             }
             /**/
         }
@@ -647,40 +644,39 @@ public abstract class Reflection {
 
         /**/
         private final class ReflectConstructor extends BaseConstructor {
-            private final java.lang.reflect.Constructor _value;
+        private final java.lang.reflect.Constructor _value;
 
-            private final String _signature;
+        private final String _signature;
 
-            public ReflectConstructor(java.lang.reflect.Constructor value,
-                                      String signature) {
-                super(value.getParameterTypes());
-                _value = value;
-                _signature = signature;
-            }
-
-            public Object allocate(Object[] args) {
-                try {
-                    return _value.newInstance(args);
-                } catch (InstantiationException e) {
-                    throw new RuntimeException("Instantiation error for "
-                            + _signature + " constructor", e);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException("Illegal access error for "
-                            + _signature + " constructor", e);
-                } catch (java.lang.reflect.InvocationTargetException e) {
-                    if (e.getCause() instanceof RuntimeException)
-                        throw (RuntimeException) e.getCause();
-                    throw new RuntimeException("Invocation exception  for "
-                            + _signature + " constructor",
-                            (java.lang.reflect.InvocationTargetException) e.getCause());
-                }
-            }
-
-            public String toString() {
-                return _signature + " constructor";
-            }
+        public ReflectConstructor(java.lang.reflect.Constructor value,
+        String signature) {
+        super(value.getParameterTypes());
+        _value = value;
+        _signature = signature;
         }
 
+        public Object allocate(Object[] args) {
+        try {
+        return _value.newInstance(args);
+        } catch (InstantiationException e) {
+        throw new RuntimeException("Instantiation error for "
+        + _signature + " constructor", e);
+        } catch (IllegalAccessException e) {
+        throw new RuntimeException("Illegal access error for "
+        + _signature + " constructor", e);
+        } catch (java.lang.reflect.InvocationTargetException e) {
+        if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException)e.getCause();
+        throw new RuntimeException("Invocation exception  for "
+        + _signature + " constructor",
+        (java.lang.reflect.InvocationTargetException) e.getCause());
+        }
+        }
+
+        public String toString() {
+        return _signature + " constructor";
+        }
+        }
         /**/
         ///////////////////////////
         // Method Implementation //
@@ -723,21 +719,20 @@ public abstract class Reflection {
             }
 
             public final Object invoke(Object thisObject, Object arg0, Object arg1,
-                                       Object arg2) {
+                    Object arg2) {
                 if (_parameterTypes.length != 3)
                     throw new IllegalArgumentException(
                             "Expected number of parameters is " + _parameterTypes.length);
                 Object[] args = {arg0, arg1, arg2};
                 return execute(thisObject, args);
             }
-
             /**
-             */
+            */
             public final Object invoke(Object thisObject, Object... args) {
-                if (_parameterTypes.length != args.length)
-                    throw new IllegalArgumentException(
-                            "Expected number of parameters is " + _parameterTypes.length);
-                return execute(thisObject, args);
+            if (_parameterTypes.length != args.length)
+            throw new IllegalArgumentException(
+            "Expected number of parameters is " + _parameterTypes.length);
+            return execute(thisObject, args);
             }
             /**/
         }
@@ -745,135 +740,133 @@ public abstract class Reflection {
         /**/
         private final class ReflectMethod extends BaseMethod {
 
-            private final java.lang.reflect.Method _value;
+        private final java.lang.reflect.Method _value;
 
-            private final String _signature;
+        private final String _signature;
 
-            public ReflectMethod(java.lang.reflect.Method value, String signature) {
-                super(value.getParameterTypes());
-                _value = value;
-                _signature = signature;
-            }
+        public ReflectMethod(java.lang.reflect.Method value, String signature) {
+        super(value.getParameterTypes());
+        _value = value;
+        _signature = signature;
+        }
 
-            public Object execute(Object that, Object[] args) {
-                try {
-                    return _value.invoke(that, args);
-                } catch (IllegalAccessException e) {
-                    throw new IllegalAccessError("Illegal access error for " + _signature + " method");
-                } catch (java.lang.reflect.InvocationTargetException e) {
-                    if (e.getCause() instanceof RuntimeException)
-                        throw (RuntimeException) e.getCause();
-                    throw new RuntimeException(
-                            "Invocation exception for " + _signature + " method",
-                            (java.lang.reflect.InvocationTargetException) e.getCause());
-                }
-            }
+        public Object execute(Object that, Object[] args) {
+        try {
+        return _value.invoke(that, args);
+        } catch (IllegalAccessException e) {
+        throw new IllegalAccessError("Illegal access error for " + _signature + " method");
+        } catch (java.lang.reflect.InvocationTargetException e) {
+        if (e.getCause() instanceof RuntimeException)
+        throw (RuntimeException) e.getCause();
+        throw new RuntimeException(
+        "Invocation exception for " + _signature + " method",
+        (java.lang.reflect.InvocationTargetException) e.getCause());
+        }
+        }
 
-            public String toString() {
-                return _signature + " method";
-            }
+        public String toString() {
+        return _signature + " method";
+        }
         }
         /**/
-
         /**
          * Returns the classes for the specified argument.
          *
          * @param args the comma separated arguments.
          * @return the classes or <code>null</code> if one of the class is not found.
-         */
+        */
         private Class[] classesFor(String args) {
-            args = args.trim();
-            if (args.length() == 0) {
-                return new Class[0];
-            }
-            // Counts commas.
-            int commas = 0;
-            for (int i = 0; ; ) {
-                i = args.indexOf(',', i);
-                if (i++ < 0) break;
-                commas++;
-            }
-            Class[] classes = new Class[commas + 1];
+        args = args.trim();
+        if (args.length() == 0) {
+        return new Class[0];
+        }
+        // Counts commas.
+        int commas = 0;
+        for (int i=0;;) {
+        i = args.indexOf(',', i);
+        if (i++ < 0) break;
+        commas++;
+        }
+        Class[] classes = new Class[commas + 1];
 
-            int index = 0;
-            for (int i = 0; i < commas; i++) {
-                int sep = args.indexOf(',', index);
-                classes[i] = classFor(args.substring(index, sep).trim());
-                if (classes[i] == null) return null;
-                index = sep + 1;
-            }
-            classes[commas] = classFor(args.substring(index).trim());
-            if (classes[commas] == null) return null;
-            return classes;
+        int index = 0;
+        for (int i = 0; i < commas; i++) {
+        int sep = args.indexOf(',', index);
+        classes[i] = classFor(args.substring(index, sep).trim());
+        if (classes[i] == null) return null;
+        index = sep + 1;
+        }
+        classes[commas] = classFor(args.substring(index).trim());
+        if (classes[commas] == null) return null;
+        return classes;
         }
 
-        private Class classFor(String className) {
-            int arrayIndex = className.indexOf("[]");
-            if (arrayIndex >= 0) {
-                if (className.indexOf("[][]") >= 0) {
-                    if (className.indexOf("[][][]") >= 0) {
-                        if (className.indexOf("[][][][]") >= 0) {
-                            throw new UnsupportedOperationException(
-                                    "The maximum array dimension is 3");
-                        } else { // Dimension three.
-                            return getClass("[[["
-                                    + descriptorFor(className.substring(0,
-                                    arrayIndex)));
-                        }
-                    } else { // Dimension two.
-                        return getClass("[["
-                                + descriptorFor(className.substring(0, arrayIndex)));
-                    }
-                } else { // Dimension one.
-                    return getClass("["
-                            + descriptorFor(className.substring(0, arrayIndex)));
-                }
-            }
-            if (className.equals("boolean")) {
-                return boolean.class;
-            } else if (className.equals("byte")) {
-                return byte.class;
-            } else if (className.equals("char")) {
-                return char.class;
-            } else if (className.equals("short")) {
-                return short.class;
-            } else if (className.equals("int")) {
-                return int.class;
-            } else if (className.equals("long")) {
-                return long.class;
-            } else if (className.equals("float")) {
-                return float.class;
-            } else if (className.equals("double")) {
-                return double.class;
-            } else {
-                return getClass(className);
-            }
+        private Class classFor(String className)  {
+        int arrayIndex = className.indexOf("[]");
+        if (arrayIndex >= 0) {
+        if (className.indexOf("[][]") >= 0) {
+        if (className.indexOf("[][][]") >= 0) {
+        if (className.indexOf("[][][][]") >= 0) {
+        throw new UnsupportedOperationException(
+        "The maximum array dimension is 3");
+        } else { // Dimension three.
+        return getClass("[[["
+        + descriptorFor(className.substring(0,
+        arrayIndex)));
+        }
+        } else { // Dimension two.
+        return getClass("[["
+        + descriptorFor(className.substring(0, arrayIndex)));
+        }
+        } else { // Dimension one.
+        return getClass("["
+        + descriptorFor(className.substring(0, arrayIndex)));
+        }
+        }
+        if (className.equals("boolean")) {
+        return boolean.class;
+        } else if (className.equals("byte")) {
+        return byte.class;
+        } else if (className.equals("char")) {
+        return char.class;
+        } else if (className.equals("short")) {
+        return short.class;
+        } else if (className.equals("int")) {
+        return int.class;
+        } else if (className.equals("long")) {
+        return long.class;
+        } else if (className.equals("float")) {
+        return float.class;
+        } else if (className.equals("double")) {
+        return double.class;
+        } else {
+        return getClass(className);
+        }
         }
 
         private static String descriptorFor(String className) {
-            if (className.equals("boolean")) {
-                return "Z";
-            } else if (className.equals("byte")) {
-                return "B";
-            } else if (className.equals("char")) {
-                return "C";
-            } else if (className.equals("short")) {
-                return "S";
-            } else if (className.equals("int")) {
-                return "I";
-            } else if (className.equals("long")) {
-                return "J";
-            } else if (className.equals("float")) {
-                return "F";
-            } else if (className.equals("double")) {
-                return "D";
-            } else {
-                return "L" + className + ";";
-            }
+        if (className.equals("boolean")) {
+        return "Z";
+        } else if (className.equals("byte")) {
+        return "B";
+        } else if (className.equals("char")) {
+        return "C";
+        } else if (className.equals("short")) {
+        return "S";
+        } else if (className.equals("int")) {
+        return "I";
+        } else if (className.equals("long")) {
+        return "J";
+        } else if (className.equals("float")) {
+        return "F";
+        } else if (className.equals("double")) {
+        return "D";
+        } else {
+        return "L" + className + ";";
+        }
         }
         /**/
     }
-
     private static final Object[] EMPTY_ARRAY = new Object[0]; // Immutable.
 
 }

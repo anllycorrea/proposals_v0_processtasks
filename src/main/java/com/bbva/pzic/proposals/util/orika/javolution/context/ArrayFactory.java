@@ -10,34 +10,34 @@ package com.bbva.pzic.proposals.util.orika.javolution.context;
 
 /**
  * <p> This class holds factories to produces arrays of variable length.
- * It allows for object recycling, pre-allocation and {@link StackContext
- * stack} allocations:[code]
- * // Primitive types.
- * char[] buffer = ArrayFactory.CHARS_FACTORY.array(1024); // Possibly recycled.
- * for (int i = reader.read(buffer, 0, buffer.length); i > 0;) {
- * ...
- * }
- * ArrayFactory.CHARS_FACTORY.recycle(buffer); //
- * <p/>
- * // Custom types.
- * static ArrayFactory<Vertex[]> VERTICES_FACTORY = new ArrayFactory<Vertex[]> {
- * protected Vertex[] create(int size) {
- * return new Vertex[size];
- * }
- * };
- * ...
- * Vertex[] vertices = VERTICES_FACTORY.array(256);
- * [/code]</p>
+ *     It allows for object recycling, pre-allocation and {@link StackContext
+ *     stack} allocations:[code]
+ *     // Primitive types.
+ *     char[] buffer = ArrayFactory.CHARS_FACTORY.array(1024); // Possibly recycled.
+ *     for (int i = reader.read(buffer, 0, buffer.length); i > 0;) {
+ *         ...
+ *     }
+ *     ArrayFactory.CHARS_FACTORY.recycle(buffer); //  
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ *     // Custom types.
+ *     static ArrayFactory<Vertex[]> VERTICES_FACTORY = new ArrayFactory<Vertex[]> {
+ *         protected Vertex[] create(int size) {
+ *             return new Vertex[size];
+ *         }
+ *     };
+ *     ...
+ *     Vertex[] vertices = VERTICES_FACTORY.array(256);
+ *     [/code]</p>
+ *          
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.0, May 5, 2007
  */
-public abstract class ArrayFactory<T> {
+public abstract class ArrayFactory <T>  {
 
     /**
      * Holds factory for <code>boolean</code> arrays.
      */
-    public static final ArrayFactory<boolean[]> BOOLEANS_FACTORY = new ArrayFactory() {
+    public static final ArrayFactory <boolean[]>  BOOLEANS_FACTORY = new ArrayFactory() {
 
         protected Object create(int size) {
             return new boolean[size];
@@ -50,7 +50,7 @@ public abstract class ArrayFactory<T> {
     /**
      * Holds factory for <code>byte</code> arrays.
      */
-    public static final ArrayFactory<byte[]> BYTES_FACTORY = new ArrayFactory() {
+    public static final ArrayFactory <byte[]>  BYTES_FACTORY = new ArrayFactory() {
 
         protected Object create(int size) {
             return new byte[size];
@@ -63,7 +63,7 @@ public abstract class ArrayFactory<T> {
     /**
      * Holds factory for <code>char</code> arrays.
      */
-    public static final ArrayFactory<char[]> CHARS_FACTORY = new ArrayFactory() {
+    public static final ArrayFactory <char[]>  CHARS_FACTORY = new ArrayFactory() {
 
         protected Object create(int size) {
             return new char[size];
@@ -76,7 +76,7 @@ public abstract class ArrayFactory<T> {
     /**
      * Holds factory for <code>short</code> arrays.
      */
-    public static final ArrayFactory<short[]> SHORTS_FACTORY = new ArrayFactory() {
+    public static final ArrayFactory <short[]>  SHORTS_FACTORY = new ArrayFactory() {
 
         protected Object create(int size) {
             return new short[size];
@@ -89,7 +89,7 @@ public abstract class ArrayFactory<T> {
     /**
      * Holds factory for <code>int</code> arrays.
      */
-    public static final ArrayFactory<int[]> INTS_FACTORY = new ArrayFactory() {
+    public static final ArrayFactory <int[]>  INTS_FACTORY = new ArrayFactory() {
 
         protected Object create(int size) {
             return new int[size];
@@ -102,7 +102,7 @@ public abstract class ArrayFactory<T> {
     /**
      * Holds factory for <code>long</code> arrays.
      */
-    public static final ArrayFactory<long[]> LONGS_FACTORY = new ArrayFactory() {
+    public static final ArrayFactory <long[]>  LONGS_FACTORY = new ArrayFactory() {
 
         protected Object create(int size) {
             return new long[size];
@@ -115,7 +115,7 @@ public abstract class ArrayFactory<T> {
     /**
      * Holds factory for <code>float</code> arrays.
      */
-    public static final ArrayFactory<float[]> FLOATS_FACTORY = new ArrayFactory() {
+    public static final ArrayFactory  <float[]>  FLOATS_FACTORY = new ArrayFactory() {
 
         protected Object create(int size) {
             return new float[size];
@@ -128,7 +128,7 @@ public abstract class ArrayFactory<T> {
     /**
      * Holds factory for <code>double</code> arrays.
      */
-    public static final ArrayFactory<double[]> DOUBLES_FACTORY = new ArrayFactory() {
+    public static final ArrayFactory  <double[]>  DOUBLES_FACTORY = new ArrayFactory() {
 
         protected Object create(int size) {
             return new double[size];
@@ -141,7 +141,7 @@ public abstract class ArrayFactory<T> {
     /**
      * Holds factory for generic <code>Object</code> arrays.
      */
-    public static final ArrayFactory<Object[]> OBJECTS_FACTORY = new ArrayFactory() {
+    public static final ArrayFactory <Object[]>  OBJECTS_FACTORY = new ArrayFactory() {
 
         protected Object create(int size) {
             return new Object[size];
@@ -288,7 +288,6 @@ public abstract class ArrayFactory<T> {
     };
 
     // Above 65536 we use the heap exclusively. 
-
     /**
      * Default constructor.
      */
@@ -296,46 +295,46 @@ public abstract class ArrayFactory<T> {
     }
 
     /**
-     * Returns an array possibly recycled or preallocated of specified
+     * Returns an array possibly recycled or preallocated of specified 
      * minimum size.
-     *
+     * 
      * @param capacity the minimum size of the array to be returned.
      * @return a recycled, pre-allocated or new factory array.
      */
-    public final T array(int capacity) { // Short to be inlined.
-        return (capacity <= 4) ? (T) _factory4.object()
+    public final  T  array(int capacity) { // Short to be inlined.
+        return (capacity <= 4) ? ( T ) _factory4.object()
                 : largeArray(capacity);
     }
 
-    private final T largeArray(int capacity) {
+    private final  T  largeArray(int capacity) {
         if (capacity <= 8) {
-            return (T) _factory8.object();
+            return ( T ) _factory8.object();
         } else if (capacity <= 16) {
-            return (T) _factory16.object();
+            return ( T ) _factory16.object();
         } else if (capacity <= 32) {
-            return (T) _factory32.object();
+            return ( T ) _factory32.object();
         } else if (capacity <= 64) {
-            return (T) _factory64.object();
+            return ( T ) _factory64.object();
         } else if (capacity <= 128) {
-            return (T) _factory128.object();
+            return ( T ) _factory128.object();
         } else if (capacity <= 256) {
-            return (T) _factory256.object();
+            return ( T ) _factory256.object();
         } else if (capacity <= 512) {
-            return (T) _factory512.object();
+            return ( T ) _factory512.object();
         } else if (capacity <= 1024) {
-            return (T) _factory1024.object();
+            return ( T ) _factory1024.object();
         } else if (capacity <= 2048) {
-            return (T) _factory2048.object();
+            return ( T ) _factory2048.object();
         } else if (capacity <= 4096) {
-            return (T) _factory4096.object();
+            return ( T ) _factory4096.object();
         } else if (capacity <= 8192) {
-            return (T) _factory8192.object();
+            return ( T ) _factory8192.object();
         } else if (capacity <= 16384) {
-            return (T) _factory16384.object();
+            return ( T ) _factory16384.object();
         } else if (capacity <= 32768) {
-            return (T) _factory32768.object();
+            return ( T ) _factory32768.object();
         } else if (capacity <= 65536) {
-            return (T) _factory65536.object();
+            return ( T ) _factory65536.object();
         } else {
             return create(capacity); // Default allocation for very large arrays.
         }
@@ -343,10 +342,10 @@ public abstract class ArrayFactory<T> {
 
     /**
      * Recycles the specified arrays.
-     *
+     * 
      * @param array the array to be recycled.
      */
-    public void recycle(T array) { // Short to be inlined.
+    public void recycle( T  array) { // Short to be inlined.
         int length = ((Object[]) array).length;
         if (length <= 4) {
             _factory4.recycle(array);
@@ -388,11 +387,11 @@ public abstract class ArrayFactory<T> {
     }
 
     /**
-     * Constructs a new array of specified size from this factory
+     * Constructs a new array of specified size from this factory 
      * (using the <code>new</code> keyword).
      *
      * @param size the size of the array.
      * @return a new factory array.
      */
-    protected abstract T create(int size);
+    protected abstract  T  create(int size);
 }

@@ -25,6 +25,10 @@ public class ProcurementFlow implements Serializable {
      * Procurement Flow description.
      */
     private String name;
+    /**
+     * Procurement flow type.
+     */
+    private ProcurementFlowType procurementFlowType;
 
     public String getId() {
         return id;
@@ -40,5 +44,13 @@ public class ProcurementFlow implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ProcurementFlowType getProcurementFlowType() {
+        return procurementFlowType;
+    }
+
+    public void setProcurementFlowType(ProcurementFlowType procurementFlowType) {
+        this.procurementFlowType = procurementFlowType;
     }
 }

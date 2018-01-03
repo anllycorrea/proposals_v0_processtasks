@@ -11,12 +11,12 @@ package com.bbva.pzic.proposals.util.orika.javolution.context;
 /**
  * This class encapsulates errors or exceptions raised during the execution
  * of concurrent threads ({@link ConcurrentException} are raised upon exit of
- * the {@link ConcurrentContext}).
+ * the {@link ConcurrentContext}). 
  * {@link ConcurrentException#getCause} identifies the source of the error.
  *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 1.0, October 4, 2004
- * @see ConcurrentContext#exit
+ * @see     ConcurrentContext#exit
  */
 public class ConcurrentException extends RuntimeException {
 
@@ -39,7 +39,7 @@ public class ConcurrentException extends RuntimeException {
      * Returns the original cause of the exception or error.
      *
      * @return the exception or error as it has been raised by the
-     * <code>j2me.lang.Runnable</code>.
+     *         <code>j2me.lang.Runnable</code>.
      */
     public Throwable getCause() {
         return _cause;

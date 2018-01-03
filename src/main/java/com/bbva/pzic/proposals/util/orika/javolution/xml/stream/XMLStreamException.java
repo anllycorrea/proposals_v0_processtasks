@@ -10,8 +10,8 @@ package com.bbva.pzic.proposals.util.orika.javolution.xml.stream;
 
 /**
  * This class represents the base exception for unexpected processing errors.
- *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * 
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 3.8, May 22, 2006
  */
 public class XMLStreamException extends Exception {
@@ -35,7 +35,7 @@ public class XMLStreamException extends Exception {
 
     /**
      * Constructs an exception with the assocated message.
-     *
+     * 
      * @param msg the message to report.
      */
     public XMLStreamException(String msg) {
@@ -44,7 +44,7 @@ public class XMLStreamException extends Exception {
 
     /**
      * Constructs an exception with the assocated nested exception.
-     *
+     * 
      * @param nested the nested exception.
      */
     public XMLStreamException(Throwable nested) {
@@ -53,8 +53,8 @@ public class XMLStreamException extends Exception {
 
     /**
      * Constructs an exception with the assocated message and exception.
-     *
-     * @param msg    the message to report.
+     * 
+     * @param msg the message to report.
      * @param nested the nested exception.
      */
     public XMLStreamException(String msg, Throwable nested) {
@@ -65,10 +65,10 @@ public class XMLStreamException extends Exception {
     /**
      * Constructs an exception with the assocated message, exception and
      * location.
-     *
-     * @param msg      the message to report.
+     * 
+     * @param msg the message to report.
      * @param location the location.
-     * @param nested   the nested exception.
+     * @param nested the nested exception.
      */
     public XMLStreamException(String msg, Location location, Throwable nested) {
         super(msg);
@@ -79,8 +79,8 @@ public class XMLStreamException extends Exception {
     /**
      * Constructs an exception with the assocated message, exception and
      * location.
-     *
-     * @param msg      the message to report
+     * 
+     * @param msg the message to report
      * @param location the location of the error
      */
     public XMLStreamException(String msg, Location location) {
@@ -90,7 +90,7 @@ public class XMLStreamException extends Exception {
 
     /**
      * Returns the nested exception.
-     *
+     * 
      * @return the nested exception
      */
     public Throwable getNestedException() {
@@ -99,9 +99,9 @@ public class XMLStreamException extends Exception {
 
     /**
      * Returns the location of the exception.
-     *
-     * @return the location of the exception or <code>null</code>
-     * if none is available
+     * 
+     * @return the location of the exception or <code>null</code> 
+     *         if none is available
      */
     public Location getLocation() {
         return _location;
@@ -109,7 +109,7 @@ public class XMLStreamException extends Exception {
 
     /**
      * Returns the textual representation of this exception.
-     *
+     * 
      * @return the string representation of the exception.
      */
     public String toString() {

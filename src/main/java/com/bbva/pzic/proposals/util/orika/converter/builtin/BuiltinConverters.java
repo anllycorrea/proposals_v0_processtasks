@@ -1,20 +1,25 @@
 package com.bbva.pzic.proposals.util.orika.converter.builtin;
 
-import com.bbva.pzic.proposals.util.orika.converter.ConverterFactory;
-
 import java.io.File;
 import java.math.BigInteger;
-import java.net.*;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetSocketAddress;
+import java.net.URI;
+import java.net.URL;
 import java.util.Locale;
 import java.util.UUID;
 
+import com.bbva.pzic.proposals.util.orika.converter.ConverterFactory;
+
 /**
  * BuiltinConverters is a utility class used to register common built-in converters.
- *
+ * 
  * @author mattdeboer
+ *
  */
 public abstract class BuiltinConverters {
-
+    
     /**
      * Registers a common set of built-in converters which can handle many common conversion situations.<br>
      * Specifically, this includes:
@@ -43,7 +48,7 @@ public abstract class BuiltinConverters {
      * <li>java.net.InetSocketAddress
      * </ul>
      * </ul>
-     *
+     * 
      * @param converterFactory the converter factory on which to register the converters
      */
     public static void register(ConverterFactory converterFactory) {
@@ -82,16 +87,16 @@ public abstract class BuiltinConverters {
          * Register additional common "immutable" types
          */
         converterFactory.registerConverter(new PassThroughConverter(
-                URL.class,
-                URI.class,
-                UUID.class,
-                BigInteger.class,
-                Locale.class,
-                File.class,
-                Inet4Address.class,
-                Inet6Address.class,
-                InetSocketAddress.class
-        ));
-
+              URL.class,
+              URI.class,
+              UUID.class,
+              BigInteger.class,
+              Locale.class,
+              File.class,
+              Inet4Address.class,
+              Inet6Address.class,
+              InetSocketAddress.class
+                ));
+        
     }
 }

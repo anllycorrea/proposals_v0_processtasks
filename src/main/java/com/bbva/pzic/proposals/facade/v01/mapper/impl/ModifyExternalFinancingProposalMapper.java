@@ -36,10 +36,10 @@ public class ModifyExternalFinancingProposalMapper extends ConfigurableMapper im
     public DTOInputModifyExternalFinancingProposal mapIn(final String externalFinancingProposalId,
                                                          final ExternalFinancingProposal externalFinancingProposal) {
         DTOIntExternalFinancingProposal payload = map(externalFinancingProposal, DTOIntExternalFinancingProposal.class);
-        if(payload.getDeliveryTypeId() != null){
+        if (payload.getDeliveryTypeId() != null) {
             payload.setDeliveryTypeId(mapper.getBackendValue("externalFinancingProposals.delivery.type.id", payload.getDeliveryTypeId()));
         }
-        if(payload.getStatusId() != null){
+        if (payload.getStatusId() != null) {
             payload.setStatusId(mapper.getBackendValue("externalFinancingProposals.status.id", payload.getStatusId()));
         }
 

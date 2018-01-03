@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @author Entelgy
  */
 @Tx("txModifyExternalFinancingProposal")
-public class TxModifyExternalFinancingProposal  extends AbstractSimpleTransaction<DTOInputModifyExternalFinancingProposal, FormatoUGMEGMP, DTOInputModifyExternalFinancingProposal, IFormatNotApply> {
+public class TxModifyExternalFinancingProposal extends AbstractSimpleTransaction<DTOInputModifyExternalFinancingProposal, FormatoUGMEGMP, DTOInputModifyExternalFinancingProposal, IFormatNotApply> {
 
     @Resource(name = "txModifyExternalFinancingProposalMapper")
     private ITxModifyExternalFinancingProposalMapper mapper;

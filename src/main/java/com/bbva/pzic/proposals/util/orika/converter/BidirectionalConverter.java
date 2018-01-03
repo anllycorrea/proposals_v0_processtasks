@@ -22,18 +22,19 @@ import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
 
 /**
- * A custom converter
+ * A custom converter 
+ * 
+ * @author matt.deboer@gmail.com
  *
  * @param <S>
  * @param <D>
- * @author matt.deboer@gmail.com
  */
 public abstract class BidirectionalConverter<S, D> extends CustomConverter<Object, Object> implements com.bbva.pzic.proposals.util.orika.Converter<Object, Object> {
-
+    
     public abstract D convertTo(S source, Type<D> destinationType);
-
+    
     public abstract S convertFrom(D source, Type<S> destinationType);
-
+    
     @SuppressWarnings("unchecked")
     public Object convert(Object source, Type<? extends Object> destinationType) {
         //if (destinationType.equals(this.destinationType)) {
@@ -43,17 +44,17 @@ public abstract class BidirectionalConverter<S, D> extends CustomConverter<Objec
             return convertFrom((D) source, (Type<S>) destinationType);
         }
     }
-
+    
     @Override
     public boolean canConvert(Type<?> sourceType, Type<?> destinationType) {
-
-        return super.canConvert(sourceType, destinationType) ||
-                this.destinationType.isAssignableFrom(sourceType) && this.sourceType.equals(destinationType);
+    	
+    	 return super.canConvert(sourceType, destinationType) ||
+    			this.destinationType.isAssignableFrom(sourceType) && this.sourceType.equals(destinationType);
     }
-
+    
     public String toString() {
-        String subClass = getClass().equals(BidirectionalConverter.class) ? "" : "(" + getClass().getSimpleName() + ")";
-        return "BidirectionalConverter" + subClass + "<" + sourceType + ", " + destinationType + ">";
+    	String subClass = getClass().equals(BidirectionalConverter.class) ? "" : "("+getClass().getSimpleName()+")";
+    	return "BidirectionalConverter"+subClass+"<"+sourceType + ", " + destinationType+">";
     }
 
 }

@@ -17,41 +17,46 @@
  */
 package com.bbva.pzic.proposals.util.orika.impl;
 
-import com.bbva.pzic.proposals.util.orika.*;
-import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
+import com.bbva.pzic.proposals.util.orika.BoundMapperFacade;
+import com.bbva.pzic.proposals.util.orika.MapperFactory;
+import com.bbva.pzic.proposals.util.orika.MappingContext;
+import com.bbva.pzic.proposals.util.orika.MappingContextFactory;
+import com.bbva.pzic.proposals.util.orika.ObjectFactory;
 import com.bbva.pzic.proposals.util.orika.impl.mapping.strategy.MappingStrategy;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
+import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
 
 /**
  * DefaultBoundMapperFacade is the base implementation of BoundMapperFacade
- *
+ * 
  * @author matt.deboer@gmail.com
+ * 
  */
 class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
-
+    
     protected volatile MappingStrategy aToB;
     protected volatile MappingStrategy bToA;
     protected volatile MappingStrategy aToBInPlace;
     protected volatile MappingStrategy bToAInPlace;
     protected volatile ObjectFactory<A> objectFactoryA;
     protected volatile ObjectFactory<B> objectFactoryB;
-
+    
     protected final java.lang.reflect.Type rawAType;
     protected final java.lang.reflect.Type rawBType;
     protected final Type<A> aType;
     protected final Type<B> bType;
     protected final MapperFactory mapperFactory;
     protected final MappingContextFactory contextFactory;
-
+    
     /**
      * Constructs a new instance of DefaultBoundMapperFacade
-     *
+     * 
      * @param mapperFactory
      * @param contextFactory
      * @param typeOfA
      * @param typeOfB
      */
-    DefaultBoundMapperFacade(MapperFactory mapperFactory, MappingContextFactory contextFactory, java.lang.reflect.Type typeOfA, java.lang.reflect.Type typeOfB) {
+    DefaultBoundMapperFacade(MapperFactory mapperFactory, MappingContextFactory contextFactory,  java.lang.reflect.Type typeOfA, java.lang.reflect.Type typeOfB) {
         this.mapperFactory = mapperFactory;
         this.contextFactory = contextFactory;
         this.rawAType = typeOfA;
@@ -59,15 +64,15 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
         this.aType = TypeFactory.valueOf(typeOfA);
         this.bType = TypeFactory.valueOf(typeOfB);
     }
-
+    
     public Type<A> getAType() {
         return aType;
     }
-
+    
     public Type<B> getBType() {
         return bType;
     }
-
+    
     public B map(A instanceA) {
         MappingContext context = contextFactory.getContext();
         try {
@@ -76,7 +81,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             contextFactory.release(context);
         }
     }
-
+    
     public A mapReverse(B source) {
         MappingContext context = contextFactory.getContext();
         try {
@@ -85,7 +90,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             contextFactory.release(context);
         }
     }
-
+    
     public void map(A instanceA, B instanceB) {
         MappingContext context = contextFactory.getContext();
         try {
@@ -94,7 +99,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             contextFactory.release(context);
         }
     }
-
+    
     public void mapReverse(B instanceB, A instanceA) {
         MappingContext context = contextFactory.getContext();
         try {
@@ -103,7 +108,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             contextFactory.release(context);
         }
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -125,7 +130,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
         }
         return result;
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -147,7 +152,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
         }
         return result;
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -166,7 +171,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             aToBInPlace.map(instanceA, instanceB, context);
         }
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -185,9 +190,9 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             bToAInPlace.map(instanceB, instanceA, context);
         }
     }
-
+    
     public String toString() {
-        return getClass().getSimpleName() + "(" + aType + ", " + bType + ")";
+        return getClass().getSimpleName() + "(" + aType +", " + bType + ")";
     }
 
     /* (non-Javadoc)
@@ -195,7 +200,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
      */
     public B newObject(A source, MappingContext context) {
         if (objectFactoryB == null) {
-            synchronized (this) {
+            synchronized(this) {
                 if (objectFactoryB == null) {
                     objectFactoryB = mapperFactory.lookupObjectFactory(bType);
                 }
@@ -209,7 +214,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
      */
     public A newObjectReverse(B source, MappingContext context) {
         if (objectFactoryA == null) {
-            synchronized (this) {
+            synchronized(this) {
                 if (objectFactoryA == null) {
                     objectFactoryA = mapperFactory.lookupObjectFactory(aType);
                 }

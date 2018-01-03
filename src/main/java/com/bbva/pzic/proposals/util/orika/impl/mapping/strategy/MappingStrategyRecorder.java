@@ -19,10 +19,13 @@
 package com.bbva.pzic.proposals.util.orika.impl.mapping.strategy;
 
 import com.bbva.pzic.proposals.util.orika.Converter;
+import com.bbva.pzic.proposals.util.orika.Mapper;
 import com.bbva.pzic.proposals.util.orika.ObjectFactory;
+import com.bbva.pzic.proposals.util.orika.impl.mapping.strategy.UseCustomMapperStrategy.DirectionalCustomMapperReference;
+import com.bbva.pzic.proposals.util.orika.impl.mapping.strategy.UseCustomMapperStrategy.ForwardMapperReference;
+import com.bbva.pzic.proposals.util.orika.impl.mapping.strategy.UseCustomMapperStrategy.ReverseMapperReference;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
 import com.bbva.pzic.proposals.util.orika.unenhance.UnenhanceStrategy;
-import com.bbva.pzic.proposals.util.orika.Mapper;
 
 /**
  * MappingStrategyRecorder is used to record the important details regarding
@@ -31,47 +34,48 @@ import com.bbva.pzic.proposals.util.orika.Mapper;
  * After recording these details, it can be used to generate an appropriate
  * MappingStrategy instance which can be cached and reused for that particular
  * set of inputs.
- *
+ * 
  * @author matt.deboer@gmail.com
+ *
  */
 public class MappingStrategyRecorder {
-
+     
     private boolean copyByReference;
     private boolean mapReverse;
     private boolean unenhance;
     private boolean instantiate;
-
+    
     private Mapper<Object, Object> resolvedMapper;
     private ObjectFactory<Object> resolvedObjectFactory;
     private Converter<Object, Object> resolvedConverter;
     private Type<Object> resolvedSourceType;
     private Type<Object> resolvedDestinationType;
     private MappingStrategy resolvedStrategy;
-
+    
     private final UnenhanceStrategy unenhanceStrategy;
     private final MappingStrategyKey key;
-
+    
     public MappingStrategyRecorder(MappingStrategyKey key, UnenhanceStrategy unenhanceStrategy) {
         this.unenhanceStrategy = unenhanceStrategy;
         this.key = key;
     }
-
+    
     public boolean isUnenhance() {
         return unenhance;
     }
 
     public boolean isInstantiate() {
-        return instantiate;
-    }
+		return instantiate;
+	}
 
-    public void setInstantiate(boolean instantiate) {
-        this.instantiate = instantiate;
-    }
+	public void setInstantiate(boolean instantiate) {
+		this.instantiate = instantiate;
+	}
 
-    public void setUnenhance(boolean unenhance) {
+	public void setUnenhance(boolean unenhance) {
         this.unenhance = unenhance;
     }
-
+    
     public Converter<Object, Object> getResolvedConverter() {
         return resolvedConverter;
     }
@@ -80,7 +84,7 @@ public class MappingStrategyRecorder {
         this.resolvedConverter = resolvedConverter;
     }
 
-
+    
     public Type<?> getResolvedSourceType() {
         return resolvedSourceType;
     }
@@ -133,39 +137,39 @@ public class MappingStrategyRecorder {
     }
 
     /**
-     * @return a new instance of the MappingStrategy which can "playback" the
+     * @return a new instance of the MappingStrategy which can "playback" the 
      * route taken to map a given set of inputs.
      */
     public MappingStrategy playback() {
-
-
-        UnenhanceStrategy unenhanceStrategy;
+       
+        
+        UnenhanceStrategy unenhanceStrategy; 
         if (unenhance) {
             unenhanceStrategy = this.unenhanceStrategy;
         } else {
             unenhanceStrategy = NoOpUnenhancer.getInstance();
         }
-
+        
         if (copyByReference) {
             resolvedStrategy = CopyByReferenceStrategy.getInstance();
         } else if (resolvedConverter != null) {
             resolvedStrategy = new UseConverterStrategy(resolvedSourceType, resolvedDestinationType, resolvedConverter, unenhanceStrategy);
         } else {
-
-            UseCustomMapperStrategy.DirectionalCustomMapperReference directionalMapper = (mapReverse ? new UseCustomMapperStrategy.ReverseMapperReference(resolvedMapper) : new UseCustomMapperStrategy.ForwardMapperReference(resolvedMapper));
-            if (resolvedObjectFactory != null) {
-                resolvedStrategy = new InstantiateAndUseCustomMapperStrategy(resolvedSourceType, resolvedDestinationType, directionalMapper, resolvedObjectFactory, unenhanceStrategy);
-            } else {
-                resolvedStrategy = new MapExistingAndUseCustomMapperStrategy(resolvedSourceType, resolvedDestinationType, directionalMapper, unenhanceStrategy);
-            }
-
+        	
+        	DirectionalCustomMapperReference directionalMapper = (mapReverse ? new ReverseMapperReference(resolvedMapper) : new ForwardMapperReference(resolvedMapper));
+        	if (resolvedObjectFactory != null) {
+        		resolvedStrategy = new InstantiateAndUseCustomMapperStrategy(resolvedSourceType, resolvedDestinationType, directionalMapper, resolvedObjectFactory, unenhanceStrategy);
+        	} else {
+        		resolvedStrategy = new MapExistingAndUseCustomMapperStrategy(resolvedSourceType, resolvedDestinationType, directionalMapper, unenhanceStrategy);
+        	}
+        
         }
         return resolvedStrategy;
     }
-
+    
     /**
      * Describes the details of the strategy chosen for this particular set of inputs
-     *
+     * 
      * @return
      */
     public String describeDetails() {
@@ -174,34 +178,34 @@ public class MappingStrategyRecorder {
         }
         StringBuilder details = new StringBuilder();
         details
-                .append("MappingStrategy resolved and cached:")
-                .append("\n\tInputs:[ sourceClass: " + key.getRawSourceType().getCanonicalName())
-                .append(", sourceType: " + key.getSourceType())
-                .append(", destinationType: " + key.getDestinationType())
-                .append("]\n\tResolved:[ strategy: " + resolvedStrategy.getClass().getSimpleName())
-                .append(", sourceType: " + getResolvedSourceType())
-                .append(", destinationType: " + getResolvedDestinationType());
+            .append("MappingStrategy resolved and cached:")
+            .append("\n\tInputs:[ sourceClass: " + key.getRawSourceType().getCanonicalName())
+            .append(", sourceType: " + key.getSourceType())
+            .append(", destinationType: " + key.getDestinationType())
+            .append("]\n\tResolved:[ strategy: " + resolvedStrategy.getClass().getSimpleName())
+            .append(", sourceType: " + getResolvedSourceType())
+            .append(", destinationType: " + getResolvedDestinationType());
         if (isCopyByReference()) {
             details.append(", copyByReference?: true");
         }
-
+        
         if (getResolvedConverter() != null) {
             details.append(", converter: " + getResolvedConverter());
         }
-
+        
         if (getResolvedMapper() != null) {
             details.append(", mapper: " + getResolvedMapper());
             details.append(", mapReverse?: " + mapReverse);
         }
         details.append("]");
-
+        
         return details.toString();
     }
-
+    
     static class NoOpUnenhancer implements UnenhanceStrategy {
 
-        private static final NoOpUnenhancer INSTANCE = new NoOpUnenhancer();
-
+        private static final NoOpUnenhancer INSTANCE = new NoOpUnenhancer(); 
+        
         public static UnenhanceStrategy getInstance() {
             return INSTANCE;
         }

@@ -19,7 +19,7 @@
 package com.bbva.pzic.proposals.util.orika;
 
 public interface ObjectFactory<D> {
-
+    
     D create(Object source, MappingContext mappingContext);
-
+    
 }

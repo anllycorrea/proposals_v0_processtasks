@@ -8,81 +8,86 @@
  */
 package com.bbva.pzic.proposals.util.orika.javolution.xml.stream;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.lang.CharSequence;
+import java.lang.IllegalStateException;
+
 import com.bbva.pzic.proposals.util.orika.javax.realtime.MemoryArea;
 import com.bbva.pzic.proposals.util.orika.javolution.context.ObjectFactory;
 import com.bbva.pzic.proposals.util.orika.javolution.io.UTF8StreamWriter;
 import com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable;
 import com.bbva.pzic.proposals.util.orika.javolution.text.CharArray;
-import com.bbva.pzic.proposals.util.orika.javolution.text.Text;
 import com.bbva.pzic.proposals.util.orika.javolution.text.TextBuilder;
-
-import java.io.*;
 
 
 /**
- * <p> This class represents a  {@link com.bbva.czic.routine.mapper.javolution.lang.Reusable reusable}
- * implementation of {@link XMLStreamWriter}.</p>
- * <p/>
- * <p> The <code>writeCharacters</code> methods will escape &amp; , &lt; and
- * &gt;. For attribute values, the <code>writeAttribute</code> methods will
- * escape the above characters plus &quot; and control characters.</p>
- *
- * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
+ * <p> This class represents a  {@link com.bbva.pzic.proposals.util.orika.javolution.lang.Reusable reusable}
+ *     implementation of {@link XMLStreamWriter}.</p>
+ *     
+ * <p> The <code>writeCharacters</code> methods will escape &amp; , &lt; and 
+ *     &gt;. For attribute values, the <code>writeAttribute</code> methods will
+ *     escape the above characters plus &quot; and control characters.</p>
+ *     
+ * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.0, September 4, 2006
  */
 public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
 
-    /**
+    /** 
      * Holds the length of intermediate buffer.
      */
     private static final int BUFFER_LENGTH = 2048;
 
-    /**
+    /** 
      * Holds the current nesting level.
      */
     private int _nesting = 0;
 
-    /**
+    /** 
      * Holds the element qualified name (indexed per nesting level)
      */
     private TextBuilder[] _qNames = new TextBuilder[16];
 
-    /**
+    /** 
      * Indicates if the current element is open.
      */
     private boolean _isElementOpen;
 
-    /**
+    /** 
      * Indicates if the current element is an empty element.
      */
     private boolean _isEmptyElement;
 
-    /**
+    /** 
      * Holds intermediate buffer.
      */
     private final char[] _buffer = new char[BUFFER_LENGTH];
 
-    /**
+    /** 
      * Holds the namespace stack.
      */
     private final NamespacesImpl _namespaces = new NamespacesImpl();
 
-    /**
+    /** 
      * Holds the buffer current index.
      */
     private int _index;
 
-    /**
+    /** 
      * Holds repairing namespace property.
      */
     private boolean _isRepairingNamespaces;
 
-    /**
+    /** 
      * Holds repairing prefix property.
      */
     private String _repairingPrefix = "ns";
 
-    /**
+    /** 
      * Holds indentation property.
      */
     private String _indentation;
@@ -92,27 +97,27 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
      */
     private String _lineSeparator = "\n";
 
-    /**
+    /** 
      * Holds current indentation level.
      */
     private int _indentationLevel;
 
-    /**
+    /** 
      * Holds automatic empty elements  property.
      */
     private boolean _automaticEmptyElements;
 
-    /**
+    /** 
      * Holds no empty element tag property.
      */
     private boolean _noEmptyElementTag;
 
-    /**
+    /** 
      * Holds counter for automatic namespace generation.
      */
     private int _autoNSCount;
 
-    /**
+    /** 
      * Indicates if the current object written is an attribute value.
      */
     private boolean _isAttributeValue;
@@ -126,12 +131,12 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
     // Temporary Settings //
     ////////////////////////
 
-    /**
+    /** 
      * Holds the writer destination (<code>null</code> when unused).
      */
     private Writer _writer;
 
-    /**
+    /** 
      * Holds the encoding  (<code>null</code> if N/A).
      */
     private String _encoding;
@@ -141,17 +146,17 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
      */
     private final UTF8StreamWriter _utf8StreamWriter = new UTF8StreamWriter();
 
-    /**
+    /** 
      * Default constructor.
      */
     public XMLStreamWriterImpl() {
-        for (int i = 0; i < _qNames.length; ) {
+        for (int i = 0; i < _qNames.length;) {
             _qNames[i++] = new TextBuilder();
         }
     }
 
     /**
-     * Sets the output stream destination for this XML stream writer
+     * Sets the output stream destination for this XML stream writer 
      * (UTF-8 encoding).
      *
      * @param out the output source with utf-8 encoding.
@@ -163,10 +168,10 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
     }
 
     /**
-     * Sets the output stream destination and encoding for this XML stream
+     * Sets the output stream destination and encoding for this XML stream 
      * writer.
      *
-     * @param out      the output source.
+     * @param out the output source.
      * @param encoding the associated encoding.
      * @throws XMLStreamException if the specified encoding is not supported.
      */
@@ -186,12 +191,12 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
     }
 
     /**
-     * Sets the writer output destination for this XML stream writer.
+     * Sets the writer output destination for this XML stream writer. 
      *
-     * @param writer the output destination writer.
-     * @see com.bbva.pzic.proposals.util.orika.javolution.io.UTF8StreamWriter
-     * @see com.bbva.pzic.proposals.util.orika.javolution.io.UTF8ByteBufferWriter
-     * @see com.bbva.pzic.proposals.util.orika.javolution.io.AppendableWriter
+     * @param  writer the output destination writer.
+     * @see    com.bbva.pzic.proposals.util.orika.javolution.io.UTF8StreamWriter
+     * @see    com.bbva.pzic.proposals.util.orika.javolution.io.UTF8ByteBufferWriter
+     * @see    com.bbva.pzic.proposals.util.orika.javolution.io.AppendableWriter
      */
     public void setOutput(Writer writer) throws XMLStreamException {
         if (_writer != null)
@@ -199,34 +204,34 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
         _writer = writer;
     }
 
-    /**
+    /** 
      * Requires this writer to create a new prefix when a namespace has none
      * (default <code>false</code>).
-     *
-     * @param isRepairingNamespaces <code>true</code> if namespaces
-     *                              are repaired; <code>false</code> otherwise.
+     * 
+     * @param isRepairingNamespaces <code>true</code> if namespaces 
+     *        are repaired; <code>false</code> otherwise.
      */
     public void setRepairingNamespaces(boolean isRepairingNamespaces) {
         _isRepairingNamespaces = isRepairingNamespaces;
     }
 
-    /**
-     * Specifies the prefix to be append by a trailing part
+    /** 
+     * Specifies the prefix to be append by a trailing part 
      * (a sequence number) in order to make it unique to be usable as
      * a temporary non-colliding prefix when repairing namespaces
      * (default <code>"ns"</code>).
-     *
+     * 
      * @param repairingPrefix the prefix root.
      */
     public void setRepairingPrefix(String repairingPrefix) {
         _repairingPrefix = repairingPrefix;
     }
 
-    /**
-     * Specifies the indentation string; non-null indentation
+    /** 
+     * Specifies the indentation string; non-null indentation 
      * forces the writer to write elements into separate lines
      * (default <code>null</code>).
-     *
+     * 
      * @param indentation the indentation string.
      */
     public void setIndentation(String indentation) {
@@ -242,26 +247,26 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
         _lineSeparator = lineSeparator;
     }
 
-    /**
-     * Requires this writer to automatically output empty elements when a
+    /** 
+     * Requires this writer to automatically output empty elements when a 
      * start element is immediately followed by matching end element
      * (default <code>false</code>).
-     *
-     * @param automaticEmptyElements <code>true</code> if start element
-     *                               immediately followed by end element results in an empty element
-     *                               beign written; <code>false</code> otherwise.
+     * 
+     * @param automaticEmptyElements <code>true</code> if start element 
+     *        immediately followed by end element results in an empty element
+     *        beign written; <code>false</code> otherwise.
      */
     public void setAutomaticEmptyElements(boolean automaticEmptyElements) {
         _automaticEmptyElements = automaticEmptyElements;
     }
 
-    /**
+    /** 
      * Prevent this writer from using empty element tags
      * (default <code>false</code>).
-     *
-     * @param noEmptyElementTag <code>true</code> if empty element tags
-     *                          are replaced by start/end elements with no content;
-     *                          <code>false</code> otherwise.
+     * 
+     * @param noEmptyElementTag <code>true</code> if empty element tags 
+     *        are replaced by start/end elements with no content;
+     *        <code>false</code> otherwise.
      */
     public void setNoEmptyElementTag(boolean noEmptyElementTag) {
         _noEmptyElementTag = noEmptyElementTag;
@@ -298,7 +303,7 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
 
     // Implements XMLStreamWriter interface.
     public void writeStartElement(CharSequence namespaceURI,
-                                  CharSequence localName) throws XMLStreamException {
+            CharSequence localName) throws XMLStreamException {
         if (localName == null)
             throw new XMLStreamException("Local name cannot be null");
         if (namespaceURI == null)
@@ -308,7 +313,7 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
 
     // Implements XMLStreamWriter interface.
     public void writeStartElement(CharSequence prefix, CharSequence localName,
-                                  CharSequence namespaceURI) throws XMLStreamException {
+            CharSequence namespaceURI) throws XMLStreamException {
         if (localName == null)
             throw new XMLStreamException("Local name cannot be null");
         if (namespaceURI == null)
@@ -327,14 +332,14 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
 
     // Implements XMLStreamWriter interface.
     public void writeEmptyElement(CharSequence namespaceURI,
-                                  CharSequence localName) throws XMLStreamException {
+            CharSequence localName) throws XMLStreamException {
         writeStartElement(namespaceURI, localName);
         _isEmptyElement = true;
     }
 
     // Implements XMLStreamWriter interface.
     public void writeEmptyElement(CharSequence prefix, CharSequence localName,
-                                  CharSequence namespaceURI) throws XMLStreamException {
+            CharSequence namespaceURI) throws XMLStreamException {
         writeStartElement(prefix, localName, namespaceURI);
         _isEmptyElement = true;
     }
@@ -417,7 +422,7 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
 
     // Implements XMLStreamWriter interface.
     public void writeAttribute(CharSequence namespaceURI,
-                               CharSequence localName, CharSequence value)
+            CharSequence localName, CharSequence value)
             throws XMLStreamException {
         if (localName == null)
             throw new XMLStreamException("Local name cannot be null");
@@ -430,7 +435,7 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
 
     // Implements XMLStreamWriter interface.
     public void writeAttribute(CharSequence prefix, CharSequence namespaceURI,
-                               CharSequence localName, CharSequence value)
+            CharSequence localName, CharSequence value)
             throws XMLStreamException {
         if (localName == null)
             throw new XMLStreamException("Local name cannot be null");
@@ -484,7 +489,7 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
 
     // Implements XMLStreamWriter interface.
     public void writeProcessingInstruction(CharSequence target,
-                                           CharSequence data) throws XMLStreamException {
+            CharSequence data) throws XMLStreamException {
         if (target == null)
             throw new XMLStreamException("Target cannot be null");
         if (data == null)
@@ -618,7 +623,7 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
 
     // Writes a new start or empty element.
     private void writeNewElement(CharSequence prefix, CharSequence localName,
-                                 CharSequence namespaceURI) throws XMLStreamException {
+            CharSequence namespaceURI) throws XMLStreamException {
 
         // Close any open element and gets ready to write a new one.
         if (_isElementOpen)
@@ -663,8 +668,8 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
 
     // Writes a new attribute.
     private void writeAttributeOrNamespace(CharSequence prefix,
-                                           CharSequence namespaceURI, CharSequence localName,
-                                           CharSequence value) throws XMLStreamException {
+            CharSequence namespaceURI, CharSequence localName,
+            CharSequence value) throws XMLStreamException {
         if (!_isElementOpen)
             throw new IllegalStateException("No open start element");
         write(' ');
@@ -755,7 +760,7 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
 
     // Returns the prefix for the specified namespace.
     private CharSequence getRepairedPrefix(CharSequence prefix,
-                                           CharSequence namespaceURI) throws XMLStreamException {
+            CharSequence namespaceURI) throws XMLStreamException {
         CharArray prefixForURI = _namespaces.getPrefix(namespaceURI);
         if ((prefixForURI != null)
                 && ((prefix == null) || prefixForURI.equals(prefix)))
@@ -810,18 +815,18 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
     }
 
     private final void write(Object csq, int start, int length,
-                             boolean escapeMarkup) throws XMLStreamException {
+            boolean escapeMarkup) throws XMLStreamException {
         if (_index + length <= BUFFER_LENGTH) { // Enough buffer space.
             if (csq instanceof String) {
                 ((String) csq).getChars(start, start + length, _buffer, _index);
-            } else if (csq instanceof Text) {
-                ((Text) csq).getChars(start, start
+            } else if (csq instanceof com.bbva.pzic.proposals.util.orika.javolution.text.Text) {
+                ((com.bbva.pzic.proposals.util.orika.javolution.text.Text) csq).getChars(start, start
                         + length, _buffer, _index);
-            } else if (csq instanceof TextBuilder) {
-                ((TextBuilder) csq).getChars(start, start
+            } else if (csq instanceof com.bbva.pzic.proposals.util.orika.javolution.text.TextBuilder) {
+                ((com.bbva.pzic.proposals.util.orika.javolution.text.TextBuilder) csq).getChars(start, start
                         + length, _buffer, _index);
-            } else if (csq instanceof CharArray) {
-                ((CharArray) csq).getChars(start, start
+            } else if (csq instanceof com.bbva.pzic.proposals.util.orika.javolution.text.CharArray) {
+                ((com.bbva.pzic.proposals.util.orika.javolution.text.CharArray) csq).getChars(start, start
                         + length, _buffer, _index);
             } else {
                 getChars((CharSequence) csq, start, start + length, _buffer,
@@ -855,8 +860,8 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
     }
 
     private static void getChars(CharSequence csq, int start, int end,
-                                 char dest[], int destPos) {
-        for (int i = start, j = destPos; i < end; ) {
+            char dest[], int destPos) {
+        for (int i = start, j = destPos; i < end;) {
             dest[j++] = csq.charAt(i++);
         }
     }
@@ -866,7 +871,7 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
             throws XMLStreamException {
         try {
             int blockStart = start;
-            for (int i = start; i < end; ) {
+            for (int i = start; i < end;) {
                 char c = chars[i++];
                 if ((c >= '?') || !isEscaped(c))
                     continue;
@@ -875,35 +880,35 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
                 if (blockLength > 0) {
                     _writer.write(_buffer, blockStart, blockLength);
                 }
-                blockStart = i;
+                blockStart = i;                
                 switch (c) {
-                    case '<':
-                        _writer.write("&lt;");
-                        break;
-                    case '>':
-                        _writer.write("&gt;");
-                        break;
-                    case '\'':
-                        _writer.write("&apos;");
-                        break;
-                    case '"':
-                        _writer.write("&quot;");
-                        break;
-                    case '&':
-                        _writer.write("&amp;");
-                        break;
-                    default:
-                        _writer.write("&#");
-                        _writer.write((char) ('0' + c / 10));
-                        _writer.write((char) ('0' + c % 10));
-                        _writer.write(';');
+                case '<':
+                    _writer.write("&lt;");
+                    break;
+                case '>':
+                    _writer.write("&gt;");
+                    break;
+                case '\'': 
+                   _writer.write("&apos;");
+                   break;
+                case '"':
+                    _writer.write("&quot;");
+                    break;
+                case '&':
+                    _writer.write("&amp;");
+                    break;
+                default:
+                    _writer.write("&#");
+                    _writer.write((char) ('0' + c / 10));
+                    _writer.write((char) ('0' + c % 10));
+                    _writer.write(';');
                 }
             }
             // Flush the current block.
             int blockLength = end - blockStart;
             if (blockLength > 0) {
                 _writer.write(_buffer, blockStart, blockLength);
-            }
+            }                                   
         } catch (IOException e) {
             throw new XMLStreamException(e);
         }
@@ -911,10 +916,10 @@ public final class XMLStreamWriterImpl implements XMLStreamWriter, Reusable {
 
     private boolean isEscaped(char c) {
         return ((c < ' ') && _isAttributeValue) ||
-                (c == '"' && _isAttributeValue) ||
-                (c == '<') || (c == '>') || (c == '&');
+            (c == '"' && _isAttributeValue) ||
+            (c == '<') || (c == '>') || (c == '&');
     }
-
+    
     private final void write(char c) throws XMLStreamException {
         if (_index == BUFFER_LENGTH) {
             flushBuffer();

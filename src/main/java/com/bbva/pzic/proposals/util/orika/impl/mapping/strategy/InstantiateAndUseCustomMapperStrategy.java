@@ -24,15 +24,15 @@ import com.bbva.pzic.proposals.util.orika.metadata.Type;
 import com.bbva.pzic.proposals.util.orika.unenhance.UnenhanceStrategy;
 
 public class InstantiateAndUseCustomMapperStrategy extends UseCustomMapperStrategy {
-
-    protected final ObjectFactory<Object> objectFactory;
-
+    
+	protected final ObjectFactory<Object> objectFactory;
+    
     public InstantiateAndUseCustomMapperStrategy(Type<Object> sourceType, Type<Object> destinationType, DirectionalCustomMapperReference customMapper, ObjectFactory<Object> objectFactory, UnenhanceStrategy unenhancer) {
-        super(sourceType, destinationType, customMapper, unenhancer);
+    	super(sourceType, destinationType, customMapper, unenhancer);
         this.objectFactory = objectFactory;
     }
 
     protected Object getInstance(Object sourceObject, Object destinationObject, MappingContext context) {
-        return objectFactory.create(sourceObject, context);
+    	return objectFactory.create(sourceObject, context);
     }
 }

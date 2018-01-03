@@ -21,14 +21,14 @@ public class MemoryArea {
     public static MemoryArea getMemoryArea(Object object) {
         return DEFAULT;
     }
-
-
+    
+    
     public void executeInArea(Runnable logic) {
         logic.run();
     }
 
     public Object newInstance(Class type) throws InstantiationException,
-            IllegalAccessException {
+           IllegalAccessException {
         return type.newInstance();
     }
 
