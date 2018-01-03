@@ -3,11 +3,9 @@ package com.bbva.pzic.proposals.dao.tx.mapper.impl;
 import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
 import com.bbva.pzic.proposals.dao.model.ugmp.FormatoUGMEGMP;
 import com.bbva.pzic.proposals.dao.tx.mapper.ITxModifyExternalFinancingProposalMapper;
-import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created on 12/04/2017.

@@ -58,7 +58,7 @@ public class CreateExternalFinancingProposalMapper extends ConfigurableMapper im
         }
 
         DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal = map(externalFinancingProposal, DTOIntExternalFinancingProposal.class);
-        if(externalFinancingProposal.getDelivery() != null && externalFinancingProposal.getDelivery().getType() != null){
+        if (externalFinancingProposal.getDelivery() != null && externalFinancingProposal.getDelivery().getType() != null) {
             dtoIntExternalFinancingProposal.setDeliveryTypeId(mapper.getBackendValue("externalFinancingProposals.delivery.type.id", externalFinancingProposal.getDelivery().getType().getId()));
         }
 
@@ -87,5 +87,5 @@ public class CreateExternalFinancingProposalMapper extends ConfigurableMapper im
             dtoIntExternalFinancingProposal.setDocumentTypeId(mapper.getBackendValue("documentType.id", identityDocument.getDocumentType().getId()));
         }
         dtoIntExternalFinancingProposal.setDocumentNumber(identityDocument.getDocumentNumber());
-        }
-        }
+    }
+}

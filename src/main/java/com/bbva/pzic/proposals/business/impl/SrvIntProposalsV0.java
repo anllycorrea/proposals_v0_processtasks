@@ -38,7 +38,7 @@ public class SrvIntProposalsV0 implements ISrvIntProposalsV0 {
         validator.validate(inputListProposals, ValidationGroup.ListProposalsV0.class);
 
         if (inputListProposals.getCustomerId() == null &&
-                (inputListProposals.getDocumentTypeId() == null&& inputListProposals.getDocumentNumber() == null)) {
+                (inputListProposals.getDocumentTypeId() == null && inputListProposals.getDocumentNumber() == null)) {
             throw new BusinessServiceException(Errors.MANDATORY_PARAMETERS_MISSING);
         } else if (inputListProposals.getCustomerId() == null && (inputListProposals.getDocumentTypeId() == null
                 || inputListProposals.getDocumentNumber() == null)) {

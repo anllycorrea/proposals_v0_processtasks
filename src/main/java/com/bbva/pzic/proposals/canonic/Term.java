@@ -42,16 +42,16 @@ public class Term implements Serializable {
         return value;
     }
 
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
     public String getFrequency() {
         return frequency;
     }
 
     public void setFrequency(String frequency) {
         this.frequency = frequency;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
     }
 
 }

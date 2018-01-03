@@ -15,30 +15,30 @@ import java.math.BigDecimal;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class InstallmentPayment implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Installment monetary amount.
-	 */
-	private BigDecimal amount;
-	/**
-	 * String based on ISO-4217 for specifying the currency for the installment
-	 * amount.
-	 */
-	private String currency;
+    private static final long serialVersionUID = 1L;
+    /**
+     * Installment monetary amount.
+     */
+    private BigDecimal amount;
+    /**
+     * String based on ISO-4217 for specifying the currency for the installment
+     * amount.
+     */
+    private String currency;
 
-	public BigDecimal getAmount() {
-		return amount;
-	}
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
-	public String getCurrency() {
-		return currency;
-	}
+    public String getCurrency() {
+        return currency;
+    }
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 }

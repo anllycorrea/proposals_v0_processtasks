@@ -14,29 +14,29 @@ import java.io.Serializable;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Installment implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Instalment type.
-	 */
-	private String installmentType;
-	/**
-	 * Current instalment monetary amount.
-	 */
-	private Principal principal;
+    private static final long serialVersionUID = 1L;
+    /**
+     * Instalment type.
+     */
+    private String installmentType;
+    /**
+     * Current instalment monetary amount.
+     */
+    private Principal principal;
 
-	public String getInstallmentType() {
-		return installmentType;
-	}
+    public String getInstallmentType() {
+        return installmentType;
+    }
 
-	public void setInstallmentType(String installmentType) {
-		this.installmentType = installmentType;
-	}
+    public void setInstallmentType(String installmentType) {
+        this.installmentType = installmentType;
+    }
 
-	public Principal getPrincipal() {
-		return principal;
-	}
+    public Principal getPrincipal() {
+        return principal;
+    }
 
-	public void setPrincipal(Principal principal) {
-		this.principal = principal;
-	}
+    public void setPrincipal(Principal principal) {
+        this.principal = principal;
+    }
 }

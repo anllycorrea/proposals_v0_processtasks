@@ -15,42 +15,42 @@ import java.math.BigDecimal;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GrantedAmount implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Granted amount type.
-	 */
-	private GrantedAmountType grantedAmountType;
-	/**
-	 * Granted amount value.
-	 */
-	private BigDecimal value;
-	/**
-	 * String based on ISO-4217 for specifying the currency related to the
-	 * Granted amount by the proposal.
-	 */
-	private String currency;
+    private static final long serialVersionUID = 1L;
+    /**
+     * Granted amount type.
+     */
+    private GrantedAmountType grantedAmountType;
+    /**
+     * Granted amount value.
+     */
+    private BigDecimal value;
+    /**
+     * String based on ISO-4217 for specifying the currency related to the
+     * Granted amount by the proposal.
+     */
+    private String currency;
 
-	public GrantedAmountType getGrantedAmountType() {
-		return grantedAmountType;
-	}
+    public GrantedAmountType getGrantedAmountType() {
+        return grantedAmountType;
+    }
 
-	public void setGrantedAmountType(GrantedAmountType grantedAmountType) {
-		this.grantedAmountType = grantedAmountType;
-	}
+    public void setGrantedAmountType(GrantedAmountType grantedAmountType) {
+        this.grantedAmountType = grantedAmountType;
+    }
 
-	public BigDecimal getValue() {
-		return value;
-	}
+    public BigDecimal getValue() {
+        return value;
+    }
 
-	public void setValue(BigDecimal value) {
-		this.value = value;
-	}
+    public void setValue(BigDecimal value) {
+        this.value = value;
+    }
 
-	public String getCurrency() {
-		return currency;
-	}
+    public String getCurrency() {
+        return currency;
+    }
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 }

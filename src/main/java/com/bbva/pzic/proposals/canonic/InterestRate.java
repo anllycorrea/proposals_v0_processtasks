@@ -15,29 +15,29 @@ import java.math.BigDecimal;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class InterestRate implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Interest rate type identifier.
-	 */
-	private String interestRateType;
-	/**
-	 * Interest rate type value.
-	 */
-	private BigDecimal value;
+    private static final long serialVersionUID = 1L;
+    /**
+     * Interest rate type identifier.
+     */
+    private String interestRateType;
+    /**
+     * Interest rate type value.
+     */
+    private BigDecimal value;
 
-	public String getInterestRateType() {
-		return interestRateType;
-	}
+    public String getInterestRateType() {
+        return interestRateType;
+    }
 
-	public void setInterestRateType(String interestRateType) {
-		this.interestRateType = interestRateType;
-	}
+    public void setInterestRateType(String interestRateType) {
+        this.interestRateType = interestRateType;
+    }
 
-	public BigDecimal getValue() {
-		return value;
-	}
+    public BigDecimal getValue() {
+        return value;
+    }
 
-	public void setValue(BigDecimal value) {
-		this.value = value;
-	}
+    public void setValue(BigDecimal value) {
+        this.value = value;
+    }
 }

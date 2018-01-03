@@ -14,17 +14,17 @@ import java.io.Serializable;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GrantedAmountType implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Granted amount type identifier.
-	 */
-	private String id;
+    private static final long serialVersionUID = 1L;
+    /**
+     * Granted amount type identifier.
+     */
+    private String id;
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 }

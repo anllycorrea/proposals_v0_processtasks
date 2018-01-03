@@ -15,17 +15,17 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Proposals implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Proposal Data List
-	 */
-	private List<Proposal> data;
+    private static final long serialVersionUID = 1L;
+    /**
+     * Proposal Data List
+     */
+    private List<Proposal> data;
 
-	public List<Proposal> getData() {
-		return data;
-	}
+    public List<Proposal> getData() {
+        return data;
+    }
 
-	public void setData(List<Proposal> data) {
-		this.data = data;
-	}
+    public void setData(List<Proposal> data) {
+        this.data = data;
+    }
 }

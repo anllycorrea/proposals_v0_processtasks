@@ -21,7 +21,8 @@ import java.util.List;
  */
 @Repository
 public class ProposalsDAOV0 implements IProposalsDAOV0 {
-    private static final Log LOG = LogFactory.getLog(ProposalsDAO.class);
+
+    private static final Log LOG = LogFactory.getLog(ProposalsDAOV0.class);
 
     @Autowired
     private TxListProposalsV0 txListProposalsV0;

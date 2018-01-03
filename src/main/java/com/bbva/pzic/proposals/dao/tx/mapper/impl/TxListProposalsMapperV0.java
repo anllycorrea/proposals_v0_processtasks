@@ -9,8 +9,6 @@ import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -20,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Mapper("txListProposalsMapperV0")
 public class TxListProposalsMapperV0 extends ConfigurableMapper implements ITxListProposalsMapperV0 {
-    private static final Log LOG = LogFactory.getLog(TxListProposalsMapperV0.class);
+
     @Autowired
     private EnumMapper enumMapper;
 
@@ -54,8 +52,7 @@ public class TxListProposalsMapperV0 extends ConfigurableMapper implements ITxLi
     }
 
     @Override
-    public Proposal mapOut(final FormatoHYMR602 formatOut,
-                           final Proposal proposal) {
+    public Proposal mapOut(final FormatoHYMR602 formatOut, final Proposal proposal) {
         Proposal data = map(formatOut, Proposal.class);
 
         if (formatOut.getTipplaz() != null) {
