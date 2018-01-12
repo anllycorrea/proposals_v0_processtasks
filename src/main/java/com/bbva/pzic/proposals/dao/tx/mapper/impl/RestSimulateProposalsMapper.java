@@ -8,13 +8,13 @@ import com.bbva.pzic.proposals.canonic.*;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.ProductClassification;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequest;
-import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalsResponse;
 import com.bbva.pzic.proposals.dao.tx.mapper.IRestSimulateProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.converter.builtin.BooleanToStringConverter;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -110,14 +110,14 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
     }
 
     @Override
-    public SimulatedProposalsData mapOut(final SimulatedProposalsResponse response) {
-        if (response.getListaOfertas() == null || response.getListaOfertas().isEmpty()) {
+    public SimulatedProposalsData mapOut(final List<Oferta> response) {
+        if (CollectionUtils.isEmpty(response)) {
             return null;
         }
 
         List<SimulatedProposal> data = new ArrayList<>();
 
-        for (Oferta oferta : response.getListaOfertas()) {
+        for (Oferta oferta : response) {
             SimulatedProposal simulatedProposal = map(oferta, SimulatedProposal.class);
 
             simulatedProposal.setIndicators(this.addIndicators(simulatedProposal.getIndicators(), "ADDRESS_VALIDATION", oferta.getVdomiciliaria()));

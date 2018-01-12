@@ -38,7 +38,7 @@ public class RestPostConnection<P, S> extends RestConnectionProcessor {
             LOG.info("Request query params: " + Arrays.toString(params.entrySet().toArray()));
         }
 
-        RestConnectorResponse rcr = restConnector.doPost(url, params, buildOptionalHeaders(), payload, backend, false);
+        RestConnectorResponse rcr = restConnector.doPost(url, params, buildOptionalHeaders(), payload, backend, useProxy);
 
         return evaluateResponse(rcr, 1);
     }

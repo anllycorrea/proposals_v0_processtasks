@@ -32,7 +32,7 @@ public class RestGetConnection<S> extends RestConnectionProcessor {
             LOG.info("Request query params: " + Arrays.toString(params.entrySet().toArray()));
         }
 
-        RestConnectorResponse rcr = restConnector.doGet(url, params, null, backend, false);
+        RestConnectorResponse rcr = restConnector.doGet(url, params, buildOptionalHeaders(), backend, useProxy);
 
         return evaluateResponse(rcr, 0);
     }

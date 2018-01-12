@@ -33,16 +33,13 @@ public class RestConnectionProcessor {
     private static final String BACKEND_ID_PROPERTY = "servicing.connector.rest.backend.id";
 
     @Autowired
-    protected ServiceInvocationContext serviceInvocationContext;
-
-    @Autowired
     protected RestConnector restConnector;
-
     protected String backend;
-
+    protected boolean useProxy;
     @Autowired
-    private ConfigurationManager configurationManager;
-
+    protected ConfigurationManager configurationManager;
+    @Autowired
+    private ServiceInvocationContext serviceInvocationContext;
     @Autowired
     private ObjectMapperHelper mapper;
 
@@ -68,6 +65,7 @@ public class RestConnectionProcessor {
 
     protected HashMap<String, String> buildOptionalHeaders() {
         String callingChannel = serviceInvocationContext.getProperty(BackendContext.CALLING_CHANNEL);
+
         if (callingChannel == null) {
             LOG.info("No se han podido capturar el valor CALLING_CHANNEL");
             return null;
@@ -108,16 +106,18 @@ public class RestConnectionProcessor {
     }
 
     private BusinessServiceException restConnectorResponseToError(final Map<String, String> responseHeaders) {
+        String errorCode = responseHeaders.get("errorCode");
         String errorMessage = responseHeaders.get("errorMessage");
 
-        if (errorMessage == null) {
-            LOG.error("Can't create an exception with null errorMessage");
+        if (errorCode == null || errorMessage == null) {
+            LOG.error("Can't create an exception with null errorCode or errorMessage");
             throw new BusinessServiceException(Errors.TECHNICAL_ERROR);
         }
 
         LOG.info(String.format("Creating exception with errorMessage: '%s'", errorMessage));
 
         BusinessServiceException businessServiceException = new BusinessServiceException(Errors.FUNCTIONAL_ERROR);
+        businessServiceException.setErrorMessage(errorCode);
         businessServiceException.setErrorMessage(errorMessage);
         return businessServiceException;
     }
