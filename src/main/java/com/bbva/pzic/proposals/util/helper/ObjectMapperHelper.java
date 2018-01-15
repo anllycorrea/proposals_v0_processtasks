@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created on 23/06/2016.
@@ -37,8 +38,11 @@ public class ObjectMapperHelper {
         return mapper.readValue(src, valueType);
     }
 
-    public <T> T readValues(final String name, final TypeReference valueTypeRef) throws IOException {
-        return mapper.readValue(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream(name), valueTypeRef);
+    public <T> T readValues(final InputStream is, final TypeReference valueTypeRef) throws IOException {
+        return mapper.readValue(is, valueTypeRef);
+    }
+
+    public <T> T readValues(final String content, final TypeReference valueTypeRef) throws IOException {
+        return mapper.readValue(content, valueTypeRef);
     }
 }

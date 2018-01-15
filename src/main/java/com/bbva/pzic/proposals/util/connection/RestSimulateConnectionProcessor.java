@@ -18,8 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +77,7 @@ public class RestSimulateConnectionProcessor {
         return optionalHeaders;
     }
 
-    protected <S> List<Oferta> evaluateResponse(final RestConnectorResponse rcr, final int actualTypeArgumentIndex) {
+    protected <S> List<Oferta> evaluateResponse(final RestConnectorResponse rcr) {
         if (rcr == null) {
             LOG.error("com.bbva.jee.arq.spring.core.rest.RestConnectorResponse is null for SocketTimeoutException");
             throw new BusinessServiceException(Errors.TECHNICAL_ERROR);
@@ -87,14 +85,10 @@ public class RestSimulateConnectionProcessor {
 
         if (rcr.getStatusCode() >= HttpStatus.SC_OK && rcr.getStatusCode() <= HttpStatus.SC_MULTI_STATUS) {
             try {
-                final ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
-                final Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-                @SuppressWarnings("unchecked")
-                final S valueType = (S) actualTypeArguments[actualTypeArgumentIndex];
-                if (rcr.getResponseBody() == null) {
+                String response = rcr.getResponseBody();
+                if (response == null) {
                     return null;
                 }
-                String response = rcr.getResponseBody();
                 return mapper.readValues(response, new TypeReference<List<Oferta>>() {
                 });
             } catch (IOException e) {
