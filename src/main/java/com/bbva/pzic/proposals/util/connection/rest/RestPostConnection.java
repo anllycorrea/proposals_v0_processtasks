@@ -1,6 +1,7 @@
 package com.bbva.pzic.proposals.util.connection.rest;
 
 import com.bbva.jee.arq.spring.core.rest.RestConnectorResponse;
+import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.util.connection.RestSimulateConnectionProcessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,19 +16,19 @@ import java.util.Map;
  *
  * @author Entelgy
  */
-public class RestPostConnection<P, S> extends RestSimulateConnectionProcessor {
+public class RestPostConnection<P, S extends List<Oferta>> extends RestSimulateConnectionProcessor {
 
     private static final Log LOG = LogFactory.getLog(RestPostConnection.class);
 
-    public S connect(final String urlPropertyValue, final P entityPayload) {
+    public List<Oferta> connect(final String urlPropertyValue, final P entityPayload) {
         return connect(urlPropertyValue, null, null, entityPayload);
     }
 
-    public S connect(final String urlPropertyValue, final Map<String, String> pathParams, final P entityPayload) {
+    public List<Oferta> connect(final String urlPropertyValue, final Map<String, String> pathParams, final P entityPayload) {
         return connect(urlPropertyValue, pathParams, null, entityPayload);
     }
 
-    public S connect(final String urlPropertyValue, final Map<String, String> pathParams, final HashMap<String, String> params, final P entityPayload) {
+    public List<Oferta> connect(final String urlPropertyValue, final Map<String, String> pathParams, final HashMap<String, String> params, final P entityPayload) {
         String url = getProperty(urlPropertyValue);
         String payload = buildPayload(entityPayload);
 

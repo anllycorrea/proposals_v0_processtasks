@@ -6,6 +6,7 @@ import com.bbva.jee.arq.spring.core.servicing.configuration.ConfigurationManager
 import com.bbva.jee.arq.spring.core.servicing.context.BackendContext;
 import com.bbva.jee.arq.spring.core.servicing.context.ServiceInvocationContext;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
+import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -78,7 +79,7 @@ public class RestSimulateConnectionProcessor {
         return optionalHeaders;
     }
 
-    protected <S> S evaluateResponse(final RestConnectorResponse rcr, final int actualTypeArgumentIndex) {
+    protected <S> List<Oferta> evaluateResponse(final RestConnectorResponse rcr, final int actualTypeArgumentIndex) {
         if (rcr == null) {
             LOG.error("com.bbva.jee.arq.spring.core.rest.RestConnectorResponse is null for SocketTimeoutException");
             throw new BusinessServiceException(Errors.TECHNICAL_ERROR);
@@ -89,11 +90,12 @@ public class RestSimulateConnectionProcessor {
                 final ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
                 final Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
                 @SuppressWarnings("unchecked")
-                final List<S> valueType = (List<S>) actualTypeArguments[actualTypeArgumentIndex];
+                final S valueType = (S) actualTypeArguments[actualTypeArgumentIndex];
                 if (rcr.getResponseBody() == null) {
                     return null;
                 }
-                return (S) mapper.readValues(rcr.getResponseBody(), new TypeReference<S>() {
+                String response = rcr.getResponseBody();
+                return mapper.readValues(response, new TypeReference<List<Oferta>>() {
                 });
             } catch (IOException e) {
                 LOG.error(String.format("Error converting JSON: %s", e.getMessage()));
