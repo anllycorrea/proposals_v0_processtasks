@@ -6,9 +6,11 @@ import com.bbva.jee.arq.spring.core.servicing.configuration.ConfigurationManager
 import com.bbva.jee.arq.spring.core.servicing.context.BackendContext;
 import com.bbva.jee.arq.spring.core.servicing.context.ServiceInvocationContext;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
+import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpStatus;
@@ -16,9 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,9 +27,9 @@ import java.util.Map;
  *
  * @author Entelgy
  */
-public class RestConnectionProcessor {
+public class RestSimulateConnectionProcessor {
 
-    private static final Log LOG = LogFactory.getLog(RestConnectionProcessor.class);
+    private static final Log LOG = LogFactory.getLog(RestSimulateConnectionProcessor.class);
 
     private static final String BACKEND_ID_PROPERTY = "servicing.connector.rest.backend.id";
 
@@ -76,7 +77,7 @@ public class RestConnectionProcessor {
         return optionalHeaders;
     }
 
-    protected <S> S evaluateResponse(final RestConnectorResponse rcr, final int actualTypeArgumentIndex) {
+    protected <S> List<Oferta> evaluateResponse(final RestConnectorResponse rcr) {
         if (rcr == null) {
             LOG.error("com.bbva.jee.arq.spring.core.rest.RestConnectorResponse is null for SocketTimeoutException");
             throw new BusinessServiceException(Errors.TECHNICAL_ERROR);
@@ -84,18 +85,12 @@ public class RestConnectionProcessor {
 
         if (rcr.getStatusCode() >= HttpStatus.SC_OK && rcr.getStatusCode() <= HttpStatus.SC_MULTI_STATUS) {
             try {
-                final ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
-                final Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-                @SuppressWarnings("unchecked")
-                final Class<S> valueType = (Class<S>) actualTypeArguments[actualTypeArgumentIndex];
-                if (rcr.getResponseBody() == null) {
-                    try {
-                        return valueType.newInstance();
-                    } catch (InstantiationException | IllegalAccessException e) {
-                        throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
-                    }
+                String response = rcr.getResponseBody();
+                if (response == null) {
+                    return null;
                 }
-                return mapper.readValue(rcr.getResponseBody(), valueType);
+                return mapper.readValues(response, new TypeReference<List<Oferta>>() {
+                });
             } catch (IOException e) {
                 LOG.error(String.format("Error converting JSON: %s", e.getMessage()));
                 throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);

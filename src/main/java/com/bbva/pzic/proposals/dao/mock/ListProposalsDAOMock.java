@@ -75,7 +75,9 @@ public class ListProposalsDAOMock implements IListProposalsDAO {
     }
 
     private List<Proposal> buildProposal() throws IOException {
-        return mapper.readValues("com/bbva/pzic/proposals/dao/mock/Proposal.json", new TypeReference<List<Proposal>>() {
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(
+                "com/bbva/pzic/proposals/dao/mock/Proposal.json");
+        return mapper.readValues(in, new TypeReference<List<Proposal>>() {
         });
     }
 }

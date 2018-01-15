@@ -95,13 +95,13 @@ public class RestGetConnectionTest extends BaseRestConnectionTest {
     @Test
     public void restErrorResponseTest() throws IOException {
         try {
-            InputStream in = Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream("json/error-response.json");
+            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("json/error-response.json");
 
             RestConnectorResponse response = new RestConnectorResponse();
             response.setStatusCode(400);
             response.setContentBytes(IOUtils.readBytesFromStream(in));
             Map<String, String> headers = new HashMap<>();
+            headers.put("errorCode", "an error code");
             headers.put("errorMessage", "an error message");
             response.setHeaders(headers);
             response.generateResponseBody();

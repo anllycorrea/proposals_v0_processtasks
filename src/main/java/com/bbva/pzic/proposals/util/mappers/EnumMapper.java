@@ -48,6 +48,7 @@ public class EnumMapper {
                 throw new BusinessServiceException(Errors.TECHNICAL_ERROR);
             }
         }
+        LOG.debug(String.format("Loaded property '%s = %s'", key, propertyValue));
         return propertyValue;
     }
 }

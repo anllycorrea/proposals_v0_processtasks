@@ -5,8 +5,8 @@ import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
+import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequest;
-import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalsResponse;
 import com.bbva.pzic.proposals.dao.tx.mock.RestSimulateProposalsBuilder;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Before;
@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 import static com.bbva.pzic.proposals.DummyMock.CONTEXT_PROVIDER_SESSION_USER;
@@ -124,7 +125,7 @@ public class RestSimulateProposalsMapperTest {
     public void mapOutFull() {
         mapOutEnumMapper();
 
-        SimulatedProposalsResponse simulatedProposalsResponse = restSimulateProposalsBuilder.buildSimulatedProposalsResponse();
+        List<Oferta> simulatedProposalsResponse = restSimulateProposalsBuilder.buildSimulatedProposalsResponse();
         SimulatedProposalsData result = restSimulateProposalsMapper.mapOut(simulatedProposalsResponse);
 
         assertNotNull(result);
@@ -416,7 +417,11 @@ public class RestSimulateProposalsMapperTest {
 
     @Test
     public void mapOutEmpty() {
-        SimulatedProposalsData result = restSimulateProposalsMapper.mapOut(new SimulatedProposalsResponse());
+        SimulatedProposalsData result = restSimulateProposalsMapper.mapOut(null);
+
+        assertNull(result);
+
+        result = restSimulateProposalsMapper.mapOut(Collections.<Oferta>emptyList());
 
         assertNull(result);
     }
