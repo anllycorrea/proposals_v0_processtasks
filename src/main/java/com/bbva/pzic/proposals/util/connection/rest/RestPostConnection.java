@@ -1,12 +1,13 @@
 package com.bbva.pzic.proposals.util.connection.rest;
 
 import com.bbva.jee.arq.spring.core.rest.RestConnectorResponse;
-import com.bbva.pzic.proposals.util.connection.RestConnectionProcessor;
+import com.bbva.pzic.proposals.util.connection.RestSimulateConnectionProcessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Map;
  *
  * @author Entelgy
  */
-public class RestPostConnection<P, S> extends RestConnectionProcessor {
+public class RestPostConnection<P, S> extends RestSimulateConnectionProcessor {
 
     private static final Log LOG = LogFactory.getLog(RestPostConnection.class);
 
