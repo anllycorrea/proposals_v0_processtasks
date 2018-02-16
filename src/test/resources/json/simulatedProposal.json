@@ -28,6 +28,9 @@
     "product": {
       "productClassification": {
         "id": "TC"
+      },
+      "title": {
+        "id": "F7"
       }
     },
     "grantedAmount": {

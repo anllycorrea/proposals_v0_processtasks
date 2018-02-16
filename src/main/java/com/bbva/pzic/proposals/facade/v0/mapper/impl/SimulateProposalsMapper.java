@@ -36,6 +36,7 @@ public class SimulateProposalsMapper extends ConfigurableMapper implements ISimu
                 .field("proposal.term.frequency", "proposal.term.frequency")
                 .field("proposal.term.value", "proposal.term.value")
                 .field("proposal.product.productClassification.id", "proposal.product.productClassification.id")
+                .field("proposal.product.title.id", "proposal.product.title.id")
                 .field("proposal.grantedAmount.value", "proposal.grantedAmount.value")
                 .field("proposal.grantedAmount.currency", "proposal.grantedAmount.currency")
                 .field("proposal.installmentPayment.amount", "proposal.installmentPayment.amount")
