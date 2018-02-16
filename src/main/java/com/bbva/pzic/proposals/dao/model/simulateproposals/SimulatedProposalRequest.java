@@ -23,6 +23,7 @@ public class SimulatedProposalRequest {
     private BigDecimal valMontoSel;
     private BigDecimal tasaSel;
     private String codProductoSel;
+    private String codSubProductoSel;
     private String divisa;
 
     public String getCustomerId() {
@@ -103,6 +104,14 @@ public class SimulatedProposalRequest {
 
     public void setCodProductoSel(String codProductoSel) {
         this.codProductoSel = codProductoSel;
+    }
+
+    public String getCodSubProductoSel() {
+        return codSubProductoSel;
+    }
+
+    public void setCodSubProductoSel(String codSubProductoSel) {
+        this.codSubProductoSel = codSubProductoSel;
     }
 
     public String getDivisa() {

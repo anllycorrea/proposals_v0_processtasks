@@ -80,6 +80,7 @@ public class RestSimulateProposalsMapperTest {
         assertNotNull(request.getTipplazoSel());
         assertNotNull(request.getCodPlazoSel());
         assertNotNull(request.getCodProductoSel());
+        assertNotNull(request.getCodSubProductoSel());
         assertNotNull(request.getValMontoSel());
         assertNotNull(request.getDivisa());
         assertNotNull(request.getValCuotaSel());
@@ -94,6 +95,7 @@ public class RestSimulateProposalsMapperTest {
         assertEquals("M", request.getTipplazoSel());
         assertEquals(new BigDecimal("36"), request.getCodPlazoSel());
         assertEquals("TC", request.getCodProductoSel());
+        assertEquals(dtoIntSimulatedProposal.getProposal().getProduct().getTitle().getId(), request.getCodSubProductoSel());
         assertEquals(new BigDecimal("6100.00"), request.getValMontoSel());
         assertEquals("PEN", request.getDivisa());
         assertEquals(new BigDecimal("310.17279"), request.getValCuotaSel());
@@ -114,6 +116,7 @@ public class RestSimulateProposalsMapperTest {
         assertNull(request.getTipplazoSel());
         assertNull(request.getCodPlazoSel());
         assertNull(request.getCodProductoSel());
+        assertNull(request.getCodSubProductoSel());
         assertNull(request.getValMontoSel());
         assertNull(request.getDivisa());
         assertNull(request.getValCuotaSel());

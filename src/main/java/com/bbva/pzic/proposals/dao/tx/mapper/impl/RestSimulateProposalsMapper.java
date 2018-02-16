@@ -46,6 +46,7 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
                 .field("proposal.term.frequency", "tipplazoSel")
                 .field("proposal.term.value", "codPlazoSel")
                 .field("proposal.product.productClassification.id", "codProductoSel")
+                .field("proposal.product.title.id", "codSubProductoSel")
                 .field("proposal.grantedAmount.value", "valMontoSel")
                 .field("proposal.grantedAmount.currency", "divisa")
                 .field("proposal.installmentPayment.amount", "valCuotaSel")
