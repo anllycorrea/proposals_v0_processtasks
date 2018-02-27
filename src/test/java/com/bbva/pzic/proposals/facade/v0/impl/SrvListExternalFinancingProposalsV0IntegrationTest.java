@@ -33,7 +33,7 @@ import static org.junit.Assert.fail;
 @TestExecutionListeners(listeners = {
         MockInvocationContextTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class})
-public class SrvListExternalFinancingProposalsV01IntegrationTest {
+public class SrvListExternalFinancingProposalsV0IntegrationTest {
 
     @Autowired
     private SrvProposalsV0 srvProposalsV0;

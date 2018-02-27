@@ -31,7 +31,7 @@ import static org.junit.Assert.*;
 @TestExecutionListeners(listeners = {
         MockInvocationContextTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class})
-public class SrvModifyExternalFinancingProposalV01IntegrationTest {
+public class SrvModifyExternalFinancingProposalV0IntegrationTest {
 
     @Autowired
     private SrvProposalsV0 srvProposalsV0;
