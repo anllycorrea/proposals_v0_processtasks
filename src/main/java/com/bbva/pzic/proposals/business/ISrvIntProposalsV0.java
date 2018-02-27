@@ -1,7 +1,7 @@
 package com.bbva.pzic.proposals.business;
 
-import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
-import com.bbva.pzic.proposals.business.dto.InputListProposals;
+import com.bbva.pzic.proposals.business.dto.*;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 
@@ -17,4 +17,10 @@ public interface ISrvIntProposalsV0 {
     List<Proposal> listProposals(InputListProposals listProposals);
 
     SimulatedProposalsData simulateProposals(DTOIntSimulatedProposal simulatedProposal);
+
+    ExternalFinancingProposal createExternalFinancingProposal(DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal);
+
+    DTOOutExternalFinancingProposalData listExternalFinancingProposals(DTOInputListExternalFinancingProposals dtoIn);
+
+    void modifyExternalFinancingProposal(DTOInputModifyExternalFinancingProposal dtoIn);
 }

@@ -1,5 +1,7 @@
 package com.bbva.pzic.proposals.canonic;
 
+import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,6 +22,7 @@ public class Operation implements Serializable {
     /**
      * Identifier of the operation that allows an intercompany relationship.
      */
+    @DatoAuditable(omitir = true)
     private String id;
     /**
      * Operation type to obtain an external product.

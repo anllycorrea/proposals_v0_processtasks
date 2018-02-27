@@ -24,9 +24,9 @@
         }
       },
       "delivery": {
-        "type": {
+        "deliveryType": {
           "id": "VIRTUAL",
-          "name": "Virtual"
+          "description": "Virtual"
         }
       },
       "externalProduct": {

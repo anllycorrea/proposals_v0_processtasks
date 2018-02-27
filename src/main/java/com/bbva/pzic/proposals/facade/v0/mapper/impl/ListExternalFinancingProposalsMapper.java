@@ -1,9 +1,9 @@
-package com.bbva.pzic.proposals.facade.v01.mapper.impl;
+package com.bbva.pzic.proposals.facade.v0.mapper.impl;
 
 import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposalData;
-import com.bbva.pzic.proposals.facade.v01.mapper.IListExternalFinancingProposalsMapper;
+import com.bbva.pzic.proposals.facade.v0.mapper.IListExternalFinancingProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class ListExternalFinancingProposalsMapper implements IListExternalFinanc
     private EnumMapper enumMapper;
 
     /**
-     * @see com.bbva.pzic.proposals.facade.v01.mapper.IListExternalFinancingProposalsMapper#mapIn(String, String, String, String, String, String, String, Long)
+     * @see IListExternalFinancingProposalsMapper#mapIn(String, String, String, String, String, String, String, Long)
      */
     @Override
     public DTOInputListExternalFinancingProposals mapIn(final String thirdPartyProviderId, final String externalproductCategoryTypeId,
@@ -41,7 +41,7 @@ public class ListExternalFinancingProposalsMapper implements IListExternalFinanc
     }
 
     /**
-     * @see com.bbva.pzic.proposals.facade.v01.mapper.IListExternalFinancingProposalsMapper#mapOut(com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData)
+     * @see IListExternalFinancingProposalsMapper#mapOut(com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData)
      */
     @Override
     public ExternalFinancingProposalData mapOut(final DTOOutExternalFinancingProposalData dto) {

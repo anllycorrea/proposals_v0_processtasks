@@ -1,4 +1,4 @@
-package com.bbva.pzic.proposals.facade.v01.impl;
+package com.bbva.pzic.proposals.facade.v0.impl;
 
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoader;
@@ -34,14 +34,14 @@ import static org.junit.Assert.*;
 public class SrvModifyExternalFinancingProposalV01IntegrationTest {
 
     @Autowired
-    private SrvProposalsV01 srvProposalsV01;
+    private SrvProposalsV0 srvProposalsV0;
 
     private DummyMock mock = new DummyMock();
 
     @Test
     public void testModifyExternalFinancingProposal() throws IOException {
         ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
-        Response response = srvProposalsV01.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
+        Response response = srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
 
         assertEquals(200, response.getStatus());
         assertNull(response.getEntity());
@@ -50,8 +50,8 @@ public class SrvModifyExternalFinancingProposalV01IntegrationTest {
     @Test
     public void testModifyExternalFinancingProposalWithDeliveryTypeIdEmpty() throws IOException {
         ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
-        payload.getDelivery().getType().setId(null);
-        Response response = srvProposalsV01.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
+        payload.getDelivery().getDeliveryType().setId(null);
+        Response response = srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
 
         assertEquals(200, response.getStatus());
         assertNull(response.getEntity());
@@ -61,7 +61,7 @@ public class SrvModifyExternalFinancingProposalV01IntegrationTest {
     public void testModifyExternalFinancingProposalWithDeliveryEmailEmpty() throws IOException {
         ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
         payload.getDelivery().setEmail(null);
-        Response response = srvProposalsV01.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
+        Response response = srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
 
         assertEquals(200, response.getStatus());
         assertNull(response.getEntity());
@@ -72,7 +72,7 @@ public class SrvModifyExternalFinancingProposalV01IntegrationTest {
         try {
             ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
             payload.getStatus().setId(null);
-            srvProposalsV01.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
+            srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -83,7 +83,7 @@ public class SrvModifyExternalFinancingProposalV01IntegrationTest {
     public void testModifyExternalFinancingProposalWrongIdSize() throws IOException {
         try {
             ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
-            srvProposalsV01.modifyExternalFinancingProposal("0011013096000000010", payload);
+            srvProposalsV0.modifyExternalFinancingProposal("0011013096000000010", payload);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -94,8 +94,8 @@ public class SrvModifyExternalFinancingProposalV01IntegrationTest {
     public void testModifyExternalFinancingProposalWrongDeliveryTypeIdSize() throws IOException {
         try {
             ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
-            payload.getDelivery().getType().setId("DD");
-            srvProposalsV01.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
+            payload.getDelivery().getDeliveryType().setId("DD");
+            srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
 
             fail();
         } catch (BusinessServiceException e) {
@@ -108,7 +108,7 @@ public class SrvModifyExternalFinancingProposalV01IntegrationTest {
         try {
             ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
             payload.getDelivery().setEmail("0912ED102DJ9W1DFWWDJ1D912DJ18JHW9E192D18234718IW5KF");
-            srvProposalsV01.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
+            srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
 
             fail();
         } catch (BusinessServiceException e) {
@@ -121,7 +121,7 @@ public class SrvModifyExternalFinancingProposalV01IntegrationTest {
         try {
             ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
             payload.getStatus().setId("88");
-            srvProposalsV01.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
+            srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
 
             fail();
         } catch (BusinessServiceException e) {

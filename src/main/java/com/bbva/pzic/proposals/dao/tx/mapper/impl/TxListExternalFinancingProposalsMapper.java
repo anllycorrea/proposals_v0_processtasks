@@ -66,8 +66,8 @@ public class TxListExternalFinancingProposalsMapper extends ConfigurableMapper i
                 .field("relatedProduct.relatedProductType.id", "codseg")
                 .field("relatedProduct.relatedProductType.name", "descseg")
                 .field("relatedProduct.percentage", "tasaseg")
-                .field("delivery.type.id", "tipenvi")
-                .field("delivery.type.name", "desenv")
+                .field("delivery.deliveryType.id", "tipenvi")
+                .field("delivery.deliveryType.description", "desenv")
                 .field("delivery.email", "mailcon")
                 .field("externalProduct.id", "codbien")
                 .field("externalProduct.commercialValue.amount", "impbien")
@@ -104,7 +104,7 @@ public class TxListExternalFinancingProposalsMapper extends ConfigurableMapper i
         }
         ExternalFinancingProposal proposal = map(formatOutput, ExternalFinancingProposal.class);
         if (formatOutput.getTipenvi() != null) {
-            proposal.getDelivery().getType().setId(enumMapper.getEnumValue("externalFinancingProposals.delivery.type.id", formatOutput.getTipenvi()));
+            proposal.getDelivery().getDeliveryType().setId(enumMapper.getEnumValue("externalFinancingProposals.delivery.deliveryType.id", formatOutput.getTipenvi()));
         }
         if (formatOutput.getIndesta() != null) {
             proposal.getStatus().setId(enumMapper.getEnumValue("externalFinancingProposals.status.id", formatOutput.getIndesta()));

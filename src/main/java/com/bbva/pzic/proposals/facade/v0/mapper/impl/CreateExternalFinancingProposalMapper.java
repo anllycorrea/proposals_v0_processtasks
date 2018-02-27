@@ -1,11 +1,11 @@
-package com.bbva.pzic.proposals.facade.v01.mapper.impl;
+package com.bbva.pzic.proposals.facade.v0.mapper.impl;
 
 import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOIntThirdPartyProvider;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.Holder;
 import com.bbva.pzic.proposals.canonic.IdentityDocument;
-import com.bbva.pzic.proposals.facade.v01.mapper.ICreateExternalFinancingProposalMapper;
+import com.bbva.pzic.proposals.facade.v0.mapper.ICreateExternalFinancingProposalMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
@@ -36,6 +36,7 @@ public class CreateExternalFinancingProposalMapper extends ConfigurableMapper im
                 .field("initialAmount.amount", "initialAmount.amount")
                 .field("initialAmount.currency", "initialAmount.currency")
                 .field("tariff.id", "tariff.id")
+                .field("delivery.deliveryType.id", "deliveryTypeId")
                 .field("delivery.email", "email")
                 .field("externalProduct.id", "externalProduct.id")
                 .field("externalProduct.commercialValue.amount", "externalProduct.commercialValue.amount")
@@ -58,8 +59,8 @@ public class CreateExternalFinancingProposalMapper extends ConfigurableMapper im
         }
 
         DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal = map(externalFinancingProposal, DTOIntExternalFinancingProposal.class);
-        if (externalFinancingProposal.getDelivery() != null && externalFinancingProposal.getDelivery().getType() != null) {
-            dtoIntExternalFinancingProposal.setDeliveryTypeId(mapper.getBackendValue("externalFinancingProposals.delivery.type.id", externalFinancingProposal.getDelivery().getType().getId()));
+        if (dtoIntExternalFinancingProposal.getDeliveryTypeId() != null) {
+            dtoIntExternalFinancingProposal.setDeliveryTypeId(mapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id", dtoIntExternalFinancingProposal.getDeliveryTypeId()));
         }
 
         if (thirdPartyProviderUserId != null) {

@@ -1,4 +1,4 @@
-package com.bbva.pzic.proposals.facade.v01.impl;
+package com.bbva.pzic.proposals.facade.v0.impl;
 
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoader;
@@ -17,7 +17,6 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -39,7 +38,7 @@ import static org.junit.Assert.*;
 public class SrvCreateExternalFinancingProposalV01IntegrationTest {
 
     @Autowired
-    private SrvProposalsV01 srvProposalsV01;
+    private SrvProposalsV0 srvProposalsV0;
 
     private DummyMock dummyMock;
 
@@ -48,29 +47,27 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         dummyMock = new DummyMock();
         UriInfo uriInfo = new UriInfoImpl();
         uriInfo.getPathParameters().add("external-financing-proposal-id", "external-financing-proposal-id");
-        srvProposalsV01.setUriInfo(uriInfo);
+        srvProposalsV0.setUriInfo(uriInfo);
     }
 
     @Test
     public void testCreateExternalFinancingProposal() throws IOException {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
 
-        Response response = srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+        ExternalFinancingProposal response = srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
         assertNotNull(response);
-        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-        assertNull(response.getEntity());
+        assertNotNull(response.getId());
     }
 
     @Test
     public void testCreateExternalFinancingProposalOnlyMandatory() throws IOException {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
 
-        Response response = srvProposalsV01.createExternalFinancingProposal(null, externalFinancingProposal);
+        ExternalFinancingProposal response = srvProposalsV0.createExternalFinancingProposal(null, externalFinancingProposal);
 
         assertNotNull(response);
-        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-        assertNull(response.getEntity());
+        assertNotNull(response.getId());
     }
 
     @Test
@@ -78,11 +75,10 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentNumber(TransaccionUgapMock.NRO_DOCUMENTO);
 
-        Response response = srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+        ExternalFinancingProposal response = srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
         assertNotNull(response);
-        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-        assertNull(response.getEntity());
+        assertNull(response.getId());
     }
 
     /*
@@ -96,7 +92,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().setId(null);
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -111,7 +107,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().setCommercialValue(null);
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -126,7 +122,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValue().setAmount(null);
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -141,7 +137,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValue().setCurrency(null);
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -157,7 +153,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setHolder(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -173,7 +169,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getHolder().setIdentityDocuments(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -190,7 +186,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getHolder().getIdentityDocuments().add(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -206,7 +202,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentNumber(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -222,7 +218,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentType(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
             fail();
         } catch (BusinessServiceException e) {
@@ -239,7 +235,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).getDocumentType().setId(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -255,7 +251,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setTariff(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -271,7 +267,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getTariff().setId(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -287,7 +283,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setCurrency(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -302,7 +298,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getOperation().getOperationType().setId(null);
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -314,7 +310,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.setBranch(null);
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -329,7 +325,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getBranch().setId(null);
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -344,7 +340,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getThirdPartyProvider().setExternalSalesChannel(null);
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -359,7 +355,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
         externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().setId(null);
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -372,7 +368,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setInitialAmount(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
             fail();
         } catch (BusinessServiceException e) {
@@ -386,7 +382,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getInitialAmount().setAmount(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
             fail();
         } catch (BusinessServiceException e) {
@@ -400,7 +396,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getInitialAmount().setCurrency(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
             fail();
         } catch (BusinessServiceException e) {
@@ -414,7 +410,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setPaymentDay(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -427,7 +423,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setBillingDay(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -440,7 +436,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setDelivery(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -450,10 +446,10 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     @Test
     public void testCreateExternalFinancingProposalWithOutDeliveryType() throws IOException {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
-        externalFinancingProposal.getDelivery().setType(null);
+        externalFinancingProposal.getDelivery().setDeliveryType(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -463,10 +459,10 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
     @Test
     public void testCreateExternalFinancingProposalWithOutDeliveryTypeId() throws IOException {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
-        externalFinancingProposal.getDelivery().getType().setId(null);
+        externalFinancingProposal.getDelivery().getDeliveryType().setId(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -479,7 +475,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getDelivery().setEmail(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -492,7 +488,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setOperation(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -505,7 +501,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getOperation().setId(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -518,7 +514,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setThirdPartyProvider(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -531,7 +527,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getThirdPartyProvider().setId(null);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
@@ -544,7 +540,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentNumber("12345678901");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -557,7 +553,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getTariff().setId("12345678901");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -569,7 +565,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
 
         try {
-            srvProposalsV01.createExternalFinancingProposal("12345678901576586567565476546545646543653543564354356435463653654323498676", externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal("12345678901576586567565476546545646543653543564354356435463653654323498676", externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -582,7 +578,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getBranch().setId("12345678901");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -595,7 +591,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setCurrency("1234");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -608,7 +604,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getInitialAmount().setAmount(new BigDecimal("789.856"));
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -621,7 +617,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getInitialAmount().setAmount(new BigDecimal("1234567890123456.85"));
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -634,7 +630,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getInitialAmount().setCurrency("1234");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -647,7 +643,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setPaymentDay(123);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -660,7 +656,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getDelivery().setEmail("123456789012345678901234567890123456789012345678901");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -673,7 +669,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getOperation().setId("123456789012345678901234567890123");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -686,7 +682,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getThirdPartyProvider().setId("TDPE1");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -699,7 +695,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().setId("CEC178876");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -712,7 +708,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getOperation().getOperationType().setId("ALTA12");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -725,7 +721,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getExternalProduct().setId("1234567890123456");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -738,7 +734,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getExternalProduct().getCommercialValue().setAmount(new BigDecimal("1234567890123456.89"));
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -751,7 +747,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getExternalProduct().getCommercialValue().setAmount(new BigDecimal("123456789012345.897"));
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -764,7 +760,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.getExternalProduct().getCommercialValue().setCurrency("1234");
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
@@ -777,7 +773,7 @@ public class SrvCreateExternalFinancingProposalV01IntegrationTest {
         externalFinancingProposal.setBillingDay(544);
 
         try {
-            srvProposalsV01.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
+            srvProposalsV0.createExternalFinancingProposal(DummyMock.THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
             fail();
         } catch (BusinessServiceException e) {
             assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());

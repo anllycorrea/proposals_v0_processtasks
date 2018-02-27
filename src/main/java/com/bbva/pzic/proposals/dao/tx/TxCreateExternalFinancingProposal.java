@@ -27,7 +27,6 @@ public class TxCreateExternalFinancingProposal extends AbstractSimpleTransaction
     @Resource(name = "transaccionUgap")
     private transient InvocadorTransaccion<PeticionTransaccionUgap, RespuestaTransaccionUgap> transaction;
 
-
     @Override
     protected FormatoUGMEGAP mapDtoInToRequestFormat(DTOIntExternalFinancingProposal dtoIn) {
         return txCreateExternalFinancingProposalMapper.mapIn(dtoIn);

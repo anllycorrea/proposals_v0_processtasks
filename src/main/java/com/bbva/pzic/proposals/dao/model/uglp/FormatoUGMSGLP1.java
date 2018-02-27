@@ -1,14 +1,14 @@
 package com.bbva.pzic.proposals.dao.model.uglp;
 
-import java.math.BigDecimal;
-
+import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
 import com.bbva.jee.arq.spring.core.host.Campo;
-import com.bbva.jee.arq.spring.core.host.TipoCampo;
 import com.bbva.jee.arq.spring.core.host.Formato;
-
+import com.bbva.jee.arq.spring.core.host.TipoCampo;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.serializable.RooSerializable;
 import org.springframework.roo.addon.tostring.RooToString;
+
+import java.math.BigDecimal;
 
 
 /**
@@ -121,30 +121,35 @@ public class FormatoUGMSGLP1 {
 	/**
 	 * <p>Campo <code>NOMBR</code>, &iacute;ndice: <code>17</code>, tipo: <code>ALFANUMERICO</code>
 	 */
+	@DatoAuditable(omitir = true)
 	@Campo(indice = 17, nombre = "NOMBR", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 20, longitudMaxima = 20)
 	private String nombr;
 	
 	/**
 	 * <p>Campo <code>APEPAT</code>, &iacute;ndice: <code>18</code>, tipo: <code>ALFANUMERICO</code>
 	 */
+	@DatoAuditable(omitir = true)
 	@Campo(indice = 18, nombre = "APEPAT", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 20, longitudMaxima = 20)
 	private String apepat;
 	
 	/**
 	 * <p>Campo <code>APEMAT</code>, &iacute;ndice: <code>19</code>, tipo: <code>ALFANUMERICO</code>
 	 */
+	@DatoAuditable(omitir = true)
 	@Campo(indice = 19, nombre = "APEMAT", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 20, longitudMaxima = 20)
 	private String apemat;
 	
 	/**
 	 * <p>Campo <code>MAILCON</code>, &iacute;ndice: <code>20</code>, tipo: <code>ALFANUMERICO</code>
 	 */
+	@DatoAuditable(omitir = true)
 	@Campo(indice = 20, nombre = "MAILCON", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 50, longitudMaxima = 50)
 	private String mailcon;
 	
 	/**
 	 * <p>Campo <code>IDTOKEN</code>, &iacute;ndice: <code>21</code>, tipo: <code>ALFANUMERICO</code>
 	 */
+	@DatoAuditable(omitir = true)
 	@Campo(indice = 21, nombre = "IDTOKEN", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 32, longitudMaxima = 32)
 	private String idtoken;
 	

@@ -24,7 +24,6 @@ public class TxListExternalFinancingProposals extends AbstractDoubleTransaction<
     @Resource(name = "transaccionUglp")
     private transient InvocadorTransaccion<PeticionTransaccionUglp, RespuestaTransaccionUglp> transaction;
 
-
     @Override
     protected FormatoUGMEGLP mapDtoInToRequestFormat(DTOInputListExternalFinancingProposals dtoIn) {
         return proposalsMapper.mapIn(dtoIn);

@@ -1,5 +1,7 @@
 package com.bbva.pzic.proposals.canonic;
 
+import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,18 +22,19 @@ public class Delivery implements Serializable {
     /**
      * Type of delivery of documentation.
      */
-    private Type type;
+    private DeliveryType deliveryType;
     /**
      * Email where the documentation is delivered.
      */
+    @DatoAuditable(omitir = true)
     private String email;
 
-    public Type getType() {
-        return type;
+    public DeliveryType getDeliveryType() {
+        return deliveryType;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setDeliveryType(DeliveryType deliveryType) {
+        this.deliveryType = deliveryType;
     }
 
     public String getEmail() {
