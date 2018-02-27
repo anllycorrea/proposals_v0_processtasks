@@ -48,7 +48,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     public void enumMapOut() {
         Mockito.when(enumMapper.getEnumValue("externalFinancingProposals.status.id", "8")).thenReturn(STATUS_ID);
-        Mockito.when(enumMapper.getEnumValue("externalFinancingProposals.delivery.type.id", "D")).thenReturn(DELIVERY_TYPE_ID);
+        Mockito.when(enumMapper.getEnumValue("externalFinancingProposals.delivery.deliveryType.id", "D")).thenReturn(DELIVERY_TYPE_ID);
     }
 
     @Test
@@ -372,11 +372,11 @@ public class TxListExternalFinancingProposalsMapperTest {
         Assert.assertEquals(result.getRelatedProduct().getPercentage(), formatoIn.getTasaseg());
 
         Assert.assertNotNull(result.getDelivery());
-        Assert.assertNotNull(result.getDelivery().getType());
-        Assert.assertNotNull(result.getDelivery().getType().getId());
-        Assert.assertEquals(result.getDelivery().getType().getId(), DELIVERY_TYPE_ID);
-        Assert.assertNotNull(result.getDelivery().getType().getName());
-        Assert.assertEquals(result.getDelivery().getType().getName(), formatoIn.getDesenv());
+        Assert.assertNotNull(result.getDelivery().getDeliveryType());
+        Assert.assertNotNull(result.getDelivery().getDeliveryType().getId());
+        Assert.assertEquals(result.getDelivery().getDeliveryType().getId(), DELIVERY_TYPE_ID);
+        Assert.assertNotNull(result.getDelivery().getDeliveryType().getDescription());
+        Assert.assertEquals(result.getDelivery().getDeliveryType().getDescription(), formatoIn.getDesenv());
 
         Assert.assertNotNull(result.getDelivery().getEmail());
         Assert.assertEquals(result.getDelivery().getEmail(), formatoIn.getMailcon());
@@ -459,11 +459,11 @@ public class TxListExternalFinancingProposalsMapperTest {
         Assert.assertEquals(result.getRelatedProduct().getPercentage(), formatoIn.getTasaseg());
 
         Assert.assertNotNull(result.getDelivery());
-        Assert.assertNotNull(result.getDelivery().getType());
-        Assert.assertNotNull(result.getDelivery().getType().getId());
-        Assert.assertEquals(result.getDelivery().getType().getId(), DELIVERY_TYPE_ID);
-        Assert.assertNotNull(result.getDelivery().getType().getName());
-        Assert.assertEquals(result.getDelivery().getType().getName(), formatoIn.getDesenv());
+        Assert.assertNotNull(result.getDelivery().getDeliveryType());
+        Assert.assertNotNull(result.getDelivery().getDeliveryType().getId());
+        Assert.assertEquals(result.getDelivery().getDeliveryType().getId(), DELIVERY_TYPE_ID);
+        Assert.assertNotNull(result.getDelivery().getDeliveryType().getDescription());
+        Assert.assertEquals(result.getDelivery().getDeliveryType().getDescription(), formatoIn.getDesenv());
 
         Assert.assertNotNull(result.getDelivery().getEmail());
         Assert.assertEquals(result.getDelivery().getEmail(), formatoIn.getMailcon());

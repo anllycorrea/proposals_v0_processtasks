@@ -11,10 +11,10 @@ import java.io.Serializable;
  *
  * @author Entelgy
  */
-@XmlRootElement(name = "Type", namespace = "urn:com:bbva:pzic:proposals:canonic")
-@XmlType(name = "Type", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlRootElement(name = "DeliveryType", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlType(name = "DeliveryType", namespace = "urn:com:bbva:pzic:proposals:canonic")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Type implements Serializable {
+public class DeliveryType implements Serializable {
 
     private static final long serialVersionUID = 1L;
     /**
@@ -24,7 +24,7 @@ public class Type implements Serializable {
     /**
      * Description of documentation delivery type.
      */
-    private String name;
+    private String description;
 
     public String getId() {
         return id;
@@ -34,11 +34,11 @@ public class Type implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -3,6 +3,7 @@ package com.bbva.pzic.proposals.facade.v01.mapper.impl;
 import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
+import com.bbva.pzic.proposals.facade.v0.mapper.impl.ModifyExternalFinancingProposalMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +14,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
 import static com.bbva.pzic.proposals.DummyMock.*;
+import static org.junit.Assert.*;
 
 /**
  * Created on 12/04/2017.
@@ -40,7 +41,7 @@ public class ModifyExternalFinancingProposalMapperTest {
     }
 
     public void mapInEnumMapper() {
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.type.id", EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_VALUE)).thenReturn(EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_ID);
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id", EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_VALUE)).thenReturn(EXTERNAL_FINANCING_PROPOSALS_DELIVERY_TYPE_ID);
         Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.status.id", STATUS_VALUE)).thenReturn(STATUS_ID);
     }
 

@@ -1,4 +1,4 @@
-package com.bbva.pzic.proposals.facade.v01.mapper;
+package com.bbva.pzic.proposals.facade.v0.mapper;
 
 import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;

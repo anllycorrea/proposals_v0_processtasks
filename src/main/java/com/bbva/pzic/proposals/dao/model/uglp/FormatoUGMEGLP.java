@@ -1,15 +1,15 @@
 package com.bbva.pzic.proposals.dao.model.uglp;
 
 
-import java.util.Date;
-
+import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
+import com.bbva.jee.arq.spring.core.host.Campo;
+import com.bbva.jee.arq.spring.core.host.Formato;
+import com.bbva.jee.arq.spring.core.host.TipoCampo;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.serializable.RooSerializable;
 import org.springframework.roo.addon.tostring.RooToString;
 
-import com.bbva.jee.arq.spring.core.host.Campo;
-import com.bbva.jee.arq.spring.core.host.Formato;
-import com.bbva.jee.arq.spring.core.host.TipoCampo;
+import java.util.Date;
 
 /**
  * Formato de datos <code>UGMEGLP</code> de la transacci&oacute;n <code>UGLP</code>
@@ -43,6 +43,7 @@ public class FormatoUGMEGLP {
 	/**
 	 * <p>Campo <code>TIPBIEN</code>, &iacute;ndice: <code>4</code>, tipo: <code>ALFANUMERICO</code>
 	 */
+	@DatoAuditable(omitir = true)
 	@Campo(indice = 4, nombre = "TIPBIEN", tipo = TipoCampo.ALFANUMERICO, longitudMinima = 2, longitudMaxima = 2)
 	private String tipbien;
 	

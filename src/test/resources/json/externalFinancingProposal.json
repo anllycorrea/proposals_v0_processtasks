@@ -20,7 +20,7 @@
   },
   "paymentDay": 20,
   "delivery": {
-    "type": {
+    "deliveryType": {
       "id": "DIGITAL"
     },
     "email": "euler.alvarado@bbva.com"

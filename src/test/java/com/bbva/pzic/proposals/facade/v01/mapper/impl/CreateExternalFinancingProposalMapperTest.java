@@ -4,6 +4,7 @@ import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.IdentityDocument;
+import com.bbva.pzic.proposals.facade.v0.mapper.impl.CreateExternalFinancingProposalMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class CreateExternalFinancingProposalMapperTest {
     }
 
     public void mapInEnumMapper() {
-        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.type.id", "DIGITAL")).thenReturn("D");
+        Mockito.when(enumMapper.getBackendValue("externalFinancingProposals.delivery.deliveryType.id", "DIGITAL")).thenReturn("D");
         Mockito.when(enumMapper.getBackendValue("documentType.id", "DNI")).thenReturn("L");
     }
 

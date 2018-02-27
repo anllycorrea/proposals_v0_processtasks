@@ -1,7 +1,7 @@
 package com.bbva.pzic.proposals.business;
 
-import com.bbva.pzic.proposals.business.dto.*;
-import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
+import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
+import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 
 /**
@@ -21,15 +21,4 @@ public interface ISrvIntProposals {
      */
     ProposalData listProposals(DTOInputListProposals queryFilter);
 
-    /**
-     * Validacion de parametros de entrada, tamaño y obligatoriedad
-     *
-     * @param dtoIn DTO con los datos de entrada
-     * @return {@link DTOOutExternalFinancingProposalData}
-     */
-    DTOOutExternalFinancingProposalData listExternalFinancingProposals(DTOInputListExternalFinancingProposals dtoIn);
-
-    ExternalFinancingProposal createExternalFinancingProposal(DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal);
-
-    void modifyExternalFinancingProposal(DTOInputModifyExternalFinancingProposal dtoIn);
 }

@@ -1,7 +1,7 @@
 package com.bbva.pzic.proposals.dao;
 
-import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
-import com.bbva.pzic.proposals.business.dto.InputListProposals;
+import com.bbva.pzic.proposals.business.dto.*;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 
@@ -17,4 +17,16 @@ public interface IProposalsDAOV0 {
     List<Proposal> listProposals(InputListProposals listProposals);
 
     SimulatedProposalsData simulateProposals(DTOIntSimulatedProposal simulatedProposal);
+
+    ExternalFinancingProposal createExternalFinancingProposal(DTOIntExternalFinancingProposal dtoIn);
+
+    /**
+     * Metodo que realiza la conexion con host
+     *
+     * @param dtoIn DTO con los datos de entrada validados
+     * @return {@link DTOOutExternalFinancingProposalData}
+     */
+    DTOOutExternalFinancingProposalData listExternalFinancingProposals(DTOInputListExternalFinancingProposals dtoIn);
+
+    void modifyExternalFinancingProposal(DTOInputModifyExternalFinancingProposal dtoIn);
 }

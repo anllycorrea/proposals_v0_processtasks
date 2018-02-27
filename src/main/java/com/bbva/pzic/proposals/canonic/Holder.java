@@ -1,5 +1,7 @@
 package com.bbva.pzic.proposals.canonic;
 
+import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -21,14 +23,17 @@ public class Holder implements Serializable {
     /**
      * Holder name.
      */
+    @DatoAuditable(omitir = true)
     private String name;
     /**
      * Holder last name.
      */
+    @DatoAuditable(omitir = true)
     private String lastName;
     /**
      * Holder mother last name.
      */
+    @DatoAuditable(omitir = true)
     private String motherLastName;
     /**
      * Holder identity document.
