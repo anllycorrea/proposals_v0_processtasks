@@ -41,6 +41,7 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
         factory.getConverterFactory().registerConverter(new BooleanToStringConverter());
 
         factory.classMap(DTOIntSimulatedProposal.class, SimulatedProposalRequest.class)
+                .field("participant.id", "customerId")
                 .field("participant.identityDocument.documentType.id", "documentType")
                 .field("participant.identityDocument.documentNumber", "documentNumber")
                 .field("proposal.term.frequency", "tipplazoSel")
@@ -82,8 +83,6 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
     @Override
     public SimulatedProposalRequest mapIn(final DTOIntSimulatedProposal dtoIn) {
         SimulatedProposalRequest simulatedProposalRequest = map(dtoIn, SimulatedProposalRequest.class);
-
-        simulatedProposalRequest.setCustomerId(invocationContext.getUser());
 
         List<DTOIntProduct> dtoInProducts = dtoIn.getProducts();
         if (dtoInProducts != null && !dtoInProducts.isEmpty()) {

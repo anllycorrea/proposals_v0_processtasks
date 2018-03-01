@@ -1,6 +1,5 @@
 package com.bbva.pzic.proposals.dao.tx.mapper.impl;
 
-import com.bbva.jee.arq.spring.core.servicing.context.ServiceInvocationContext;
 import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
@@ -21,7 +20,6 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
-import static com.bbva.pzic.proposals.DummyMock.CONTEXT_PROVIDER_SESSION_USER;
 import static org.junit.Assert.*;
 
 /**
@@ -33,9 +31,6 @@ public class RestSimulateProposalsMapperTest {
 
     @InjectMocks
     private RestSimulateProposalsMapper restSimulateProposalsMapper;
-
-    @Mock
-    private ServiceInvocationContext contextProvider;
 
     @Mock
     private EnumMapper enumMapper;
@@ -52,7 +47,6 @@ public class RestSimulateProposalsMapperTest {
     }
 
     private void mapInEnumMapper() {
-        Mockito.when(contextProvider.getUser()).thenReturn(CONTEXT_PROVIDER_SESSION_USER);
         Mockito.when(enumMapper.getBackendValue("documentType.id", "DNI")).thenReturn("L");
         Mockito.when(enumMapper.getBackendValue("conditions.period.id", "MONTHLY")).thenReturn("M");
     }
@@ -87,7 +81,7 @@ public class RestSimulateProposalsMapperTest {
         assertNotNull(request.getDivisa());
         assertNotNull(request.getTasaSel());
 
-        assertEquals(CONTEXT_PROVIDER_SESSION_USER, request.getCustomerId());
+        assertEquals(dtoIntSimulatedProposal.getParticipant().getId(), request.getCustomerId());
         assertEquals("L", request.getDocumentType());
         assertEquals("74585467", request.getDocumentNumber());
         assertEquals("CO", request.getProductClassifications().get(0).getId());
@@ -109,7 +103,7 @@ public class RestSimulateProposalsMapperTest {
         SimulatedProposalRequest request = restSimulateProposalsMapper.mapIn(new DTOIntSimulatedProposal());
 
         assertNotNull(request);
-        assertNotNull(request.getCustomerId());
+        assertNull(request.getCustomerId());
         assertNull(request.getDocumentType());
         assertNull(request.getDocumentNumber());
         assertNull(request.getProductClassifications());

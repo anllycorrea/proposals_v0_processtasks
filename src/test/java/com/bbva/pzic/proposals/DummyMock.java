@@ -1,11 +1,6 @@
 package com.bbva.pzic.proposals;
 
-import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals;
-import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
-import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
-import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
-import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
-import com.bbva.pzic.proposals.business.dto.InputListProposals;
+import com.bbva.pzic.proposals.business.dto.*;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
@@ -32,7 +27,6 @@ public class DummyMock {
     public final static String CUSTOMER_ID = "12345678";
     public final static String DOCUMENT_NUMBER = "12345678910";
     public final static String DOCUMENT_TYPE_ID = "DNI";
-    public static final String CONTEXT_PROVIDER_SESSION_USER = "e000000";
 
     private ObjectMapper objectMapper;
 
