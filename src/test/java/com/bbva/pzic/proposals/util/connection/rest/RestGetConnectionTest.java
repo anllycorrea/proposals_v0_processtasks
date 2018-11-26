@@ -6,9 +6,12 @@ import com.bbva.jee.arq.spring.core.servicing.utils.Pagination;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.connection.BaseRestConnectionTest;
 import com.bbva.pzic.proposals.util.connection.rest.impl.RestGetConnectionDummyImpl;
+import com.bbva.pzic.utilTest.BusinessServiceExceptionMatcher;
 import org.apache.cxf.helpers.IOUtils;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Matchers;
@@ -21,6 +24,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.bbva.pzic.proposals.util.Errors.MANDATORY_PARAMETERS_MISSING;
 import static org.junit.Assert.*;
 
 /**
@@ -30,6 +34,10 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RestGetConnectionTest extends BaseRestConnectionTest {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
 
     @InjectMocks
     @Autowired
@@ -94,29 +102,27 @@ public class RestGetConnectionTest extends BaseRestConnectionTest {
 
     @Test
     public void restErrorResponseTest() throws IOException {
-        try {
-            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("json/error-response.json");
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.FUNCTIONAL_ERROR));
 
-            RestConnectorResponse response = new RestConnectorResponse();
-            response.setStatusCode(400);
-            response.setContentBytes(IOUtils.readBytesFromStream(in));
-            Map<String, String> headers = new HashMap<>();
-            headers.put("errorCode", "an error code");
-            headers.put("errorMessage", "an error message");
-            response.setHeaders(headers);
-            response.generateResponseBody();
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("json/error-response.json");
 
-            Mockito.when(configurationManager.getProperty(Mockito.anyString())).thenReturn("localhost");
-            Mockito.when(restConnector.doGet(Mockito.anyString(), Matchers.<HashMap<String, String>>any(),
-                    Matchers.<HashMap<String, String>>any(), Mockito.anyString(), Mockito.anyBoolean())).
-                    thenReturn(response);
+        RestConnectorResponse response = new RestConnectorResponse();
+        response.setStatusCode(400);
+        response.setContentBytes(IOUtils.readBytesFromStream(in));
+        Map<String, String> headers = new HashMap<>();
+        headers.put("errorCode", "an error code");
+        headers.put("errorMessage", "an error message");
+        response.setHeaders(headers);
+        response.generateResponseBody();
 
-            restGetConnection.invoke("abc");
-            fail();
-        } catch (final BusinessServiceException e) {
-            assertEquals(409, e.getHttpStatus());
-            assertEquals(Errors.FUNCTIONAL_ERROR, e.getErrorCode());
-        }
+        Mockito.when(configurationManager.getProperty(Mockito.anyString())).thenReturn("localhost");
+        Mockito.when(restConnector.doGet(Mockito.anyString(), Matchers.<HashMap<String, String>>any(),
+                Matchers.<HashMap<String, String>>any(), Mockito.anyString(), Mockito.anyBoolean())).
+                thenReturn(response);
+
+        restGetConnection.invoke("abc");
+
     }
 
     @Test

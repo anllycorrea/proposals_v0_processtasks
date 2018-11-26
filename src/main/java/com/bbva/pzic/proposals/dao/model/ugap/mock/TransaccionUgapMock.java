@@ -25,6 +25,9 @@ public class TransaccionUgapMock implements InvocadorTransaccion<PeticionTransac
     @Override
     public RespuestaTransaccionUgap invocar(PeticionTransaccionUgap transaccion) {
         final RespuestaTransaccionUgap response = new RespuestaTransaccionUgap();
+        response.setCodigoControl("OK");
+        response.setCodigoRetorno("OK_COMMIT");
+
         final FormatoUGMEGAP format = (FormatoUGMEGAP) transaccion.getCuerpo().getPartes().get(0);
         if (!NRO_DOCUMENTO.equalsIgnoreCase(format.getNrodocu())) {
             CopySalida copy = buildData(mock.getFormatoUGMSGAP1());

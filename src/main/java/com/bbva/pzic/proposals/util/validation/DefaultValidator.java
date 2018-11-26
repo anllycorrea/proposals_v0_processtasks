@@ -49,7 +49,7 @@ public class DefaultValidator implements Validator {
             List<?> constraintValidatorClasses =
                     constraintViolation.getConstraintDescriptor().getConstraintValidatorClasses();
             if (!constraintValidatorClasses.isEmpty() &&
-                    constraintValidatorClasses.get(0) == org.hibernate.validator.constraints.impl.NotNullValidator.class) {
+                    constraintValidatorClasses.get(0) == org.hibernate.validator.internal.constraintvalidators.bv.NotNullValidator.class) {
                 throw new BusinessServiceException(Errors.MANDATORY_PARAMETERS_MISSING, message);
             } else {
                 throw new BusinessServiceException(Errors.WRONG_PARAMETERS, message);

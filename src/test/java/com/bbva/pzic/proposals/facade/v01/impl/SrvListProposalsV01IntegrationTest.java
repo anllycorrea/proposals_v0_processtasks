@@ -5,9 +5,12 @@ import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoa
 import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExecutionListener;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.util.Errors;
+import com.bbva.pzic.utilTest.BusinessServiceExceptionMatcher;
 import com.bbva.pzic.utilTest.UriInfoImpl;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,6 +20,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import javax.ws.rs.core.Response;
 
+import static com.bbva.pzic.proposals.util.Errors.MANDATORY_PARAMETERS_MISSING;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -25,6 +29,9 @@ import static org.junit.Assert.*;
 @ContextConfiguration(loader = BusinessServiceTestContextLoader.class, locations = {"classpath*:/META-INF/spring/applicationContext-*.xml", "classpath:/META-INF/spring/business-service-test.xml"})
 @TestExecutionListeners(listeners = {MockInvocationContextTestExecutionListener.class, DependencyInjectionTestExecutionListener.class})
 public class SrvListProposalsV01IntegrationTest {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     private static final String CUSTOMER_ID = "1";
     private static final String DOCUMENT_TYPE = "DNI";
@@ -126,86 +133,75 @@ public class SrvListProposalsV01IntegrationTest {
 
     @Test
     public void testListProposalsWithInvalidDocumentType() {
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
+
         final String documentType = "LIBRETA_ELECTORAL";
-        try {
-            srvProposalsV01.listProposals(CUSTOMER_ID, documentType, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
-            fail("Expected WRONG_PARAMETERS exception");
-        } catch (BusinessServiceException e) {
-            assertThat(e.getErrorCode(), is(equalTo(Errors.WRONG_PARAMETERS)));
-        }
+        srvProposalsV01.listProposals(CUSTOMER_ID, documentType, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+
     }
 
     @Test
     public void testListProposalsWithDocumentNumberLengthGreaterThanEight() {
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
+
         final String documentNumber = "000000012345";
-        try {
-            srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, documentNumber, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
-            fail("Expected WRONG_PARAMETERS exception");
-        } catch (BusinessServiceException e) {
-            assertThat(e.getErrorCode(), is(equalTo(Errors.WRONG_PARAMETERS)));
-        }
+        srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, documentNumber, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+
     }
 
     @Test
     public void testListProposalsWithInvalidProductClassification() {
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
+
         final String productClassification = "ROCK_CARD";
-        try {
-            srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, productClassification, PAGINATION_KEY, PAGE_SIZE);
-            fail("Expected WRONG_PARAMETERS exception");
-        } catch (BusinessServiceException e) {
-            assertThat(e.getErrorCode(), is(equalTo(Errors.WRONG_PARAMETERS)));
-        }
+        srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, productClassification, PAGINATION_KEY, PAGE_SIZE);
+
     }
 
     @Test
     public void testListProposalsWithPaginationKeyLengthGreaterThanEight() {
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
+
         final String paginationKey = "123456789qwertyuiop";
-        try {
-            srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, paginationKey, PAGE_SIZE);
-            fail("Expected WRONG_PARAMETERS exception");
-        } catch (BusinessServiceException e) {
-            assertThat(e.getErrorCode(), is(equalTo(Errors.WRONG_PARAMETERS)));
-        }
+        srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, paginationKey, PAGE_SIZE);
+
     }
 
     @Test
     public void testListProposalsWithPageSizeLengthGreaterThanEight() {
-        try {
-            srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, 1234L);
-            fail("Expected WRONG_PARAMETERS exception");
-        } catch (BusinessServiceException e) {
-            assertThat(e.getErrorCode(), is(equalTo(Errors.WRONG_PARAMETERS)));
-        }
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
+
+        srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, 1234L);
     }
 
     @Test
     public void testListProposalsWithoutCustomerIdAndDocumentTypeIdAndDocumentNumber() {
-        try {
-            srvProposalsV01.listProposals(null, null, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
-            fail("Expected PARAMETERS_MISSING exception");
-        } catch (BusinessServiceException e) {
-            assertThat(e.getErrorCode(), is(equalTo(Errors.PARAMETERS_MISSING)));
-        }
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.PARAMETERS_MISSING));
+        srvProposalsV01.listProposals(null, null, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+
     }
 
     @Test
     public void testListProposalsWithoutCustomerIdAndDocumentTypeId() {
-        try {
-            srvProposalsV01.listProposals(null, null, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
-            fail("Expected PARAMETERS_MISSING exception");
-        } catch (BusinessServiceException e) {
-            assertThat(e.getErrorCode(), is(equalTo(Errors.PARAMETERS_MISSING)));
-        }
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.PARAMETERS_MISSING));
+
+        srvProposalsV01.listProposals(null, null, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+
     }
 
     @Test
     public void testListProposalsWithoutCustomerIdAndDocumentNumber() {
-        try {
-            srvProposalsV01.listProposals(null, DOCUMENT_TYPE, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
-            fail("Expected PARAMETERS_MISSING exception");
-        } catch (BusinessServiceException e) {
-            assertThat(e.getErrorCode(), is(equalTo(Errors.PARAMETERS_MISSING)));
-        }
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.PARAMETERS_MISSING));
+
+        srvProposalsV01.listProposals(null, DOCUMENT_TYPE, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
     }
 
 }
