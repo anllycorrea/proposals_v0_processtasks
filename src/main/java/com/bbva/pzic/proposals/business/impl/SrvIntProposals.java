@@ -6,7 +6,7 @@ import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.dao.IListProposalsDAO;
 import com.bbva.pzic.proposals.util.Errors;
-import com.bbva.pzic.proposals.util.validation.Validator;
+import com.bbva.pzic.routine.validator.Validator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

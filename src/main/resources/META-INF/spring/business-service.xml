@@ -22,7 +22,7 @@
     <context:annotation-config/>
 
     <!-- Declaracion de modulo de servicios -->
-    <servicing:module-metadata application-name="pzic" service-logical-id="proposals"/>
+    <servicing:module-metadata application-name="pzic" service-logical-id="proposals" routines="validator"/>
 
     <!-- beans de cxf -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>

@@ -19,10 +19,10 @@
     <pluginRepositories/>
 
     <dependencies>
-
         <dependency>
-            <groupId>com.bbva.pzic</groupId>
-            <artifactId>testUtils</artifactId>
+            <groupId>com.bbva.pzic.routine.validator</groupId>
+            <artifactId>pzic_validator-rm</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
         <!-- INICIO Core Arquitectura -->
