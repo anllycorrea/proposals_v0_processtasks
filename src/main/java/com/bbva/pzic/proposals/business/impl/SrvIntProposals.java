@@ -32,8 +32,8 @@ public class SrvIntProposals implements ISrvIntProposals {
      * @see ISrvIntProposals#listProposals(DTOInputListProposals)
      */
     @Override
-    public ProposalData listProposals(DTOInputListProposals queryFilter) {
-        LOG.info("... called method SrvIntProposals.listproposals ...");
+    public ProposalData listProposals(final DTOInputListProposals queryFilter) {
+        LOG.info("... called method SrvIntProposals.listProposals ...");
         if (queryFilter.getCustomerId() == null
                 && (queryFilter.getDocumentType() == null || queryFilter.getDocumentNumber() == null)) {
             throw new BusinessServiceException(Errors.PARAMETERS_MISSING);

@@ -5,7 +5,6 @@ import com.bbva.jee.arq.spring.core.host.protocolo.ps9.aplicacion.CopySalida;
 import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMEGAP;
 import com.bbva.pzic.proposals.dao.model.ugap.PeticionTransaccionUgap;
 import com.bbva.pzic.proposals.dao.model.ugap.RespuestaTransaccionUgap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,16 +18,15 @@ public class TransaccionUgapMock implements InvocadorTransaccion<PeticionTransac
 
     public static final String NRO_DOCUMENTO = "1234567890";
 
-    @Autowired
-    private FormatUgapMock mock;
+    private FormatUgapMock mock = new FormatUgapMock();
 
     @Override
     public RespuestaTransaccionUgap invocar(PeticionTransaccionUgap transaccion) {
         final RespuestaTransaccionUgap response = new RespuestaTransaccionUgap();
-        response.setCodigoControl("OK");
         response.setCodigoRetorno("OK_COMMIT");
+        response.setCodigoControl("OK");
 
-        final FormatoUGMEGAP format = (FormatoUGMEGAP) transaccion.getCuerpo().getPartes().get(0);
+        final FormatoUGMEGAP format = transaccion.getCuerpo().getParte(FormatoUGMEGAP.class);
         if (!NRO_DOCUMENTO.equalsIgnoreCase(format.getNrodocu())) {
             CopySalida copy = buildData(mock.getFormatoUGMSGAP1());
             response.getCuerpo().getPartes().add(copy);

@@ -1,7 +1,9 @@
 package com.bbva.pzic.proposals.util.connection;
 
-import com.bbva.jee.arq.spring.core.rest.RestConnector;
+import com.bbva.jee.arq.spring.core.rest.IProxyRestConnector;
+import com.bbva.jee.arq.spring.core.rest.RestConnectorFactory;
 import com.bbva.jee.arq.spring.core.rest.RestConnectorResponse;
+import com.bbva.jee.arq.spring.core.rest.RestConnectorType;
 import com.bbva.jee.arq.spring.core.servicing.configuration.ConfigurationManager;
 import com.bbva.jee.arq.spring.core.servicing.context.BackendContext;
 import com.bbva.jee.arq.spring.core.servicing.context.ServiceInvocationContext;
@@ -33,31 +35,35 @@ public class RestConnectionProcessor {
     private static final String BACKEND_ID_PROPERTY = "servicing.connector.rest.backend.id";
 
     @Autowired
-    protected RestConnector restConnector;
-    protected String backend;
+    private RestConnectorFactory restConnectorFactory;
+    protected IProxyRestConnector restConnector;
     protected boolean useProxy;
     @Autowired
     protected ConfigurationManager configurationManager;
     @Autowired
     private ServiceInvocationContext serviceInvocationContext;
-    @Autowired
-    private ObjectMapperHelper mapper;
+
+    private ObjectMapperHelper mapper = ObjectMapperHelper.getInstance();
 
     @PostConstruct
     private void init() {
-        backend = configurationManager.getProperty(BACKEND_ID_PROPERTY);
+        String backend = configurationManager.getProperty(BACKEND_ID_PROPERTY);
+        LOG.info(String.format("Initializing Proxy Rest Connector for %s with backend %s", getClass(), backend));
+        restConnector = (IProxyRestConnector) restConnectorFactory.getRestConnector(RestConnectorType.BASIC, backend);
     }
 
     protected String getProperty(final String property) {
-        return configurationManager.getProperty(property);
+        String value = configurationManager.getProperty(property);
+        LOG.debug(String.format("[Rest Connector] Loaded property '%s = %s'", property, value));
+        return value;
     }
 
     protected String buildPayload(final Object entityPayload) {
         try {
             String payload = mapper.writeValueAsString(entityPayload);
-            LOG.info("Payload generado: " + payload);
+            LOG.debug("[Rest Connector] Payload=" + payload);
             return payload;
-        } catch (JsonProcessingException e) {
+        } catch (IOException e) {
             LOG.error(String.format("Error converting JSON: %s", e.getMessage()), e);
             throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
         }
@@ -86,8 +92,7 @@ public class RestConnectionProcessor {
             try {
                 final ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
                 final Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-                @SuppressWarnings("unchecked")
-                final Class<S> valueType = (Class<S>) actualTypeArguments[actualTypeArgumentIndex];
+                @SuppressWarnings("unchecked") final Class<S> valueType = (Class<S>) actualTypeArguments[actualTypeArgumentIndex];
                 if (rcr.getResponseBody() == null) {
                     try {
                         return valueType.newInstance();

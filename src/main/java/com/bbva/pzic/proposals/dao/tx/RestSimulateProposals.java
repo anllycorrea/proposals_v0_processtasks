@@ -29,7 +29,7 @@ public class RestSimulateProposals extends RestPostConnection<SimulatedProposalR
         useProxy = configurationManager.getBooleanProperty(POST_SIMULATE_PROPOSALS_PROXY_PROPOSALS, false);
     }
 
-    public SimulatedProposalsData invoke(DTOIntSimulatedProposal dtoIn) {
+    public SimulatedProposalsData invoke(final DTOIntSimulatedProposal dtoIn) {
         return mapper.mapOut(connect(POST_SIMULATE_PROPOSALS_URL_PROPOSALS, mapper.mapIn(dtoIn)));
     }
 }

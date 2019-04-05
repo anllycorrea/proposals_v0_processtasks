@@ -2,9 +2,8 @@ package com.bbva.pzic.proposals.dao.model.uglp.mock;
 
 import com.bbva.pzic.proposals.dao.model.uglp.FormatoUGMSGLP1;
 import com.bbva.pzic.proposals.dao.model.uglp.FormatoUGMSGLP2;
+import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,13 +13,12 @@ import java.util.List;
  *
  * @author Entelgy
  */
-@Component
 public class FormatUglpMock {
 
-    private ObjectMapper objectMapper;
+    private ObjectMapperHelper objectMapper;
 
     public FormatUglpMock() {
-        objectMapper = new ObjectMapper();
+        objectMapper = ObjectMapperHelper.getInstance();
     }
 
     public List<FormatoUGMSGLP1> getFormatoUGMSGLP1s() throws IOException {

@@ -5,8 +5,8 @@ import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.facade.v01.mapper.impl.ListExternalFinancingProposalsMapperTest;
+import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Entelgy
  */
-public class DummyMock {
+public final class DummyMock {
 
     public static final String EXTERNAL_FINANCING_PROPOSAL_ID = "001101309600000001";
     public static final String THIRD_PARTY_PROVIDER_USER_ID = "12312432";
@@ -28,10 +28,10 @@ public class DummyMock {
     public final static String DOCUMENT_NUMBER = "12345678910";
     public final static String DOCUMENT_TYPE_ID = "DNI";
 
-    private ObjectMapper objectMapper;
+    private ObjectMapperHelper objectMapper;
 
     public DummyMock() {
-        objectMapper = new ObjectMapper();
+        objectMapper = ObjectMapperHelper.getInstance();
     }
 
     public DTOOutExternalFinancingProposalData getDtoOutExternalFinancingProposalData() throws IOException {

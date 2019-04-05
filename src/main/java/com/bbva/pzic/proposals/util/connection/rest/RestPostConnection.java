@@ -3,8 +3,6 @@ package com.bbva.pzic.proposals.util.connection.rest;
 import com.bbva.jee.arq.spring.core.rest.RestConnectorResponse;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.util.connection.RestSimulateConnectionProcessor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class RestPostConnection<P> extends RestSimulateConnectionProcessor {
         String url = getProperty(urlPropertyValue);
         String payload = buildPayload(entityPayload);
 
-        RestConnectorResponse rcr = restConnector.doPost(url, null, buildOptionalHeaders(), payload, backend, useProxy);
+        RestConnectorResponse rcr = restConnector.doPost(url, null, buildOptionalHeaders(), payload, useProxy);
 
         return evaluateResponse(rcr);
     }

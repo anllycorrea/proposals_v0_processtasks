@@ -3,8 +3,7 @@ package com.bbva.pzic.proposals.dao.model.ugap.mock;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMSGAP1;
 import com.bbva.pzic.proposals.util.Errors;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Component;
+import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
 
 import java.io.IOException;
 
@@ -13,13 +12,12 @@ import java.io.IOException;
  *
  * @author Entelgy
  */
-@Component
 public class FormatUgapMock {
 
-    private ObjectMapper objectMapper;
+    private ObjectMapperHelper objectMapper;
 
     public FormatUgapMock() {
-        objectMapper = new ObjectMapper();
+        objectMapper = ObjectMapperHelper.getInstance();
     }
 
     public FormatoUGMSGAP1 getFormatoUGMSGAP1() {

@@ -11,30 +11,30 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * Test de la transacci&oacute;n <code>HYT6</code>
- * 
+ *
  * @author Arquitectura Spring BBVA
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TestTransaccionHyt6 {
 
-	@InjectMocks
-	private TransaccionHyt6 transaccion;
+    @InjectMocks
+    private TransaccionHyt6 transaccion;
 
-	@Spy
-	private ServicioTransacciones servicioTransacciones = Mockito.mock(ServicioTransacciones.class);
+    @Spy
+    private ServicioTransacciones servicioTransacciones = Mockito.mock(ServicioTransacciones.class);
 
-	@Test
-	public void test() {
+    @Test
+    public void test() {
 
-		PeticionTransaccionHyt6 peticion = new PeticionTransaccionHyt6();
+        PeticionTransaccionHyt6 peticion = new PeticionTransaccionHyt6();
 
-		RespuestaTransaccionHyt6 respuesta = new RespuestaTransaccionHyt6();
+        RespuestaTransaccionHyt6 respuesta = new RespuestaTransaccionHyt6();
 
-		Mockito.when(servicioTransacciones.invocar(PeticionTransaccionHyt6.class, RespuestaTransaccionHyt6.class,
-				peticion)).thenReturn(respuesta);
+        Mockito.when(servicioTransacciones.invocar(PeticionTransaccionHyt6.class, RespuestaTransaccionHyt6.class,
+                peticion)).thenReturn(respuesta);
 
-		RespuestaTransaccionHyt6 result = transaccion.invocar(peticion);
+        RespuestaTransaccionHyt6 result = transaccion.invocar(peticion);
 
-		Assert.assertEquals(result, respuesta);
-	}
+        Assert.assertEquals(result, respuesta);
+    }
 }

@@ -86,10 +86,9 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
             @QueryParam("participant.identityDocument.documentNumber") final String documentNumber,
             @QueryParam("customer.id") final String customerId) {
         LOG.info("----- Invoking service listProposals -----");
-        return listProposalsMapper.mapOut(srvIntProposals
-                .listProposals(listProposalsMapper.mapIn(
-                        documentTypeId,
-                        documentNumber, customerId)));
+        return listProposalsMapper.mapOut(
+                srvIntProposals.listProposals(
+                        listProposalsMapper.mapIn(documentTypeId, documentNumber, customerId)));
     }
 
     /**
@@ -111,6 +110,7 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
     @Override
     @POST
     @Path("/external-financing-proposals")
+    @Consumes(MediaType.APPLICATION_JSON)
     @SMC(registryID = "SMCPE1720028", logicalID = "createExternalFinancingProposal")
     public ExternalFinancingProposal createExternalFinancingProposal(@QueryParam("thirdPartyProvider.userId") final String thirdPartyProviderUserId,
                                                                      final ExternalFinancingProposal payload) {
@@ -157,6 +157,7 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
     @Override
     @PATCH
     @Path("/external-financing-proposals/{external-financing-proposal-id}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @SMC(registryID = "SMCPE1720030", logicalID = "modifyExternalFinancingProposal")
     public Response modifyExternalFinancingProposal(@PathParam("external-financing-proposal-id") final String externalFinancingProposalId,
                                                     final ExternalFinancingProposal payload) {

@@ -5,20 +5,20 @@ package com.bbva.pzic.proposals.business.dto;
  *
  * @author Entelgy
  */
-public class ValidationGroup {
+public interface ValidationGroup {
 
-    public interface ListExternalFinancingProposals {
+    interface ListExternalFinancingProposals {
     }
 
-    public interface CreateExternalFinancingProposal {
+    interface CreateExternalFinancingProposal {
     }
 
-    public interface ModifyExternalFinancingProposal {
+    interface ModifyExternalFinancingProposal {
     }
 
-    public interface ListProposalsV0 {
+    interface ListProposalsV0 {
     }
 
-    public interface SimulateProposals {
+    interface SimulateProposals {
     }
 }

@@ -5,7 +5,6 @@ import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoa
 import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExecutionListener;
 import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
-import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.utilTest.BusinessServiceExceptionMatcher;
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,7 +21,8 @@ import java.io.IOException;
 
 import static com.bbva.pzic.proposals.util.Errors.MANDATORY_PARAMETERS_MISSING;
 import static com.bbva.pzic.proposals.util.Errors.WRONG_PARAMETERS;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created on 12/04/2017.
@@ -76,7 +76,7 @@ public class SrvModifyExternalFinancingProposalV0IntegrationTest {
     }
 
     @Test
-    public void testModifyExternalFinancingProposalWithStatusIdEmpty() throws IOException{
+    public void testModifyExternalFinancingProposalWithStatusIdEmpty() throws IOException {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 

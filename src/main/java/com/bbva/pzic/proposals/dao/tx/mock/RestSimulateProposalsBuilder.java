@@ -3,8 +3,8 @@ package com.bbva.pzic.proposals.dao.tx.mock;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.util.Errors;
+import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class RestSimulateProposalsBuilder {
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapperHelper mapper = ObjectMapperHelper.getInstance();
 
     public List<Oferta> buildSimulatedProposalsResponse() {
         try {

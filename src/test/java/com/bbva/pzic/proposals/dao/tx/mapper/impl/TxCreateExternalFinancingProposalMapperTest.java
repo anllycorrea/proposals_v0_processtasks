@@ -103,7 +103,7 @@ public class TxCreateExternalFinancingProposalMapperTest {
 
 
     @Test
-    public void mapOutFullTest() throws IOException {
+    public void mapOutFullTest() {
         FormatoUGMSGAP1 formatoUGMSGAP1 = formatUgapMock.getFormatoUGMSGAP1();
         ExternalFinancingProposal result = mapper.mapOut(formatoUGMSGAP1);
 
@@ -112,14 +112,14 @@ public class TxCreateExternalFinancingProposalMapperTest {
     }
 
     @Test
-    public void mapOutWithoutFormatTest() throws IOException {
+    public void mapOutWithoutFormatTest() {
         ExternalFinancingProposal result = mapper.mapOut(null);
 
         assertNull(result);
     }
 
     @Test
-    public void mapOutEmptyTest() throws IOException {
+    public void mapOutEmptyTest() {
         ExternalFinancingProposal result = mapper.mapOut(new FormatoUGMSGAP1());
 
         assertNotNull(result);
