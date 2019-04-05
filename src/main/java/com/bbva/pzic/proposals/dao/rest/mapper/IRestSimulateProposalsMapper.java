@@ -1,4 +1,4 @@
-package com.bbva.pzic.proposals.dao.tx.mapper;
+package com.bbva.pzic.proposals.dao.rest.mapper;
 
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;

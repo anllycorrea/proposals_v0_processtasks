@@ -47,7 +47,7 @@ public class RestConnectionProcessor {
 
     @PostConstruct
     private void init() {
-        String backend = configurationManager.getProperty(BACKEND_ID_PROPERTY);
+        String backend = getProperty(BACKEND_ID_PROPERTY);
         LOG.info(String.format("Initializing Proxy Rest Connector for %s with backend %s", getClass(), backend));
         restConnector = (IProxyRestConnector) restConnectorFactory.getRestConnector(RestConnectorType.BASIC, backend);
     }

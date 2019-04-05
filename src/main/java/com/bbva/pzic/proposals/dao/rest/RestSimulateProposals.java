@@ -1,14 +1,16 @@
-package com.bbva.pzic.proposals.dao.tx;
+package com.bbva.pzic.proposals.dao.rest;
 
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
+import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequest;
-import com.bbva.pzic.proposals.dao.tx.mapper.IRestSimulateProposalsMapper;
+import com.bbva.pzic.proposals.dao.rest.mapper.IRestSimulateProposalsMapper;
 import com.bbva.pzic.proposals.util.connection.rest.RestPostConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 /**
  * Created on 28/12/2017.
@@ -31,5 +33,10 @@ public class RestSimulateProposals extends RestPostConnection<SimulatedProposalR
 
     public SimulatedProposalsData invoke(final DTOIntSimulatedProposal dtoIn) {
         return mapper.mapOut(connect(POST_SIMULATE_PROPOSALS_URL_PROPOSALS, mapper.mapIn(dtoIn)));
+    }
+
+    @Override
+    protected void evaluateResponse(final List<Oferta> response, final int statusCode) {
+        evaluateMessagesResponse(null, "SMCPE1810268", statusCode);
     }
 }

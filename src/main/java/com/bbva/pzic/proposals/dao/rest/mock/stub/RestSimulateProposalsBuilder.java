@@ -1,4 +1,4 @@
-package com.bbva.pzic.proposals.dao.tx.mock;
+package com.bbva.pzic.proposals.dao.rest.mock.stub;
 
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;

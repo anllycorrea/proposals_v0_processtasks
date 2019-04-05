@@ -19,7 +19,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import java.io.IOException;
 
-import static com.bbva.pzic.proposals.dao.tx.mock.RestSimulateProposalsMock.EMPTY_DATA;
+import static com.bbva.pzic.proposals.dao.rest.mock.RestSimulateProposalsMock.EMPTY_DATA;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 

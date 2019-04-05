@@ -88,7 +88,6 @@ public final class DummyMock {
         });
     }
 
-
     public SimulatedProposal getSimulatedProposal() throws IOException {
         return objectMapper.readValue(Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream("json/simulatedProposal.json"), SimulatedProposal.class);

@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Entelgy
  */
-public class RestPostConnection<P> extends RestSimulateConnectionProcessor {
+public abstract class RestPostConnection<P> extends RestSimulateConnectionProcessor {
 
     public List<Oferta> connect(final String urlPropertyValue, final P entityPayload) {
         String url = getProperty(urlPropertyValue);
@@ -19,6 +19,12 @@ public class RestPostConnection<P> extends RestSimulateConnectionProcessor {
 
         RestConnectorResponse rcr = restConnector.doPost(url, null, buildOptionalHeaders(), payload, useProxy);
 
-        return evaluateResponse(rcr);
+        List<Oferta> response = buildResponse(rcr, 1);
+
+        evaluateResponse(response, rcr.getStatusCode());
+
+        return response;
     }
+
+    protected abstract void evaluateResponse(List<Oferta> response, int statusCode);
 }

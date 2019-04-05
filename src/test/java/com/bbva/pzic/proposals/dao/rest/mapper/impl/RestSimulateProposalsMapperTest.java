@@ -1,4 +1,4 @@
-package com.bbva.pzic.proposals.dao.tx.mapper.impl;
+package com.bbva.pzic.proposals.dao.rest.mapper.impl;
 
 import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
@@ -6,7 +6,7 @@ import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequest;
-import com.bbva.pzic.proposals.dao.tx.mock.RestSimulateProposalsBuilder;
+import com.bbva.pzic.proposals.dao.rest.mock.stub.RestSimulateProposalsBuilder;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Before;
 import org.junit.Test;

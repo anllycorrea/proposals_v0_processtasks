@@ -5,6 +5,7 @@ import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.dao.IProposalsDAOV0;
+import com.bbva.pzic.proposals.dao.rest.RestSimulateProposals;
 import com.bbva.pzic.proposals.dao.tx.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

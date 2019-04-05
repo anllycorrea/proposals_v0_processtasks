@@ -1,8 +1,9 @@
-package com.bbva.pzic.proposals.dao.tx.mock;
+package com.bbva.pzic.proposals.dao.rest.mock;
 
 import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequest;
-import com.bbva.pzic.proposals.dao.tx.RestSimulateProposals;
+import com.bbva.pzic.proposals.dao.rest.RestSimulateProposals;
+import com.bbva.pzic.proposals.dao.rest.mock.stub.RestSimulateProposalsBuilder;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,5 @@
-package com.bbva.pzic.proposals.dao.tx.mapper.impl;
+package com.bbva.pzic.proposals.dao.rest.mapper.impl;
 
-import com.bbva.jee.arq.spring.core.servicing.context.ServiceInvocationContext;
 import com.bbva.pzic.proposals.business.dto.DTOIntProduct;
 import com.bbva.pzic.proposals.business.dto.DTOIntProductClassification;
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
@@ -8,7 +7,7 @@ import com.bbva.pzic.proposals.canonic.*;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.ProductClassification;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequest;
-import com.bbva.pzic.proposals.dao.tx.mapper.IRestSimulateProposalsMapper;
+import com.bbva.pzic.proposals.dao.rest.mapper.IRestSimulateProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
@@ -31,9 +30,6 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
 
     @Autowired
     private EnumMapper enumMapper;
-
-    @Autowired
-    private ServiceInvocationContext invocationContext;
 
     @Override
     protected void configure(MapperFactory factory) {
@@ -86,7 +82,7 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
 
         List<DTOIntProduct> dtoInProducts = dtoIn.getProducts();
         if (dtoInProducts != null && !dtoInProducts.isEmpty()) {
-            simulatedProposalRequest.setProductClassifications(new ArrayList<ProductClassification>());
+            simulatedProposalRequest.setProductClassifications(new ArrayList<>());
             for (DTOIntProduct dtoIntProduct : dtoInProducts) {
                 DTOIntProductClassification dtoIntProductClassification = dtoIntProduct.getProductClassification();
                 if (dtoIntProductClassification != null && dtoIntProductClassification.getId() != null) {
