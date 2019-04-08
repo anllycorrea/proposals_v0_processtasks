@@ -3,33 +3,33 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cxf="http://cxf.apache.org/core"
        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/aop
-		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd
-		http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
 		http://bbva.com/arq-spring-servicing
 		http://bbva.com/arq-spring-servicing/servicing.xsd">
+
+    <!-- beans de routine -->
+    <import resource="classpath:/META-INF/spring/routine.xml"/>
 
     <context:spring-configured/>
     <aop:aspectj-autoproxy/>
     <context:annotation-config/>
 
     <!-- Declaracion de modulo de servicios -->
-    <servicing:module-metadata application-name="pzic" service-logical-id="proposals"/>
+    <servicing:module-metadata application-name="pzic" service-logical-id="proposals" routines="validator"/>
 
     <servicing:test-metadata local-configuration-filesystem-root="src/test/resources/lc"
                              smc-logical-id="test" smc-registry-id="test"/>
 
     <!-- beans de cxf -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 
     <context:component-scan base-package="com.bbva.pzic.proposals">
@@ -38,12 +38,6 @@
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
 
-    <!-- bus de cxf -->
-    <cxf:bus>
-        <cxf:features>
-            <cxf:logging/>
-        </cxf:features>
-    </cxf:bus>
 
     <jaxrs:server address="/${sa:logicalId}">
         <jaxrs:serviceBeans>
@@ -52,11 +46,23 @@
         </jaxrs:serviceBeans>
     </jaxrs:server>
 
-    <bean id="contextProvider" class="com.bbva.jee.arq.spring.core.servicing.context.ContextProviderImpl">
+    <bean id="contextProvider" class="com.bbva.jee.arq.spring.core.servicing.context.ContextProviderImpl" >
         <property name="invocationContext">
             <bean class="com.bbva.jee.arq.spring.core.servicing.context.InvocationContext">
-                <property name="tsec" value="abcdef"/>
+                <property name="httpServletRequestHeaders"  >
+                    <map>
+                        <entry key="tsec" value="abcdef" />
+                    </map>
+                </property>
             </bean>
         </property>
     </bean>
+
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <bean class="org.springframework.mock.web.MockHttpServletRequest" primary="true">
+        <property name="pathInfo" value="any/v1/any" />
+    </bean>
+
 </beans>

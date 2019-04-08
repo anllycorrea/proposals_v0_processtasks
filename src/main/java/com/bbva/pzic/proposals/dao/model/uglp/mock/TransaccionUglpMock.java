@@ -30,6 +30,9 @@ public class TransaccionUglpMock implements InvocadorTransaccion<PeticionTransac
     @Override
     public RespuestaTransaccionUglp invocar(PeticionTransaccionUglp peticionTransaccionUglp) {
         final RespuestaTransaccionUglp response = new RespuestaTransaccionUglp();
+        response.setCodigoControl("OK");
+        response.setCodigoRetorno("OK_COMMIT");
+
         FormatoUGMEGLP format = (FormatoUGMEGLP) peticionTransaccionUglp.getCuerpo().getPartes().get(0);
         String nroDocu = format.getNrodocu();
         if (TEST_EMPTY.equalsIgnoreCase(nroDocu)) {

@@ -34,6 +34,9 @@ public class TransaccionHyt6Mock implements InvocadorTransaccion<PeticionTransac
     @Override
     public RespuestaTransaccionHyt6 invocar(PeticionTransaccionHyt6 peticion) throws ExcepcionTransaccion {
         final RespuestaTransaccionHyt6 response = new RespuestaTransaccionHyt6();
+        response.setCodigoControl("OK");
+        response.setCodigoRetorno("OK_COMMIT");
+
         FormatoHYMR601 format = (FormatoHYMR601) peticion.getCuerpo().getPartes().get(0);
         if (TEST_NULL.equals(format.getCodcent())) {
             return response;

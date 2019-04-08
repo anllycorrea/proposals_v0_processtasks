@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.bbva.pzic</groupId>
         <artifactId>pom-padre_pzic</artifactId>
-        <version>3.5.3</version>
+        <version>5.0.10</version>
     </parent>
 
     <groupId>com.bbva.pzic.proposals</groupId>
@@ -19,27 +19,22 @@
     <pluginRepositories/>
 
     <dependencies>
-
         <dependency>
-            <groupId>com.bbva.pzic</groupId>
-            <artifactId>testUtils</artifactId>
+            <groupId>com.bbva.pzic.routine.validator</groupId>
+            <artifactId>pzic_validator-rm</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
-        <!-- INICIO Arquitectura Servicios -->
-
-        <dependency>
-            <groupId>com.bbva.jee.arq.spring.core</groupId>
-            <artifactId>arq-spring-connector-rest</artifactId>
-        </dependency>
+        <!-- INICIO Core Arquitectura -->
         <dependency>
             <groupId>com.bbva.jee.arq.spring.core</groupId>
             <artifactId>arq-spring-servicing-core</artifactId>
             <version>${arq-spring-servicing-core.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.bbva.jee.arq.spring.core</groupId>
-            <artifactId>arq-spring-restutils</artifactId>
-            <version>${arq-spring-restutils.version}</version>
+            <groupId>com.bbva.jee.arq.spring.cas.api</groupId>
+            <artifactId>arq-spring-servicing-cas-api</artifactId>
+            <version>${arq-spring-servicing-cas-api.version}</version>
         </dependency>
         <dependency>
             <groupId>com.bbva.jee.arq.spring.core</groupId>
@@ -53,39 +48,49 @@
         </dependency>
         <dependency>
             <groupId>com.bbva.jee.arq.spring.core</groupId>
-            <artifactId>arq-spring-connector-host</artifactId>
-            <version>${arq.spring.connector.host.version}</version>
-            <scope>test</scope>
+            <artifactId>arq-spring-restutils</artifactId>
+            <version>${arq-spring-restutils.version}</version>
+        </dependency>
+        <!-- INICIO Backend connectors -->
+        <dependency>
+            <groupId>com.bbva.jee.arq.spring.core</groupId>
+            <artifactId>arq-spring-connector-rest</artifactId>
+            <version>${arq-spring-connector-rest.version}</version>
         </dependency>
         <dependency>
             <groupId>com.bbva.jee.arq.spring.core</groupId>
-            <artifactId>arq-spring-connector-host-ps9</artifactId>
-            <version>${arq.spring.connector.host.ps9.version}</version>
-            <scope>test</scope>
+            <artifactId>arq-spring-connector-backend</artifactId>
+            <version>${arq-spring-connector-backend.version}</version>
         </dependency>
         <dependency>
             <groupId>com.bbva.jee.arq.spring.core</groupId>
-            <artifactId>arq-spring-connector-host-api</artifactId>
-            <version>${arq.spring.connector.host.api.version}</version>
+            <artifactId>arq-spring-backend-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.bbva.jee.arq.spring.core</groupId>
-            <artifactId>arq-spring-connector-host-imsconnect</artifactId>
-            <version>${arq.spring.connector.host.imsconnect.version}</version>
-            <scope>test</scope>
+            <artifactId>arq-spring-backend-ps</artifactId>
+            <version>${arq-spring-backend-ps.version}</version>
         </dependency>
-        <!-- 	//Nueva dependencia de LOG del CORE -->
+        <dependency>
+            <groupId>com.bbva.jee.arq.spring.core</groupId>
+            <artifactId>arq-spring-backend-commons</artifactId>
+            <version>${arq-spring-backend-commons.version}</version>
+        </dependency>
+        <!-- FIN Backend connectors -->
+        <!-- INICIO Log -->
         <dependency>
             <groupId>com.bbva.jee.arq.spring.core</groupId>
             <artifactId>arq-spring-servicing-logging</artifactId>
             <version>${arq-spring-servicing-logging.version}</version>
         </dependency>
+        <!-- FIN Log -->
+        <!-- FIN Core Arquitectura -->
 
-        <!--Dependencias Swagger -->
+        <!-- INICIO Crypto -->
         <dependency>
             <groupId>com.wordnik</groupId>
             <artifactId>swagger-core_2.10</artifactId>
-            <version>${swagger.core.version}</version>
+            <version>${swagger-core.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.ws.rs</groupId>
@@ -96,8 +101,24 @@
         <dependency>
             <groupId>com.wordnik</groupId>
             <artifactId>swagger-jaxrs_2.10</artifactId>
-            <version>${swagger.jaxrs.version}</version>
+            <version>${swagger-jaxrs.version}</version>
         </dependency>
+        <!-- FIN Crypto -->
+
+        <!-- INICIO Unit test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.bbva.pzic</groupId>
+            <artifactId>testUtils</artifactId>
+        </dependency>
+        <!-- FIN Unit test -->
 
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -105,30 +126,6 @@
             <version>${guava.version}</version>
         </dependency>
 
-        <!-- FIN Arquitectura Servicios-->
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!--  SE SUSTITUYEN POR LA NUEVA DE LOG DEL CORE . LOG4J es Transitiva
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>1.2.16</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-        -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
@@ -140,15 +137,14 @@
             <version>${aspectj.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.flexjson</groupId>
             <artifactId>flexjson</artifactId>
-            <version>2.1</version>
+            <version>${flexjson.version}</version>
         </dependency>
         <!-- ROO dependencies -->
         <dependency>
@@ -208,52 +204,28 @@
         </dependency>
 
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>${jackson.version}</version>
-
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>3.0.1-b08</version>
+            <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-lgpl</artifactId>
-            <version>${jackson.version}</version>
-
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>${jackson.version}</version>
 
-        </dependency>
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-lgpl</artifactId>
             <version>${jackson.version}</version>
-
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mrbean</artifactId>
-            <version>${jackson.version}</version>
 
-        </dependency>
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-jaxrs</artifactId>
             <version>${jackson.version}</version>
-
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-smile</artifactId>
-            <version>${jackson.version}</version>
-
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-xc</artifactId>
-            <version>${jackson.version}</version>
-
         </dependency>
 
         <dependency>
@@ -312,27 +284,11 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-
-                <!-- <configuration> <webXml>target/web.xml</webXml> </configuration> -->
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -371,218 +327,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-
-            </plugin>
-            <!-- IDE -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-
-                <!-- Note 2.8 does not work with AspectJ aspect path -->
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>false</downloadJavadocs>
-                    <wtpversion>2.0</wtpversion>
-                    <additionalBuildcommands>
-                        <buildCommand>
-                            <name>org.eclipse.ajdt.core.ajbuilder</name>
-                            <arguments>
-                                <aspectPath>org.springframework.aspects</aspectPath>
-                            </arguments>
-                        </buildCommand>
-                        <buildCommand>
-                            <name>org.springframework.ide.eclipse.core.springbuilder</name>
-                        </buildCommand>
-                    </additionalBuildcommands>
-                    <additionalProjectnatures>
-                        <projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
-                        <projectnature>com.springsource.sts.roo.core.nature</projectnature>
-                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-                    </additionalProjectnatures>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>tomcat-maven-plugin</artifactId>
-
-            </plugin>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-
-                <configuration>
-                    <webAppConfig>
-                        <contextPath>/${project.name}</contextPath>
-                    </webAppConfig>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <configuration>
-                    <outxml>true</outxml>
-                    <aspectLibraries>
-                        <aspectLibrary>
-                            <groupId>org.springframework</groupId>
-                            <artifactId>spring-aspects</artifactId>
-                        </aspectLibrary>
-                        <aspectLibrary>
-                            <groupId>com.bbva.jee.arq.spring.core</groupId>
-                            <artifactId>arq-spring-servicing-core</artifactId>
-                        </aspectLibrary>
-                        <aspectLibrary>
-                            <groupId>com.bbva.jee.arq.spring.core</groupId>
-                            <artifactId>arq-spring-restutils</artifactId>
-                        </aspectLibrary>
-                    </aspectLibraries>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjrt</artifactId>
-                        <version>${aspectj.version}</version>
-
-                    </dependency>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjtools</artifactId>
-                        <version>${aspectj.version}</version>
-
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
-        <!-- Versiones de plugins de Maven para Frontend Spring -->
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>${maven-war-plugin.version}</version>
-                    <!-- <configuration> <webXml>target/web.xml</webXml> </configuration> -->
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler-plugin.version}</version>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                        <encoding>UTF-8</encoding>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>${maven-resources-plugin.version}</version>
-                    <configuration>
-                        <encoding>UTF-8</encoding>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${maven-deploy-plugin.version}</version>
-                </plugin>
-                <!-- IDE -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-eclipse-plugin</artifactId>
-                    <version>${maven-eclipse-plugin.version}</version>
-                    <!-- Note 2.8 does not work with AspectJ aspect path -->
-                    <configuration>
-                        <downloadSources>true</downloadSources>
-                        <downloadJavadocs>false</downloadJavadocs>
-                        <wtpversion>2.0</wtpversion>
-                        <additionalBuildcommands>
-                            <buildCommand>
-                                <name>org.eclipse.ajdt.core.ajbuilder</name>
-                                <arguments>
-                                    <aspectPath>org.springframework.aspects</aspectPath>
-                                </arguments>
-                            </buildCommand>
-                            <buildCommand>
-                                <name>org.springframework.ide.eclipse.core.springbuilder</name>
-                            </buildCommand>
-                        </additionalBuildcommands>
-                        <additionalProjectnatures>
-                            <projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
-                            <projectnature>com.springsource.sts.roo.core.nature</projectnature>
-                            <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-                        </additionalProjectnatures>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>tomcat-maven-plugin</artifactId>
-                    <version>${tomcat-maven-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>jetty-maven-plugin</artifactId>
-                    <version>${jetty-maven-plugin.version}</version>
-                    <configuration>
-                        <webAppConfig>
-                            <contextPath>/${project.name}</contextPath>
-                        </webAppConfig>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>aspectj-maven-plugin</artifactId>
-                    <version>${aspectj-maven-plugin.version}</version>
-                    <configuration>
-                        <outxml>true</outxml>
-                        <aspectLibraries>
-                            <aspectLibrary>
-                                <groupId>org.springframework</groupId>
-                                <artifactId>spring-aspects</artifactId>
-                            </aspectLibrary>
-                            <aspectLibrary>
-                                <groupId>com.bbva.jee.arq.spring.core</groupId>
-                                <artifactId>arq-spring-servicing-core</artifactId>
-                            </aspectLibrary>
-                            <aspectLibrary>
-                                <groupId>com.bbva.jee.arq.spring.core</groupId>
-                                <artifactId>arq-spring-restutils</artifactId>
-                            </aspectLibrary>
-                        </aspectLibraries>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>compile</goal>
-                                <goal>test-compile</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.aspectj</groupId>
-                            <artifactId>aspectjrt</artifactId>
-                            <version>${aspectj.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.aspectj</groupId>
-                            <artifactId>aspectjtools</artifactId>
-                            <version>${aspectj.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 </project>
-    

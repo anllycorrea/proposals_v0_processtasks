@@ -4,7 +4,10 @@ import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoader;
 import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExecutionListener;
 import com.bbva.pzic.proposals.util.Errors;
+import com.bbva.pzic.utilTest.BusinessServiceExceptionMatcher;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,6 +15,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import static com.bbva.pzic.proposals.util.Errors.MANDATORY_PARAMETERS_MISSING;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -23,6 +27,9 @@ import static org.junit.Assert.assertNull;
         MockInvocationContextTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class})
 public class EnumMapperTest {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Autowired
     private EnumMapper enumMapper;
@@ -47,11 +54,10 @@ public class EnumMapperTest {
 
     @Test
     public void testGetUnregisterBackendValue() {
-        try {
-            enumMapper.getEnumValue("documentType.id", "XXX");
-        } catch (BusinessServiceException e) {
-            assertEquals(Errors.TECHNICAL_ERROR, e.getErrorCode());
-        }
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.TECHNICAL_ERROR));
+        enumMapper.getEnumValue("documentType.id", "XXX");
+
     }
 
     @Test
@@ -74,10 +80,10 @@ public class EnumMapperTest {
 
     @Test
     public void testGetUnregisterEnumValue() {
-        try {
-            enumMapper.getBackendValue("documentType.id", "X");
-        } catch (BusinessServiceException e) {
-            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
-        }
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
+
+        enumMapper.getBackendValue("documentType.id", "X");
+
     }
 }

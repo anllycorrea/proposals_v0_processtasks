@@ -8,7 +8,7 @@ import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.dao.IProposalsDAOV0;
 import com.bbva.pzic.proposals.util.Errors;
-import com.bbva.pzic.proposals.util.validation.Validator;
+import com.bbva.pzic.routine.validator.Validator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

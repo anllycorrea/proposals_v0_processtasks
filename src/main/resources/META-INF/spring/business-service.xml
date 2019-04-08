@@ -22,11 +22,10 @@
     <context:annotation-config/>
 
     <!-- Declaracion de modulo de servicios -->
-    <servicing:module-metadata application-name="pzic" service-logical-id="proposals"/>
+    <servicing:module-metadata application-name="pzic" service-logical-id="proposals" routines="validator"/>
 
     <!-- beans de cxf -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 
     <context:component-scan base-package="com.bbva.pzic.proposals">

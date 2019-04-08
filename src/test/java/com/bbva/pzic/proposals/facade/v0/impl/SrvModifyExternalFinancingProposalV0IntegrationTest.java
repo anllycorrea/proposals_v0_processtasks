@@ -6,7 +6,10 @@ import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExec
 import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.util.Errors;
+import com.bbva.pzic.utilTest.BusinessServiceExceptionMatcher;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,6 +20,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 
+import static com.bbva.pzic.proposals.util.Errors.MANDATORY_PARAMETERS_MISSING;
+import static com.bbva.pzic.proposals.util.Errors.WRONG_PARAMETERS;
 import static org.junit.Assert.*;
 
 /**
@@ -32,6 +37,9 @@ import static org.junit.Assert.*;
         MockInvocationContextTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class})
 public class SrvModifyExternalFinancingProposalV0IntegrationTest {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Autowired
     private SrvProposalsV0 srvProposalsV0;
@@ -69,63 +77,51 @@ public class SrvModifyExternalFinancingProposalV0IntegrationTest {
 
     @Test
     public void testModifyExternalFinancingProposalWithStatusIdEmpty() throws IOException{
-        try {
-            ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
-            payload.getStatus().setId(null);
-            srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
-            fail();
-        } catch (BusinessServiceException e) {
-            assertEquals(Errors.MANDATORY_PARAMETERS_MISSING, e.getErrorCode());
-        }
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
+
+        ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
+        payload.getStatus().setId(null);
+        srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
+
     }
 
     @Test
     public void testModifyExternalFinancingProposalWrongIdSize() throws IOException {
-        try {
-            ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
-            srvProposalsV0.modifyExternalFinancingProposal("0011013096000000010", payload);
-            fail();
-        } catch (BusinessServiceException e) {
-            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
-        }
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
+
+        ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
+        srvProposalsV0.modifyExternalFinancingProposal("0011013096000000010", payload);
     }
 
     @Test
     public void testModifyExternalFinancingProposalWrongDeliveryTypeIdSize() throws IOException {
-        try {
-            ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
-            payload.getDelivery().getDeliveryType().setId("DD");
-            srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-            fail();
-        } catch (BusinessServiceException e) {
-            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
-        }
+        ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
+        payload.getDelivery().getDeliveryType().setId("DD");
+        srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
     }
 
     @Test
     public void testModifyExternalFinancingProposalWrongDeliveryEmailSize() throws IOException {
-        try {
-            ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
-            payload.getDelivery().setEmail("0912ED102DJ9W1DFWWDJ1D912DJ18JHW9E192D18234718IW5KF");
-            srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-            fail();
-        } catch (BusinessServiceException e) {
-            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
-        }
+        ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
+        payload.getDelivery().setEmail("0912ED102DJ9W1DFWWDJ1D912DJ18JHW9E192D18234718IW5KF");
+        srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
     }
 
     @Test
     public void testModifyExternalFinancingProposalWrongStatusIdSize() throws IOException {
-        try {
-            ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
-            payload.getStatus().setId("88");
-            srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-            fail();
-        } catch (BusinessServiceException e) {
-            assertEquals(Errors.WRONG_PARAMETERS, e.getErrorCode());
-        }
+        ExternalFinancingProposal payload = mock.modifyExternalFinancingProposalPayload();
+        payload.getStatus().setId("88");
+        srvProposalsV0.modifyExternalFinancingProposal(DummyMock.EXTERNAL_FINANCING_PROPOSAL_ID, payload);
     }
 }

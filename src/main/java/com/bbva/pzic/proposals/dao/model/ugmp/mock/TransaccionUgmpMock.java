@@ -16,7 +16,10 @@ public class TransaccionUgmpMock implements InvocadorTransaccion<PeticionTransac
 
     @Override
     public RespuestaTransaccionUgmp invocar(PeticionTransaccionUgmp transaccion) {
-        return new RespuestaTransaccionUgmp();
+        RespuestaTransaccionUgmp response = new RespuestaTransaccionUgmp();
+        response.setCodigoControl("OK");
+        response.setCodigoRetorno("OK_COMMIT");
+        return response;
     }
 
     @Override
