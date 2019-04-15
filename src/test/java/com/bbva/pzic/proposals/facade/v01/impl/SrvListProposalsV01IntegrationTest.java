@@ -20,9 +20,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import javax.ws.rs.core.Response;
 
-import static com.bbva.pzic.proposals.util.Errors.MANDATORY_PARAMETERS_MISSING;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
+import static com.bbva.pzic.proposals.dao.mock.ListProposalsDAOMock.*;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,16 +28,12 @@ import static org.junit.Assert.*;
 @TestExecutionListeners(listeners = {MockInvocationContextTestExecutionListener.class, DependencyInjectionTestExecutionListener.class})
 public class SrvListProposalsV01IntegrationTest {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-    private static final String CUSTOMER_ID = "1";
     private static final String DOCUMENT_TYPE = "DNI";
-    private static final String DOCUMENT_NUMBER = "00000001";
     private static final String PRODUCT_CLASSIFICATION = "CREDIT_CARD";
     private static final String PAGINATION_KEY = "123456789qwertyuio";
     private static final Long PAGE_SIZE = 123L;
-
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
     @Autowired
     private SrvProposalsV01 srvProposalsV01;
 
@@ -51,7 +45,7 @@ public class SrvListProposalsV01IntegrationTest {
     @Test
     public void testListProposalsThatReturnsPartialList() {
         final Response response =
-                srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+                srvProposalsV01.listProposals(CUSTOMER_ID_FOR_PARTIAL_LIST, DOCUMENT_TYPE, DOCUMENT_NUMBER_FOR_PARTIAL_LIST, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
         assertEquals(206, response.getStatus());
         final ProposalData proposalData = (ProposalData) response.getEntity();
         assertNotNull(proposalData);
@@ -63,7 +57,7 @@ public class SrvListProposalsV01IntegrationTest {
     @Test
     public void testListProposalsThatReturnsPartialListWithoutDocumentTypeIdAndDocumentNumber() {
         final Response response =
-                srvProposalsV01.listProposals(CUSTOMER_ID, null, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+                srvProposalsV01.listProposals(CUSTOMER_ID_FOR_PARTIAL_LIST, null, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
         assertEquals(206, response.getStatus());
         final ProposalData proposalData = (ProposalData) response.getEntity();
         assertNotNull(proposalData);
@@ -75,7 +69,7 @@ public class SrvListProposalsV01IntegrationTest {
     @Test
     public void testListProposalsThatReturnsPartialListWithoutCustomerId() {
         final Response response =
-                srvProposalsV01.listProposals(null, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+                srvProposalsV01.listProposals(null, DOCUMENT_TYPE, DOCUMENT_NUMBER_FOR_PARTIAL_LIST, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
         assertEquals(206, response.getStatus());
         final ProposalData proposalData = (ProposalData) response.getEntity();
         assertNotNull(proposalData);
@@ -87,7 +81,7 @@ public class SrvListProposalsV01IntegrationTest {
     @Test
     public void testListProposalsThatReturnsPartialListWithoutDocumentTypeId() {
         final Response response =
-                srvProposalsV01.listProposals(CUSTOMER_ID, null, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+                srvProposalsV01.listProposals(CUSTOMER_ID_FOR_PARTIAL_LIST, null, DOCUMENT_NUMBER_FOR_PARTIAL_LIST, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
         assertEquals(206, response.getStatus());
         final ProposalData proposalData = (ProposalData) response.getEntity();
         assertNotNull(proposalData);
@@ -99,7 +93,7 @@ public class SrvListProposalsV01IntegrationTest {
     @Test
     public void testListProposalsThatReturnsPartialListWithoutDocumentNumber() {
         final Response response =
-                srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+                srvProposalsV01.listProposals(CUSTOMER_ID_FOR_PARTIAL_LIST, DOCUMENT_TYPE, null, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
         assertEquals(206, response.getStatus());
         final ProposalData proposalData = (ProposalData) response.getEntity();
         assertNotNull(proposalData);
@@ -111,9 +105,8 @@ public class SrvListProposalsV01IntegrationTest {
     @Test
     public void testListProposalsThatReturnsCompleteList() {
         final String customerId = "2";
-        final String documentNumber = "00000002";
         final Response response =
-                srvProposalsV01.listProposals(customerId, DOCUMENT_TYPE, documentNumber, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+                srvProposalsV01.listProposals(customerId, DOCUMENT_TYPE, DOCUMENT_NUMBER_FOR_COMPLETE_LIST, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         final ProposalData proposalData = (ProposalData) response.getEntity();
         assertNotNull(proposalData);
@@ -137,7 +130,7 @@ public class SrvListProposalsV01IntegrationTest {
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
 
         final String documentType = "LIBRETA_ELECTORAL";
-        srvProposalsV01.listProposals(CUSTOMER_ID, documentType, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+        srvProposalsV01.listProposals(CUSTOMER_ID_FOR_PARTIAL_LIST, documentType, DOCUMENT_NUMBER_FOR_PARTIAL_LIST, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
 
     }
 
@@ -147,7 +140,7 @@ public class SrvListProposalsV01IntegrationTest {
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
 
         final String documentNumber = "000000012345";
-        srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, documentNumber, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+        srvProposalsV01.listProposals(CUSTOMER_ID_FOR_PARTIAL_LIST, DOCUMENT_TYPE, documentNumber, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
 
     }
 
@@ -157,7 +150,7 @@ public class SrvListProposalsV01IntegrationTest {
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
 
         final String productClassification = "ROCK_CARD";
-        srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, productClassification, PAGINATION_KEY, PAGE_SIZE);
+        srvProposalsV01.listProposals(CUSTOMER_ID_FOR_PARTIAL_LIST, DOCUMENT_TYPE, DOCUMENT_NUMBER_FOR_PARTIAL_LIST, productClassification, PAGINATION_KEY, PAGE_SIZE);
 
     }
 
@@ -167,7 +160,7 @@ public class SrvListProposalsV01IntegrationTest {
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
 
         final String paginationKey = "123456789qwertyuiop";
-        srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, paginationKey, PAGE_SIZE);
+        srvProposalsV01.listProposals(CUSTOMER_ID_FOR_PARTIAL_LIST, DOCUMENT_TYPE, DOCUMENT_NUMBER_FOR_PARTIAL_LIST, PRODUCT_CLASSIFICATION, paginationKey, PAGE_SIZE);
 
     }
 
@@ -176,7 +169,7 @@ public class SrvListProposalsV01IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
 
-        srvProposalsV01.listProposals(CUSTOMER_ID, DOCUMENT_TYPE, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, 1234L);
+        srvProposalsV01.listProposals(CUSTOMER_ID_FOR_PARTIAL_LIST, DOCUMENT_TYPE, DOCUMENT_NUMBER_FOR_PARTIAL_LIST, PRODUCT_CLASSIFICATION, PAGINATION_KEY, 1234L);
     }
 
     @Test
@@ -192,7 +185,7 @@ public class SrvListProposalsV01IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.PARAMETERS_MISSING));
 
-        srvProposalsV01.listProposals(null, null, DOCUMENT_NUMBER, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
+        srvProposalsV01.listProposals(null, null, DOCUMENT_NUMBER_FOR_PARTIAL_LIST, PRODUCT_CLASSIFICATION, PAGINATION_KEY, PAGE_SIZE);
 
     }
 

@@ -1,12 +1,16 @@
 # Created by https://www.gitignore.io
 deploy/
+caas/
 log.roo
+.pmd
 bin
 global-groovy.log
 soapui-errors.log
 soapui.log
 derby.log
+.scannerwork/
 
+### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
 *.iml
@@ -14,6 +18,7 @@ derby.log
 .classpath
 .project
 
+## Directory-based project format:
 .idea/
 # if you remove the above rule, at least ignore the following:
 
@@ -36,9 +41,11 @@ derby.log
 # Mongo Explorer plugin:
 # .idea/mongoSettings.xml
 
+## File-based project format:
 *.ipr
 *.iws
 
+## Plugin-specific files:
 
 # IntelliJ
 out/
@@ -54,7 +61,7 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 
-
+### Eclipse ###
 *.pydevproject
 .metadata
 .gradle
@@ -86,16 +93,13 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
-
+### Maven ###
 target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
 release.properties
-
-
-*.class
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -108,7 +112,7 @@ release.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-
+### NetBeans ###
 nbproject/private/
 build/
 nbbuild/
@@ -116,3 +120,6 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
+
+### Visual Studio Code ###
+.vscode/

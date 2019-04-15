@@ -26,7 +26,8 @@ import java.math.BigDecimal;
 import static com.bbva.pzic.proposals.DummyMock.THIRD_PARTY_PROVIDER_USER_ID;
 import static com.bbva.pzic.proposals.util.Errors.MANDATORY_PARAMETERS_MISSING;
 import static com.bbva.pzic.proposals.util.Errors.WRONG_PARAMETERS;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created on 12/04/2017.

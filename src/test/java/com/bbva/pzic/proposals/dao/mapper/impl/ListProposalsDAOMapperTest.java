@@ -6,7 +6,7 @@ import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.dao.mapper.IListProposalsDAOMapper;
 import com.bbva.pzic.proposals.dao.model.listproposals.FormatProposal;
 import com.bbva.pzic.proposals.dao.model.listproposals.FormatProposalData;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ public class ListProposalsDAOMapperTest {
     }
 
     @Test
-    public void testMapInput() throws IOException {
+    public void testMapInput() {
         final DTOInputListProposals dtoInputListProposals = new DTOInputListProposals();
         dtoInputListProposals.setCustomerId("1");
         dtoInputListProposals.setDocumentType("L");
@@ -75,7 +75,7 @@ public class ListProposalsDAOMapperTest {
         assertEquals(formatProposal.getCodFlujoOpe(), proposal.getProcurementFlow().getId());
 
         assertNotNull(proposal.getIndicators());
-        assertTrue(proposal.getIndicators().size() == 2);
+        assertEquals(2, proposal.getIndicators().size());
 
         assertEquals("ADDRESS_VALIDATION", proposal.getIndicators().get(0).getId());
         assertNotNull(proposal.getIndicators().get(0).getIsActive());
@@ -133,7 +133,7 @@ public class ListProposalsDAOMapperTest {
         // Limits
 
         assertNotNull(proposal.getLimits());
-        assertTrue(proposal.getLimits().size() == 3);
+        assertEquals(3, proposal.getLimits().size());
 
         assertNotNull(proposal.getLimits().get(0));
         assertNotNull(proposal.getLimits().get(0).getId());
@@ -177,7 +177,7 @@ public class ListProposalsDAOMapperTest {
         // Instalments
 
         assertNotNull(proposal.getInstalments());
-        assertTrue(proposal.getInstalments().size() == 3);
+        assertEquals(3, proposal.getInstalments().size());
 
         assertNotNull(proposal.getInstalments().get(0));
         assertNotNull(proposal.getInstalments().get(0).getId());
@@ -218,7 +218,7 @@ public class ListProposalsDAOMapperTest {
 
         // Rates
         assertNotNull(proposal.getRates());
-        assertTrue(proposal.getRates().size() == 3);
+        assertEquals(3, proposal.getRates().size());
 
         assertNotNull(proposal.getRates().get(0));
         assertNotNull(proposal.getRates().get(0).getId());
@@ -243,7 +243,7 @@ public class ListProposalsDAOMapperTest {
 
         // Ranges
         assertNotNull(proposal.getRanges());
-        assertTrue(proposal.getRanges().size() == 2);
+        assertEquals(2, proposal.getRanges().size());
 
         assertNotNull(proposal.getRanges().get(0));
         assertNotNull(proposal.getRanges().get(0).getId());
@@ -303,9 +303,8 @@ public class ListProposalsDAOMapperTest {
     }
 
     private FormatProposalData buildFormatProposalData() throws IOException {
-        final ObjectMapper mapper = new ObjectMapper();
         InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(
                 "com/bbva/pzic/proposals/dao/mock/FormatProposalData.json");
-        return mapper.readValue(in, FormatProposalData.class);
+        return ObjectMapperHelper.getInstance().readValue(in, FormatProposalData.class);
     }
 }

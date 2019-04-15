@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Entelgy
  */
-public class RestGetConnection<S> extends RestConnectionProcessor {
+public abstract class RestGetConnection<S> extends RestConnectionProcessor {
 
     private static final Log LOG = LogFactory.getLog(RestGetConnection.class);
 
@@ -32,8 +32,14 @@ public class RestGetConnection<S> extends RestConnectionProcessor {
             LOG.info("Request query params: " + Arrays.toString(params.entrySet().toArray()));
         }
 
-        RestConnectorResponse rcr = restConnector.doGet(url, params, buildOptionalHeaders(), backend, useProxy);
+        RestConnectorResponse rcr = restConnector.doGet(url, params, buildOptionalHeaders(), useProxy);
 
-        return evaluateResponse(rcr, 0);
+        final S response = buildResponse(rcr, 0);
+
+        evaluateResponse(response, rcr.getStatusCode());
+
+        return response;
     }
+
+    protected abstract void evaluateResponse(S response, int statusCode);
 }

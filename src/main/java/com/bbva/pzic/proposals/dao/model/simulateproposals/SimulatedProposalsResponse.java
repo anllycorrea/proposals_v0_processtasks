@@ -1,5 +1,7 @@
 package com.bbva.pzic.proposals.dao.model.simulateproposals;
 
+import com.bbva.jee.arq.spring.core.servicing.gce.xml.instance.Message;
+
 import java.util.List;
 
 /**
@@ -9,13 +11,22 @@ import java.util.List;
  */
 public class SimulatedProposalsResponse {
 
-    private List<Oferta> listaOfertas;
+    private List<Oferta> data;
+    private List<Message> messages;
 
-    public List<Oferta> getListaOfertas() {
-        return listaOfertas;
+    public List<Oferta> getData() {
+        return data;
     }
 
-    public void setListaOfertas(List<Oferta> listaOfertas) {
-        this.listaOfertas = listaOfertas;
+    public void setData(List<Oferta> data) {
+        this.data = data;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 }

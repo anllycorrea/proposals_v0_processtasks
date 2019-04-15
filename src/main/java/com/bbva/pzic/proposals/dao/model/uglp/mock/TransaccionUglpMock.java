@@ -6,7 +6,6 @@ import com.bbva.pzic.proposals.dao.model.uglp.FormatoUGMEGLP;
 import com.bbva.pzic.proposals.dao.model.uglp.FormatoUGMSGLP1;
 import com.bbva.pzic.proposals.dao.model.uglp.PeticionTransaccionUglp;
 import com.bbva.pzic.proposals.dao.model.uglp.RespuestaTransaccionUglp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -24,16 +23,15 @@ public class TransaccionUglpMock implements InvocadorTransaccion<PeticionTransac
     public static final String TEST_EMPTY = "9999";
     public static final String TEST_NOT_PAGINATION = "8888";
 
-    @Autowired
-    private FormatUglpMock mock;
+    private FormatUglpMock mock = new FormatUglpMock();
 
     @Override
     public RespuestaTransaccionUglp invocar(PeticionTransaccionUglp peticionTransaccionUglp) {
         final RespuestaTransaccionUglp response = new RespuestaTransaccionUglp();
-        response.setCodigoControl("OK");
         response.setCodigoRetorno("OK_COMMIT");
+        response.setCodigoControl("OK");
 
-        FormatoUGMEGLP format = (FormatoUGMEGLP) peticionTransaccionUglp.getCuerpo().getPartes().get(0);
+        FormatoUGMEGLP format = peticionTransaccionUglp.getCuerpo().getParte(FormatoUGMEGLP.class);
         String nroDocu = format.getNrodocu();
         if (TEST_EMPTY.equalsIgnoreCase(nroDocu)) {
             return response;

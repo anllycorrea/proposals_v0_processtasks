@@ -6,38 +6,30 @@
        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/aop
-    	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-		http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd
-		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
-		http://bbva.com/arq-spring-servicing
-		http://bbva.com/arq-spring-servicing/servicing.xsd">
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+        http://bbva.com/arq-spring-servicing
+        http://bbva.com/arq-spring-servicing/servicing.xsd">
 
     <!-- beans de routine -->
     <import resource="classpath:/META-INF/spring/routine.xml"/>
 
-    <context:spring-configured/>
-    <aop:aspectj-autoproxy/>
-    <context:annotation-config/>
-
     <!-- Declaracion de modulo de servicios -->
-    <servicing:module-metadata application-name="pzic" service-logical-id="proposals" routines="validator"/>
+    <servicing:module-metadata application-name="pzic" service-logical-id="proposals"
+                               routines="validator"/>
 
     <servicing:test-metadata local-configuration-filesystem-root="src/test/resources/lc"
                              smc-logical-id="test" smc-registry-id="test"/>
-
-    <!-- beans de cxf -->
-    <import resource="classpath:META-INF/cxf/cxf.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 
     <context:component-scan base-package="com.bbva.pzic.proposals">
         <context:exclude-filter expression=".*_Roo_.*" type="regex"/>
         <context:exclude-filter expression="com\.bbva\.pzic\.[^.]*\.dao\.model\.[^.]*\.Transaccion.*" type="regex"/>
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
-
 
     <jaxrs:server address="/${sa:logicalId}">
         <jaxrs:serviceBeans>
@@ -46,23 +38,28 @@
         </jaxrs:serviceBeans>
     </jaxrs:server>
 
-    <bean id="contextProvider" class="com.bbva.jee.arq.spring.core.servicing.context.ContextProviderImpl" >
+    <bean id="contextProvider" class="com.bbva.jee.arq.spring.core.servicing.context.ContextProviderImpl">
         <property name="invocationContext">
             <bean class="com.bbva.jee.arq.spring.core.servicing.context.InvocationContext">
-                <property name="httpServletRequestHeaders"  >
+                <property name="httpServletRequestHeaders">
                     <map>
-                        <entry key="tsec" value="abcdef" />
+                        <!-- USUARIO:AAP -->
+                        <entry key="tsec" value="RU5URUxHWTAxOjEzMDAwMDAw"/>
                     </map>
                 </property>
             </bean>
         </property>
     </bean>
 
-
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
-
+    <!-- Con este bean evitamos el error producido en el método post-init de la clase
+    com.bbva.jee.arq.spring.core.managers.impl.CatalogManagerImpl, ya que requiere el atributo
+    pathInfo para definir que catálogo usar (ASO o API-nuevo) -->
     <bean class="org.springframework.mock.web.MockHttpServletRequest" primary="true">
-        <property name="pathInfo" value="any/v1/any" />
+        <property name="pathInfo" value="any/v1/any"/>
     </bean>
 
+    <bean class="com.bbva.jee.arq.spring.core.task.TimeoutTaskManager"/>
+
+    <!-- Cambiamos el ámbito del proxy a clases, en lugar de interfaces -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans>

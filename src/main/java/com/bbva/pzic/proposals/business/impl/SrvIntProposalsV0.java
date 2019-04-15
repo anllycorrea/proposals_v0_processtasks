@@ -5,7 +5,6 @@ import com.bbva.pzic.proposals.business.ISrvIntProposalsV0;
 import com.bbva.pzic.proposals.business.dto.*;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.Proposal;
-import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.dao.IProposalsDAOV0;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.routine.validator.Validator;
@@ -47,7 +46,7 @@ public class SrvIntProposalsV0 implements ISrvIntProposalsV0 {
     }
 
     @Override
-    public SimulatedProposalsData simulateProposals(final DTOIntSimulatedProposal simulatedProposal) {
+    public DTOIntSimulatedProposals simulateProposals(final DTOIntSimulatedProposal simulatedProposal) {
         LOG.info("... Invoking method SrvIntProposals.simulateProposals ...");
         LOG.info("... Validating simulateProposals input parameter ...");
         validator.validate(simulatedProposal, ValidationGroup.SimulateProposals.class);

@@ -10,17 +10,8 @@ import java.math.BigDecimal;
  */
 public class DTOIntGrantedAmount {
 
-    private DTOIntGrantedAmountType grantedAmountType;
     private BigDecimal value;
     private String currency;
-
-    public DTOIntGrantedAmountType getGrantedAmountType() {
-        return grantedAmountType;
-    }
-
-    public void setGrantedAmountType(DTOIntGrantedAmountType grantedAmountType) {
-        this.grantedAmountType = grantedAmountType;
-    }
 
     public BigDecimal getValue() {
         return value;

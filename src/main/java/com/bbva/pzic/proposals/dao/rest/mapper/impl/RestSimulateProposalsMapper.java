@@ -1,14 +1,15 @@
-package com.bbva.pzic.proposals.dao.tx.mapper.impl;
+package com.bbva.pzic.proposals.dao.rest.mapper.impl;
 
-import com.bbva.jee.arq.spring.core.servicing.context.ServiceInvocationContext;
 import com.bbva.pzic.proposals.business.dto.DTOIntProduct;
 import com.bbva.pzic.proposals.business.dto.DTOIntProductClassification;
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
+import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposals;
 import com.bbva.pzic.proposals.canonic.*;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.ProductClassification;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequest;
-import com.bbva.pzic.proposals.dao.tx.mapper.IRestSimulateProposalsMapper;
+import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalsResponse;
+import com.bbva.pzic.proposals.dao.rest.mapper.IRestSimulateProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created on 28/12/2017.
@@ -31,9 +33,6 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
 
     @Autowired
     private EnumMapper enumMapper;
-
-    @Autowired
-    private ServiceInvocationContext invocationContext;
 
     @Override
     protected void configure(MapperFactory factory) {
@@ -85,8 +84,8 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
         SimulatedProposalRequest simulatedProposalRequest = map(dtoIn, SimulatedProposalRequest.class);
 
         List<DTOIntProduct> dtoInProducts = dtoIn.getProducts();
-        if (dtoInProducts != null && !dtoInProducts.isEmpty()) {
-            simulatedProposalRequest.setProductClassifications(new ArrayList<ProductClassification>());
+        if (CollectionUtils.isNotEmpty(dtoInProducts)) {
+            simulatedProposalRequest.setProductClassifications(new ArrayList<>());
             for (DTOIntProduct dtoIntProduct : dtoInProducts) {
                 DTOIntProductClassification dtoIntProductClassification = dtoIntProduct.getProductClassification();
                 if (dtoIntProductClassification != null && dtoIntProductClassification.getId() != null) {
@@ -110,14 +109,13 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
     }
 
     @Override
-    public SimulatedProposalsData mapOut(final List<Oferta> response) {
-        if (CollectionUtils.isEmpty(response)) {
+    public DTOIntSimulatedProposals mapOut(final SimulatedProposalsResponse response) {
+        if (response == null || CollectionUtils.isEmpty(response.getData())) {
             return null;
         }
 
-        List<SimulatedProposal> data = new ArrayList<>();
+        List<SimulatedProposal> data = response.getData().stream().map(oferta -> {
 
-        for (Oferta oferta : response) {
             SimulatedProposal simulatedProposal = map(oferta, SimulatedProposal.class);
 
             simulatedProposal.setIndicators(this.addIndicators(simulatedProposal.getIndicators(), "ADDRESS_VALIDATION", oferta.getVdomiciliaria()));
@@ -139,10 +137,11 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
             simulatedProposal.setGrantedAmounts(this.addGrantedAmounts(simulatedProposal.getGrantedAmounts(), "REAL", oferta.getValLimiteReal(), oferta.getDivisa()));
 
             this.mapOutEnums(oferta, simulatedProposal);
-            data.add(simulatedProposal);
-        }
 
-        SimulatedProposalsData simulatedProposalsData = new SimulatedProposalsData();
+            return simulatedProposal;
+        }).collect(Collectors.toList());
+
+        DTOIntSimulatedProposals simulatedProposalsData = new DTOIntSimulatedProposals();
         simulatedProposalsData.setData(data);
         return simulatedProposalsData;
     }

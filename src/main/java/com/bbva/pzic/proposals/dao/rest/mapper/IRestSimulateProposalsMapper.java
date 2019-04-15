@@ -1,11 +1,9 @@
-package com.bbva.pzic.proposals.dao.tx.mapper;
+package com.bbva.pzic.proposals.dao.rest.mapper;
 
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
-import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
-import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
+import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposals;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequest;
-
-import java.util.List;
+import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalsResponse;
 
 /**
  * Created on 28/12/2017.
@@ -16,5 +14,5 @@ public interface IRestSimulateProposalsMapper {
 
     SimulatedProposalRequest mapIn(DTOIntSimulatedProposal dtoIn);
 
-    SimulatedProposalsData mapOut(List<Oferta> response);
+    DTOIntSimulatedProposals mapOut(SimulatedProposalsResponse response);
 }

@@ -1,7 +1,6 @@
 package com.bbva.pzic.proposals.business;
 
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
-import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 
 /**

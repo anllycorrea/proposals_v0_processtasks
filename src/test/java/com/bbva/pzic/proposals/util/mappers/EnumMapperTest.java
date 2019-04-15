@@ -15,7 +15,6 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import static com.bbva.pzic.proposals.util.Errors.MANDATORY_PARAMETERS_MISSING;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -56,24 +55,24 @@ public class EnumMapperTest {
     public void testGetUnregisterBackendValue() {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.TECHNICAL_ERROR));
-        enumMapper.getEnumValue("documentType.id", "XXX");
 
+        enumMapper.getEnumValue("documentType.id", "XXX");
     }
 
     @Test
-    public void testGetEnumValue() throws Exception {
+    public void testGetEnumValue() {
         String value = enumMapper.getEnumValue("documentType.id", "L");
         assertEquals(value, "DNI");
     }
 
     @Test
-    public void testGetNullEnumValue() throws Exception {
+    public void testGetNullEnumValue() {
         String value = enumMapper.getEnumValue("documentType.id", null);
         assertNull(value);
     }
 
     @Test
-    public void testGetNullEnumValueWithEmptyParameter() throws Exception {
+    public void testGetNullEnumValueWithEmptyParameter() {
         String value = enumMapper.getEnumValue("documentType.id", "");
         assertNull(value);
     }
@@ -84,6 +83,5 @@ public class EnumMapperTest {
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(Errors.WRONG_PARAMETERS));
 
         enumMapper.getBackendValue("documentType.id", "X");
-
     }
 }

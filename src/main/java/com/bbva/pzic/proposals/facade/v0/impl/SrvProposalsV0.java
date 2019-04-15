@@ -1,6 +1,7 @@
 package com.bbva.pzic.proposals.facade.v0.impl;
 
 import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
+import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
 import com.bbva.jee.arq.spring.core.servicing.annotations.PATCH;
 import com.bbva.jee.arq.spring.core.servicing.annotations.SMC;
 import com.bbva.jee.arq.spring.core.servicing.annotations.SN;
@@ -8,7 +9,10 @@ import com.bbva.jee.arq.spring.core.servicing.annotations.VN;
 import com.bbva.jee.arq.spring.core.servicing.utils.BusinessServicesToolKit;
 import com.bbva.pzic.proposals.business.ISrvIntProposalsV0;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
-import com.bbva.pzic.proposals.canonic.*;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposalData;
+import com.bbva.pzic.proposals.canonic.Proposals;
+import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.facade.v0.ISrvProposalsV0;
 import com.bbva.pzic.proposals.facade.v0.mapper.*;
 import org.apache.commons.logging.Log;
@@ -22,6 +26,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.List;
 
 import static com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01.PAGE_SIZE;
 import static com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01.PAGINATION_KEY;
@@ -86,10 +91,9 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
             @QueryParam("participant.identityDocument.documentNumber") final String documentNumber,
             @QueryParam("customer.id") final String customerId) {
         LOG.info("----- Invoking service listProposals -----");
-        return listProposalsMapper.mapOut(srvIntProposals
-                .listProposals(listProposalsMapper.mapIn(
-                        documentTypeId,
-                        documentNumber, customerId)));
+        return listProposalsMapper.mapOut(
+                srvIntProposals.listProposals(
+                        listProposalsMapper.mapIn(documentTypeId, documentNumber, customerId)));
     }
 
     /**
@@ -100,9 +104,9 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
     @Path("/proposals/simulate")
     @Consumes(MediaType.APPLICATION_JSON)
     @SMC(registryID = "SMCPE1720158", logicalID = "simulateProposals")
-    public SimulatedProposalsData simulateProposals(final SimulatedProposal simulatedProposal) {
+    public ServiceResponse<List<SimulatedProposal>> simulateProposals(final SimulatedProposal simulatedProposal) {
         LOG.info("----- Invoking service simulateProposals -----");
-        return srvIntProposals.simulateProposals(simulateProposalsMapper.mapIn(simulatedProposal));
+        return simulateProposalsMapper.mapOut(srvIntProposals.simulateProposals(simulateProposalsMapper.mapIn(simulatedProposal)));
     }
 
     /**
@@ -111,6 +115,7 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
     @Override
     @POST
     @Path("/external-financing-proposals")
+    @Consumes(MediaType.APPLICATION_JSON)
     @SMC(registryID = "SMCPE1720028", logicalID = "createExternalFinancingProposal")
     public ExternalFinancingProposal createExternalFinancingProposal(@QueryParam("thirdPartyProvider.userId") final String thirdPartyProviderUserId,
                                                                      final ExternalFinancingProposal payload) {
@@ -157,6 +162,7 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
     @Override
     @PATCH
     @Path("/external-financing-proposals/{external-financing-proposal-id}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @SMC(registryID = "SMCPE1720030", logicalID = "modifyExternalFinancingProposal")
     public Response modifyExternalFinancingProposal(@PathParam("external-financing-proposal-id") final String externalFinancingProposalId,
                                                     final ExternalFinancingProposal payload) {

@@ -1,8 +1,10 @@
 package com.bbva.pzic.proposals.facade.v0.mapper.impl;
 
+import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
 import com.bbva.pzic.proposals.business.dto.DTOIntProduct;
 import com.bbva.pzic.proposals.business.dto.DTOIntProductClassification;
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
+import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposals;
 import com.bbva.pzic.proposals.canonic.Product;
 import com.bbva.pzic.proposals.canonic.ProductClassification;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
@@ -64,5 +66,14 @@ public class SimulateProposalsMapper extends ConfigurableMapper implements ISimu
             }
         }
         return dtoIn;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public ServiceResponse<List<SimulatedProposal>> mapOut(final DTOIntSimulatedProposals dtoIntSimulateProposals) {
+        if (dtoIntSimulateProposals == null) {
+            return null;
+        }
+        return ServiceResponse.data(dtoIntSimulateProposals.getData()).build();
     }
 }

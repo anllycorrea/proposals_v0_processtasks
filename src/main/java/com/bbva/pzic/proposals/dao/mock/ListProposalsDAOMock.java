@@ -9,10 +9,6 @@ import com.bbva.pzic.proposals.dao.IListProposalsDAO;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.helpers.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -33,10 +29,8 @@ public class ListProposalsDAOMock implements IListProposalsDAO {
     public static final String CUSTOMER_ID_FOR_PARTIAL_LIST = "1";
     public static final String DOCUMENT_NUMBER_FOR_PARTIAL_LIST = "00000001";
     public static final String DOCUMENT_NUMBER_FOR_COMPLETE_LIST = "00000002";
-    private static final Log LOG = LogFactory.getLog(ListProposalsDAOMock.class);
 
-    @Autowired
-    private ObjectMapperHelper mapper;
+    private ObjectMapperHelper mapper = ObjectMapperHelper.getInstance();
 
     /**
      * @see IListProposalsDAO#listProposals(DTOInputListProposals)
@@ -47,21 +41,17 @@ public class ListProposalsDAOMock implements IListProposalsDAO {
         if (DOCUMENT_NUMBER_FOR_PARTIAL_LIST.equals(queryFilter.getDocumentNumber())
                 || CUSTOMER_ID_FOR_PARTIAL_LIST.equals(queryFilter.getCustomerId())) {
             try {
-                final List<Proposal> proposals = new ArrayList<>();
-                proposals.addAll(buildProposal());
+                final List<Proposal> proposals = new ArrayList<>(buildProposal());
                 proposalData.setData(proposals);
                 proposalData.setPagination(buildPagination());
             } catch (IOException e) {
-                LOG.error(String.format("... Error: %s ...", e.getMessage()));
                 throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
             }
         } else if (DOCUMENT_NUMBER_FOR_COMPLETE_LIST.equals(queryFilter.getDocumentNumber())) {
             try {
-                final List<Proposal> proposals = new ArrayList<>();
-                proposals.addAll(buildProposal());
+                final List<Proposal> proposals = new ArrayList<>(buildProposal());
                 proposalData.setData(proposals);
             } catch (IOException e) {
-                LOG.error(String.format("... Error: %s ...", e.getMessage()));
                 throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
             }
         }
@@ -71,13 +61,13 @@ public class ListProposalsDAOMock implements IListProposalsDAO {
     private Pagination buildPagination() throws IOException {
         InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(
                 "com/bbva/pzic/proposals/dao/mock/Pagination.json");
-        return mapper.readValue(IOUtils.readBytesFromStream(in), Pagination.class);
+        return mapper.readValue(in, Pagination.class);
     }
 
     private List<Proposal> buildProposal() throws IOException {
         InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(
                 "com/bbva/pzic/proposals/dao/mock/Proposal.json");
-        return mapper.readValues(in, new TypeReference<List<Proposal>>() {
+        return mapper.readValue(in, new TypeReference<List<Proposal>>() {
         });
     }
 }

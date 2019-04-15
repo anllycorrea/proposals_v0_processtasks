@@ -10,8 +10,6 @@ public class DTOIntParticipant {
 
     private String id;
     private DTOIntIdentityDocument identityDocument;
-    private String segmentationCode;
-    private DTOIntRiskLevel riskLevel;
 
     public String getId() {
         return id;
@@ -27,21 +25,5 @@ public class DTOIntParticipant {
 
     public void setIdentityDocument(DTOIntIdentityDocument identityDocument) {
         this.identityDocument = identityDocument;
-    }
-
-    public String getSegmentationCode() {
-        return segmentationCode;
-    }
-
-    public void setSegmentationCode(String segmentationCode) {
-        this.segmentationCode = segmentationCode;
-    }
-
-    public DTOIntRiskLevel getRiskLevel() {
-        return riskLevel;
-    }
-
-    public void setRiskLevel(DTOIntRiskLevel riskLevel) {
-        this.riskLevel = riskLevel;
     }
 }

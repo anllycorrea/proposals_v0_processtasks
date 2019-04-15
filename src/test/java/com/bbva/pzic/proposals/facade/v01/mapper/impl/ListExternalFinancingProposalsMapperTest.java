@@ -5,8 +5,8 @@ import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposa
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposalData;
-import com.bbva.pzic.proposals.facade.v0.mapper.impl.ListExternalFinancingProposalsMapper;
 import com.bbva.pzic.proposals.facade.v0.mapper.IListExternalFinancingProposalsMapper;
+import com.bbva.pzic.proposals.facade.v0.mapper.impl.ListExternalFinancingProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 /**
  * Created on 12/04/2017.
  *
