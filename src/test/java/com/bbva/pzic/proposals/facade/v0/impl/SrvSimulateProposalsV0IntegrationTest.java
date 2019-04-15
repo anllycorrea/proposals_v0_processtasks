@@ -1,11 +1,13 @@
 package com.bbva.pzic.proposals.facade.v0.impl;
 
+import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
+import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoader;
 import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExecutionListener;
 import com.bbva.pzic.proposals.DummyMock;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
-import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.facade.v0.ISrvProposalsV0;
+import com.bbva.pzic.utilTest.BusinessServiceExceptionMatcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,8 +20,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.bbva.pzic.proposals.dao.rest.mock.RestSimulateProposalsMock.EMPTY_DATA;
+import static com.bbva.pzic.proposals.dao.rest.mock.RestSimulateProposalsMock.ERROR_RESPONSE;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -52,7 +56,7 @@ public class SrvSimulateProposalsV0IntegrationTest {
     public void simulateProposalsTest() throws IOException {
         SimulatedProposal simulatedProposal = dummyMock.getSimulatedProposal();
 
-        SimulatedProposalsData result = srvProposalsV0.simulateProposals(simulatedProposal);
+        ServiceResponse<List<SimulatedProposal>> result = srvProposalsV0.simulateProposals(simulatedProposal);
 
         assertNotNull(result);
         assertNotNull(result.getData());
@@ -62,14 +66,24 @@ public class SrvSimulateProposalsV0IntegrationTest {
     public void simulateProposalsEmptyTest() throws IOException {
         SimulatedProposal simulatedProposal = dummyMock.getSimulatedProposal();
         simulatedProposal.getParticipant().getIdentityDocument().setDocumentNumber(EMPTY_DATA);
-        SimulatedProposalsData result = srvProposalsV0.simulateProposals(simulatedProposal);
+        ServiceResponse<List<SimulatedProposal>> result = srvProposalsV0.simulateProposals(simulatedProposal);
 
         assertNull(result);
     }
 
     @Test
+    public void simulateProposalsErrorTest() throws IOException {
+        expectedException.expect(BusinessServiceException.class);
+        expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode("invalidParameters"));
+
+        SimulatedProposal simulatedProposal = dummyMock.getSimulatedProposal();
+        simulatedProposal.getParticipant().getIdentityDocument().setDocumentNumber(ERROR_RESPONSE);
+        srvProposalsV0.simulateProposals(simulatedProposal);
+    }
+
+    @Test
     public void simulateProposalsWithoutFieldsTest() {
-        SimulatedProposalsData result = srvProposalsV0.simulateProposals(new SimulatedProposal());
+        ServiceResponse<List<SimulatedProposal>> result = srvProposalsV0.simulateProposals(new SimulatedProposal());
 
         assertNotNull(result);
         assertNotNull(result.getData());

@@ -3,7 +3,6 @@ package com.bbva.pzic.proposals.business;
 import com.bbva.pzic.proposals.business.dto.*;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.Proposal;
-import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public interface ISrvIntProposalsV0 {
 
     List<Proposal> listProposals(InputListProposals listProposals);
 
-    SimulatedProposalsData simulateProposals(DTOIntSimulatedProposal simulatedProposal);
+    DTOIntSimulatedProposals simulateProposals(DTOIntSimulatedProposal simulatedProposal);
 
     ExternalFinancingProposal createExternalFinancingProposal(DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal);
 

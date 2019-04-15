@@ -1,0 +1,20 @@
+{
+  "messages": [
+    {
+      "code": "invalidParameters",
+      "message": "Invalid parameters",
+      "type": "ERROR",
+      "parameters": [
+        {
+          "name": "latitude"
+        },
+        {
+          "name": "longitude"
+        },
+        {
+          "name": "radius"
+        }
+      ]
+    }
+  ]
+}

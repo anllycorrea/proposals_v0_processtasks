@@ -3,10 +3,12 @@ package com.bbva.pzic.proposals.dao.impl;
 import com.bbva.pzic.proposals.business.dto.*;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.Proposal;
-import com.bbva.pzic.proposals.canonic.SimulatedProposalsData;
 import com.bbva.pzic.proposals.dao.IProposalsDAOV0;
 import com.bbva.pzic.proposals.dao.rest.RestSimulateProposals;
-import com.bbva.pzic.proposals.dao.tx.*;
+import com.bbva.pzic.proposals.dao.tx.TxCreateExternalFinancingProposal;
+import com.bbva.pzic.proposals.dao.tx.TxListExternalFinancingProposals;
+import com.bbva.pzic.proposals.dao.tx.TxListProposalsV0;
+import com.bbva.pzic.proposals.dao.tx.TxModifyExternalFinancingProposal;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,7 @@ public class ProposalsDAOV0 implements IProposalsDAOV0 {
     }
 
     @Override
-    public SimulatedProposalsData simulateProposals(final DTOIntSimulatedProposal simulatedProposal) {
+    public DTOIntSimulatedProposals simulateProposals(final DTOIntSimulatedProposal simulatedProposal) {
         LOG.info("... Invoking method ProposalsDAO.simulateProposals ...");
         return restSimulateProposals.invoke(simulatedProposal);
     }

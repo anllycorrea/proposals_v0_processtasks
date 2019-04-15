@@ -1,14 +1,16 @@
 package com.bbva.pzic.proposals.dao.rest.mock;
 
-import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
+import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequest;
+import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalsResponse;
 import com.bbva.pzic.proposals.dao.rest.RestSimulateProposals;
 import com.bbva.pzic.proposals.dao.rest.mock.stub.RestSimulateProposalsBuilder;
+import com.bbva.pzic.proposals.util.Errors;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
+import java.io.IOException;
 
 /**
  * Created on 28/12/2017.
@@ -20,6 +22,7 @@ import java.util.List;
 public class RestSimulateProposalsMock extends RestSimulateProposals {
 
     public static final String EMPTY_DATA = "99999999";
+    public static final String ERROR_RESPONSE = "88888888";
 
     private RestSimulateProposalsBuilder restSimulateProposalsBuilder;
 
@@ -29,10 +32,19 @@ public class RestSimulateProposalsMock extends RestSimulateProposals {
     }
 
     @Override
-    public List<Oferta> connect(final String urlPropertyValue, final SimulatedProposalRequest entityPayload) {
+    public SimulatedProposalsResponse connect(final String urlPropertyValue, final SimulatedProposalRequest entityPayload) {
         if (EMPTY_DATA.equals(entityPayload.getDocumentNumber())) {
             return null;
         }
-        return restSimulateProposalsBuilder.buildSimulatedProposalsResponse();
+
+        try {
+            if (ERROR_RESPONSE.equals(entityPayload.getDocumentNumber())) {
+                evaluateResponse(restSimulateProposalsBuilder.buildMessages(), 400);
+            }
+
+            return restSimulateProposalsBuilder.buildSimulatedProposalsResponse();
+        } catch (IOException e) {
+            throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
+        }
     }
 }

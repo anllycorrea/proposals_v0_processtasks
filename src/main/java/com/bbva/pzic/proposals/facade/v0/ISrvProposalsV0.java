@@ -1,8 +1,13 @@
 package com.bbva.pzic.proposals.facade.v0;
 
-import com.bbva.pzic.proposals.canonic.*;
+import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposalData;
+import com.bbva.pzic.proposals.canonic.Proposals;
+import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Created on 28/12/2017.
@@ -34,9 +39,9 @@ public interface ISrvProposalsV0 {
      * Service for simulating a set of proposals.
      *
      * @param simulatedProposal payload
-     * @return {@link SimulatedProposalsData}
+     * @return {@link List<SimulatedProposal>}
      */
-    SimulatedProposalsData simulateProposals(SimulatedProposal simulatedProposal);
+    ServiceResponse<List<SimulatedProposal>> simulateProposals(SimulatedProposal simulatedProposal);
 
     /**
      * Method for creating an external financing proposal.
