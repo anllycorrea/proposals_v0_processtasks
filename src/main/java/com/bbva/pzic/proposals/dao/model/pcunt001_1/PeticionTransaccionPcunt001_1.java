@@ -117,7 +117,7 @@ import org.springframework.roo.addon.javabean.annotations.RooSerializable;
  * mandatory=&quot;0&quot; /&gt;
  * &lt;parameter order=&quot;4&quot; name=&quot;address&quot; type=&quot;String&quot; size=&quot;100&quot;
  * mandatory=&quot;0&quot; /&gt;
- * &lt;dto name=&quot;phoneCompany&quot;
+ * &lt;dto name=&quot;phoneCompanyOut&quot;
  * package=&quot;com.bbva.pcun.dto.validateaccess.dto.PhoneCompanyDTO&quot;
  * artifactId=&quot;PCUNC001&quot; mandatory=&quot;0&quot; order=&quot;3&quot;&gt;
  * &lt;parameter order=&quot;1&quot; name=&quot;id&quot; type=&quot;String&quot; size=&quot;50&quot;

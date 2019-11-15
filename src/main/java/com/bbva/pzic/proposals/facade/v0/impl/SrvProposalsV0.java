@@ -66,7 +66,7 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
     @Resource(name = "createQuestionnairesValidateAccessMapper")
     private ICreateQuestionnairesValidateAccessMapper createQuestionnairesValidateAccessMapper;
 
-    @Autowired
+    @Resource(name = "simulateProposalsMapper")
     private ISimulateProposalsMapper simulateProposalsMapper;
 
     @Autowired
