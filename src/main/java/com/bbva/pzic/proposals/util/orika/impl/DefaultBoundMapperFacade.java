@@ -1,6 +1,6 @@
 /*
  * Orika - simpler, better and faster Java bean mapping
- * 
+ *
  * Copyright (C) 2011 Orika authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,29 +28,29 @@ import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
 
 /**
  * DefaultBoundMapperFacade is the base implementation of BoundMapperFacade
- * 
+ *
  * @author matt.deboer@gmail.com
- * 
+ *
  */
 class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
-    
+
     protected volatile MappingStrategy aToB;
     protected volatile MappingStrategy bToA;
     protected volatile MappingStrategy aToBInPlace;
     protected volatile MappingStrategy bToAInPlace;
     protected volatile ObjectFactory<A> objectFactoryA;
     protected volatile ObjectFactory<B> objectFactoryB;
-    
+
     protected final java.lang.reflect.Type rawAType;
     protected final java.lang.reflect.Type rawBType;
     protected final Type<A> aType;
     protected final Type<B> bType;
     protected final MapperFactory mapperFactory;
     protected final MappingContextFactory contextFactory;
-    
+
     /**
      * Constructs a new instance of DefaultBoundMapperFacade
-     * 
+     *
      * @param mapperFactory
      * @param contextFactory
      * @param typeOfA
@@ -64,15 +64,15 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
         this.aType = TypeFactory.valueOf(typeOfA);
         this.bType = TypeFactory.valueOf(typeOfB);
     }
-    
+
     public Type<A> getAType() {
         return aType;
     }
-    
+
     public Type<B> getBType() {
         return bType;
     }
-    
+
     public B map(A instanceA) {
         MappingContext context = contextFactory.getContext();
         try {
@@ -81,7 +81,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             contextFactory.release(context);
         }
     }
-    
+
     public A mapReverse(B source) {
         MappingContext context = contextFactory.getContext();
         try {
@@ -90,7 +90,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             contextFactory.release(context);
         }
     }
-    
+
     public void map(A instanceA, B instanceB) {
         MappingContext context = contextFactory.getContext();
         try {
@@ -99,7 +99,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             contextFactory.release(context);
         }
     }
-    
+
     public void mapReverse(B instanceB, A instanceA) {
         MappingContext context = contextFactory.getContext();
         try {
@@ -108,16 +108,16 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             contextFactory.release(context);
         }
     }
-    
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see ma.glasnost.orika.DedicatedMapperFacade#mapAtoB(java.lang.Object,
      * ma.glasnost.orika.MappingContext)
      */
     @SuppressWarnings("unchecked")
     public B map(A instanceA, MappingContext context) {
-        B result = (B) context.getMappedObject(instanceA, bType);
+        B result = context.getMappedObject(instanceA, bType);
         if (result == null) {
             if (aToB == null) {
                 synchronized (this) {
@@ -130,16 +130,16 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
         }
         return result;
     }
-    
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see ma.glasnost.orika.DedicatedMapperFacade#mapBtoA(java.lang.Object,
      * ma.glasnost.orika.MappingContext)
      */
     @SuppressWarnings("unchecked")
     public A mapReverse(B instanceB, MappingContext context) {
-        A result = (A) context.getMappedObject(instanceB, aType);
+        A result = context.getMappedObject(instanceB, aType);
         if (result == null) {
             if (bToA == null) {
                 synchronized (this) {
@@ -152,10 +152,10 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
         }
         return result;
     }
-    
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see ma.glasnost.orika.DedicatedMapperFacade#mapAtoB(java.lang.Object,
      * java.lang.Object, ma.glasnost.orika.MappingContext)
      */
@@ -171,10 +171,10 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             aToBInPlace.map(instanceA, instanceB, context);
         }
     }
-    
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see ma.glasnost.orika.DedicatedMapperFacade#mapBtoA(java.lang.Object,
      * java.lang.Object, ma.glasnost.orika.MappingContext)
      */
@@ -190,7 +190,7 @@ class DefaultBoundMapperFacade<A, B> implements BoundMapperFacade<A, B> {
             bToAInPlace.map(instanceB, instanceA, context);
         }
     }
-    
+
     public String toString() {
         return getClass().getSimpleName() + "(" + aType +", " + bType + ")";
     }

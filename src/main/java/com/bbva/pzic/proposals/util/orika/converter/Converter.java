@@ -1,6 +1,6 @@
 /*
  * Orika - simpler, better and faster Java bean mapping
- * 
+ *
  * Copyright (C) 2011 Orika authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,36 +23,36 @@ import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
 @Deprecated
 public interface Converter<S, D> extends MappedTypePair<S, D> {
-    
+
     boolean canConvert(Class<S> sourceClass, Class<? extends D> destinationClass);
-    
+
     D convert(S source, Class<? extends D> destinationClass);
-    
+
     /**
      * LegacyConverter provides back-compatible support for the older version
      * of converter.
-     * 
+     *
      * @author matt.deboer@gmail.com
      *
      * @param <S>
      * @param <D>
      */
     public static class LegacyConverter<S, D> implements com.bbva.pzic.proposals.util.orika.Converter<S, D> {
-        
+
         private com.bbva.pzic.proposals.util.orika.converter.Converter<S, D> delegate;
-        
+
         public LegacyConverter(com.bbva.pzic.proposals.util.orika.converter.Converter<S, D> delegate) {
             this.delegate = delegate;
         }
-        
+
         @SuppressWarnings("unchecked")
         public boolean canConvert(Type<?> sourceClass, Type<?> destinationType) {
-            
+
             return delegate.canConvert((Class<S>) sourceClass.getRawType(), (Class<D>) destinationType.getRawType());
         }
-        
+
         public D convert(S source, Type<? extends D> destinationType) {
-            
+
             return delegate.convert(source, destinationType.getRawType());
         }
 
@@ -61,7 +61,7 @@ public interface Converter<S, D> extends MappedTypePair<S, D> {
 				((CustomConverterBase<?,?>)delegate).setMapperFacade(mapper);
 			}
 		}
-		
+
 		public String toString() {
 	    	return LegacyConverter.class.getSimpleName() + "(" + delegate.toString() + ")";
 	    }
@@ -79,6 +79,6 @@ public interface Converter<S, D> extends MappedTypePair<S, D> {
         public Type<D> getBType() {
             return delegate.getBType();
         }
-        
+
     }
 }

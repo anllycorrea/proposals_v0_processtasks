@@ -1,23 +1,28 @@
 package com.bbva.pzic.proposals.business;
 
-import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
-import com.bbva.pzic.proposals.canonic.ProposalData;
+import com.bbva.pzic.proposals.business.dto.*;
+import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
+import com.bbva.pzic.proposals.canonic.Proposal;
+import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
+
+import java.util.List;
 
 /**
- * Created on 12/12/2016.
+ * Created on 28/12/2017.
  *
  * @author Entelgy
  */
 public interface ISrvIntProposals {
 
-    /**
-     * Validates all constraints on queryFilter and then gets all proposals of products that
-     * match the query filter
-     *
-     * @param queryFilter filter
-     * @return a list of proposals
-     * @throws com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException if a constraint violation occurred
-     */
-    ProposalData listProposals(DTOInputListProposals queryFilter);
+    List<Proposal> listProposals(InputListProposals listProposals);
 
+    DTOIntSimulatedProposals simulateProposals(DTOIntSimulatedProposal simulatedProposal);
+
+    ExternalFinancingProposal createExternalFinancingProposal(DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal);
+
+    DTOOutExternalFinancingProposalData listExternalFinancingProposals(DTOInputListExternalFinancingProposals dtoIn);
+
+    void modifyExternalFinancingProposal(DTOInputModifyExternalFinancingProposal dtoIn);
+
+    ValidateAccess createQuestionnairesValidateAccess(DTOIntValidateAccess dtoInt);
 }

@@ -7,13 +7,14 @@ import com.bbva.jee.arq.spring.core.servicing.annotations.SMC;
 import com.bbva.jee.arq.spring.core.servicing.annotations.SN;
 import com.bbva.jee.arq.spring.core.servicing.annotations.VN;
 import com.bbva.jee.arq.spring.core.servicing.utils.BusinessServicesToolKit;
-import com.bbva.pzic.proposals.business.ISrvIntProposalsV0;
+import com.bbva.pzic.proposals.business.ISrvIntProposals;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposalData;
 import com.bbva.pzic.proposals.canonic.Proposals;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.facade.v0.ISrvProposalsV0;
+import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
 import com.bbva.pzic.proposals.facade.v0.mapper.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,7 +49,7 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
     public UriInfo uriInfo;
 
     @Autowired
-    private ISrvIntProposalsV0 srvIntProposals;
+    private ISrvIntProposals srvIntProposals;
 
     @Resource(name = "listProposalsMapperV0")
     private IListProposalsMapper listProposalsMapper;
@@ -61,6 +62,9 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
 
     @Resource(name = "modifyExternalFinancingProposalMapper")
     private IModifyExternalFinancingProposalMapper modifyExternalFinancingProposalMapper;
+
+    @Resource(name = "createQuestionnairesValidateAccessMapper")
+    private ICreateQuestionnairesValidateAccessMapper createQuestionnairesValidateAccessMapper;
 
     @Autowired
     private ISimulateProposalsMapper simulateProposalsMapper;
@@ -173,4 +177,19 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
         return Response.ok().build();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @POST
+    @Path("/questionnaires/validate-access")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @SMC(registryID = "SMCPE1920120", logicalID = "createQuestionnairesValidateAccess")
+    public ServiceResponse<ValidateAccess> createQuestionnairesValidateAccess(
+            final ValidateAccess validateAccess) {
+        LOG.info("----- Invoking service createQuestionnairesValidateAccess -----");
+        return createQuestionnairesValidateAccessMapper.mapOut(
+                srvIntProposals.createQuestionnairesValidateAccess(
+                        createQuestionnairesValidateAccessMapper.mapIn(validateAccess)));
+    }
 }

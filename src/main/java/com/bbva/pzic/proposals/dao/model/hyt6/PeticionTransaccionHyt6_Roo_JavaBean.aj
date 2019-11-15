@@ -4,11 +4,29 @@
 package com.bbva.pzic.proposals.dao.model.hyt6;
 
 import com.bbva.jee.arq.spring.core.host.CuerpoMultiparte;
+import com.bbva.pzic.proposals.dao.model.hyt6.PeticionTransaccionHyt6;
 
 privileged aspect PeticionTransaccionHyt6_Roo_JavaBean {
     
-    public void PeticionTransaccionHyt6.setCuerpo(CuerpoMultiparte cuerpo) {
+    /**
+     * Sets cuerpo value
+     * 
+     * @param cuerpo
+     * @return PeticionTransaccionHyt6
+     */
+    public PeticionTransaccionHyt6 PeticionTransaccionHyt6.setCuerpo(CuerpoMultiparte cuerpo) {
         this.cuerpo = cuerpo;
+        return this;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return String
+     */
+    public String PeticionTransaccionHyt6.toString() {
+        return "PeticionTransaccionHyt6 {" + 
+        "}" + super.toString();
     }
     
 }

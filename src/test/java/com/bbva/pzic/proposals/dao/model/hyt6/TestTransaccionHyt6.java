@@ -5,8 +5,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 /**
@@ -20,14 +20,13 @@ public class TestTransaccionHyt6 {
     @InjectMocks
     private TransaccionHyt6 transaccion;
 
-    @Spy
-    private ServicioTransacciones servicioTransacciones = Mockito.mock(ServicioTransacciones.class);
+    @Mock
+    private ServicioTransacciones servicioTransacciones;
 
     @Test
     public void test() {
 
         PeticionTransaccionHyt6 peticion = new PeticionTransaccionHyt6();
-
         RespuestaTransaccionHyt6 respuesta = new RespuestaTransaccionHyt6();
 
         Mockito.when(servicioTransacciones.invocar(PeticionTransaccionHyt6.class, RespuestaTransaccionHyt6.class,

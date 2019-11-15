@@ -3,25 +3,59 @@
 
 package com.bbva.pzic.proposals.dao.model.uglp;
 
-import java.lang.Integer;
-import java.lang.String;
+import com.bbva.pzic.proposals.dao.model.uglp.FormatoUGMSGLP2;
 
 privileged aspect FormatoUGMSGLP2_Roo_JavaBean {
     
+    /**
+     * Gets idpagin value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP2.getIdpagin() {
         return this.idpagin;
     }
     
-    public void FormatoUGMSGLP2.setIdpagin(String idpagin) {
+    /**
+     * Sets idpagin value
+     * 
+     * @param idpagin
+     * @return FormatoUGMSGLP2
+     */
+    public FormatoUGMSGLP2 FormatoUGMSGLP2.setIdpagin(String idpagin) {
         this.idpagin = idpagin;
+        return this;
     }
     
+    /**
+     * Gets tampagi value
+     * 
+     * @return Integer
+     */
     public Integer FormatoUGMSGLP2.getTampagi() {
         return this.tampagi;
     }
     
-    public void FormatoUGMSGLP2.setTampagi(Integer tampagi) {
+    /**
+     * Sets tampagi value
+     * 
+     * @param tampagi
+     * @return FormatoUGMSGLP2
+     */
+    public FormatoUGMSGLP2 FormatoUGMSGLP2.setTampagi(Integer tampagi) {
         this.tampagi = tampagi;
+        return this;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return String
+     */
+    public String FormatoUGMSGLP2.toString() {
+        return "FormatoUGMSGLP2 {" + 
+                "idpagin='" + idpagin + '\'' + 
+                ", tampagi='" + tampagi + '\'' + "}" + super.toString();
     }
     
 }

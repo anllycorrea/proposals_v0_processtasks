@@ -4,11 +4,29 @@
 package com.bbva.pzic.proposals.dao.model.uglp;
 
 import com.bbva.jee.arq.spring.core.host.CuerpoMultiparte;
+import com.bbva.pzic.proposals.dao.model.uglp.PeticionTransaccionUglp;
 
 privileged aspect PeticionTransaccionUglp_Roo_JavaBean {
     
-    public void PeticionTransaccionUglp.setCuerpo(CuerpoMultiparte cuerpo) {
+    /**
+     * Sets cuerpo value
+     * 
+     * @param cuerpo
+     * @return PeticionTransaccionUglp
+     */
+    public PeticionTransaccionUglp PeticionTransaccionUglp.setCuerpo(CuerpoMultiparte cuerpo) {
         this.cuerpo = cuerpo;
+        return this;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return String
+     */
+    public String PeticionTransaccionUglp.toString() {
+        return "PeticionTransaccionUglp {" + 
+        "}" + super.toString();
     }
     
 }

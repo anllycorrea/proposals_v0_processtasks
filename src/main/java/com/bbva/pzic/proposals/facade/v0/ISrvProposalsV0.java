@@ -5,6 +5,7 @@ import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposalData;
 import com.bbva.pzic.proposals.canonic.Proposals;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
+import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
 
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -77,4 +78,13 @@ public interface ISrvProposalsV0 {
      * @return status of the response
      */
     Response modifyExternalFinancingProposal(String externalFinancingProposalId, ExternalFinancingProposal payload);
+
+    /**
+     * Validation of access to channels not sessioned for customers and
+     * non-customers.
+     *
+     * @param validateAccess payload
+     * @return {@link ServiceResponse<ValidateAccess>}
+     */
+    ServiceResponse<ValidateAccess> createQuestionnairesValidateAccess(ValidateAccess validateAccess);
 }

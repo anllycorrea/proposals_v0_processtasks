@@ -3,74 +3,186 @@
 
 package com.bbva.pzic.proposals.dao.model.hyt6;
 
-import java.lang.Integer;
-import java.lang.String;
+import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR602;
 import java.math.BigDecimal;
 
 privileged aspect FormatoHYMR602_Roo_JavaBean {
     
+    /**
+     * Gets id value
+     * 
+     * @return String
+     */
     public String FormatoHYMR602.getId() {
         return this.id;
     }
     
-    public void FormatoHYMR602.setId(String id) {
+    /**
+     * Sets id value
+     * 
+     * @param id
+     * @return FormatoHYMR602
+     */
+    public FormatoHYMR602 FormatoHYMR602.setId(String id) {
         this.id = id;
+        return this;
     }
     
+    /**
+     * Gets tippro value
+     * 
+     * @return String
+     */
     public String FormatoHYMR602.getTippro() {
         return this.tippro;
     }
     
-    public void FormatoHYMR602.setTippro(String tippro) {
+    /**
+     * Sets tippro value
+     * 
+     * @param tippro
+     * @return FormatoHYMR602
+     */
+    public FormatoHYMR602 FormatoHYMR602.setTippro(String tippro) {
         this.tippro = tippro;
+        return this;
     }
     
+    /**
+     * Gets tea value
+     * 
+     * @return BigDecimal
+     */
     public BigDecimal FormatoHYMR602.getTea() {
         return this.tea;
     }
     
-    public void FormatoHYMR602.setTea(BigDecimal tea) {
+    /**
+     * Sets tea value
+     * 
+     * @param tea
+     * @return FormatoHYMR602
+     */
+    public FormatoHYMR602 FormatoHYMR602.setTea(BigDecimal tea) {
         this.tea = tea;
+        return this;
     }
     
+    /**
+     * Gets plazo value
+     * 
+     * @return Integer
+     */
     public Integer FormatoHYMR602.getPlazo() {
         return this.plazo;
     }
     
-    public void FormatoHYMR602.setPlazo(Integer plazo) {
+    /**
+     * Sets plazo value
+     * 
+     * @param plazo
+     * @return FormatoHYMR602
+     */
+    public FormatoHYMR602 FormatoHYMR602.setPlazo(Integer plazo) {
         this.plazo = plazo;
+        return this;
     }
     
+    /**
+     * Gets tipplaz value
+     * 
+     * @return String
+     */
     public String FormatoHYMR602.getTipplaz() {
         return this.tipplaz;
     }
     
-    public void FormatoHYMR602.setTipplaz(String tipplaz) {
+    /**
+     * Sets tipplaz value
+     * 
+     * @param tipplaz
+     * @return FormatoHYMR602
+     */
+    public FormatoHYMR602 FormatoHYMR602.setTipplaz(String tipplaz) {
         this.tipplaz = tipplaz;
+        return this;
     }
     
+    /**
+     * Gets cuoprd value
+     * 
+     * @return BigDecimal
+     */
     public BigDecimal FormatoHYMR602.getCuoprd() {
         return this.cuoprd;
     }
     
-    public void FormatoHYMR602.setCuoprd(BigDecimal cuoprd) {
+    /**
+     * Sets cuoprd value
+     * 
+     * @param cuoprd
+     * @return FormatoHYMR602
+     */
+    public FormatoHYMR602 FormatoHYMR602.setCuoprd(BigDecimal cuoprd) {
         this.cuoprd = cuoprd;
+        return this;
     }
     
+    /**
+     * Gets montprd value
+     * 
+     * @return BigDecimal
+     */
     public BigDecimal FormatoHYMR602.getMontprd() {
         return this.montprd;
     }
     
-    public void FormatoHYMR602.setMontprd(BigDecimal montprd) {
+    /**
+     * Sets montprd value
+     * 
+     * @param montprd
+     * @return FormatoHYMR602
+     */
+    public FormatoHYMR602 FormatoHYMR602.setMontprd(BigDecimal montprd) {
         this.montprd = montprd;
+        return this;
     }
     
+    /**
+     * Gets moneda value
+     * 
+     * @return String
+     */
     public String FormatoHYMR602.getMoneda() {
         return this.moneda;
     }
     
-    public void FormatoHYMR602.setMoneda(String moneda) {
+    /**
+     * Sets moneda value
+     * 
+     * @param moneda
+     * @return FormatoHYMR602
+     */
+    public FormatoHYMR602 FormatoHYMR602.setMoneda(String moneda) {
         this.moneda = moneda;
+        return this;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return String
+     */
+    public String FormatoHYMR602.toString() {
+        return "FormatoHYMR602 {" + 
+                "id='" + id + '\'' + 
+                ", tippro='" + tippro + '\'' + 
+                ", tea='" + tea + '\'' + 
+                ", plazo='" + plazo + '\'' + 
+                ", tipplaz='" + tipplaz + '\'' + 
+                ", cuoprd='" + cuoprd + '\'' + 
+                ", montprd='" + montprd + '\'' + 
+                ", moneda='" + moneda + '\'' + "}" + super.toString();
     }
     
 }

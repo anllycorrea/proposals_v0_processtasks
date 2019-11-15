@@ -1,6 +1,6 @@
 /*
  * Orika - simpler, better and faster Java bean mapping
- * 
+ *
  * Copyright (C) 2011 Orika authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,45 +32,45 @@ import com.bbva.pzic.proposals.util.orika.metadata.Type;
 import com.bbva.pzic.proposals.util.orika.metadata.TypeFactory;
 
 public class MappingContext implements Reusable {
-	
+
 	private final Map<Type<?>, Type<?>> mapping;
 	private final Map<java.lang.reflect.Type, Map<Object, Object>> cache;
 	private FastList<FastMap<MapperKey, ClassMap<?,?>>> mappersSeen;
 	private MappingStrategy strategy;
 	private boolean isNew = true;
 	private int depth;
-	
+
 	public static class Factory extends ObjectFactory<MappingContext> implements MappingContextFactory {
 
         @Override
         protected MappingContext create() {
             return new MappingContext();
         }
-        
+
         public MappingContext getContext() {
             return object();
         }
-        
+
         public void release(MappingContext context) {
             recycle(context);
         }
-	    
+
 	}
-	
+
 
 	public MappingContext() {
-		mapping = new FastMap<Type<?>, Type<?>>();
-		cache = new FastMap<java.lang.reflect.Type, Map<Object, Object>>();
+		mapping = new FastMap<>();
+		cache = new FastMap<>();
 	}
-	
+
 	public void setResolvedMappingStrategy(MappingStrategy strategy) {
 	    this.strategy = strategy;
 	}
-	
+
 	public MappingStrategy getResolvedMappingStrategy() {
 	    return this.strategy;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public <S, D> Type<? extends D> getConcreteClass(Type<S> sourceType,
 			Type<D> destinationType) {
@@ -123,7 +123,7 @@ public class MappingContext implements Reusable {
 
 	@SuppressWarnings("unchecked")
 	public <D> D getMappedObject(Object source, java.lang.reflect.Type destinationType) {
-		
+
 	    if (isNew) {
 	        return null;
 	    }
@@ -133,7 +133,7 @@ public class MappingContext implements Reusable {
 
 	/**
 	 * Registers a ClassMap marking it as mapped within the current context
-	 * 
+	 *
 	 * @param classMap
 	 */
 	public void registerMapperGeneration(ClassMap<?,?> classMap) {
@@ -146,7 +146,7 @@ public class MappingContext implements Reusable {
 	    }
 	    list.put(classMap.getMapperKey(), classMap);
 	}
-	
+
 	public ClassMap<?,?> getMapperGeneration(MapperKey mapperKey) {
 	    ClassMap<?,?> result = null;
 	    FastMap<MapperKey, ClassMap<?,?>> map = (mappersSeen == null || mappersSeen.isEmpty()) ? null : this.mappersSeen.get(depth-1);
@@ -155,15 +155,15 @@ public class MappingContext implements Reusable {
 	    }
 	    return result;
 	}
-	
+
 	public void beginMapping() {
 	    ++depth;
 	}
-	
+
 	public void endMapping() {
 	    --depth;
 	}
-	
+
     /* (non-Javadoc)
      * @see javolution.lang.Reusable#reset()
      */
@@ -177,5 +177,5 @@ public class MappingContext implements Reusable {
         isNew = true;
         depth = 0;
     }
-	
+
 }

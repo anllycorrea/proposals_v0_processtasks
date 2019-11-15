@@ -3,12 +3,17 @@
 
 package com.bbva.pzic.proposals.dao.model.hyt6;
 
+import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR602;
 import java.io.Serializable;
 
 privileged aspect FormatoHYMR602_Roo_Serializable {
     
     declare parents: FormatoHYMR602 implements Serializable;
     
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
     private static final long FormatoHYMR602.serialVersionUID = 1L;
     
 }

@@ -1,4 +1,5 @@
-## com.bbva.pzic :: proposals
+## com.bbva.pzic.proposals
+
 ### /proposals
 Service for managing the proposals of a person.
 

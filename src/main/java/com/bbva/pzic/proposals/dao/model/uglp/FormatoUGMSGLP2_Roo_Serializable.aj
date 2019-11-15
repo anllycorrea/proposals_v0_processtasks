@@ -3,12 +3,17 @@
 
 package com.bbva.pzic.proposals.dao.model.uglp;
 
+import com.bbva.pzic.proposals.dao.model.uglp.FormatoUGMSGLP2;
 import java.io.Serializable;
 
 privileged aspect FormatoUGMSGLP2_Roo_Serializable {
     
     declare parents: FormatoUGMSGLP2 implements Serializable;
     
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
     private static final long FormatoUGMSGLP2.serialVersionUID = 1L;
     
 }

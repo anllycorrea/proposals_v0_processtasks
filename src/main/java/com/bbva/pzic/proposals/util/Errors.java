@@ -1,8 +1,6 @@
 package com.bbva.pzic.proposals.util;
 
 /**
- * Created on 14/06/2016.
- *
  * @author Entelgy
  */
 public final class Errors {
@@ -27,12 +25,10 @@ public final class Errors {
      * Lanzado cuando en el servicio se considera que se ha producido un error técnico.
      */
     public static final String TECHNICAL_ERROR = "technicalError";
-
     /**
      * Lanzado cuando, debido a restricciones en la entrada del servicio, haya parámetros no obligatorios, que se convierten en obligatorios en consecuencia del valor de otros campos.
      */
     public static final String PARAMETERS_MISSING = "parametersMissing";
-
     /**
      * Lanzado cuando se obtiene un error del backend.
      */

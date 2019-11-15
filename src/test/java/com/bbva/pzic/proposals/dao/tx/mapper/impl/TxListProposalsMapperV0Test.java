@@ -1,20 +1,20 @@
 package com.bbva.pzic.proposals.dao.tx.mapper.impl;
 
-import com.bbva.pzic.proposals.DummyMock;
+import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR601;
 import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR602;
 import com.bbva.pzic.proposals.dao.model.hyt6.mock.FormatoHYMRMock;
-import com.bbva.pzic.proposals.dao.tx.mapper.ITxListProposalsMapperV0;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
 
@@ -23,22 +23,19 @@ import java.io.IOException;
  *
  * @author Entelgy
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TxListProposalsMapperV0Test {
 
     @InjectMocks
-    private ITxListProposalsMapperV0 proposalsMapperV0;
-
+    private TxListProposalsMapperV0 proposalsMapperV0;
     @Mock
     private EnumMapper enumMapper;
-    private FormatoHYMRMock formatoHYMRMock;
-    private DummyMock dummyMock;
+
+    private FormatoHYMRMock formatoHYMRMock = new FormatoHYMRMock();
+    private EntityStubs entityStubs = EntityStubs.getInstance();
 
     @Before
     public void setUp() {
-        proposalsMapperV0 = new TxListProposalsMapperV0();
-        formatoHYMRMock = new FormatoHYMRMock();
-        dummyMock = new DummyMock();
-        MockitoAnnotations.initMocks(this);
         Mockito.when(enumMapper.getEnumValue("conditions.period.id", "D")).thenReturn("DAILY");
         Mockito.when(enumMapper.getEnumValue("conditions.period.id", "M")).thenReturn("MONTHLY");
         Mockito.when(enumMapper.getEnumValue("conditions.period.id", "A")).thenReturn("ANNUALLY");
@@ -47,7 +44,7 @@ public class TxListProposalsMapperV0Test {
 
     @Test
     public void mapInFullTest() {
-        InputListProposals proposals = dummyMock.buildInputListProposals();
+        InputListProposals proposals = entityStubs.buildInputListProposals();
         FormatoHYMR601 result = proposalsMapperV0.mapIn(proposals);
 
         Assert.assertNotNull(result);
@@ -75,7 +72,7 @@ public class TxListProposalsMapperV0Test {
 
     @Test
     public void mapInWithoutCustomerIdTest() {
-        InputListProposals proposals = dummyMock.buildInputListProposals();
+        InputListProposals proposals = entityStubs.buildInputListProposals();
         proposals.setCustomerId(null);
         FormatoHYMR601 result = proposalsMapperV0.mapIn(proposals);
 
@@ -92,7 +89,7 @@ public class TxListProposalsMapperV0Test {
 
     @Test
     public void mapInWithoutDocumentTypeIdTest() {
-        InputListProposals proposals = dummyMock.buildInputListProposals();
+        InputListProposals proposals = entityStubs.buildInputListProposals();
         proposals.setDocumentTypeId(null);
         FormatoHYMR601 result = proposalsMapperV0.mapIn(proposals);
 
@@ -109,7 +106,7 @@ public class TxListProposalsMapperV0Test {
 
     @Test
     public void mapInWithoutDocumentNumberTest() {
-        InputListProposals proposals = dummyMock.buildInputListProposals();
+        InputListProposals proposals = entityStubs.buildInputListProposals();
         proposals.setDocumentNumber(null);
         FormatoHYMR601 result = proposalsMapperV0.mapIn(proposals);
 

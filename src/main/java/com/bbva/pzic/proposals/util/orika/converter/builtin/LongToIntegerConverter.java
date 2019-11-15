@@ -4,7 +4,7 @@ import com.bbva.pzic.proposals.util.orika.converter.BidirectionalConverter;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
 /**
- * Created on 06/12/2016.
+ * Created on 14/12/2015.
  *
  * @author Entelgy
  */

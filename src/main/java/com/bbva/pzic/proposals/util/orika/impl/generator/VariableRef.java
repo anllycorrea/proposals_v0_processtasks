@@ -229,7 +229,9 @@ public class VariableRef {
      */
     public String assignIfPossible(String value, Object...replacements) {
         if (setter() != null) {
-            String expr = getExpression(value, replacements);
+            //Ref. VariableRef#assignIfPossible (v1.4.5)
+            String expr = format(value, replacements);
+            expr = cast(expr);
             return format(setter(), expr);
         } else {
             return "";
@@ -237,20 +239,10 @@ public class VariableRef {
     }
 
     public String assignListIfPossible(String value, Object...replacements) {
-        String expr = getExpression(value, replacements);
-        return format(setterList(), expr);
-    }
-
-    private String getExpression(String value, Object... replacements) {
+        //Ref. VariableRef#assignIfPossible (v1.4.5)
         String expr = format(value, replacements);
-        if (type.isPrimitive()) {
-            String wrapperClass = ClassUtil.getWrapperType(rawType()).getCanonicalName();
-            expr = format("((%s)%s).%sValue()", wrapperClass, expr, primitiveType(rawType()));
-        } else {
-            if (!expr.equals("null"))
-                expr = cast(expr);
-        }
-        return expr;
+        expr = cast(expr);
+        return format(setterList(), expr);
     }
 
     /**
@@ -279,21 +271,32 @@ public class VariableRef {
      * @return
      */
     public String cast(String value) {
-        String castValue = value;
-        String typeName = typeName();
+        //Ref. VariableRef#cast (v1.4.5)
+        return cast(value, type());
+    }
+
+    /**
+     * Returns Java code which provides a cast of the specified value to the
+     * type of this property ref (v1.4.5)
+     *
+     * @param value
+     * @return
+     */
+    protected static String cast(String value, Type<?> type) {
+        String castValue = value.trim();
+        String typeName = type.getCanonicalName();
         /*
          * Avoid double-cast
          */
-        if (isPrimitive()) {
-            castValue = format("((%s)%s).%sValue()", wrapperTypeName(), castValue, primitiveType());
-        } else if (type().isString()) {
-            castValue = "\"\" + " + castValue;
-        } else if (!value.startsWith("(" + typeName + ")")) {
-            castValue = "((" + typeName() + ")" + castValue + ")";
+        if (!"null".equals(value)) {
+            //Se removieron las evaluaciones para el casteo de primitivos, ya que no se utiliza
+            if (!value.startsWith("(" + typeName + ")") && !value.startsWith("((" + typeName + ")")) {
+                castValue = "((" + typeName + ")" + castValue + ")";
+            }
         }
         return castValue;
     }
-    
+
     /**
      * Returns Java code which declares this variable, initialized with it's default value.
      * 

@@ -3,177 +3,459 @@
 
 package com.bbva.pzic.proposals.dao.model.uglp;
 
-import java.lang.String;
+import com.bbva.pzic.proposals.dao.model.uglp.FormatoUGMSGLP1;
 import java.math.BigDecimal;
 
 privileged aspect FormatoUGMSGLP1_Roo_JavaBean {
     
+    /**
+     * Gets nrocont value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getNrocont() {
         return this.nrocont;
     }
     
-    public void FormatoUGMSGLP1.setNrocont(String nrocont) {
+    /**
+     * Sets nrocont value
+     * 
+     * @param nrocont
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setNrocont(String nrocont) {
         this.nrocont = nrocont;
+        return this;
     }
     
+    /**
+     * Gets indesta value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getIndesta() {
         return this.indesta;
     }
     
-    public void FormatoUGMSGLP1.setIndesta(String indesta) {
+    /**
+     * Sets indesta value
+     * 
+     * @param indesta
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setIndesta(String indesta) {
         this.indesta = indesta;
+        return this;
     }
     
+    /**
+     * Gets desesta value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getDesesta() {
         return this.desesta;
     }
     
-    public void FormatoUGMSGLP1.setDesesta(String desesta) {
+    /**
+     * Sets desesta value
+     * 
+     * @param desesta
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setDesesta(String desesta) {
         this.desesta = desesta;
+        return this;
     }
     
+    /**
+     * Gets fesoli value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getFesoli() {
         return this.fesoli;
     }
     
-    public void FormatoUGMSGLP1.setFesoli(String fesoli) {
+    /**
+     * Sets fesoli value
+     * 
+     * @param fesoli
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setFesoli(String fesoli) {
         this.fesoli = fesoli;
+        return this;
     }
     
+    /**
+     * Gets moneda value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getMoneda() {
         return this.moneda;
     }
     
-    public void FormatoUGMSGLP1.setMoneda(String moneda) {
+    /**
+     * Sets moneda value
+     * 
+     * @param moneda
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setMoneda(String moneda) {
         this.moneda = moneda;
+        return this;
     }
     
+    /**
+     * Gets impfina value
+     * 
+     * @return BigDecimal
+     */
     public BigDecimal FormatoUGMSGLP1.getImpfina() {
         return this.impfina;
     }
     
-    public void FormatoUGMSGLP1.setImpfina(BigDecimal impfina) {
+    /**
+     * Sets impfina value
+     * 
+     * @param impfina
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setImpfina(BigDecimal impfina) {
         this.impfina = impfina;
+        return this;
     }
     
+    /**
+     * Gets cuoini value
+     * 
+     * @return BigDecimal
+     */
     public BigDecimal FormatoUGMSGLP1.getCuoini() {
         return this.cuoini;
     }
     
-    public void FormatoUGMSGLP1.setCuoini(BigDecimal cuoini) {
+    /**
+     * Sets cuoini value
+     * 
+     * @param cuoini
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setCuoini(BigDecimal cuoini) {
         this.cuoini = cuoini;
+        return this;
     }
     
+    /**
+     * Gets tarifa value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getTarifa() {
         return this.tarifa;
     }
     
-    public void FormatoUGMSGLP1.setTarifa(String tarifa) {
+    /**
+     * Sets tarifa value
+     * 
+     * @param tarifa
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setTarifa(String tarifa) {
         this.tarifa = tarifa;
+        return this;
     }
     
+    /**
+     * Gets tasaseg value
+     * 
+     * @return BigDecimal
+     */
     public BigDecimal FormatoUGMSGLP1.getTasaseg() {
         return this.tasaseg;
     }
     
-    public void FormatoUGMSGLP1.setTasaseg(BigDecimal tasaseg) {
+    /**
+     * Sets tasaseg value
+     * 
+     * @param tasaseg
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setTasaseg(BigDecimal tasaseg) {
         this.tasaseg = tasaseg;
+        return this;
     }
     
+    /**
+     * Gets codseg value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getCodseg() {
         return this.codseg;
     }
     
-    public void FormatoUGMSGLP1.setCodseg(String codseg) {
+    /**
+     * Sets codseg value
+     * 
+     * @param codseg
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setCodseg(String codseg) {
         this.codseg = codseg;
+        return this;
     }
     
+    /**
+     * Gets descseg value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getDescseg() {
         return this.descseg;
     }
     
-    public void FormatoUGMSGLP1.setDescseg(String descseg) {
+    /**
+     * Sets descseg value
+     * 
+     * @param descseg
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setDescseg(String descseg) {
         this.descseg = descseg;
+        return this;
     }
     
+    /**
+     * Gets tipenvi value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getTipenvi() {
         return this.tipenvi;
     }
     
-    public void FormatoUGMSGLP1.setTipenvi(String tipenvi) {
+    /**
+     * Sets tipenvi value
+     * 
+     * @param tipenvi
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setTipenvi(String tipenvi) {
         this.tipenvi = tipenvi;
+        return this;
     }
     
+    /**
+     * Gets desenv value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getDesenv() {
         return this.desenv;
     }
     
-    public void FormatoUGMSGLP1.setDesenv(String desenv) {
+    /**
+     * Sets desenv value
+     * 
+     * @param desenv
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setDesenv(String desenv) {
         this.desenv = desenv;
+        return this;
     }
     
+    /**
+     * Gets fedesem value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getFedesem() {
         return this.fedesem;
     }
     
-    public void FormatoUGMSGLP1.setFedesem(String fedesem) {
+    /**
+     * Sets fedesem value
+     * 
+     * @param fedesem
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setFedesem(String fedesem) {
         this.fedesem = fedesem;
+        return this;
     }
     
+    /**
+     * Gets codbien value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getCodbien() {
         return this.codbien;
     }
     
-    public void FormatoUGMSGLP1.setCodbien(String codbien) {
+    /**
+     * Sets codbien value
+     * 
+     * @param codbien
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setCodbien(String codbien) {
         this.codbien = codbien;
+        return this;
     }
     
+    /**
+     * Gets impbien value
+     * 
+     * @return BigDecimal
+     */
     public BigDecimal FormatoUGMSGLP1.getImpbien() {
         return this.impbien;
     }
     
-    public void FormatoUGMSGLP1.setImpbien(BigDecimal impbien) {
+    /**
+     * Sets impbien value
+     * 
+     * @param impbien
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setImpbien(BigDecimal impbien) {
         this.impbien = impbien;
+        return this;
     }
     
+    /**
+     * Gets nombr value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getNombr() {
         return this.nombr;
     }
     
-    public void FormatoUGMSGLP1.setNombr(String nombr) {
+    /**
+     * Sets nombr value
+     * 
+     * @param nombr
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setNombr(String nombr) {
         this.nombr = nombr;
+        return this;
     }
     
+    /**
+     * Gets apepat value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getApepat() {
         return this.apepat;
     }
     
-    public void FormatoUGMSGLP1.setApepat(String apepat) {
+    /**
+     * Sets apepat value
+     * 
+     * @param apepat
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setApepat(String apepat) {
         this.apepat = apepat;
+        return this;
     }
     
+    /**
+     * Gets apemat value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getApemat() {
         return this.apemat;
     }
     
-    public void FormatoUGMSGLP1.setApemat(String apemat) {
+    /**
+     * Sets apemat value
+     * 
+     * @param apemat
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setApemat(String apemat) {
         this.apemat = apemat;
+        return this;
     }
     
+    /**
+     * Gets mailcon value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getMailcon() {
         return this.mailcon;
     }
     
-    public void FormatoUGMSGLP1.setMailcon(String mailcon) {
+    /**
+     * Sets mailcon value
+     * 
+     * @param mailcon
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setMailcon(String mailcon) {
         this.mailcon = mailcon;
+        return this;
     }
     
+    /**
+     * Gets idtoken value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGLP1.getIdtoken() {
         return this.idtoken;
     }
     
-    public void FormatoUGMSGLP1.setIdtoken(String idtoken) {
+    /**
+     * Sets idtoken value
+     * 
+     * @param idtoken
+     * @return FormatoUGMSGLP1
+     */
+    public FormatoUGMSGLP1 FormatoUGMSGLP1.setIdtoken(String idtoken) {
         this.idtoken = idtoken;
+        return this;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return String
+     */
+    public String FormatoUGMSGLP1.toString() {
+        return "FormatoUGMSGLP1 {" + 
+                "nrocont='" + nrocont + '\'' + 
+                ", indesta='" + indesta + '\'' + 
+                ", desesta='" + desesta + '\'' + 
+                ", fesoli='" + fesoli + '\'' + 
+                ", moneda='" + moneda + '\'' + 
+                ", impfina='" + impfina + '\'' + 
+                ", cuoini='" + cuoini + '\'' + 
+                ", tarifa='" + tarifa + '\'' + 
+                ", tasaseg='" + tasaseg + '\'' + 
+                ", codseg='" + codseg + '\'' + 
+                ", descseg='" + descseg + '\'' + 
+                ", tipenvi='" + tipenvi + '\'' + 
+                ", desenv='" + desenv + '\'' + 
+                ", fedesem='" + fedesem + '\'' + 
+                ", codbien='" + codbien + '\'' + 
+                ", impbien='" + impbien + '\'' + 
+                ", nombr='" + nombr + '\'' + 
+                ", apepat='" + apepat + '\'' + 
+                ", apemat='" + apemat + '\'' + 
+                ", mailcon='" + mailcon + '\'' + 
+                ", idtoken='" + idtoken + '\'' + "}" + super.toString();
     }
     
 }

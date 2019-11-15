@@ -1,31 +1,25 @@
 package com.bbva.pzic.proposals.facade.v01.mapper.impl;
 
 import com.bbva.pzic.proposals.business.dto.DTOInputListProposals;
-import com.bbva.pzic.proposals.facade.v01.mapper.IListProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ListProposalsMapperTest {
 
     @InjectMocks
-    private IListProposalsMapper proposalsMapper;
+    private ListProposalsMapper proposalsMapper;
 
     @Mock
     private EnumMapper propertyReader;
-
-    @Before
-    public void init() {
-        proposalsMapper = new ListProposalsMapper();
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void testMapInput() {

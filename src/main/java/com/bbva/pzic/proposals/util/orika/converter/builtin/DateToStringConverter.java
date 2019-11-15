@@ -17,6 +17,7 @@
  */
 package com.bbva.pzic.proposals.util.orika.converter.builtin;
 
+import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.util.orika.converter.BidirectionalConverter;
 import com.bbva.pzic.proposals.util.orika.metadata.Type;
 
@@ -27,7 +28,7 @@ import java.util.Date;
 /**
  * DateToStringConverter provides custom conversion from String values
  * to and from Date instances, based on a provided date format pattern.<br><br>
- * <p/>
+ * <p>
  * The format is applied based on the rules defined in {@link java.text.SimpleDateFormat}.
  */
 public class DateToStringConverter extends BidirectionalConverter<Date, String> {
@@ -69,7 +70,7 @@ public class DateToStringConverter extends BidirectionalConverter<Date, String> 
         try {
             return getDateFormat().parse(source);
         } catch (ParseException e) {
-            return null;
+            throw new BusinessServiceException("wrongDate", e, source);
         }
     }
 

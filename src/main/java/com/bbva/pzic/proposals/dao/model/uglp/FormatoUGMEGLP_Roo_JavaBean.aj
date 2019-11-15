@@ -3,74 +3,186 @@
 
 package com.bbva.pzic.proposals.dao.model.uglp;
 
-import java.lang.Integer;
-import java.lang.String;
+import com.bbva.pzic.proposals.dao.model.uglp.FormatoUGMEGLP;
 import java.util.Date;
 
 privileged aspect FormatoUGMEGLP_Roo_JavaBean {
     
+    /**
+     * Gets tipdocu value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGLP.getTipdocu() {
         return this.tipdocu;
     }
     
-    public void FormatoUGMEGLP.setTipdocu(String tipdocu) {
+    /**
+     * Sets tipdocu value
+     * 
+     * @param tipdocu
+     * @return FormatoUGMEGLP
+     */
+    public FormatoUGMEGLP FormatoUGMEGLP.setTipdocu(String tipdocu) {
         this.tipdocu = tipdocu;
+        return this;
     }
     
+    /**
+     * Gets nrodocu value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGLP.getNrodocu() {
         return this.nrodocu;
     }
     
-    public void FormatoUGMEGLP.setNrodocu(String nrodocu) {
+    /**
+     * Sets nrodocu value
+     * 
+     * @param nrodocu
+     * @return FormatoUGMEGLP
+     */
+    public FormatoUGMEGLP FormatoUGMEGLP.setNrodocu(String nrodocu) {
         this.nrodocu = nrodocu;
+        return this;
     }
     
+    /**
+     * Gets codemp value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGLP.getCodemp() {
         return this.codemp;
     }
     
-    public void FormatoUGMEGLP.setCodemp(String codemp) {
+    /**
+     * Sets codemp value
+     * 
+     * @param codemp
+     * @return FormatoUGMEGLP
+     */
+    public FormatoUGMEGLP FormatoUGMEGLP.setCodemp(String codemp) {
         this.codemp = codemp;
+        return this;
     }
     
+    /**
+     * Gets tipbien value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGLP.getTipbien() {
         return this.tipbien;
     }
     
-    public void FormatoUGMEGLP.setTipbien(String tipbien) {
+    /**
+     * Sets tipbien value
+     * 
+     * @param tipbien
+     * @return FormatoUGMEGLP
+     */
+    public FormatoUGMEGLP FormatoUGMEGLP.setTipbien(String tipbien) {
         this.tipbien = tipbien;
+        return this;
     }
     
+    /**
+     * Gets fecrdes value
+     * 
+     * @return Date
+     */
     public Date FormatoUGMEGLP.getFecrdes() {
         return this.fecrdes;
     }
     
-    public void FormatoUGMEGLP.setFecrdes(Date fecrdes) {
+    /**
+     * Sets fecrdes value
+     * 
+     * @param fecrdes
+     * @return FormatoUGMEGLP
+     */
+    public FormatoUGMEGLP FormatoUGMEGLP.setFecrdes(Date fecrdes) {
         this.fecrdes = fecrdes;
+        return this;
     }
     
+    /**
+     * Gets fecrhas value
+     * 
+     * @return Date
+     */
     public Date FormatoUGMEGLP.getFecrhas() {
         return this.fecrhas;
     }
     
-    public void FormatoUGMEGLP.setFecrhas(Date fecrhas) {
+    /**
+     * Sets fecrhas value
+     * 
+     * @param fecrhas
+     * @return FormatoUGMEGLP
+     */
+    public FormatoUGMEGLP FormatoUGMEGLP.setFecrhas(Date fecrhas) {
         this.fecrhas = fecrhas;
+        return this;
     }
     
+    /**
+     * Gets idpagin value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGLP.getIdpagin() {
         return this.idpagin;
     }
     
-    public void FormatoUGMEGLP.setIdpagin(String idpagin) {
+    /**
+     * Sets idpagin value
+     * 
+     * @param idpagin
+     * @return FormatoUGMEGLP
+     */
+    public FormatoUGMEGLP FormatoUGMEGLP.setIdpagin(String idpagin) {
         this.idpagin = idpagin;
+        return this;
     }
     
+    /**
+     * Gets tampagi value
+     * 
+     * @return Integer
+     */
     public Integer FormatoUGMEGLP.getTampagi() {
         return this.tampagi;
     }
     
-    public void FormatoUGMEGLP.setTampagi(Integer tampagi) {
+    /**
+     * Sets tampagi value
+     * 
+     * @param tampagi
+     * @return FormatoUGMEGLP
+     */
+    public FormatoUGMEGLP FormatoUGMEGLP.setTampagi(Integer tampagi) {
         this.tampagi = tampagi;
+        return this;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return String
+     */
+    public String FormatoUGMEGLP.toString() {
+        return "FormatoUGMEGLP {" + 
+                "tipdocu='" + tipdocu + '\'' + 
+                ", nrodocu='" + nrodocu + '\'' + 
+                ", codemp='" + codemp + '\'' + 
+                ", tipbien='" + tipbien + '\'' + 
+                ", fecrdes='" + fecrdes == null ? null : java.text.DateFormat.getDateTimeInstance().format(fecrdes) + '\'' + 
+                ", fecrhas='" + fecrhas == null ? null : java.text.DateFormat.getDateTimeInstance().format(fecrhas) + '\'' + 
+                ", idpagin='" + idpagin + '\'' + 
+                ", tampagi='" + tampagi + '\'' + "}" + super.toString();
     }
     
 }

@@ -1,8 +1,8 @@
 package com.bbva.pzic.proposals.dao.model.ugap;
 
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.serializable.RooSerializable;
-import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
+import org.springframework.roo.addon.javabean.annotations.RooSerializable;
+import org.springframework.roo.addon.javabean.annotations.RooToString;
 
 import com.bbva.jee.arq.spring.core.host.Cabecera;
 import com.bbva.jee.arq.spring.core.host.Cuerpo;
@@ -14,9 +14,9 @@ import com.bbva.jee.arq.spring.core.host.MensajeMultiparte;
 
 /**
  * Bean de respuesta para la transacci&oacute;n <code>UGAP</code>
- * 
+ *
  * @see PeticionTransaccionUgap
- * 
+ *
  * @author Arquitectura Spring BBVA
  */
 @RespuestaTransaccion
@@ -25,25 +25,25 @@ import com.bbva.jee.arq.spring.core.host.MensajeMultiparte;
 @RooToString
 @RooSerializable
 public class RespuestaTransaccionUgap implements MensajeMultiparte {
-	
+
 	/**
 	 * <p>Cabecera <code>serviceResponse</code></p>
 	 */
 	@Cabecera(nombre=NombreCabecera.CODIGO_RETORNO)
 	private String codigoRetorno;
-	
+
 	/**
 	 * <p>Cabecera <code>processControl</code></p>
 	 */
 	@Cabecera(nombre=NombreCabecera.CODIGO_CONTROL)
 	private String codigoControl;
-	
+
 	/**
 	 * <p>Cuerpo del mensaje de respuesta multiparte</p>
 	 */
 	@Cuerpo
 	private CuerpoMultiparte cuerpo = new CuerpoMultiparte();
-	
+
 	/**
 	 * <p>Permite obtener el cuerpo del mensaje de petici&oacute;n multiparte</p>
 	 */
@@ -51,5 +51,5 @@ public class RespuestaTransaccionUgap implements MensajeMultiparte {
 	public CuerpoMultiparte getCuerpo() {
 		return cuerpo;
 	}
-	
+
 }

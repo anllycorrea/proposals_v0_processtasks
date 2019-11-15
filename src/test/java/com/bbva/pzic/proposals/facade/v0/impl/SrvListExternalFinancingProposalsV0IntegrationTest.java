@@ -5,7 +5,7 @@ import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoa
 import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExecutionListener;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposalData;
 import com.bbva.pzic.proposals.dao.model.uglp.mock.TransaccionUglpMock;
-import com.bbva.pzic.proposals.facade.v01.mapper.impl.ListExternalFinancingProposalsMapperTest;
+import com.bbva.pzic.proposals.facade.v0.mapper.impl.ListExternalFinancingProposalsMapperTest;
 import com.bbva.pzic.utilTest.BusinessServiceExceptionMatcher;
 import com.bbva.pzic.utilTest.UriInfoImpl;
 import org.junit.Assert;

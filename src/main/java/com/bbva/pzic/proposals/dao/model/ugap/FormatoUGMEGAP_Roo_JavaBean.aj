@@ -3,146 +3,375 @@
 
 package com.bbva.pzic.proposals.dao.model.ugap;
 
-import java.lang.Integer;
-import java.lang.String;
+import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMEGAP;
 import java.math.BigDecimal;
 
 privileged aspect FormatoUGMEGAP_Roo_JavaBean {
     
+    /**
+     * Gets tipdocu value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getTipdocu() {
         return this.tipdocu;
     }
     
-    public void FormatoUGMEGAP.setTipdocu(String tipdocu) {
+    /**
+     * Sets tipdocu value
+     * 
+     * @param tipdocu
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setTipdocu(String tipdocu) {
         this.tipdocu = tipdocu;
+        return this;
     }
     
+    /**
+     * Gets nrodocu value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getNrodocu() {
         return this.nrodocu;
     }
     
-    public void FormatoUGMEGAP.setNrodocu(String nrodocu) {
+    /**
+     * Sets nrodocu value
+     * 
+     * @param nrodocu
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setNrodocu(String nrodocu) {
         this.nrodocu = nrodocu;
+        return this;
     }
     
+    /**
+     * Gets tarifa value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getTarifa() {
         return this.tarifa;
     }
     
-    public void FormatoUGMEGAP.setTarifa(String tarifa) {
+    /**
+     * Sets tarifa value
+     * 
+     * @param tarifa
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setTarifa(String tarifa) {
         this.tarifa = tarifa;
+        return this;
     }
     
+    /**
+     * Gets impfina value
+     * 
+     * @return BigDecimal
+     */
     public BigDecimal FormatoUGMEGAP.getImpfina() {
         return this.impfina;
     }
     
-    public void FormatoUGMEGAP.setImpfina(BigDecimal impfina) {
+    /**
+     * Sets impfina value
+     * 
+     * @param impfina
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setImpfina(BigDecimal impfina) {
         this.impfina = impfina;
+        return this;
     }
     
+    /**
+     * Gets diafact value
+     * 
+     * @return Integer
+     */
     public Integer FormatoUGMEGAP.getDiafact() {
         return this.diafact;
     }
     
-    public void FormatoUGMEGAP.setDiafact(Integer diafact) {
+    /**
+     * Sets diafact value
+     * 
+     * @param diafact
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setDiafact(Integer diafact) {
         this.diafact = diafact;
+        return this;
     }
     
+    /**
+     * Gets diapago value
+     * 
+     * @return Integer
+     */
     public Integer FormatoUGMEGAP.getDiapago() {
         return this.diapago;
     }
     
-    public void FormatoUGMEGAP.setDiapago(Integer diapago) {
+    /**
+     * Sets diapago value
+     * 
+     * @param diapago
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setDiapago(Integer diapago) {
         this.diapago = diapago;
+        return this;
     }
     
+    /**
+     * Gets mailcon value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getMailcon() {
         return this.mailcon;
     }
     
-    public void FormatoUGMEGAP.setMailcon(String mailcon) {
+    /**
+     * Sets mailcon value
+     * 
+     * @param mailcon
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setMailcon(String mailcon) {
         this.mailcon = mailcon;
+        return this;
     }
     
+    /**
+     * Gets tipenvi value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getTipenvi() {
         return this.tipenvi;
     }
     
-    public void FormatoUGMEGAP.setTipenvi(String tipenvi) {
+    /**
+     * Sets tipenvi value
+     * 
+     * @param tipenvi
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setTipenvi(String tipenvi) {
         this.tipenvi = tipenvi;
+        return this;
     }
     
+    /**
+     * Gets moneda value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getMoneda() {
         return this.moneda;
     }
     
-    public void FormatoUGMEGAP.setMoneda(String moneda) {
+    /**
+     * Sets moneda value
+     * 
+     * @param moneda
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setMoneda(String moneda) {
         this.moneda = moneda;
+        return this;
     }
     
+    /**
+     * Gets idtoken value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getIdtoken() {
         return this.idtoken;
     }
     
-    public void FormatoUGMEGAP.setIdtoken(String idtoken) {
+    /**
+     * Sets idtoken value
+     * 
+     * @param idtoken
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setIdtoken(String idtoken) {
         this.idtoken = idtoken;
+        return this;
     }
     
+    /**
+     * Gets impbien value
+     * 
+     * @return BigDecimal
+     */
     public BigDecimal FormatoUGMEGAP.getImpbien() {
         return this.impbien;
     }
     
-    public void FormatoUGMEGAP.setImpbien(BigDecimal impbien) {
+    /**
+     * Sets impbien value
+     * 
+     * @param impbien
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setImpbien(BigDecimal impbien) {
         this.impbien = impbien;
+        return this;
     }
     
+    /**
+     * Gets codbien value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getCodbien() {
         return this.codbien;
     }
     
-    public void FormatoUGMEGAP.setCodbien(String codbien) {
+    /**
+     * Sets codbien value
+     * 
+     * @param codbien
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setCodbien(String codbien) {
         this.codbien = codbien;
+        return this;
     }
     
+    /**
+     * Gets codtr value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getCodtr() {
         return this.codtr;
     }
     
-    public void FormatoUGMEGAP.setCodtr(String codtr) {
+    /**
+     * Sets codtr value
+     * 
+     * @param codtr
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setCodtr(String codtr) {
         this.codtr = codtr;
+        return this;
     }
     
+    /**
+     * Gets codcnc value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getCodcnc() {
         return this.codcnc;
     }
     
-    public void FormatoUGMEGAP.setCodcnc(String codcnc) {
+    /**
+     * Sets codcnc value
+     * 
+     * @param codcnc
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setCodcnc(String codcnc) {
         this.codcnc = codcnc;
+        return this;
     }
     
+    /**
+     * Gets codemp value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getCodemp() {
         return this.codemp;
     }
     
-    public void FormatoUGMEGAP.setCodemp(String codemp) {
+    /**
+     * Sets codemp value
+     * 
+     * @param codemp
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setCodemp(String codemp) {
         this.codemp = codemp;
+        return this;
     }
     
+    /**
+     * Gets cocliex value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getCocliex() {
         return this.cocliex;
     }
     
-    public void FormatoUGMEGAP.setCocliex(String cocliex) {
+    /**
+     * Sets cocliex value
+     * 
+     * @param cocliex
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setCocliex(String cocliex) {
         this.cocliex = cocliex;
+        return this;
     }
     
+    /**
+     * Gets codofic value
+     * 
+     * @return String
+     */
     public String FormatoUGMEGAP.getCodofic() {
         return this.codofic;
     }
     
-    public void FormatoUGMEGAP.setCodofic(String codofic) {
+    /**
+     * Sets codofic value
+     * 
+     * @param codofic
+     * @return FormatoUGMEGAP
+     */
+    public FormatoUGMEGAP FormatoUGMEGAP.setCodofic(String codofic) {
         this.codofic = codofic;
+        return this;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return String
+     */
+    public String FormatoUGMEGAP.toString() {
+        return "FormatoUGMEGAP {" + 
+                "tipdocu='" + tipdocu + '\'' + 
+                ", nrodocu='" + nrodocu + '\'' + 
+                ", tarifa='" + tarifa + '\'' + 
+                ", impfina='" + impfina + '\'' + 
+                ", diafact='" + diafact + '\'' + 
+                ", diapago='" + diapago + '\'' + 
+                ", mailcon='" + mailcon + '\'' + 
+                ", tipenvi='" + tipenvi + '\'' + 
+                ", moneda='" + moneda + '\'' + 
+                ", idtoken='" + idtoken + '\'' + 
+                ", impbien='" + impbien + '\'' + 
+                ", codbien='" + codbien + '\'' + 
+                ", codtr='" + codtr + '\'' + 
+                ", codcnc='" + codcnc + '\'' + 
+                ", codemp='" + codemp + '\'' + 
+                ", cocliex='" + cocliex + '\'' + 
+                ", codofic='" + codofic + '\'' + "}" + super.toString();
     }
     
 }

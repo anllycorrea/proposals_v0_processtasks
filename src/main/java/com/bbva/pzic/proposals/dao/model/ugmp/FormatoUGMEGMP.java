@@ -5,9 +5,9 @@ import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
 import com.bbva.jee.arq.spring.core.host.Campo;
 import com.bbva.jee.arq.spring.core.host.Formato;
 import com.bbva.jee.arq.spring.core.host.TipoCampo;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.serializable.RooSerializable;
-import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
+import org.springframework.roo.addon.javabean.annotations.RooSerializable;
+import org.springframework.roo.addon.javabean.annotations.RooToString;
 
 /**
  * Formato de datos <code>UGMEGMP</code> de la transacci&oacute;n <code>UGMP</code>

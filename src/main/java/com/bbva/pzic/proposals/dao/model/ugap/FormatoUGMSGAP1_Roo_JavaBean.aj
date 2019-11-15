@@ -3,16 +3,38 @@
 
 package com.bbva.pzic.proposals.dao.model.ugap;
 
-import java.lang.String;
+import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMSGAP1;
 
 privileged aspect FormatoUGMSGAP1_Roo_JavaBean {
     
+    /**
+     * Gets nrocont value
+     * 
+     * @return String
+     */
     public String FormatoUGMSGAP1.getNrocont() {
         return this.nrocont;
     }
     
-    public void FormatoUGMSGAP1.setNrocont(String nrocont) {
+    /**
+     * Sets nrocont value
+     * 
+     * @param nrocont
+     * @return FormatoUGMSGAP1
+     */
+    public FormatoUGMSGAP1 FormatoUGMSGAP1.setNrocont(String nrocont) {
         this.nrocont = nrocont;
+        return this;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return String
+     */
+    public String FormatoUGMSGAP1.toString() {
+        return "FormatoUGMSGAP1 {" + 
+                "nrocont='" + nrocont + '\'' + "}" + super.toString();
     }
     
 }

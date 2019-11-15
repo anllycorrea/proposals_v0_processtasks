@@ -4,28 +4,70 @@
 package com.bbva.pzic.proposals.dao.model.hyt6;
 
 import com.bbva.jee.arq.spring.core.host.CuerpoMultiparte;
-import java.lang.String;
+import com.bbva.pzic.proposals.dao.model.hyt6.RespuestaTransaccionHyt6;
 
 privileged aspect RespuestaTransaccionHyt6_Roo_JavaBean {
     
+    /**
+     * Gets codigoRetorno value
+     * 
+     * @return String
+     */
     public String RespuestaTransaccionHyt6.getCodigoRetorno() {
         return this.codigoRetorno;
     }
     
-    public void RespuestaTransaccionHyt6.setCodigoRetorno(String codigoRetorno) {
+    /**
+     * Sets codigoRetorno value
+     * 
+     * @param codigoRetorno
+     * @return RespuestaTransaccionHyt6
+     */
+    public RespuestaTransaccionHyt6 RespuestaTransaccionHyt6.setCodigoRetorno(String codigoRetorno) {
         this.codigoRetorno = codigoRetorno;
+        return this;
     }
     
+    /**
+     * Gets codigoControl value
+     * 
+     * @return String
+     */
     public String RespuestaTransaccionHyt6.getCodigoControl() {
         return this.codigoControl;
     }
     
-    public void RespuestaTransaccionHyt6.setCodigoControl(String codigoControl) {
+    /**
+     * Sets codigoControl value
+     * 
+     * @param codigoControl
+     * @return RespuestaTransaccionHyt6
+     */
+    public RespuestaTransaccionHyt6 RespuestaTransaccionHyt6.setCodigoControl(String codigoControl) {
         this.codigoControl = codigoControl;
+        return this;
     }
     
-    public void RespuestaTransaccionHyt6.setCuerpo(CuerpoMultiparte cuerpo) {
+    /**
+     * Sets cuerpo value
+     * 
+     * @param cuerpo
+     * @return RespuestaTransaccionHyt6
+     */
+    public RespuestaTransaccionHyt6 RespuestaTransaccionHyt6.setCuerpo(CuerpoMultiparte cuerpo) {
         this.cuerpo = cuerpo;
+        return this;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return String
+     */
+    public String RespuestaTransaccionHyt6.toString() {
+        return "RespuestaTransaccionHyt6 {" + 
+                "codigoRetorno='" + codigoRetorno + '\'' + 
+                ", codigoControl='" + codigoControl + '\'' + "}" + super.toString();
     }
     
 }

@@ -3,32 +3,80 @@
 
 package com.bbva.pzic.proposals.dao.model.hyt6;
 
-import java.lang.String;
+import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR601;
 
 privileged aspect FormatoHYMR601_Roo_JavaBean {
     
+    /**
+     * Gets tipo value
+     * 
+     * @return String
+     */
     public String FormatoHYMR601.getTipo() {
         return this.tipo;
     }
     
-    public void FormatoHYMR601.setTipo(String tipo) {
+    /**
+     * Sets tipo value
+     * 
+     * @param tipo
+     * @return FormatoHYMR601
+     */
+    public FormatoHYMR601 FormatoHYMR601.setTipo(String tipo) {
         this.tipo = tipo;
+        return this;
     }
     
+    /**
+     * Gets numero value
+     * 
+     * @return String
+     */
     public String FormatoHYMR601.getNumero() {
         return this.numero;
     }
     
-    public void FormatoHYMR601.setNumero(String numero) {
+    /**
+     * Sets numero value
+     * 
+     * @param numero
+     * @return FormatoHYMR601
+     */
+    public FormatoHYMR601 FormatoHYMR601.setNumero(String numero) {
         this.numero = numero;
+        return this;
     }
     
+    /**
+     * Gets codcent value
+     * 
+     * @return String
+     */
     public String FormatoHYMR601.getCodcent() {
         return this.codcent;
     }
     
-    public void FormatoHYMR601.setCodcent(String codcent) {
+    /**
+     * Sets codcent value
+     * 
+     * @param codcent
+     * @return FormatoHYMR601
+     */
+    public FormatoHYMR601 FormatoHYMR601.setCodcent(String codcent) {
         this.codcent = codcent;
+        return this;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return String
+     */
+    public String FormatoHYMR601.toString() {
+        return "FormatoHYMR601 {" + 
+                "tipo='" + tipo + '\'' + 
+                ", numero='" + numero + '\'' + 
+                ", codcent='" + codcent + '\'' + "}" + super.toString();
     }
     
 }

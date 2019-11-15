@@ -68,7 +68,6 @@ public class Proposal implements Serializable {
      * List of limits related to the product proposal.
      */
     private List<Limit> limits;
-
     /**
      * Is the amount granted by the bank to the proposal’s owner. This amount is
      * calculated based on a financial analysis of the person made by the bank.
@@ -80,13 +79,9 @@ public class Proposal implements Serializable {
      */
     private InstallmentPayment installmentPayment;
     /**
-     * Risk type of the Proposal.
-     */
-    /**
      * Interest annual rate of the proposal.
      */
     private BigDecimal interestAnnualRate;
-
     /**
      * Interest rate related to the product. This must be the ADJUSTED interest
      * rate.

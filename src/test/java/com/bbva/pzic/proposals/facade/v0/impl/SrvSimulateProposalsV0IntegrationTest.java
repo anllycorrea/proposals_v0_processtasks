@@ -4,11 +4,10 @@ import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoader;
 import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExecutionListener;
-import com.bbva.pzic.proposals.DummyMock;
+import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.facade.v0.ISrvProposalsV0;
 import com.bbva.pzic.utilTest.BusinessServiceExceptionMatcher;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -45,16 +44,11 @@ public class SrvSimulateProposalsV0IntegrationTest {
     public ExpectedException expectedException = ExpectedException.none();
     @Autowired
     private ISrvProposalsV0 srvProposalsV0;
-    private DummyMock dummyMock;
-
-    @Before
-    public void setUp() {
-        dummyMock = new DummyMock();
-    }
+    private EntityStubs entityStubs = EntityStubs.getInstance();
 
     @Test
     public void simulateProposalsTest() throws IOException {
-        SimulatedProposal simulatedProposal = dummyMock.getSimulatedProposal();
+        SimulatedProposal simulatedProposal = entityStubs.getSimulatedProposal();
 
         ServiceResponse<List<SimulatedProposal>> result = srvProposalsV0.simulateProposals(simulatedProposal);
 
@@ -64,7 +58,7 @@ public class SrvSimulateProposalsV0IntegrationTest {
 
     @Test
     public void simulateProposalsEmptyTest() throws IOException {
-        SimulatedProposal simulatedProposal = dummyMock.getSimulatedProposal();
+        SimulatedProposal simulatedProposal = entityStubs.getSimulatedProposal();
         simulatedProposal.getParticipant().getIdentityDocument().setDocumentNumber(EMPTY_DATA);
         ServiceResponse<List<SimulatedProposal>> result = srvProposalsV0.simulateProposals(simulatedProposal);
 
@@ -76,7 +70,7 @@ public class SrvSimulateProposalsV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode("invalidParameters"));
 
-        SimulatedProposal simulatedProposal = dummyMock.getSimulatedProposal();
+        SimulatedProposal simulatedProposal = entityStubs.getSimulatedProposal();
         simulatedProposal.getParticipant().getIdentityDocument().setDocumentNumber(ERROR_RESPONSE);
         srvProposalsV0.simulateProposals(simulatedProposal);
     }

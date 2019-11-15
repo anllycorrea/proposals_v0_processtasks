@@ -3,12 +3,17 @@
 
 package com.bbva.pzic.proposals.dao.model.ugmp;
 
+import com.bbva.pzic.proposals.dao.model.ugmp.PeticionTransaccionUgmp;
 import java.io.Serializable;
 
 privileged aspect PeticionTransaccionUgmp_Roo_Serializable {
     
     declare parents: PeticionTransaccionUgmp implements Serializable;
     
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
     private static final long PeticionTransaccionUgmp.serialVersionUID = 1L;
     
 }

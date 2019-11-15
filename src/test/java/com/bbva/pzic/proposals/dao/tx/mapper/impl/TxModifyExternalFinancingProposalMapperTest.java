@@ -1,6 +1,6 @@
 package com.bbva.pzic.proposals.dao.tx.mapper.impl;
 
-import com.bbva.pzic.proposals.DummyMock;
+import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.DTOInputModifyExternalFinancingProposal;
 import com.bbva.pzic.proposals.dao.model.ugmp.FormatoUGMEGMP;
 import com.bbva.pzic.proposals.dao.tx.mapper.ITxModifyExternalFinancingProposalMapper;
@@ -20,17 +20,16 @@ public class TxModifyExternalFinancingProposalMapperTest {
 
     private ITxModifyExternalFinancingProposalMapper mapper;
 
-    private DummyMock dummyMock;
+    private EntityStubs entityStubs = EntityStubs.getInstance();
 
     @Before
     public void setUp() {
         mapper = new TxModifyExternalFinancingProposalMapper();
-        dummyMock = new DummyMock();
     }
 
     @Test
     public void mapInFullTest() throws IOException {
-        DTOInputModifyExternalFinancingProposal dtoIn = dummyMock.getDTOInputModifyExternalFinancingProposal();
+        DTOInputModifyExternalFinancingProposal dtoIn = entityStubs.getDTOInputModifyExternalFinancingProposal();
         FormatoUGMEGMP result = mapper.mapIn(dtoIn);
 
         assertNotNull(result.getNrocont());
@@ -46,7 +45,7 @@ public class TxModifyExternalFinancingProposalMapperTest {
 
     @Test
     public void mapInMandatoryTest() throws IOException {
-        DTOInputModifyExternalFinancingProposal dtoIn = dummyMock.getDTOInputModifyExternalFinancingProposal();
+        DTOInputModifyExternalFinancingProposal dtoIn = entityStubs.getDTOInputModifyExternalFinancingProposal();
         dtoIn.getExternalFinancingProposal().setDeliveryTypeId(null);
         dtoIn.getExternalFinancingProposal().setEmail(null);
 

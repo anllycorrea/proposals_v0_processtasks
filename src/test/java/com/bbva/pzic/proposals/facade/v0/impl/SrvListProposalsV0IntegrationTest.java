@@ -18,7 +18,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import static com.bbva.pzic.proposals.DummyMock.*;
+import static com.bbva.pzic.proposals.EntityStubs.*;
 import static com.bbva.pzic.proposals.dao.model.hyt6.mock.TransaccionHyt6Mock.TEST_EMPTY;
 import static com.bbva.pzic.proposals.dao.model.hyt6.mock.TransaccionHyt6Mock.TEST_NULL;
 import static org.junit.Assert.*;

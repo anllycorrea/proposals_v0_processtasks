@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transaction xmlns="http://www.w3schools.com"
+	transactionName="PCUNT001" application="PCUN" version="01" country="PE"
+	language="ES">
+	<paramsIn>
+		<dto name="EntityIn" package="com.bbva.pcun.dto.validateaccess.dto.EntityInDTO"
+			artifactId="PCUNC001" mandatory="0" order="1">
+			<dto name="product" package="com.bbva.pcun.dto.validateaccess.dto.ProductDTO"
+				artifactId="PCUNC001" mandatory="0" order="1">
+				<parameter order="1" name="id" type="String" size="50"
+					mandatory="1" />
+				<dto name="subproduct" package="com.bbva.pcun.dto.validateaccess.dto.SubProductDTO"
+					artifactId="PCUNC001" mandatory="0" order="2">
+					<parameter order="1" name="id" type="String" size="50"
+						mandatory="1" />
+				</dto>
+			</dto>
+			<dto name="participant" package="com.bbva.pcun.dto.validateaccess.dto.ParticipantDTO"
+				artifactId="PCUNC001" mandatory="1" order="2">
+				<parameter order="1" name="id" type="String" size="50"
+					mandatory="1" />
+				<list name="contacts" order="3" mandatory="0">
+					<dto name="contact" package="com.bbva.pcun.dto.validateaccess.dto.ContactDTO"
+						artifactId="PCUNC001" mandatory="0" order="1">
+						<parameter order="1" name="contactDetailType" type="String"
+							size="50" mandatory="1" />
+						<parameter order="2" name="number" type="String" size="50"
+							mandatory="0" />
+						<parameter order="4" name="address" type="String" size="100"
+							mandatory="0" />
+						<dto name="phoneCompany"
+							package="com.bbva.pcun.dto.validateaccess.dto.PhoneCompanyDTO"
+							artifactId="PCUNC001" mandatory="0" order="3">
+							<parameter order="1" name="id" type="String" size="50"
+								mandatory="1" />
+						</dto>
+					</dto>
+				</list>
+				<dto name="identityDocument"
+					package="com.bbva.pcun.dto.validateaccess.dto.IdentityDocumentDTO"
+					artifactId="PCUNC001" mandatory="0" order="2">
+					<parameter order="2" name="documentNumber" type="String"
+						size="50" mandatory="1" />
+					<dto name="documentType"
+						package="com.bbva.pcun.dto.validateaccess.dto.DocumentTypeDTO"
+						artifactId="PCUNC001" mandatory="1" order="1">
+						<parameter order="1" name="id" type="String" size="50"
+							mandatory="1" />
+					</dto>
+				</dto>
+			</dto>
+		</dto>
+	</paramsIn>
+	<paramsOut>
+		<dto name="EntityOut" package="com.bbva.pcun.dto.validateaccess.dto.EntityOutDTO"
+			artifactId="PCUNC001" mandatory="0" order="1">
+			<parameter order="3" name="validationDictum" type="String"
+				size="50" mandatory="1" />
+			<list name="dictumReasons" order="4" mandatory="0">
+				<dto name="dictumReason" package="com.bbva.pcun.dto.validateaccess.dto.DictumReasonDTO"
+					artifactId="PCUNC001" mandatory="0" order="1">
+					<parameter order="1" name="id" type="String" size="50"
+						mandatory="1" />
+					<parameter order="2" name="description" type="String"
+						size="100" mandatory="1" />
+				</dto>
+			</list>
+			<dto name="product" package="com.bbva.pcun.dto.validateaccess.dto.ProductDTO"
+				artifactId="PCUNC001" mandatory="0" order="1">
+				<parameter order="1" name="id" type="String" size="50"
+					mandatory="1" />
+				<dto name="subproduct" package="com.bbva.pcun.dto.validateaccess.dto.SubProductDTO"
+					artifactId="PCUNC001" mandatory="0" order="2">
+					<parameter order="1" name="id" type="String" size="50"
+						mandatory="1" />
+				</dto>
+			</dto>
+			<dto name="participant" package="com.bbva.pcun.dto.validateaccess.dto.ParticipantDTO"
+				artifactId="PCUNC001" mandatory="1" order="2">
+				<parameter order="1" name="id" type="String" size="50"
+					mandatory="1" />
+				<list name="contacts" order="3" mandatory="0">
+					<dto name="contact" package="com.bbva.pcun.dto.validateaccess.dto.ContactDTO"
+						artifactId="PCUNC001" mandatory="0" order="1">
+						<parameter order="1" name="contactDetailType" type="String"
+							size="50" mandatory="1" />
+						<parameter order="2" name="number" type="String" size="50"
+							mandatory="0" />
+						<parameter order="4" name="address" type="String" size="100"
+							mandatory="0" />
+						<dto name="phoneCompany"
+							package="com.bbva.pcun.dto.validateaccess.dto.PhoneCompanyDTO"
+							artifactId="PCUNC001" mandatory="0" order="3">
+							<parameter order="1" name="id" type="String" size="50"
+								mandatory="1" />
+							<parameter order="2" name="name" type="String" size="50"
+								mandatory="1" />
+						</dto>
+					</dto>
+				</list>
+				<dto name="identityDocument"
+					package="com.bbva.pcun.dto.validateaccess.dto.IdentityDocumentDTO"
+					artifactId="PCUNC001" mandatory="0" order="2">
+					<parameter order="2" name="documentNumber" type="String"
+						size="50" mandatory="1" />
+					<dto name="documentType"
+						package="com.bbva.pcun.dto.validateaccess.dto.DocumentTypeDTO"
+						artifactId="PCUNC001" mandatory="1" order="1">
+						<parameter order="1" name="id" type="String" size="50"
+							mandatory="1" />
+					</dto>
+				</dto>
+			</dto>
+		</dto>
+	</paramsOut>
+	<description>Transaccion T001</description>
+</transaction>

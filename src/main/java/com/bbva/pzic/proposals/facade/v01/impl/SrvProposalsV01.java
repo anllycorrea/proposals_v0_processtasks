@@ -4,7 +4,7 @@ import com.bbva.jee.arq.spring.core.servicing.annotations.SMC;
 import com.bbva.jee.arq.spring.core.servicing.annotations.SN;
 import com.bbva.jee.arq.spring.core.servicing.annotations.VN;
 import com.bbva.jee.arq.spring.core.servicing.utils.BusinessServicesToolKit;
-import com.bbva.pzic.proposals.business.ISrvIntProposals;
+import com.bbva.pzic.proposals.business.ISrvIntProposalsV01;
 import com.bbva.pzic.proposals.canonic.ProposalData;
 import com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01;
 import com.bbva.pzic.proposals.facade.v01.mapper.IListProposalsMapper;
@@ -41,7 +41,7 @@ public class SrvProposalsV01 implements ISrvProposalsV01, com.bbva.jee.arq.sprin
     private BusinessServicesToolKit businessToolKit;
 
     @Autowired
-    private ISrvIntProposals srvIntProposals;
+    private ISrvIntProposalsV01 srvIntProposals;
 
     @Autowired
     private IListProposalsMapper listProposalsMapper;

@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Created on 06/10/2016.
- *
  * @author Entelgy
  */
 @Component

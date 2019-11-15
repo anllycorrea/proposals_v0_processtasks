@@ -3,7 +3,7 @@ package com.bbva.pzic.proposals.facade.v0.impl;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoader;
 import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExecutionListener;
-import com.bbva.pzic.proposals.DummyMock;
+import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.dao.model.ugap.mock.TransaccionUgapMock;
 import com.bbva.pzic.utilTest.BusinessServiceExceptionMatcher;
@@ -23,7 +23,7 @@ import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-import static com.bbva.pzic.proposals.DummyMock.THIRD_PARTY_PROVIDER_USER_ID;
+import static com.bbva.pzic.proposals.EntityStubs.THIRD_PARTY_PROVIDER_USER_ID;
 import static com.bbva.pzic.proposals.util.Errors.MANDATORY_PARAMETERS_MISSING;
 import static com.bbva.pzic.proposals.util.Errors.WRONG_PARAMETERS;
 import static org.junit.Assert.assertNotNull;
@@ -49,11 +49,10 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
     @Autowired
     private SrvProposalsV0 srvProposalsV0;
 
-    private DummyMock dummyMock;
+    private EntityStubs entityStubs = EntityStubs.getInstance();
 
     @Before
     public void setUp() {
-        dummyMock = new DummyMock();
         UriInfo uriInfo = new UriInfoImpl();
         uriInfo.getPathParameters().add("external-financing-proposal-id", "external-financing-proposal-id");
         srvProposalsV0.setUriInfo(uriInfo);
@@ -61,7 +60,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposal() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
 
         ExternalFinancingProposal response = srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
@@ -71,7 +70,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalOnlyMandatory() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
 
         ExternalFinancingProposal response = srvProposalsV0.createExternalFinancingProposal(null, externalFinancingProposal);
 
@@ -81,7 +80,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
 
     @Test
     public void testCreateExternalFinancingProposalWithoutResponse() throws IOException {
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentNumber(TransaccionUgapMock.NRO_DOCUMENTO);
 
         ExternalFinancingProposal response = srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -101,7 +100,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().setId(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -116,7 +115,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().setCommercialValue(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -131,7 +130,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValue().setAmount(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -145,7 +144,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValue().setCurrency(null);
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
 
@@ -159,7 +158,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setHolder(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -174,7 +173,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().setIdentityDocuments(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -189,7 +188,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().clear();
         externalFinancingProposal.getHolder().getIdentityDocuments().add(null);
 
@@ -205,7 +204,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentNumber(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -220,7 +219,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentType(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -235,7 +234,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).getDocumentType().setId(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -250,7 +249,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setTariff(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -265,7 +264,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getTariff().setId(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -280,7 +279,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setCurrency(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -295,7 +294,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getOperation().getOperationType().setId(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -307,7 +306,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setBranch(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -321,7 +320,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getBranch().setId(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -336,7 +335,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getThirdPartyProvider().setExternalSalesChannel(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -351,7 +350,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().setId(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -363,7 +362,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setInitialAmount(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -375,7 +374,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getInitialAmount().setAmount(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -387,7 +386,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getInitialAmount().setCurrency(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -398,7 +397,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setPaymentDay(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -409,7 +408,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setBillingDay(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -420,7 +419,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setDelivery(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -431,7 +430,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getDelivery().setDeliveryType(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -442,7 +441,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getDelivery().getDeliveryType().setId(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -453,7 +452,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getDelivery().setEmail(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -464,7 +463,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setOperation(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -475,7 +474,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getOperation().setId(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -486,7 +485,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setThirdPartyProvider(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -497,7 +496,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(MANDATORY_PARAMETERS_MISSING));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getThirdPartyProvider().setId(null);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -508,7 +507,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getHolder().getIdentityDocuments().get(0).setDocumentNumber("12345678901");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -519,7 +518,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getTariff().setId("12345678901");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -530,7 +529,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
 
         srvProposalsV0.createExternalFinancingProposal("12345678901576586567565476546545646543653543564354356435463653654323498676", externalFinancingProposal);
     }
@@ -540,7 +539,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getBranch().setId("12345678901");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -551,7 +550,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setCurrency("1234");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -562,7 +561,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getInitialAmount().setAmount(new BigDecimal("789.856"));
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -573,7 +572,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getInitialAmount().setAmount(new BigDecimal("1234567890123456.85"));
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -584,7 +583,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getInitialAmount().setCurrency("1234");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -595,7 +594,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setPaymentDay(123);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -606,7 +605,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getDelivery().setEmail("123456789012345678901234567890123456789012345678901");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -617,7 +616,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getOperation().setId("123456789012345678901234567890123");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -628,7 +627,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getThirdPartyProvider().setId("TDPE1");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -640,7 +639,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getThirdPartyProvider().getExternalSalesChannel().setId("CEC178876");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -651,7 +650,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getOperation().getOperationType().setId("ALTA12");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -662,7 +661,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().setId("1234567890123456");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -673,7 +672,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValue().setAmount(new BigDecimal("1234567890123456.89"));
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -684,7 +683,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValue().setAmount(new BigDecimal("123456789012345.897"));
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -695,7 +694,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.getExternalProduct().getCommercialValue().setCurrency("1234");
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);
@@ -706,7 +705,7 @@ public class SrvCreateExternalFinancingProposalV0IntegrationTest {
         expectedException.expect(BusinessServiceException.class);
         expectedException.expect(BusinessServiceExceptionMatcher.hasErrorCode(WRONG_PARAMETERS));
 
-        ExternalFinancingProposal externalFinancingProposal = dummyMock.getExternalFinancingProposal();
+        ExternalFinancingProposal externalFinancingProposal = entityStubs.getExternalFinancingProposal();
         externalFinancingProposal.setBillingDay(544);
 
         srvProposalsV0.createExternalFinancingProposal(THIRD_PARTY_PROVIDER_USER_ID, externalFinancingProposal);

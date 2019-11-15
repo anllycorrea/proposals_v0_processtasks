@@ -23,9 +23,10 @@ import com.bbva.pzic.proposals.util.orika.property.PropertyResolver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class NestedProperty extends Property {
-    
+
     private final Property[] path;
     private final Property tail;
     private Property owningProperty;
@@ -36,7 +37,7 @@ public class NestedProperty extends Property {
     }
 
     public NestedProperty(String expression, Property property, Property[] path) {
-        super(expression,property.getName(),property.getGetter(),property.getSetter(),property.getType(),property.getElementType());
+        super(expression, property.getName(), property.getGetter(), property.getSetter(), property.getType(), property.getElementType());
         this.path = collapse(property.getPath(), path);
         this.tail = property;
     }
@@ -51,43 +52,59 @@ public class NestedProperty extends Property {
             Property p = collapsed.get(i);
             if (p instanceof NestedProperty) {
                 collapsed.remove(i);
-                for (Property element: p.getPath()) {
+                for (Property element : p.getPath()) {
                     collapsed.add(i++, element);
                 }
-                Property tail = ((NestedProperty)p).tail;
+                Property tail = ((NestedProperty) p).tail;
                 collapsed.add(i, tail);
             }
             ++i;
         }
         return collapsed.toArray(path);
     }
+
     @Override
     public NestedProperty copy() {
-    	
-    	Property[] copyPath = new Property[path.length];
-    	for (int i=0, count = path.length; i < count; ++i) {
-    		copyPath[i] = path[i].copy();
-    	}
-    	NestedProperty copy = new NestedProperty(this.getExpression(), super.copy(), copyPath);
+
+        Property[] copyPath = new Property[path.length];
+        for (int i = 0, count = path.length; i < count; ++i) {
+            copyPath[i] = path[i].copy();
+        }
+        NestedProperty copy = new NestedProperty(this.getExpression(), super.copy(), copyPath);
         return copy;
     }
-    
+
     @Override
     public Property[] getPath() {
         return path;
     }
-    
+
     @Override
     public boolean hasPath() {
         return true;
     }
-    
-    public boolean equals(Object other) {
-    	return super.equals(other);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        final NestedProperty nestedProperty = (NestedProperty) o;
+        return Objects.equals(owningProperty, nestedProperty.owningProperty);
     }
-    
+
+    @Override
     public int hashCode() {
-    	return super.hashCode();
+        return Objects.hash(super.hashCode(), owningProperty);
     }
 
     public boolean isListElement() {
@@ -105,33 +122,33 @@ public class NestedProperty extends Property {
     static class Builder extends Property.Builder {
 
         private Property.Builder parent;
-        
+
         /**
-         * @param owningType
+         * @param parent
          * @param name
          */
         Builder(Property.Builder parent, String name) {
             super(null, name);
             this.parent = parent;
         }
-        
+
         public Property build(PropertyResolver propertyResolver) {
             Property parentProperty = parent.build(propertyResolver);
-            
+
             Property[] path;
             if (parentProperty instanceof NestedProperty) {
-                path = ((NestedProperty)parentProperty).getPath();
+                path = ((NestedProperty) parentProperty).getPath();
                 System.arraycopy(path, 0, path, 0, path.length + 1);
-                path[path.length-1] = parentProperty;
+                path[path.length - 1] = parentProperty;
             } else {
                 path = new Property[]{parentProperty};
             }
             this.owningType = parentProperty.getType();
-            
+
             Property p = super.build(propertyResolver);
             return new NestedProperty("", p, path);
         }
-        
+
     }
 
     @Override

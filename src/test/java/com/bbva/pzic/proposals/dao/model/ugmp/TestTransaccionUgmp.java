@@ -5,8 +5,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 /**
@@ -20,8 +20,8 @@ public class TestTransaccionUgmp {
     @InjectMocks
     private TransaccionUgmp transaccion;
 
-    @Spy
-    private ServicioTransacciones servicioTransacciones = Mockito.mock(ServicioTransacciones.class);
+    @Mock
+    private ServicioTransacciones servicioTransacciones;
 
     @Test
     public void test() {
@@ -33,6 +33,7 @@ public class TestTransaccionUgmp {
                 peticion)).thenReturn(respuesta);
 
         RespuestaTransaccionUgmp result = transaccion.invocar(peticion);
+
         Assert.assertEquals(result, respuesta);
     }
 }

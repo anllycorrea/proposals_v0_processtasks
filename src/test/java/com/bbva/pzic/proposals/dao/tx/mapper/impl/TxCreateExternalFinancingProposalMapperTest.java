@@ -1,6 +1,6 @@
 package com.bbva.pzic.proposals.dao.tx.mapper.impl;
 
-import com.bbva.pzic.proposals.DummyMock;
+import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMEGAP;
@@ -24,20 +24,18 @@ public class TxCreateExternalFinancingProposalMapperTest {
 
     private TxCreateExternalFinancingProposalMapper mapper;
 
-    private DummyMock dummyMock;
+    private EntityStubs entityStubs = EntityStubs.getInstance();
 
-    private FormatUgapMock formatUgapMock;
+    private FormatUgapMock formatUgapMock = new FormatUgapMock();
 
     @Before
     public void setUp() {
         mapper = new TxCreateExternalFinancingProposalMapper();
-        dummyMock = new DummyMock();
-        formatUgapMock = new FormatUgapMock();
     }
 
     @Test
     public void mapInFullTest() throws IOException {
-        DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal = dummyMock.getDTOIntExternalFinancingProposal();
+        DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal = entityStubs.getDTOIntExternalFinancingProposal();
         dtoIntExternalFinancingProposal.setDeliveryTypeId(PROPERTY_DELIVERY_TYPE_ID_VIRTUAL_KEY_TESTED);
         dtoIntExternalFinancingProposal.setDocumentTypeId(PROPERTY_DOCUMENT_TYPE_ID_DNI_KEY_TESTED);
         FormatoUGMEGAP result = mapper.mapIn(dtoIntExternalFinancingProposal);

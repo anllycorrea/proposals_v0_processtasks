@@ -1,6 +1,6 @@
 /*
  * Orika - simpler, better and faster Java bean mapping
- * 
+ *
  * Copyright (C) 2011 Orika authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55,18 +55,18 @@ import com.thoughtworks.paranamer.Paranamer;
  *
  */
 public class SimpleConstructorResolverStrategy implements ConstructorResolverStrategy {
-    
+
 	private Paranamer paranamer = new CachingParanamer(new AdaptiveParanamer(new BytecodeReadingParanamer(), new AnnotationParanamer()));
-	
+
     @SuppressWarnings({ "unchecked" })
     public <T, A, B> ConstructorMapping<T> resolve(ClassMap<A, B> classMap, Type<T> sourceType) {
         boolean aToB = classMap.getBType().equals(sourceType);
-        
-        
+
+
         Type<?> targetClass = aToB ? classMap.getBType() : classMap.getAType();
-        
+
         String[] declaredParameterNames = aToB ? classMap.getConstructorB() : classMap.getConstructorA();
-        
+
         Map<String, FieldMap> targetParameters = new LinkedHashMap<String, FieldMap>();
         if (declaredParameterNames != null) {
         	/*
@@ -101,16 +101,16 @@ public class SimpleConstructorResolverStrategy implements ConstructorResolverStr
 	        		targetParameters.put(fieldMap.getDestination().getName(), fieldMap);
         		}
         	}
-        	
+
         }
-        
+
         Constructor<T>[] constructors = (Constructor<T>[]) targetClass.getRawType().getConstructors();
         TreeMap<Integer, ConstructorMapping<T>> constructorsByMatchedParams = new TreeMap<Integer, ConstructorMapping<T>>();
         for (Constructor<T> constructor: constructors) {
         	ConstructorMapping<T> constructorMapping = new ConstructorMapping<T>();
         	constructorMapping.setDeclaredParameters(declaredParameterNames);
         	boolean byDefault = declaredParameterNames == null;
-        	
+
         	try {
         		/*
         		 * 1) A constructor's parameters are all matched by known parameter names
@@ -141,52 +141,52 @@ public class SimpleConstructorResolverStrategy implements ConstructorResolverStr
     	    	 java.lang.reflect.Type[] params = constructor.getGenericParameterTypes();
         	     for (int i=0; i < params.length; ++i) {
         	    	java.lang.reflect.Type param = params[i];
-        	    	
+
     	    		Type<?> type = TypeFactory.valueOf(param);
     	    		for (Iterator<FieldMap> iter = targetTypes.iterator(); iter.hasNext();) {
     	    			FieldMap fieldMap = iter.next();
     	    			Type<?> targetType = fieldMap.getDestination().getType();
     	    			if ((type.equals(targetType) && ++exactMatches != 0) || type.isAssignableFrom(targetType) ) {
     	    				++matchScore;
-    	    				
+
     	    				String parameterName = fieldMap.getDestination().getName();
             				FieldMap existingField = targetParameters.get(parameterName);
             				FieldMap argumentMap = mapConstructorArgument(existingField, type, byDefault);
             				constructorMapping.getMappedFields().add(argumentMap);
-    	    				
+
     	    				iter.remove();
     	    				break;
-    	    			} 
+    	    			}
     	    		}
     	    	 }
-        		 
+
         	     constructorMapping.setConstructor(constructor);
         	     constructorMapping.setDeclaredParameters(declaredParameterNames);
-        	     constructorsByMatchedParams.put((matchScore*1000 + exactMatches), constructorMapping); 
+        	     constructorsByMatchedParams.put((matchScore*1000 + exactMatches), constructorMapping);
         	}
         }
-        
+
         if (constructorsByMatchedParams.size() > 0) {
             return constructorsByMatchedParams.get(constructorsByMatchedParams.lastKey());
         } else if (declaredParameterNames != null) {
-        	throw new IllegalArgumentException("No constructors found for " + targetClass + 
+        	throw new IllegalArgumentException("No constructors found for " + targetClass +
         			" matching the specified constructor parameters " + Arrays.toString(declaredParameterNames) +
         			(declaredParameterNames.length == 0 ? " (no-arg constructor)": ""));
         } else {
-        
-	        /* 
+
+	        /*
 	         * User didn't specify any constructor, and we couldn't find any that seem compatible;
-	         * TODO: can we really do anything in this case? maybe we should just throw an error 
+	         * TODO: can we really do anything in this case? maybe we should just throw an error
 	         * describing some alternative options like creating a Converter or declaring their own
 	         * custom ObjectFactory...
 	         * */
-        	
+
 	        ConstructorMapping<T> defaultMapping = new ConstructorMapping<T>();
 	        defaultMapping.setConstructor(constructors.length == 0 ? null : constructors[0]);
 	        return defaultMapping;
         }
     }
-    
+
 	private FieldMap mapConstructorArgument(FieldMap existing, Type<?> argumentType, boolean byDefault) {
 		Property destProp = new Property.Builder()
         		.name(existing.getDestination().getName())
@@ -195,7 +195,7 @@ public class SimpleConstructorResolverStrategy implements ConstructorResolverStr
     		    .type(argumentType)
     		    .build();
 		return new FieldMap(existing.getSource(), destProp, null,
-				null, MappingDirection.A_TO_B, false, existing.getConverterId(), 
+				null, MappingDirection.A_TO_B, false, existing.getConverterId(),
 				null, byDefault);
 	}
 }

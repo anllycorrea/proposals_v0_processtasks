@@ -1,6 +1,6 @@
 package com.bbva.pzic.proposals.dao.rest.mapper.impl;
 
-import com.bbva.pzic.proposals.DummyMock;
+import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposals;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
@@ -8,12 +8,12 @@ import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequ
 import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalsResponse;
 import com.bbva.pzic.proposals.dao.rest.mock.stub.RestSimulateProposalsBuilder;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -26,6 +26,7 @@ import static org.junit.Assert.*;
  *
  * @author Entelgy
  */
+@RunWith(MockitoJUnitRunner.class)
 public class RestSimulateProposalsMapperTest {
 
     @InjectMocks
@@ -34,16 +35,9 @@ public class RestSimulateProposalsMapperTest {
     @Mock
     private EnumMapper enumMapper;
 
-    private DummyMock dummyMock;
+    private EntityStubs entityStubs = EntityStubs.getInstance();
 
-    private RestSimulateProposalsBuilder restSimulateProposalsBuilder;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        dummyMock = new DummyMock();
-        restSimulateProposalsBuilder = new RestSimulateProposalsBuilder();
-    }
+    private RestSimulateProposalsBuilder restSimulateProposalsBuilder = new RestSimulateProposalsBuilder();
 
     private void mapInEnumMapper() {
         Mockito.when(enumMapper.getBackendValue("documentType.id", "DNI")).thenReturn("L");
@@ -60,7 +54,7 @@ public class RestSimulateProposalsMapperTest {
     @Test
     public void mapInFullTest() throws IOException {
         mapInEnumMapper();
-        DTOIntSimulatedProposal dtoIntSimulatedProposal = dummyMock.getDtoIntSimulatedProposal();
+        DTOIntSimulatedProposal dtoIntSimulatedProposal = entityStubs.getDtoIntSimulatedProposal();
 
         SimulatedProposalRequest request = restSimulateProposalsMapper.mapIn(dtoIntSimulatedProposal);
 

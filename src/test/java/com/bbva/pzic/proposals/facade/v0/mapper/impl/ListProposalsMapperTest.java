@@ -1,44 +1,41 @@
 package com.bbva.pzic.proposals.facade.v0.mapper.impl;
 
-import com.bbva.pzic.proposals.DummyMock;
+import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.Proposals;
-import com.bbva.pzic.proposals.facade.v0.mapper.IListProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
 import java.util.List;
 
-import static com.bbva.pzic.proposals.DummyMock.*;
+import static com.bbva.pzic.proposals.EntityStubs.*;
 
 /**
  * Created on 28/12/2017.
  *
  * @author Entelgy
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ListProposalsMapperTest {
 
     @InjectMocks
-    private IListProposalsMapper proposalsMapper;
+    private ListProposalsMapper proposalsMapper;
     @Mock
     private EnumMapper enumMapper;
-    private DummyMock dummyMock;
+    private EntityStubs entityStubs = EntityStubs.getInstance();
 
     @Before
     public void init() {
-        proposalsMapper = new ListProposalsMapper();
-        dummyMock = new DummyMock();
-        MockitoAnnotations.initMocks(this);
         Mockito.when(enumMapper.getBackendValue("documentType.id", "DNI")).thenReturn("L");
-
     }
 
     @Test
@@ -53,7 +50,7 @@ public class ListProposalsMapperTest {
 
     @Test
     public void mapOutFulltest() throws IOException {
-        List<Proposal> dto = dummyMock.buildDtoIntProposals();
+        List<Proposal> dto = entityStubs.buildDtoIntProposals();
         Proposals proposals = proposalsMapper.mapOut(dto);
 
         Assert.assertNotNull(proposals);

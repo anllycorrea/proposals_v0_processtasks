@@ -18,6 +18,7 @@
 
 package com.bbva.pzic.proposals.util.orika.impl;
 
+import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.pzic.proposals.util.orika.*;
 import com.bbva.pzic.proposals.util.orika.converter.ConverterFactory;
 import com.bbva.pzic.proposals.util.orika.impl.mapping.strategy.MappingStrategy;
@@ -643,7 +644,7 @@ public class MapperFacadeImpl implements MapperFacade {
             }
             return result;
 
-        } catch (MappingException e) {
+        } catch (MappingException | BusinessServiceException e) {
             /* don't wrap our own exceptions */
             throw e;
         } catch (Exception e) {

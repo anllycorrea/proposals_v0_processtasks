@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.bbva.arq.servicing.spring</groupId>
         <artifactId>pom-padre-frontend</artifactId>
-        <version>5.0.10</version>
+        <version>5.3.3.6</version>
     </parent>
 
     <groupId>com.bbva.pzic.proposals</groupId>
@@ -28,9 +28,10 @@
     </distributionManagement>
 
     <properties>
-        <testUtils.version>5.0.10</testUtils.version>
+        <testUtils.version>5.3.3.6</testUtils.version>
         <jacoco.version>0.7.9</jacoco.version>
         <javax.el.version>3.0.1-b09</javax.el.version>
+        <roo.version>2.0.0.RELEASE</roo.version>
     </properties>
 
     <dependencies>
@@ -39,18 +40,6 @@
             <groupId>com.bbva.pzic.routine.validator</groupId>
             <artifactId>pzic_validator-rm</artifactId>
             <version>1.0.0</version>
-        </dependency>
-        <!--
-        Dependencia adicionada para sobreescribir la version heredada por la dependencia
-        spring-orm:4.3.13.RELEASE. Esta se encuentra dentro del pom del artefacto
-        spring-data-jpa:1.11.9.RELEASE, y este a su vez, dentro del pom del artefacto
-        arq-spring-restutils:3.7.3
-        -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- INICIO Core Arquitectura -->
@@ -164,6 +153,7 @@
             <groupId>org.springframework.roo</groupId>
             <artifactId>org.springframework.roo.annotations</artifactId>
             <version>${roo.version}</version>
+            <type>pom</type>
             <scope>provided</scope>
         </dependency>
         <!-- Spring dependencies -->
@@ -323,12 +313,6 @@
             <scope>test</scope>
         </dependency>
         <!-- FIN hibernate -->
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
-        </dependency>
 
     </dependencies>
 

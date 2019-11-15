@@ -3,12 +3,17 @@
 
 package com.bbva.pzic.proposals.dao.model.uglp;
 
+import com.bbva.pzic.proposals.dao.model.uglp.RespuestaTransaccionUglp;
 import java.io.Serializable;
 
 privileged aspect RespuestaTransaccionUglp_Roo_Serializable {
     
     declare parents: RespuestaTransaccionUglp implements Serializable;
     
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
     private static final long RespuestaTransaccionUglp.serialVersionUID = 1L;
     
 }

@@ -1,6 +1,6 @@
 package com.bbva.pzic.proposals.dao.tx.mapper.impl;
 
-import com.bbva.pzic.proposals.DummyMock;
+import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.DTOInputListExternalFinancingProposals;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
@@ -8,15 +8,14 @@ import com.bbva.pzic.proposals.dao.model.uglp.FormatoUGMEGLP;
 import com.bbva.pzic.proposals.dao.model.uglp.FormatoUGMSGLP1;
 import com.bbva.pzic.proposals.dao.model.uglp.FormatoUGMSGLP2;
 import com.bbva.pzic.proposals.dao.model.uglp.mock.FormatUglpMock;
-import com.bbva.pzic.proposals.dao.tx.mapper.ITxListExternalFinancingProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,25 +25,19 @@ import java.util.List;
  *
  * @author Entelgy
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TxListExternalFinancingProposalsMapperTest {
-    final static String DELIVERY_TYPE_ID = "DIGITAL";
-    final static String STATUS_ID = "PENDING_SIGNATURE";
+
+    private final static String DELIVERY_TYPE_ID = "DIGITAL";
+    private final static String STATUS_ID = "PENDING_SIGNATURE";
 
     @InjectMocks
-    private ITxListExternalFinancingProposalsMapper proposalsMapper;
+    private TxListExternalFinancingProposalsMapper proposalsMapper;
 
     @Mock
     private EnumMapper enumMapper;
-    private DummyMock dummyMock;
-    private FormatUglpMock formatUglpMock;
-
-    @Before
-    public void setUp() {
-        proposalsMapper = new TxListExternalFinancingProposalsMapper();
-        dummyMock = new DummyMock();
-        formatUglpMock = new FormatUglpMock();
-        MockitoAnnotations.initMocks(this);
-    }
+    private EntityStubs entityStubs = EntityStubs.getInstance();
+    private FormatUglpMock formatUglpMock = new FormatUglpMock();
 
     private void enumMapOut() {
         Mockito.when(enumMapper.getEnumValue("externalFinancingProposals.status.id", "8")).thenReturn(STATUS_ID);
@@ -53,7 +46,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     @Test
     public void mapInFullTest() {
-        DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
+        DTOInputListExternalFinancingProposals dtoIn = entityStubs.getDtoInputListExternalFinancingProposals();
         FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
 
         Assert.assertNotNull(result);
@@ -84,7 +77,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     @Test
     public void mapInWithOutThirdPartyProviderIdTest() {
-        DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
+        DTOInputListExternalFinancingProposals dtoIn = entityStubs.getDtoInputListExternalFinancingProposals();
         dtoIn.setThirdPartyProviderId(null);
         FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
         Assert.assertNotNull(result);
@@ -114,7 +107,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     @Test
     public void mapInWithOutExternalProductCategoryIdTest() {
-        DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
+        DTOInputListExternalFinancingProposals dtoIn = entityStubs.getDtoInputListExternalFinancingProposals();
         dtoIn.setExternalproductCategoryTypeId(null);
         FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
         Assert.assertNotNull(result);
@@ -144,7 +137,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     @Test
     public void mapInWithoutHolderIdentityDocumentsDocumentTypeIdTest() {
-        DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
+        DTOInputListExternalFinancingProposals dtoIn = entityStubs.getDtoInputListExternalFinancingProposals();
         dtoIn.setHolderIdentityDocumentsDocumentTypeId(null);
         FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
         Assert.assertNotNull(result);
@@ -174,7 +167,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     @Test
     public void mapInWithOutDocumentNumberTest() {
-        DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
+        DTOInputListExternalFinancingProposals dtoIn = entityStubs.getDtoInputListExternalFinancingProposals();
         dtoIn.setHolderIdentityDocumentsDocumentNumber(null);
         FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
         Assert.assertNotNull(result);
@@ -204,7 +197,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     @Test
     public void mapInWithoutFromRequestDateTest() {
-        DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
+        DTOInputListExternalFinancingProposals dtoIn = entityStubs.getDtoInputListExternalFinancingProposals();
         dtoIn.setFromRequestDate(null);
         FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
         Assert.assertNotNull(result);
@@ -235,7 +228,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     @Test
     public void mapInWithoutToRequestDateTest() {
-        DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
+        DTOInputListExternalFinancingProposals dtoIn = entityStubs.getDtoInputListExternalFinancingProposals();
         dtoIn.setToRequestDate(null);
         FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
         Assert.assertNotNull(result);
@@ -266,7 +259,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     @Test
     public void mapInWithoutPaginationKeyTest() {
-        DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
+        DTOInputListExternalFinancingProposals dtoIn = entityStubs.getDtoInputListExternalFinancingProposals();
         dtoIn.setPaginationKey(null);
         FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
         Assert.assertNotNull(result);
@@ -296,7 +289,7 @@ public class TxListExternalFinancingProposalsMapperTest {
 
     @Test
     public void mapInWithoutPageSizeTest() {
-        DTOInputListExternalFinancingProposals dtoIn = dummyMock.getDtoInputListExternalFinancingProposals();
+        DTOInputListExternalFinancingProposals dtoIn = entityStubs.getDtoInputListExternalFinancingProposals();
         dtoIn.setPageSize(null);
         FormatoUGMEGLP result = proposalsMapper.mapIn(dtoIn);
         Assert.assertNotNull(result);

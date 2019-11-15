@@ -1,6 +1,6 @@
 package com.bbva.pzic.proposals.facade.v0.mapper.impl;
 
-import com.bbva.pzic.proposals.DummyMock;
+import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.DTOIntSimulatedProposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.facade.v0.mapper.ISimulateProposalsMapper;
@@ -20,17 +20,16 @@ import static org.junit.Assert.*;
 public class SimulateProposalsMapperTest {
 
     private ISimulateProposalsMapper simulateProposalsMapper;
-    private DummyMock dummyMock;
+    private EntityStubs entityStubs = EntityStubs.getInstance();
 
     @Before
     public void setUp() {
         simulateProposalsMapper = new SimulateProposalsMapper();
-        dummyMock = new DummyMock();
     }
 
     @Test
     public void mapInFullTest() throws IOException {
-        SimulatedProposal simulatedProposal = dummyMock.getSimulatedProposal();
+        SimulatedProposal simulatedProposal = entityStubs.getSimulatedProposal();
         DTOIntSimulatedProposal result = simulateProposalsMapper.mapIn(simulatedProposal);
 
         assertNotNull(result);

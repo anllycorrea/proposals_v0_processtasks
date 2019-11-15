@@ -3,12 +3,17 @@
 
 package com.bbva.pzic.proposals.dao.model.ugap;
 
+import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMSGAP1;
 import java.io.Serializable;
 
 privileged aspect FormatoUGMSGAP1_Roo_Serializable {
     
     declare parents: FormatoUGMSGAP1 implements Serializable;
     
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
     private static final long FormatoUGMSGAP1.serialVersionUID = 1L;
     
 }

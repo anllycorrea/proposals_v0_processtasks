@@ -21,4 +21,7 @@ public interface ValidationGroup {
 
     interface SimulateProposals {
     }
+
+    interface CreateQuestionnairesValidateAccess {
+    }
 }

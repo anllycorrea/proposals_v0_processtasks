@@ -2,9 +2,9 @@ package com.bbva.pzic.proposals.dao.model.hyt6;
 
 
 import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.serializable.RooSerializable;
-import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
+import org.springframework.roo.addon.javabean.annotations.RooSerializable;
+import org.springframework.roo.addon.javabean.annotations.RooToString;
 
 import com.bbva.jee.arq.spring.core.host.Campo;
 import com.bbva.jee.arq.spring.core.host.Formato;
