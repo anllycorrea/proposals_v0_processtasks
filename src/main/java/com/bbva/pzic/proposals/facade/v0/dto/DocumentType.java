@@ -1,4 +1,4 @@
-package com.bbva.pzic.proposals.canonic;
+package com.bbva.pzic.proposals.facade.v0.dto;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,12 +7,10 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
- * Created on 10/05/2017.
- *
  * @author Entelgy
  */
-@XmlRootElement(name = "DocumentType", namespace = "urn:com:bbva:pzic:proposals:canonic")
-@XmlType(name = "DocumentType", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlRootElement(name = "documentType", namespace = "urn:com:bbva:pzic:proposals:facade:v0:dto")
+@XmlType(name = "documentType", namespace = "urn:com:bbva:pzic:proposals:facade:v0:dto")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DocumentType implements Serializable {
 

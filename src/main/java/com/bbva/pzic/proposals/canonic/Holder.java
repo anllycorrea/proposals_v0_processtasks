@@ -1,6 +1,7 @@
 package com.bbva.pzic.proposals.canonic;
 
 import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
+import com.bbva.pzic.proposals.facade.v0.dto.IdentityDocument;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

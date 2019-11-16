@@ -9,16 +9,14 @@ import java.io.Serializable;
 /**
  * @author Entelgy
  */
-@XmlRootElement(name = "subproductProposal", namespace = "urn:com:bbva:pzic:proposals:facade:v0:dto")
-@XmlType(name = "subproductProposal", namespace = "urn:com:bbva:pzic:proposals:facade:v0:dto")
+@XmlRootElement(name = "phoneCompany", namespace = "urn:com:bbva:pzic:proposals:facade:v0:dto")
+@XmlType(name = "phoneCompany", namespace = "urn:com:bbva:pzic:proposals:facade:v0:dto")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SubproductProposal implements Serializable {
+public class PhoneCompany implements Serializable {
 
     private static final long serialVersionUID = 1L;
     /**
-     * Subproduct identifier. Flow to be followed according to the type of
-     * subproduct that is being requested (agreements, refinanced, among
-     * others).
+     * Cellphone company identifier.
      */
     private String id;
 

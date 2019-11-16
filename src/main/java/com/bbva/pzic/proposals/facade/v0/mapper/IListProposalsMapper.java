@@ -1,8 +1,8 @@
 package com.bbva.pzic.proposals.facade.v0.mapper;
 
+import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.Proposal;
-import com.bbva.pzic.proposals.canonic.Proposals;
 
 import java.util.List;
 
@@ -16,5 +16,5 @@ public interface IListProposalsMapper {
     InputListProposals mapIn(String participantIdentityDocumentDocumentTypeId,
                              String participantIdentityDocumentDocumentNumber, String customerId);
 
-    Proposals mapOut(List<Proposal> proposals);
+    ServiceResponse<List<Proposal>> mapOut(List<Proposal> proposals);
 }

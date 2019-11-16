@@ -14,8 +14,6 @@ import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.converter.builtin.DateToStringConverter;
 import com.bbva.pzic.proposals.util.orika.converter.builtin.LongToIntegerConverter;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -27,8 +25,6 @@ import java.util.ArrayList;
  */
 @Mapper("txListExternalFinancingProposalsMapper")
 public class TxListExternalFinancingProposalsMapper extends ConfigurableMapper implements ITxListExternalFinancingProposalsMapper {
-
-    private static final Log LOG = LogFactory.getLog(TxListExternalFinancingProposalsMapper.class);
 
     private static final String MONEY_CURRENCY = "moneda";
 
@@ -94,13 +90,12 @@ public class TxListExternalFinancingProposalsMapper extends ConfigurableMapper i
      */
     @Override
     public DTOOutExternalFinancingProposalData mapOut1(FormatoUGMSGLP1 formatOutput, DTOOutExternalFinancingProposalData dtoOut) {
-        LOG.info("... call TxListExternalFinancingProposalsMapper.mapOut1...");
         DTOOutExternalFinancingProposalData proposalData = dtoOut;
         if (proposalData == null) {
             proposalData = new DTOOutExternalFinancingProposalData();
         }
         if (proposalData.getData() == null) {
-            proposalData.setData(new ArrayList<ExternalFinancingProposal>());
+            proposalData.setData(new ArrayList<>());
         }
         ExternalFinancingProposal proposal = map(formatOutput, ExternalFinancingProposal.class);
         if (formatOutput.getTipenvi() != null) {
@@ -118,7 +113,6 @@ public class TxListExternalFinancingProposalsMapper extends ConfigurableMapper i
      */
     @Override
     public DTOOutExternalFinancingProposalData mapOut2(FormatoUGMSGLP2 formatOutput, DTOOutExternalFinancingProposalData dtoOut) {
-        LOG.info("... call TxListExternalFinancingProposalsMapper.mapOut2...");
         DTOOutExternalFinancingProposalData proposalData = dtoOut;
         if (proposalData == null) {
             proposalData = new DTOOutExternalFinancingProposalData();

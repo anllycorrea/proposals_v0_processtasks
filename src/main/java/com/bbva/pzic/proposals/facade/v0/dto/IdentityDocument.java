@@ -1,4 +1,4 @@
-package com.bbva.pzic.proposals.canonic;
+package com.bbva.pzic.proposals.facade.v0.dto;
 
 import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
 
@@ -9,12 +9,10 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
- * Created on 10/05/2017.
- *
  * @author Entelgy
  */
-@XmlRootElement(name = "IdentityDocument", namespace = "urn:com:bbva:pzic:proposals:canonic")
-@XmlType(name = "IdentityDocument", namespace = "urn:com:bbva:pzic:proposals:canonic")
+@XmlRootElement(name = "identityDocument", namespace = "urn:com:bbva:pzic:proposals:facade:v0:dto")
+@XmlType(name = "identityDocument", namespace = "urn:com:bbva:pzic:proposals:facade:v0:dto")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class IdentityDocument implements Serializable {
 

@@ -4,7 +4,7 @@ import com.bbva.pzic.proposals.business.dto.DTOIntExternalFinancingProposal;
 import com.bbva.pzic.proposals.business.dto.DTOIntThirdPartyProvider;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.Holder;
-import com.bbva.pzic.proposals.canonic.IdentityDocument;
+import com.bbva.pzic.proposals.facade.v0.dto.IdentityDocument;
 import com.bbva.pzic.proposals.facade.v0.mapper.ICreateExternalFinancingProposalMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;

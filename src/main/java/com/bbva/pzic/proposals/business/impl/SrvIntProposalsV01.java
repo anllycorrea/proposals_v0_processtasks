@@ -10,14 +10,14 @@ import com.bbva.pzic.routine.validator.Validator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Created on 06/12/2016.
  *
  * @author Entelgy
  */
-@Component
+@Service
 public class SrvIntProposalsV01 implements ISrvIntProposalsV01 {
 
     private static final Log LOG = LogFactory.getLog(SrvIntProposalsV01.class);

@@ -106,6 +106,11 @@ public final class EntityStubs {
 
     public ValidateAccess getValidateAccess() throws IOException {
         return objectMapperHelper.readValue(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("mock/validateAccess.json"), ValidateAccess.class);
+                .getResourceAsStream("json/validateAccess.json"), ValidateAccess.class);
+    }
+
+    public DTOIntValidateAccess getDTOIntValidateAccess() throws IOException {
+        return objectMapperHelper.readValue(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("json/validateAccess.json"), DTOIntValidateAccess.class);
     }
 }

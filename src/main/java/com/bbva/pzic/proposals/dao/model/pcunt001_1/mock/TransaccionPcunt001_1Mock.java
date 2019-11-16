@@ -17,6 +17,11 @@ public class TransaccionPcunt001_1Mock implements InvocadorTransaccion<PeticionT
 
     @Override
     public RespuestaTransaccionPcunt001_1 invocar(PeticionTransaccionPcunt001_1 transaccion) {
+//        try {
+//            RespuestaTransaccionPcunt001_1 respuesta = Pcunt001_1Stubs.getInstance().getPlaces();
+//        } catch (IOException e) {
+//            throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
+//        }
         return null;
     }
 

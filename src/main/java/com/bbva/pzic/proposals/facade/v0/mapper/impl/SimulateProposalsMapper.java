@@ -54,7 +54,7 @@ public class SimulateProposalsMapper extends ConfigurableMapper implements ISimu
 
         List<Product> products = simulatedProposal.getProducts();
         if (products != null && !products.isEmpty()) {
-            dtoIn.setProducts(new ArrayList<DTOIntProduct>());
+            dtoIn.setProducts(new ArrayList<>());
             for (Product product : products) {
                 ProductClassification productClassification = product.getProductClassification();
                 if (productClassification != null && productClassification.getId() != null) {

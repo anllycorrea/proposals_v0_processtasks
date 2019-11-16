@@ -11,7 +11,7 @@ import com.bbva.pzic.proposals.business.ISrvIntProposals;
 import com.bbva.pzic.proposals.business.dto.DTOOutExternalFinancingProposalData;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposalData;
-import com.bbva.pzic.proposals.canonic.Proposals;
+import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.facade.v0.ISrvProposalsV0;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
@@ -89,7 +89,7 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
     @GET
     @Path("/proposals")
     @SMC(registryID = "SMCPE1720157", logicalID = "listProposals")
-    public Proposals listProposals(
+    public ServiceResponse<List<Proposal>> listProposals(
             @QueryParam("participant.identityDocument.documentType.id") final String documentTypeId,
             @DatoAuditable(omitir = true)
             @QueryParam("participant.identityDocument.documentNumber") final String documentNumber,

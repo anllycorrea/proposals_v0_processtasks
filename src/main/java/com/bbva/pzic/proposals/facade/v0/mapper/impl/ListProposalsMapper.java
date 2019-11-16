@@ -1,8 +1,8 @@
 package com.bbva.pzic.proposals.facade.v0.mapper.impl;
 
+import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.Proposal;
-import com.bbva.pzic.proposals.canonic.Proposals;
 import com.bbva.pzic.proposals.facade.v0.mapper.IListProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
@@ -42,13 +42,12 @@ public class ListProposalsMapper implements IListProposalsMapper {
     }
 
     @Override
-    public Proposals mapOut(final List<Proposal> proposalList) {
+    @SuppressWarnings("unchecked")
+    public ServiceResponse<List<Proposal>> mapOut(final List<Proposal> proposalList) {
         LOG.info("... called method ListProposalsMapper.mapOut ...");
         if (proposalList == null) {
             return null;
         }
-        Proposals proposals = new Proposals();
-        proposals.setData(proposalList);
-        return proposals;
+        return ServiceResponse.data(proposalList).pagination(null).build();
     }
 }

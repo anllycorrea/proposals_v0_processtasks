@@ -46,12 +46,18 @@ public class ProposalsDAO implements IProposalsDAO {
     @Autowired
     private ApxCreateQuestionnairesValidateAccess apxCreateQuestionnairesValidateAccess;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Proposal> listProposals(final InputListProposals listProposals) {
         LOG.info("... Invoking method ProposalsDAO.listProposals ...");
         return txListProposalsV0.invoke(listProposals);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DTOIntSimulatedProposals simulateProposals(final DTOIntSimulatedProposal simulatedProposal) {
         LOG.info("... Invoking method ProposalsDAO.simulateProposals ...");
@@ -63,6 +69,7 @@ public class ProposalsDAO implements IProposalsDAO {
      */
     @Override
     public ExternalFinancingProposal createExternalFinancingProposal(final DTOIntExternalFinancingProposal dtoIn) {
+        LOG.info("... Invoking method ProposalsDAO.createExternalFinancingProposal ...");
         return txCreateExternalFinancingProposal.invoke(dtoIn);
     }
 
@@ -71,6 +78,7 @@ public class ProposalsDAO implements IProposalsDAO {
      */
     @Override
     public DTOOutExternalFinancingProposalData listExternalFinancingProposals(final DTOInputListExternalFinancingProposals dtoIn) {
+        LOG.info("... Invoking method ProposalsDAO.listExternalFinancingProposals ...");
         return txListExternalFinancingProposals.invoke(dtoIn);
     }
 
@@ -79,6 +87,7 @@ public class ProposalsDAO implements IProposalsDAO {
      */
     @Override
     public void modifyExternalFinancingProposal(final DTOInputModifyExternalFinancingProposal dtoIn) {
+        LOG.info("... Invoking method ProposalsDAO.modifyExternalFinancingProposal ...");
         txModifyExternalFinancingProposal.invoke(dtoIn);
     }
 

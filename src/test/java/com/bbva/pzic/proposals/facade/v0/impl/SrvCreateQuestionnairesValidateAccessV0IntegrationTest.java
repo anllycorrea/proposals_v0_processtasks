@@ -3,6 +3,7 @@ package com.bbva.pzic.proposals.facade.v0.impl;
 import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
 import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoader;
 import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExecutionListener;
+import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.facade.v0.ISrvProposalsV0;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
 import org.junit.Rule;
@@ -14,6 +15,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+
+import java.io.IOException;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -37,8 +40,9 @@ public class SrvCreateQuestionnairesValidateAccessV0IntegrationTest {
     private ISrvProposalsV0 srvProposalsV0;
 
     @Test
-    public void createQuestionnairesValidateAccessTest() {
-        ServiceResponse<ValidateAccess> result = srvProposalsV0.createQuestionnairesValidateAccess(null);
+    public void createQuestionnairesValidateAccessTest() throws IOException {
+        ServiceResponse<ValidateAccess> result = srvProposalsV0.createQuestionnairesValidateAccess(
+                EntityStubs.getInstance().getValidateAccess());
 
         assertNotNull(result.getData());
     }

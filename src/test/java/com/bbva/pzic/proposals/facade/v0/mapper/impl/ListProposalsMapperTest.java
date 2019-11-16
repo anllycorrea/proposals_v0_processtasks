@@ -1,9 +1,9 @@
 package com.bbva.pzic.proposals.facade.v0.mapper.impl;
 
+import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
 import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.InputListProposals;
 import com.bbva.pzic.proposals.canonic.Proposal;
-import com.bbva.pzic.proposals.canonic.Proposals;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,9 +49,9 @@ public class ListProposalsMapperTest {
     }
 
     @Test
-    public void mapOutFulltest() throws IOException {
+    public void mapOutFullTest() throws IOException {
         List<Proposal> dto = entityStubs.buildDtoIntProposals();
-        Proposals proposals = proposalsMapper.mapOut(dto);
+        ServiceResponse<List<Proposal>> proposals = proposalsMapper.mapOut(dto);
 
         Assert.assertNotNull(proposals);
         Assert.assertNotNull(proposals.getData());
@@ -104,11 +104,10 @@ public class ListProposalsMapperTest {
     }
 
     @Test
-    public void mapOuNulltest() throws IOException {
-        Proposals proposals = proposalsMapper.mapOut(null);
+    public void mapOutNulltest() {
+        ServiceResponse<List<Proposal>> proposals = proposalsMapper.mapOut(null);
 
         Assert.assertNull(proposals);
-
     }
 
 }

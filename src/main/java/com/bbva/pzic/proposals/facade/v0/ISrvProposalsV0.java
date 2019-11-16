@@ -3,7 +3,7 @@ package com.bbva.pzic.proposals.facade.v0;
 import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposal;
 import com.bbva.pzic.proposals.canonic.ExternalFinancingProposalData;
-import com.bbva.pzic.proposals.canonic.Proposals;
+import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
 
@@ -25,16 +25,15 @@ public interface ISrvProposalsV0 {
     String TO_REQUEST_DATE = "toRequestDate";
 
     /**
-     * Service for retrieving the list of proposals related to a specific
-     * person.
+     * Service for retrieving the list of proposals related to a specific person.
      *
-     * @param documentTypeId
-     * @param documentNumber
-     * @param customerId
-     * @return {@link Proposals}
+     * @param documentTypeId filters the proposals by document type.
+     * @param documentNumber filters the proposals by document number.
+     * @param customerId     filters the proposals by unique customer identifier.
+     * @return {@link List<Proposal>}
      */
-    Proposals listProposals(String documentTypeId,
-                            String documentNumber, String customerId);
+    ServiceResponse<List<Proposal>> listProposals(String documentTypeId,
+                                                  String documentNumber, String customerId);
 
     /**
      * Service for simulating a set of proposals.

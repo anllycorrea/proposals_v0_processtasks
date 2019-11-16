@@ -1,15 +1,12 @@
 package com.bbva.pzic.proposals.business.dto;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * Created on 15/11/2019.
  *
  * @author Entelgy
  */
-public class DTOIntSubproductProposal {
+public class DTOIntPhoneCompany {
 
-    @NotNull(groups = ValidationGroup.CreateQuestionnairesValidateAccess.class)
     private String id;
 
     public String getId() {

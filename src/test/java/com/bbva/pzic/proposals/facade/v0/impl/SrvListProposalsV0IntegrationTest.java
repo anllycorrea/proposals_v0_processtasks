@@ -1,9 +1,10 @@
 package com.bbva.pzic.proposals.facade.v0.impl;
 
+import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
 import com.bbva.jee.arq.spring.core.servicing.test.BusinessServiceTestContextLoader;
 import com.bbva.jee.arq.spring.core.servicing.test.MockInvocationContextTestExecutionListener;
-import com.bbva.pzic.proposals.canonic.Proposals;
+import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.utilTest.BusinessServiceExceptionMatcher;
 import com.bbva.pzic.utilTest.UriInfoImpl;
@@ -17,6 +18,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+
+import java.util.List;
 
 import static com.bbva.pzic.proposals.EntityStubs.*;
 import static com.bbva.pzic.proposals.dao.model.hyt6.mock.TransaccionHyt6Mock.TEST_EMPTY;
@@ -49,7 +52,7 @@ public class SrvListProposalsV0IntegrationTest {
 
     @Test
     public void listProposalsTest() {
-        final Proposals result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, DOCUMENT_NUMBER, CUSTOMER_ID);
+        final ServiceResponse<List<Proposal>> result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, DOCUMENT_NUMBER, CUSTOMER_ID);
         assertNotNull(result);
         assertNotNull(result.getData());
 
@@ -59,7 +62,7 @@ public class SrvListProposalsV0IntegrationTest {
 
     @Test
     public void listProposalsWithoutCustomerIdTest() {
-        final Proposals result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, DOCUMENT_NUMBER, null);
+        final ServiceResponse<List<Proposal>> result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, DOCUMENT_NUMBER, null);
         assertNotNull(result);
         assertNotNull(result.getData());
 
@@ -68,7 +71,7 @@ public class SrvListProposalsV0IntegrationTest {
 
     @Test
     public void listProposalsWithoutDocumentNumberTest() {
-        final Proposals result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, null, CUSTOMER_ID);
+        final ServiceResponse<List<Proposal>> result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, null, CUSTOMER_ID);
         assertNotNull(result);
         assertNotNull(result.getData());
 
@@ -77,7 +80,7 @@ public class SrvListProposalsV0IntegrationTest {
 
     @Test
     public void listProposalsWithoutDocumentTypeIdTest() {
-        final Proposals result = srvProposalsV0.listProposals(null, DOCUMENT_NUMBER, CUSTOMER_ID);
+        final ServiceResponse<List<Proposal>> result = srvProposalsV0.listProposals(null, DOCUMENT_NUMBER, CUSTOMER_ID);
         assertNotNull(result);
         assertNotNull(result.getData());
 
@@ -113,7 +116,7 @@ public class SrvListProposalsV0IntegrationTest {
     public void listProposalsWithoutDocumentNumberAndDocumentTypeIdTest() {
 
 
-        final Proposals result = srvProposalsV0.listProposals(null, null, CUSTOMER_ID);
+        final ServiceResponse<List<Proposal>> result = srvProposalsV0.listProposals(null, null, CUSTOMER_ID);
         assertNotNull(result);
         assertNotNull(result.getData());
 
@@ -143,13 +146,13 @@ public class SrvListProposalsV0IntegrationTest {
 
     @Test
     public void listProposalsNullTest() {
-        final Proposals result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, DOCUMENT_NUMBER, TEST_NULL);
+        final ServiceResponse<List<Proposal>> result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, DOCUMENT_NUMBER, TEST_NULL);
         assertNull(result);
     }
 
     @Test
     public void listProposalsEmptyTest() {
-        final Proposals result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, DOCUMENT_NUMBER, TEST_EMPTY);
+        final ServiceResponse<List<Proposal>> result = srvProposalsV0.listProposals(DOCUMENT_TYPE_ID, DOCUMENT_NUMBER, TEST_EMPTY);
 
         assertNotNull(result);
         assertNotNull(result.getData());
