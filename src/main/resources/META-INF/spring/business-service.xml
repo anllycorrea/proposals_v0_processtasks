@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:servicing="http://bbva.com/arq-spring-servicing"
+<beans xmlns:servicing="http://bbva.com/arq-spring-servicing"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cxf="http://cxf.apache.org/core"
        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
         http://www.springframework.org/schema/beans
@@ -23,7 +23,7 @@
 
     <!-- Declaracion de modulo de servicios -->
     <servicing:module-metadata application-name="pzic" service-logical-id="proposals"
-                               routines="validator"/>
+                               routines="validator,data-processing-executor"/>
 
     <!-- beans de cxf -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>

@@ -7,13 +7,6 @@ import javax.ws.rs.core.Response;
  */
 public interface ISrvProposalsV01 {
 
-    String CUSTOMER_ID = "customerId";
-    String DOCUMENT_TYPE = "documentType";
-    String DOCUMENT_NUMBER = "documentNumber";
-    String PRODUCT_CLASSIFICATION_ID = "product.productClassification.id";
-    String PAGINATION_KEY = "paginationKey";
-    String PAGE_SIZE = "pageSize";
-
     /**
      * Method for retrieving the list of proposals related to a specific person.
      *

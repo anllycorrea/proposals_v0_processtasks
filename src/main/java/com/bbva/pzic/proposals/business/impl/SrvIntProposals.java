@@ -9,6 +9,7 @@ import com.bbva.pzic.proposals.dao.IProposalsDAO;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.routine.validator.Validator;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +93,21 @@ public class SrvIntProposals implements ISrvIntProposals {
         LOG.info("... Invoking method SrvIntProposals.createQuestionnairesValidateAccess ...");
         LOG.info("... Validating createQuestionnairesValidateAccess input parameter ...");
         validator.validate(dtoInt, ValidationGroup.CreateQuestionnairesValidateAccess.class);
+
+        if (CollectionUtils.isNotEmpty(dtoInt.getParticipant().getContacts())) {
+            for (DTOIntContact contact : dtoInt.getParticipant().getContacts()) {
+                if ("EMAIL".equals(contact.getContactDetailType())) {
+                    validator.validate(contact, ValidationGroup.CreateQuestionnairesValidateAccessEmail.class);
+
+                } else if ("MOBILE".equals(contact.getContactDetailType())) {
+                    validator.validate(contact, ValidationGroup.CreateQuestionnairesValidateAccessMobile.class);
+
+                } else {
+                    LOG.warn(String.format("Unrecognized type %s", contact.getContactDetailType()));
+                }
+            }
+        }
+
         return proposalsDAO.createQuestionnairesValidateAccess(dtoInt);
     }
 }

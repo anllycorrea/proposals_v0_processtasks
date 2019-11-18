@@ -17,13 +17,6 @@ import java.util.List;
  */
 public interface ISrvProposalsV0 {
 
-    String THIRD_PARTY_PROVIDER_ID = "thirdPartyProvider.id";
-    String EXTERNAL_PRODUCT_CATEGORY_TYPE_ID = "externalProduct.category.categoryType.id";
-    String HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_TYPE_ID = "holder.identityDocuments.documentType.id";
-    String HOLDER_IDENTITY_DOCUMENTS_DOCUMENT_NUMBER = "holder.identityDocuments.documentNumber";
-    String FROM_REQUEST_DATE = "fromRequestDate";
-    String TO_REQUEST_DATE = "toRequestDate";
-
     /**
      * Service for retrieving the list of proposals related to a specific person.
      *

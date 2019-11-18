@@ -5,7 +5,7 @@ import com.bbva.pzic.proposals.canonic.*;
 import com.bbva.pzic.proposals.dao.mapper.IListProposalsDAOMapper;
 import com.bbva.pzic.proposals.dao.model.listproposals.FormatProposal;
 import com.bbva.pzic.proposals.dao.model.listproposals.FormatProposalData;
-import com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01;
+import com.bbva.pzic.proposals.util.Constants;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
 import org.apache.commons.logging.Log;
@@ -65,13 +65,13 @@ public class ListProposalsDAOMapper extends ConfigurableMapper implements IListP
     public HashMap<String, String> mapInput(final DTOInputListProposals dtoInputListProposals) {
         LOG.info("... called method ListProposalsDAOMapper.mapInput ...");
         HashMap<String, String> map = new HashMap<>();
-        map.put(ISrvProposalsV01.CUSTOMER_ID, dtoInputListProposals.getCustomerId());
-        map.put(ISrvProposalsV01.DOCUMENT_TYPE, dtoInputListProposals.getDocumentType());
-        map.put(ISrvProposalsV01.DOCUMENT_NUMBER, dtoInputListProposals.getDocumentNumber());
-        map.put(ISrvProposalsV01.PRODUCT_CLASSIFICATION_ID, dtoInputListProposals.getProductClassificationId());
-        map.put(ISrvProposalsV01.PAGINATION_KEY, dtoInputListProposals.getPaginationKey());
+        map.put(Constants.CUSTOMER_ID, dtoInputListProposals.getCustomerId());
+        map.put(Constants.DOCUMENT_TYPE, dtoInputListProposals.getDocumentType());
+        map.put(Constants.DOCUMENT_NUMBER, dtoInputListProposals.getDocumentNumber());
+        map.put(Constants.PRODUCT_CLASSIFICATION_ID, dtoInputListProposals.getProductClassificationId());
+        map.put(Constants.PAGINATION_KEY, dtoInputListProposals.getPaginationKey());
         if (dtoInputListProposals.getPageSize() != null) {
-            map.put(ISrvProposalsV01.PAGE_SIZE, dtoInputListProposals.getPageSize().toString());
+            map.put(Constants.PAGE_SIZE, dtoInputListProposals.getPageSize().toString());
         }
         return map;
     }

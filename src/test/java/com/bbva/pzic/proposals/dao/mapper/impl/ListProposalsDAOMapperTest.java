@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-import static com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01.*;
+import static com.bbva.pzic.proposals.util.Constants.*;
 import static org.junit.Assert.*;
 
 public class ListProposalsDAOMapperTest {

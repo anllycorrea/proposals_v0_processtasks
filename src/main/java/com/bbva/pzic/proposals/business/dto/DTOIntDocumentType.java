@@ -1,6 +1,8 @@
 package com.bbva.pzic.proposals.business.dto;
 
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created on 28/12/2017.
  *
@@ -8,6 +10,7 @@ package com.bbva.pzic.proposals.business.dto;
  */
 public class DTOIntDocumentType {
 
+    @NotNull(groups = ValidationGroup.CreateQuestionnairesValidateAccess.class)
     private String id;
 
     public String getId() {

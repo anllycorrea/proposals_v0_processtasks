@@ -22,6 +22,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import static com.bbva.pzic.proposals.util.Constants.*;
+
 /**
  * @author Entelgy
  */

@@ -3,6 +3,7 @@ package com.bbva.pzic.proposals.facade.v0.mapper.impl;
 import com.bbva.jee.arq.spring.core.catalog.gabi.ServiceResponse;
 import com.bbva.pzic.proposals.business.dto.DTOIntContact;
 import com.bbva.pzic.proposals.business.dto.DTOIntParticipantProposal;
+import com.bbva.pzic.proposals.business.dto.DTOIntSubproductProposal;
 import com.bbva.pzic.proposals.business.dto.DTOIntValidateAccess;
 import com.bbva.pzic.proposals.facade.v0.dto.Contact;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
@@ -59,6 +60,11 @@ public class CreateQuestionnairesValidateAccessMapper extends ConfigurableMapper
                 dtoInt.setParticipant(new DTOIntParticipantProposal());
             }
             dtoInt.getParticipant().setContacts(mapAsList(validateAccess.getParticipant().getContacts(), DTOIntContact.class));
+        }
+
+        if (validateAccess.getProduct() != null && validateAccess.getProduct().getSubproduct() != null
+                && validateAccess.getProduct().getSubproduct().getId() == null) {
+            dtoInt.getProduct().setSubproduct(new DTOIntSubproductProposal());
         }
 
         return dtoInt;

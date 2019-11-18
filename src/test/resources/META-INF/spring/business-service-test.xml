@@ -16,11 +16,11 @@
         http://bbva.com/arq-spring-servicing/servicing.xsd">
 
     <!-- beans de routine -->
-    <import resource="classpath:/META-INF/spring/routine.xml"/>
+    <import resource="classpath*:/META-INF/spring/routine.xml"/>
 
     <!-- Declaracion de modulo de servicios -->
     <servicing:module-metadata application-name="pzic" service-logical-id="proposals"
-                               routines="validator"/>
+                               routines="validator,data-processing-executor"/>
 
     <servicing:test-metadata local-configuration-filesystem-root="src/test/resources/lc"
                              smc-logical-id="test" smc-registry-id="test"/>
@@ -59,6 +59,8 @@
     </bean>
 
     <bean class="com.bbva.jee.arq.spring.core.task.TimeoutTaskManager"/>
+
+    <bean name="deploymentManager" class="com.bbva.jee.arq.spring.core.servicing.deployment.DeploymentManagerImpl"/>
 
     <!-- Cambiamos el ámbito del proxy a clases, en lugar de interfaces -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>

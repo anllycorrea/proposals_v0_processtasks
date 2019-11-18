@@ -15,6 +15,7 @@ public class DTOIntParticipantProposal {
     private String id;
     @Valid
     private DTOIntIdentityDocument identityDocument;
+    @Valid
     private List<DTOIntContact> contacts;
 
     public String getId() {

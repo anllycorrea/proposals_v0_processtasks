@@ -24,4 +24,10 @@ public interface ValidationGroup {
 
     interface CreateQuestionnairesValidateAccess {
     }
+
+    interface CreateQuestionnairesValidateAccessEmail {
+    }
+
+    interface CreateQuestionnairesValidateAccessMobile {
+    }
 }

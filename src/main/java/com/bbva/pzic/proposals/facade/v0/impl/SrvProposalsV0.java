@@ -16,6 +16,7 @@ import com.bbva.pzic.proposals.canonic.SimulatedProposal;
 import com.bbva.pzic.proposals.facade.v0.ISrvProposalsV0;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
 import com.bbva.pzic.proposals.facade.v0.mapper.*;
+import com.bbva.pzic.routine.processing.data.DataProcessingExecutor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
-import static com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01.PAGE_SIZE;
-import static com.bbva.pzic.proposals.facade.v01.ISrvProposalsV01.PAGINATION_KEY;
+import static com.bbva.pzic.proposals.facade.RegistryIds.SMC_REGISTRY_ID_OF_CREATE_QUESTIONNAIRES_VALIDATE_ACCESS;
+import static com.bbva.pzic.proposals.util.Constants.*;
 
 /**
  * Created on 28/12/2017.
@@ -71,6 +72,11 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
 
     @Autowired
     private BusinessServicesToolKit businessToolKit;
+
+    @Autowired
+    private DataProcessingExecutor inputDataProcessingExecutor;
+    @Autowired
+    private DataProcessingExecutor outputDataProcessingExecutor;
 
     @Override
     public void setHttpHeaders(HttpHeaders httpHeaders) {
@@ -184,12 +190,19 @@ public class SrvProposalsV0 implements ISrvProposalsV0, com.bbva.jee.arq.spring.
     @POST
     @Path("/questionnaires/validate-access")
     @Consumes(MediaType.APPLICATION_JSON)
-    @SMC(registryID = "SMCPE1920120", logicalID = "createQuestionnairesValidateAccess")
+    @SMC(registryID = SMC_REGISTRY_ID_OF_CREATE_QUESTIONNAIRES_VALIDATE_ACCESS, logicalID = "createQuestionnairesValidateAccess")
     public ServiceResponse<ValidateAccess> createQuestionnairesValidateAccess(
             final ValidateAccess validateAccess) {
         LOG.info("----- Invoking service createQuestionnairesValidateAccess -----");
-        return createQuestionnairesValidateAccessMapper.mapOut(
+
+        inputDataProcessingExecutor.perform(SMC_REGISTRY_ID_OF_CREATE_QUESTIONNAIRES_VALIDATE_ACCESS, validateAccess, null, null);
+
+        ServiceResponse<ValidateAccess> serviceResponse = createQuestionnairesValidateAccessMapper.mapOut(
                 srvIntProposals.createQuestionnairesValidateAccess(
                         createQuestionnairesValidateAccessMapper.mapIn(validateAccess)));
+
+        outputDataProcessingExecutor.perform(SMC_REGISTRY_ID_OF_CREATE_QUESTIONNAIRES_VALIDATE_ACCESS, serviceResponse, null, null);
+
+        return serviceResponse;
     }
 }

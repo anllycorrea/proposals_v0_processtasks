@@ -1,5 +1,7 @@
 package com.bbva.pzic.proposals.business.dto;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created on 15/11/2019.
  *
@@ -7,6 +9,7 @@ package com.bbva.pzic.proposals.business.dto;
  */
 public class DTOIntPhoneCompany {
 
+    @NotNull(groups = ValidationGroup.CreateQuestionnairesValidateAccessMobile.class)
     private String id;
 
     public String getId() {

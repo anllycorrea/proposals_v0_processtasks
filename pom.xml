@@ -37,6 +37,24 @@
     <dependencies>
 
         <dependency>
+            <groupId>com.bbva.pzic.routine.processing.data</groupId>
+            <artifactId>pzic_data-processing-executor-rm</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bbva.pzic.routine.configuration</groupId>
+            <artifactId>pzic_configuration-rm</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.bbva.pzic.routine.configuration.impl</groupId>
+            <artifactId>pzic_test-configuration-rm</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.bbva.pzic.routine.validator</groupId>
             <artifactId>pzic_validator-rm</artifactId>
             <version>1.0.0</version>
@@ -405,7 +423,7 @@
                             <descriptors>
                                 <descriptor>generacionFacade.xml</descriptor>
                                 <descriptor>generacionSN.xml</descriptor>
-                                <descriptor>generacionSNMock.xml</descriptor>
+                                <!--<descriptor>generacionSNMock.xml</descriptor>-->
                             </descriptors>
                             <outputDirectory>target/</outputDirectory>
                         </configuration>
