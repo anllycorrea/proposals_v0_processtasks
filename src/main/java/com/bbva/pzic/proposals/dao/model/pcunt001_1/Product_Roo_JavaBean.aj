@@ -48,14 +48,4 @@ privileged aspect Product_Roo_JavaBean {
         return this;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return String
-     */
-    public String Product.toString() {
-        return "Product {" + 
-                "id='" + id + '\'' + "}" + super.toString();
-    }
-    
 }

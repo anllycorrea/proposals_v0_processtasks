@@ -19,7 +19,6 @@ import org.springframework.roo.addon.javabean.annotations.RooSerializable;
  */
 @FilaCampoTabular
 @RooJavaBean
-@RooToString
 @RooSerializable
 public class Entityout {
 	

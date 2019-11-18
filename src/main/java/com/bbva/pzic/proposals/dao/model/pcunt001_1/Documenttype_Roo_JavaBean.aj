@@ -27,14 +27,4 @@ privileged aspect Documenttype_Roo_JavaBean {
         return this;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return String
-     */
-    public String Documenttype.toString() {
-        return "Documenttype {" + 
-                "id='" + id + '\'' + "}" + super.toString();
-    }
-    
 }

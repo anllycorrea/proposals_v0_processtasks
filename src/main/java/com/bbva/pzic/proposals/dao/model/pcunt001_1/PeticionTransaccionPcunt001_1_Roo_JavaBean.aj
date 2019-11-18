@@ -28,14 +28,4 @@ privileged aspect PeticionTransaccionPcunt001_1_Roo_JavaBean {
         return this;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return String
-     */
-    public String PeticionTransaccionPcunt001_1.toString() {
-        return "PeticionTransaccionPcunt001_1 {" + 
-        "}" + super.toString();
-    }
-    
 }

@@ -47,15 +47,4 @@ privileged aspect Dictumreason_Roo_JavaBean {
         return this;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return String
-     */
-    public String Dictumreason.toString() {
-        return "Dictumreason {" + 
-                "id='" + id + '\'' + 
-                ", description='" + description + '\'' + "}" + super.toString();
-    }
-    
 }

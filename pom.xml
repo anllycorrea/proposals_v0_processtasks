@@ -405,7 +405,7 @@
                             <descriptors>
                                 <descriptor>generacionFacade.xml</descriptor>
                                 <descriptor>generacionSN.xml</descriptor>
-                                <!--<descriptor>generacionSNMock.xml</descriptor>-->
+                                <descriptor>generacionSNMock.xml</descriptor>
                             </descriptors>
                             <outputDirectory>target/</outputDirectory>
                         </configuration>

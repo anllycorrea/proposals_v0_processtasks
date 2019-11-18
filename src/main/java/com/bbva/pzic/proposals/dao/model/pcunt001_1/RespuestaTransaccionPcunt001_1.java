@@ -21,7 +21,6 @@ import org.springframework.roo.addon.javabean.annotations.RooSerializable;
 @RespuestaTransaccion
 @Formato(nombre = "1")
 @RooJavaBean
-@RooToString
 @RooSerializable
 public class RespuestaTransaccionPcunt001_1 {
 	

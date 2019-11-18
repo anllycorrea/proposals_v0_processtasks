@@ -88,7 +88,7 @@
 							mandatory="0" />
 						<parameter order="4" name="address" type="String" size="100"
 							mandatory="0" />
-						<dto name="phoneCompanyOut"
+						<dto name="phoneCompany"
 							package="com.bbva.pcun.dto.validateaccess.dto.PhoneCompanyDTO"
 							artifactId="PCUNC001" mandatory="0" order="3">
 							<parameter order="1" name="id" type="String" size="50"

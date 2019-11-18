@@ -49,14 +49,4 @@ privileged aspect Entityin_Roo_JavaBean {
         return this;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return String
-     */
-    public String Entityin.toString() {
-        return "Entityin {" + 
-        "}" + super.toString();
-    }
-    
 }

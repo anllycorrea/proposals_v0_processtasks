@@ -27,14 +27,4 @@ privileged aspect Subproduct_Roo_JavaBean {
         return this;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return String
-     */
-    public String Subproduct.toString() {
-        return "Subproduct {" + 
-                "id='" + id + '\'' + "}" + super.toString();
-    }
-    
 }

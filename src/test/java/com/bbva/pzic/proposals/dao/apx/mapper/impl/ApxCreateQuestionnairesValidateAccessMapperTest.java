@@ -4,6 +4,9 @@ import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.DTOIntValidateAccess;
 import com.bbva.pzic.proposals.dao.apx.mapper.IApxCreateQuestionnairesValidateAccessMapper;
 import com.bbva.pzic.proposals.dao.model.pcunt001_1.Entityin;
+import com.bbva.pzic.proposals.dao.model.pcunt001_1.Entityout;
+import com.bbva.pzic.proposals.dao.model.pcunt001_1.mock.Pcunt001_1Stubs;
+import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -95,6 +98,84 @@ public class ApxCreateQuestionnairesValidateAccessMapperTest {
     @Test
     public void mapInEmptyTest() {
         Entityin result = mapper.mapIn(new DTOIntValidateAccess());
+
+        assertNotNull(result);
+        assertNull(result.getParticipant());
+        assertNull(result.getProduct());
+    }
+
+    @Test
+    public void mapOutFullTest() throws IOException {
+        Entityout output = Pcunt001_1Stubs.getInstance().getEntityOut();
+
+        ValidateAccess result = mapper.mapOut(output);
+
+        assertNotNull(result);
+        assertNotNull(result.getParticipant());
+        assertNotNull(result.getParticipant().getId());
+        assertNotNull(result.getParticipant().getIdentityDocument());
+        assertNotNull(result.getParticipant().getIdentityDocument().getDocumentType());
+        assertNotNull(result.getParticipant().getIdentityDocument().getDocumentType().getId());
+        assertNotNull(result.getParticipant().getIdentityDocument().getDocumentNumber());
+
+        assertNotNull(result.getParticipant().getContacts().get(0).getContactDetailType());
+        assertNotNull(result.getParticipant().getContacts().get(0).getNumber());
+        assertNotNull(result.getParticipant().getContacts().get(0).getPhoneCompany());
+        assertNotNull(result.getParticipant().getContacts().get(0).getPhoneCompany().getId());
+        assertNotNull(result.getParticipant().getContacts().get(0).getPhoneCompany().getName());
+        assertNull(result.getParticipant().getContacts().get(0).getAddress());
+
+        assertNotNull(result.getParticipant().getContacts().get(1).getContactDetailType());
+        assertNull(result.getParticipant().getContacts().get(1).getNumber());
+        assertNull(result.getParticipant().getContacts().get(1).getPhoneCompany());
+        assertNotNull(result.getParticipant().getContacts().get(1).getAddress());
+
+        assertNotNull(result.getProduct());
+        assertNotNull(result.getProduct().getId());
+        assertNotNull(result.getProduct().getSubproduct());
+        assertNotNull(result.getProduct().getSubproduct().getId());
+
+        assertEquals(output.getParticipant().getId(), result.getParticipant().getId());
+        assertEquals(output.getParticipant().getIdentitydocument().getDocumenttype().getId(), result.getParticipant().getIdentityDocument().getDocumentType().getId());
+        assertEquals(output.getParticipant().getIdentitydocument().getDocumentnumber(), result.getParticipant().getIdentityDocument().getDocumentNumber());
+        assertEquals(output.getParticipant().getContacts().get(0).getContact().getContactdetailtype(), result.getParticipant().getContacts().get(0).getContactDetailType());
+        assertEquals(output.getParticipant().getContacts().get(0).getContact().getNumber(), result.getParticipant().getContacts().get(0).getNumber());
+        assertEquals(output.getParticipant().getContacts().get(0).getContact().getPhonecompany().getId(), result.getParticipant().getContacts().get(0).getPhoneCompany().getId());
+        assertEquals(output.getParticipant().getContacts().get(0).getContact().getPhonecompany().getName(), result.getParticipant().getContacts().get(0).getPhoneCompany().getName());
+        assertEquals(output.getParticipant().getContacts().get(1).getContact().getContactdetailtype(), result.getParticipant().getContacts().get(1).getContactDetailType());
+        assertEquals(output.getParticipant().getContacts().get(1).getContact().getAddress(), result.getParticipant().getContacts().get(1).getAddress());
+        assertEquals(output.getProduct().getId(), result.getProduct().getId());
+        assertEquals(output.getProduct().getSubproduct().getId(), result.getProduct().getSubproduct().getId());
+    }
+
+    @Test
+    public void mapOutWithoutContactsTest() throws IOException {
+        Entityout output = Pcunt001_1Stubs.getInstance().getEntityOut();
+        output.getParticipant().setContacts(null);
+
+        ValidateAccess result = mapper.mapOut(output);
+
+        assertNotNull(result);
+        assertNotNull(result.getParticipant());
+        assertNotNull(result.getProduct());
+    }
+
+    @Test
+    public void mapOutOnlyContactsTest() throws IOException {
+        Entityout output = Pcunt001_1Stubs.getInstance().getEntityOut();
+        output.getParticipant().setId(null);
+        output.getParticipant().setIdentitydocument(null);
+
+        ValidateAccess result = mapper.mapOut(output);
+
+        assertNotNull(result);
+        assertNotNull(result.getParticipant());
+        assertNotNull(result.getProduct());
+    }
+
+    @Test
+    public void mapOutEmptyTest() {
+        ValidateAccess result = mapper.mapOut(new Entityout());
 
         assertNotNull(result);
         assertNull(result.getParticipant());

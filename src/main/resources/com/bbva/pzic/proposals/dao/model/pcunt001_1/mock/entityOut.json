@@ -1,0 +1,35 @@
+{
+  "product": {
+    "id": "CARD",
+    "subproduct": {
+      "id": "CREDIT_CARD"
+    }
+  },
+  "participant": {
+    "id": "23679021",
+    "identitydocument": {
+      "documenttype": {
+        "id": "DNI"
+      },
+      "documentnumber": "77025628"
+    },
+    "contacts": [
+      {
+        "contact": {
+          "contactdetailtype": "MOBILE",
+          "number": "205 123 1354",
+          "phonecompany": {
+            "id": "003",
+            "name": "Movistar"
+          }
+        }
+      },
+      {
+        "contact": {
+          "contactdetailtype": "EMAIL",
+          "address": "pcardenas@gmail.com"
+        }
+      }
+    ]
+  }
+}

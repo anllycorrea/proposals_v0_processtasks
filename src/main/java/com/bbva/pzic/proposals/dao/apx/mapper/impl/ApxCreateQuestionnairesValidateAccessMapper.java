@@ -7,6 +7,7 @@ import com.bbva.pzic.proposals.dao.model.pcunt001_1.Contacts;
 import com.bbva.pzic.proposals.dao.model.pcunt001_1.Entityin;
 import com.bbva.pzic.proposals.dao.model.pcunt001_1.Entityout;
 import com.bbva.pzic.proposals.dao.model.pcunt001_1.Participant;
+import com.bbva.pzic.proposals.facade.v0.dto.Contact;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
@@ -40,6 +41,22 @@ public class ApxCreateQuestionnairesValidateAccessMapper extends ConfigurableMap
                 .field("phoneCompany.id", "contact.phonecompany.id")
                 .field("address", "contact.address")
                 .register();
+
+        factory.classMap(ValidateAccess.class, Entityout.class)
+                .field("participant.id", "participant.id")
+                .field("participant.identityDocument.documentType.id", "participant.identitydocument.documenttype.id")
+                .field("participant.identityDocument.documentNumber", "participant.identitydocument.documentnumber")
+                .field("product.id", "product.id")
+                .field("product.subproduct.id", "product.subproduct.id")
+                .register();
+
+        factory.classMap(Contact.class, Contacts.class)
+                .field("contactDetailType", "contact.contactdetailtype")
+                .field("number", "contact.number")
+                .field("phoneCompany.id", "contact.phonecompany.id")
+                .field("phoneCompany.name", "contact.phonecompany.name")
+                .field("address", "contact.address")
+                .register();
     }
 
     @Override
@@ -58,7 +75,17 @@ public class ApxCreateQuestionnairesValidateAccessMapper extends ConfigurableMap
     }
 
     @Override
-    public ValidateAccess mapOut(final Entityout entityout) {
-        return null;
+    public ValidateAccess mapOut(final Entityout entityOut) {
+        ValidateAccess validateAccess = map(entityOut, ValidateAccess.class);
+
+        if (entityOut.getParticipant() != null &&
+                CollectionUtils.isNotEmpty(entityOut.getParticipant().getContacts())) {
+            if (validateAccess.getParticipant() == null) {
+                validateAccess.setParticipant(new com.bbva.pzic.proposals.facade.v0.dto.ParticipantProposal());
+            }
+            validateAccess.getParticipant().setContacts(mapAsList(entityOut.getParticipant().getContacts(), Contact.class));
+        }
+
+        return validateAccess;
     }
 }

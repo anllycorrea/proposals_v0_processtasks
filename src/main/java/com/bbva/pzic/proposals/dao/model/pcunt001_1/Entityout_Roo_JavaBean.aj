@@ -91,15 +91,4 @@ privileged aspect Entityout_Roo_JavaBean {
         return this;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return String
-     */
-    public String Entityout.toString() {
-        return "Entityout {" + 
-                "validationdictum='" + validationdictum + '\'' + 
-                ", dictumreasons='" + dictumreasons + '\'' + "}" + super.toString();
-    }
-    
 }

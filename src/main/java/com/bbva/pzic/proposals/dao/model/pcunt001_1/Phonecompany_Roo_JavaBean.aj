@@ -28,13 +28,23 @@ privileged aspect Phonecompany_Roo_JavaBean {
     }
     
     /**
-     * TODO Auto-generated method documentation
+     * Gets name value
      * 
      * @return String
      */
-    public String Phonecompany.toString() {
-        return "Phonecompany {" + 
-                "id='" + id + '\'' + "}" + super.toString();
+    public String Phonecompany.getName() {
+        return this.name;
+    }
+    
+    /**
+     * Sets name value
+     * 
+     * @param name
+     * @return Phonecompany
+     */
+    public Phonecompany Phonecompany.setName(String name) {
+        this.name = name;
+        return this;
     }
     
 }

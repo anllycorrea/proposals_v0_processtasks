@@ -88,16 +88,4 @@ privileged aspect Contact_Roo_JavaBean {
         return this;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return String
-     */
-    public String Contact.toString() {
-        return "Contact {" + 
-                "contactdetailtype='" + contactdetailtype + '\'' + 
-                ", number='" + number + '\'' + 
-                ", address='" + address + '\'' + "}" + super.toString();
-    }
-    
 }

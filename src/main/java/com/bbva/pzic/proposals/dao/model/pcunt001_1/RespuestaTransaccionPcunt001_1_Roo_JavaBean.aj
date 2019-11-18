@@ -108,17 +108,4 @@ privileged aspect RespuestaTransaccionPcunt001_1_Roo_JavaBean {
         return this;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return String
-     */
-    public String RespuestaTransaccionPcunt001_1.toString() {
-        return "RespuestaTransaccionPcunt001_1 {" + 
-                "codigoAviso='" + codigoAviso + '\'' + 
-                ", descripcionAviso='" + descripcionAviso + '\'' + 
-                ", aplicacionAviso='" + aplicacionAviso + '\'' + 
-                ", codigoRetorno='" + codigoRetorno + '\'' + "}" + super.toString();
-    }
-    
 }

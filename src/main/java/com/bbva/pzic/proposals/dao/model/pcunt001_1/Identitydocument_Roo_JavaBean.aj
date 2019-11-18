@@ -48,14 +48,4 @@ privileged aspect Identitydocument_Roo_JavaBean {
         return this;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return String
-     */
-    public String Identitydocument.toString() {
-        return "Identitydocument {" + 
-                "documentnumber='" + documentnumber + '\'' + "}" + super.toString();
-    }
-    
 }

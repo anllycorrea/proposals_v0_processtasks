@@ -14,5 +14,5 @@ public interface IApxCreateQuestionnairesValidateAccessMapper {
 
     Entityin mapIn(DTOIntValidateAccess dtoInt);
 
-    ValidateAccess mapOut(Entityout entityout);
+    ValidateAccess mapOut(Entityout entityOut);
 }

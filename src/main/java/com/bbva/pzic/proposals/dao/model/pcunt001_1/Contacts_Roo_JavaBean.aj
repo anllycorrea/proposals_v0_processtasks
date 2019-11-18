@@ -28,14 +28,4 @@ privileged aspect Contacts_Roo_JavaBean {
         return this;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return String
-     */
-    public String Contacts.toString() {
-        return "Contacts {" + 
-        "}" + super.toString();
-    }
-    
 }
