@@ -3,9 +3,9 @@ package com.bbva.pzic.proposals.dao.apx.mapper.impl;
 import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.DTOIntValidateAccess;
 import com.bbva.pzic.proposals.dao.apx.mapper.IApxCreateQuestionnairesValidateAccessMapper;
-import com.bbva.pzic.proposals.dao.model.pcunt001_1.Entityin;
-import com.bbva.pzic.proposals.dao.model.pcunt001_1.Entityout;
-import com.bbva.pzic.proposals.dao.model.pcunt001_1.mock.Pcunt001_1Stubs;
+import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityin;
+import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityout;
+import com.bbva.pzic.proposals.dao.model.ppcut011_1.mock.Ppcut011_1Stubs;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
 import org.junit.Before;
 import org.junit.Test;
@@ -106,7 +106,7 @@ public class ApxCreateQuestionnairesValidateAccessMapperTest {
 
     @Test
     public void mapOutFullTest() throws IOException {
-        Entityout output = Pcunt001_1Stubs.getInstance().getEntityOut();
+        Entityout output = Ppcut011_1Stubs.getInstance().getEntityOut();
 
         ValidateAccess result = mapper.mapOut(output);
 
@@ -150,7 +150,7 @@ public class ApxCreateQuestionnairesValidateAccessMapperTest {
 
     @Test
     public void mapOutWithoutContactsTest() throws IOException {
-        Entityout output = Pcunt001_1Stubs.getInstance().getEntityOut();
+        Entityout output = Ppcut011_1Stubs.getInstance().getEntityOut();
         output.getParticipant().setContacts(null);
 
         ValidateAccess result = mapper.mapOut(output);
@@ -162,7 +162,7 @@ public class ApxCreateQuestionnairesValidateAccessMapperTest {
 
     @Test
     public void mapOutOnlyContactsTest() throws IOException {
-        Entityout output = Pcunt001_1Stubs.getInstance().getEntityOut();
+        Entityout output = Ppcut011_1Stubs.getInstance().getEntityOut();
         output.getParticipant().setId(null);
         output.getParticipant().setIdentitydocument(null);
 
