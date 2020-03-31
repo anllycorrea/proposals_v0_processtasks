@@ -49,26 +49,6 @@ privileged aspect Contact_Roo_JavaBean {
     }
     
     /**
-     * Gets phonecompany value
-     * 
-     * @return Phonecompany
-     */
-    public Phonecompany Contact.getPhonecompany() {
-        return this.phonecompany;
-    }
-    
-    /**
-     * Sets phonecompany value
-     * 
-     * @param phonecompany
-     * @return Contact
-     */
-    public Contact Contact.setPhonecompany(Phonecompany phonecompany) {
-        this.phonecompany = phonecompany;
-        return this;
-    }
-    
-    /**
      * Gets address value
      * 
      * @return String
@@ -85,6 +65,26 @@ privileged aspect Contact_Roo_JavaBean {
      */
     public Contact Contact.setAddress(String address) {
         this.address = address;
+        return this;
+    }
+    
+    /**
+     * Gets phonecompany value
+     * 
+     * @return Phonecompany
+     */
+    public Phonecompany Contact.getPhonecompany() {
+        return this.phonecompany;
+    }
+    
+    /**
+     * Sets phonecompany value
+     * 
+     * @param phonecompany
+     * @return Contact
+     */
+    public Contact Contact.setPhonecompany(Phonecompany phonecompany) {
+        this.phonecompany = phonecompany;
         return this;
     }
     

@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.bbva.arq.servicing.spring</groupId>
         <artifactId>pom-padre-frontend</artifactId>
-        <version>5.3.3.6</version>
+        <version>5.5.4.8</version>
     </parent>
 
     <groupId>com.bbva.pzic.proposals</groupId>
@@ -28,7 +28,7 @@
     </distributionManagement>
 
     <properties>
-        <testUtils.version>5.3.3.6</testUtils.version>
+        <testUtils.version>5.5.4.8</testUtils.version>
         <jacoco.version>0.7.9</jacoco.version>
         <javax.el.version>3.0.1-b09</javax.el.version>
         <roo.version>2.0.0.RELEASE</roo.version>
@@ -60,6 +60,12 @@
             <version>1.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.bbva.pzic.routine.commons.utils</groupId>
+            <artifactId>pzic_commons-utils-rm</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- INICIO Core Arquitectura -->
         <dependency>
             <groupId>com.bbva.jee.arq.spring.core</groupId>
@@ -70,11 +76,6 @@
             <groupId>com.bbva.jee.arq.spring.cas.api</groupId>
             <artifactId>arq-spring-servicing-cas-api</artifactId>
             <version>${arq-spring-servicing-cas-api.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.bbva.jee.arq.spring.core</groupId>
-            <artifactId>arq-spring-core-spi</artifactId>
-            <version>${arq-spring-core-spi.version}</version>
         </dependency>
         <dependency>
             <groupId>com.bbva.jee.arq.spring.core</groupId>
@@ -104,7 +105,7 @@
         </dependency>
         <!-- FIN Backend connectors -->
 
-        <!-- 	//Nueva dependencia de LOG del CORE -->
+        <!-- //Nueva dependencia de LOG del CORE -->
         <dependency>
             <groupId>com.bbva.jee.arq.spring.core</groupId>
             <artifactId>arq-spring-servicing-logging</artifactId>
@@ -135,9 +136,19 @@
             <version>${guava.version}</version>
         </dependency>
 
-        <!-- FIN Arquitectura Servicios-->
+        <!-- FIN Arquitectura Servicios -->
 
         <!-- INICIO Unit Test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>com.bbva.pzic</groupId>
             <artifactId>testUtils</artifactId>

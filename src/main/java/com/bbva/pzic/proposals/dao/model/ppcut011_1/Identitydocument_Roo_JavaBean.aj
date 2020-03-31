@@ -9,26 +9,6 @@ import com.bbva.pzic.proposals.dao.model.ppcut011_1.Identitydocument;
 privileged aspect Identitydocument_Roo_JavaBean {
     
     /**
-     * Gets documenttype value
-     * 
-     * @return Documenttype
-     */
-    public Documenttype Identitydocument.getDocumenttype() {
-        return this.documenttype;
-    }
-    
-    /**
-     * Sets documenttype value
-     * 
-     * @param documenttype
-     * @return Identitydocument
-     */
-    public Identitydocument Identitydocument.setDocumenttype(Documenttype documenttype) {
-        this.documenttype = documenttype;
-        return this;
-    }
-    
-    /**
      * Gets documentnumber value
      * 
      * @return String
@@ -45,6 +25,26 @@ privileged aspect Identitydocument_Roo_JavaBean {
      */
     public Identitydocument Identitydocument.setDocumentnumber(String documentnumber) {
         this.documentnumber = documentnumber;
+        return this;
+    }
+    
+    /**
+     * Gets documenttype value
+     * 
+     * @return Documenttype
+     */
+    public Documenttype Identitydocument.getDocumenttype() {
+        return this.documenttype;
+    }
+    
+    /**
+     * Sets documenttype value
+     * 
+     * @param documenttype
+     * @return Identitydocument
+     */
+    public Identitydocument Identitydocument.setDocumenttype(Documenttype documenttype) {
+        this.documenttype = documenttype;
         return this;
     }
     

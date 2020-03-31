@@ -1,5 +1,7 @@
 package com.bbva.pzic.proposals.dao.apx.mapper.impl;
 
+import com.bbva.jee.arq.spring.core.managers.OutputHeaderManager;
+import com.bbva.jee.arq.spring.core.servicing.context.BackendContext;
 import com.bbva.pzic.proposals.business.dto.DTOIntContact;
 import com.bbva.pzic.proposals.business.dto.DTOIntValidateAccess;
 import com.bbva.pzic.proposals.dao.apx.mapper.IApxCreateQuestionnairesValidateAccessMapper;
@@ -22,6 +24,12 @@ import org.apache.commons.collections.CollectionUtils;
 @Mapper
 public class ApxCreateQuestionnairesValidateAccessMapper extends ConfigurableMapper
         implements IApxCreateQuestionnairesValidateAccessMapper {
+
+    private OutputHeaderManager outputHeaderManager;
+
+    public ApxCreateQuestionnairesValidateAccessMapper(OutputHeaderManager outputHeaderManager) {
+        this.outputHeaderManager = outputHeaderManager;
+    }
 
     @Override
     protected void configure(MapperFactory factory) {
@@ -76,6 +84,10 @@ public class ApxCreateQuestionnairesValidateAccessMapper extends ConfigurableMap
 
     @Override
     public ValidateAccess mapOut(final Entityout entityOut) {
+        if (entityOut.getContactid() != null) {
+            outputHeaderManager.setHeader(BackendContext.CONTACT_ID, entityOut.getContactid());
+        }
+
         ValidateAccess validateAccess = map(entityOut, ValidateAccess.class);
 
         if (entityOut.getParticipant() != null &&

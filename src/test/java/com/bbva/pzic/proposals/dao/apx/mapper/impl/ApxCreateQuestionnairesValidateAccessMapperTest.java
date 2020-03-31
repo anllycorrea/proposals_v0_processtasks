@@ -1,32 +1,37 @@
 package com.bbva.pzic.proposals.dao.apx.mapper.impl;
 
+import com.bbva.jee.arq.spring.core.managers.OutputHeaderManager;
+import com.bbva.jee.arq.spring.core.servicing.context.BackendContext;
 import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.DTOIntValidateAccess;
-import com.bbva.pzic.proposals.dao.apx.mapper.IApxCreateQuestionnairesValidateAccessMapper;
 import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityin;
 import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityout;
 import com.bbva.pzic.proposals.dao.model.ppcut011_1.mock.Ppcut011_1Stubs;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created on 15/11/2019.
  *
  * @author Entelgy
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ApxCreateQuestionnairesValidateAccessMapperTest {
 
-    private IApxCreateQuestionnairesValidateAccessMapper mapper;
-
-    @Before
-    public void setUp() {
-        mapper = new ApxCreateQuestionnairesValidateAccessMapper();
-    }
+    @InjectMocks
+    private ApxCreateQuestionnairesValidateAccessMapper mapper;
+    @Mock
+    private OutputHeaderManager outputHeaderManager;
 
     @Test
     public void mapInFullTest() throws IOException {
@@ -109,6 +114,8 @@ public class ApxCreateQuestionnairesValidateAccessMapperTest {
         Entityout output = Ppcut011_1Stubs.getInstance().getEntityOut();
 
         ValidateAccess result = mapper.mapOut(output);
+
+        verify(outputHeaderManager, times(1)).setHeader(BackendContext.CONTACT_ID, output.getContactid());
 
         assertNotNull(result);
         assertNotNull(result.getParticipant());

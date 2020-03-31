@@ -32,6 +32,26 @@ privileged aspect Entityout_Roo_JavaBean {
     }
     
     /**
+     * Gets dictumreasons value
+     * 
+     * @return List
+     */
+    public List<Dictumreasons> Entityout.getDictumreasons() {
+        return this.dictumreasons;
+    }
+    
+    /**
+     * Sets dictumreasons value
+     * 
+     * @param dictumreasons
+     * @return Entityout
+     */
+    public Entityout Entityout.setDictumreasons(List<Dictumreasons> dictumreasons) {
+        this.dictumreasons = dictumreasons;
+        return this;
+    }
+    
+    /**
      * Gets participant value
      * 
      * @return Participant
@@ -52,42 +72,22 @@ privileged aspect Entityout_Roo_JavaBean {
     }
     
     /**
-     * Gets validationdictum value
+     * Gets contactid value
      * 
      * @return String
      */
-    public String Entityout.getValidationdictum() {
-        return this.validationdictum;
+    public String Entityout.getContactid() {
+        return this.contactid;
     }
     
     /**
-     * Sets validationdictum value
+     * Sets contactid value
      * 
-     * @param validationdictum
+     * @param contactid
      * @return Entityout
      */
-    public Entityout Entityout.setValidationdictum(String validationdictum) {
-        this.validationdictum = validationdictum;
-        return this;
-    }
-    
-    /**
-     * Gets dictumreasons value
-     * 
-     * @return List
-     */
-    public List<Dictumreasons> Entityout.getDictumreasons() {
-        return this.dictumreasons;
-    }
-    
-    /**
-     * Sets dictumreasons value
-     * 
-     * @param dictumreasons
-     * @return Entityout
-     */
-    public Entityout Entityout.setDictumreasons(List<Dictumreasons> dictumreasons) {
-        this.dictumreasons = dictumreasons;
+    public Entityout Entityout.setContactid(String contactid) {
+        this.contactid = contactid;
         return this;
     }
     

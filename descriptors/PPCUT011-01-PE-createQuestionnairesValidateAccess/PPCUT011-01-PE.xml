@@ -19,18 +19,18 @@
                  artifactId="PPCUC011" mandatory="1" order="2">
                 <parameter order="1" name="id" type="String" size="50"
                            mandatory="1"/>
-                <list name="contacts" order="3" mandatory="0">
+                <list name="contacts" order="2" mandatory="0">
                     <dto name="contact" package="com.bbva.ppcu.dto.validateaccess.dto.ContactDTO"
                          artifactId="PPCUC011" mandatory="0" order="1">
                         <parameter order="1" name="contactDetailType" type="String"
                                    size="50" mandatory="1"/>
                         <parameter order="2" name="number" type="String" size="50"
                                    mandatory="0"/>
-                        <parameter order="4" name="address" type="String" size="100"
+                        <parameter order="3" name="address" type="String" size="100"
                                    mandatory="0"/>
                         <dto name="phoneCompany"
                              package="com.bbva.ppcu.dto.validateaccess.dto.PhoneCompanyDTO"
-                             artifactId="PPCUC011" mandatory="0" order="3">
+                             artifactId="PPCUC011" mandatory="0" order="4">
                             <parameter order="1" name="id" type="String" size="50"
                                        mandatory="1"/>
                         </dto>
@@ -38,12 +38,12 @@
                 </list>
                 <dto name="identityDocument"
                      package="com.bbva.ppcu.dto.validateaccess.dto.IdentityDocumentDTO"
-                     artifactId="PPCUC011" mandatory="0" order="2">
-                    <parameter order="2" name="documentNumber" type="String"
+                     artifactId="PPCUC011" mandatory="0" order="3">
+                    <parameter order="1" name="documentNumber" type="String"
                                size="50" mandatory="1"/>
                     <dto name="documentType"
                          package="com.bbva.ppcu.dto.validateaccess.dto.DocumentTypeDTO"
-                         artifactId="PPCUC011" mandatory="1" order="1">
+                         artifactId="PPCUC011" mandatory="1" order="2">
                         <parameter order="1" name="id" type="String" size="50"
                                    mandatory="1"/>
                     </dto>
@@ -54,9 +54,9 @@
     <paramsOut>
         <dto name="EntityOut" package="com.bbva.ppcu.dto.validateaccess.dto.ValidateAccessDTO"
              artifactId="PPCUC011" mandatory="0" order="1">
-            <parameter order="3" name="validationDictum" type="String"
+            <parameter order="1" name="validationDictum" type="String"
                        size="50" mandatory="1"/>
-            <list name="dictumReasons" order="4" mandatory="0">
+            <list name="dictumReasons" order="2" mandatory="0">
                 <dto name="dictumReason" package="com.bbva.ppcu.dto.validateaccess.dto.DictumReasonDTO"
                      artifactId="PPCUC011" mandatory="0" order="1">
                     <parameter order="1" name="id" type="String" size="50"
@@ -76,21 +76,21 @@
                 </dto>
             </dto>
             <dto name="participant" package="com.bbva.ppcu.dto.validateaccess.dto.ParticipantDTO"
-                 artifactId="PPCUC011" mandatory="1" order="2">
+                 artifactId="PPCUC011" mandatory="1" order="4">
                 <parameter order="1" name="id" type="String" size="50"
                            mandatory="1"/>
-                <list name="contacts" order="3" mandatory="0">
+                <list name="contacts" order="2" mandatory="0">
                     <dto name="contact" package="com.bbva.ppcu.dto.validateaccess.dto.ContactDTO"
                          artifactId="PPCUC011" mandatory="0" order="1">
                         <parameter order="1" name="contactDetailType" type="String"
                                    size="50" mandatory="1"/>
                         <parameter order="2" name="number" type="String" size="50"
                                    mandatory="0"/>
-                        <parameter order="4" name="address" type="String" size="100"
+                        <parameter order="3" name="address" type="String" size="100"
                                    mandatory="0"/>
                         <dto name="phoneCompany"
                              package="com.bbva.ppcu.dto.validateaccess.dto.PhoneCompanyDTO"
-                             artifactId="PPCUC011" mandatory="0" order="3">
+                             artifactId="PPCUC011" mandatory="0" order="4">
                             <parameter order="1" name="id" type="String" size="50"
                                        mandatory="1"/>
                             <parameter order="2" name="name" type="String" size="50"
@@ -100,17 +100,19 @@
                 </list>
                 <dto name="identityDocument"
                      package="com.bbva.ppcu.dto.validateaccess.dto.IdentityDocumentDTO"
-                     artifactId="PPCUC011" mandatory="0" order="2">
-                    <parameter order="2" name="documentNumber" type="String"
+                     artifactId="PPCUC011" mandatory="0" order="3">
+                    <parameter order="1" name="documentNumber" type="String"
                                size="50" mandatory="1"/>
                     <dto name="documentType"
                          package="com.bbva.ppcu.dto.validateaccess.dto.DocumentTypeDTO"
-                         artifactId="PPCUC011" mandatory="1" order="1">
+                         artifactId="PPCUC011" mandatory="1" order="2">
                         <parameter order="1" name="id" type="String" size="50"
                                    mandatory="1"/>
                     </dto>
                 </dto>
             </dto>
+            <parameter order="5" name="contactId" type="String"
+                       size="160" mandatory="0"/>
         </dto>
     </paramsOut>
     <description>Control de Reintentos por datos de contacto</description>

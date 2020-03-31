@@ -33,15 +33,15 @@ public class Contact {
 	private String number;
 	
 	/**
-	 * <p>Campo <code>phoneCompany</code>, &iacute;ndice: <code>3</code>, tipo: <code>DTO</code>
+	 * <p>Campo <code>address</code>, &iacute;ndice: <code>3</code>, tipo: <code>ALFANUMERICO</code>
 	 */
-	@Campo(indice = 3, nombre = "phoneCompany", tipo = TipoCampo.DTO)
-	private Phonecompany phonecompany;
+	@Campo(indice = 3, nombre = "address", tipo = TipoCampo.ALFANUMERICO, longitudMaxima = 100, signo = true)
+	private String address;
 	
 	/**
-	 * <p>Campo <code>address</code>, &iacute;ndice: <code>4</code>, tipo: <code>ALFANUMERICO</code>
+	 * <p>Campo <code>phoneCompany</code>, &iacute;ndice: <code>4</code>, tipo: <code>DTO</code>
 	 */
-	@Campo(indice = 4, nombre = "address", tipo = TipoCampo.ALFANUMERICO, longitudMaxima = 100, signo = true)
-	private String address;
+	@Campo(indice = 4, nombre = "phoneCompany", tipo = TipoCampo.DTO)
+	private Phonecompany phonecompany;
 	
 }

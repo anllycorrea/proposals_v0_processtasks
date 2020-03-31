@@ -29,15 +29,15 @@ public class Participant {
 	private String id;
 	
 	/**
-	 * <p>Campo <code>identityDocument</code>, &iacute;ndice: <code>2</code>, tipo: <code>DTO</code>
+	 * <p>Campo <code>contacts</code>, &iacute;ndice: <code>2</code>, tipo: <code>LIST</code>
 	 */
-	@Campo(indice = 2, nombre = "identityDocument", tipo = TipoCampo.DTO)
-	private Identitydocument identitydocument;
+	@Campo(indice = 2, nombre = "contacts", tipo = TipoCampo.LIST)
+	private List<Contacts> contacts;
 	
 	/**
-	 * <p>Campo <code>contacts</code>, &iacute;ndice: <code>3</code>, tipo: <code>LIST</code>
+	 * <p>Campo <code>identityDocument</code>, &iacute;ndice: <code>3</code>, tipo: <code>DTO</code>
 	 */
-	@Campo(indice = 3, nombre = "contacts", tipo = TipoCampo.LIST)
-	private List<Contacts> contacts;
+	@Campo(indice = 3, nombre = "identityDocument", tipo = TipoCampo.DTO)
+	private Identitydocument identitydocument;
 	
 }

@@ -31,26 +31,6 @@ privileged aspect Participant_Roo_JavaBean {
     }
     
     /**
-     * Gets identitydocument value
-     * 
-     * @return Identitydocument
-     */
-    public Identitydocument Participant.getIdentitydocument() {
-        return this.identitydocument;
-    }
-    
-    /**
-     * Sets identitydocument value
-     * 
-     * @param identitydocument
-     * @return Participant
-     */
-    public Participant Participant.setIdentitydocument(Identitydocument identitydocument) {
-        this.identitydocument = identitydocument;
-        return this;
-    }
-    
-    /**
      * Gets contacts value
      * 
      * @return List
@@ -67,6 +47,26 @@ privileged aspect Participant_Roo_JavaBean {
      */
     public Participant Participant.setContacts(List<Contacts> contacts) {
         this.contacts = contacts;
+        return this;
+    }
+    
+    /**
+     * Gets identitydocument value
+     * 
+     * @return Identitydocument
+     */
+    public Identitydocument Participant.getIdentitydocument() {
+        return this.identitydocument;
+    }
+    
+    /**
+     * Sets identitydocument value
+     * 
+     * @param identitydocument
+     * @return Participant
+     */
+    public Participant Participant.setIdentitydocument(Identitydocument identitydocument) {
+        this.identitydocument = identitydocument;
         return this;
     }
     
