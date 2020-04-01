@@ -5,6 +5,8 @@ import com.bbva.pzic.proposals.canonic.Proposal;
 import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR601;
 import com.bbva.pzic.proposals.dao.model.hyt6.FormatoHYMR602;
 
+import java.util.List;
+
 /**
  * Created on 28/12/2017.
  *
@@ -14,5 +16,5 @@ public interface ITxListProposalsMapperV0 {
 
     FormatoHYMR601 mapIn(InputListProposals listProposals);
 
-    Proposal mapOut(FormatoHYMR602 formatOut, Proposal proposal);
+    List<Proposal> mapOut(FormatoHYMR602 formatOut, List<Proposal> proposal);
 }

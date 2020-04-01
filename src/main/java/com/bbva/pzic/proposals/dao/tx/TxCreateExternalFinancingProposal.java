@@ -8,8 +8,10 @@ import com.bbva.pzic.proposals.dao.model.ugap.FormatoUGMSGAP1;
 import com.bbva.pzic.proposals.dao.model.ugap.PeticionTransaccionUgap;
 import com.bbva.pzic.proposals.dao.model.ugap.RespuestaTransaccionUgap;
 import com.bbva.pzic.proposals.dao.tx.mapper.ITxCreateExternalFinancingProposalMapper;
-import com.bbva.pzic.proposals.util.tx.AbstractSimpleTransaction;
 import com.bbva.pzic.proposals.util.tx.Tx;
+import com.bbva.pzic.routine.commons.utils.host.templates.impl.SingleOutputFormat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.Resource;
 
@@ -19,26 +21,23 @@ import javax.annotation.Resource;
  * @author Entelgy
  */
 @Tx
-public class TxCreateExternalFinancingProposal extends AbstractSimpleTransaction<DTOIntExternalFinancingProposal, FormatoUGMEGAP, ExternalFinancingProposal, FormatoUGMSGAP1> {
+public class TxCreateExternalFinancingProposal extends SingleOutputFormat<DTOIntExternalFinancingProposal, FormatoUGMEGAP, ExternalFinancingProposal, FormatoUGMSGAP1> {
 
     @Resource(name = "txCreateExternalFinancingProposalMapper")
     private ITxCreateExternalFinancingProposalMapper txCreateExternalFinancingProposalMapper;
 
-    @Resource(name = "transaccionUgap")
-    private transient InvocadorTransaccion<PeticionTransaccionUgap, RespuestaTransaccionUgap> transaction;
-
-    @Override
-    protected FormatoUGMEGAP mapDtoInToRequestFormat(DTOIntExternalFinancingProposal dtoIn) {
-        return txCreateExternalFinancingProposalMapper.mapIn(dtoIn);
+    @Autowired
+    public TxCreateExternalFinancingProposal(@Qualifier("transaccionUgap") InvocadorTransaccion<PeticionTransaccionUgap, RespuestaTransaccionUgap> transaction) {
+        super(transaction, PeticionTransaccionUgap::new, ExternalFinancingProposal::new, FormatoUGMSGAP1.class);
     }
 
     @Override
-    protected ExternalFinancingProposal mapResponseFormatToDtoOut(FormatoUGMSGAP1 formatOutput, DTOIntExternalFinancingProposal dtoIn) {
-        return txCreateExternalFinancingProposalMapper.mapOut(formatOutput);
+    protected FormatoUGMEGAP mapInput(DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal) {
+        return txCreateExternalFinancingProposalMapper.mapIn(dtoIntExternalFinancingProposal);
     }
 
     @Override
-    protected InvocadorTransaccion<?, ?> getTransaction() {
-        return transaction;
+    protected ExternalFinancingProposal mapFirstOutputFormat(FormatoUGMSGAP1 formatoUGMSGAP1, DTOIntExternalFinancingProposal dtoIntExternalFinancingProposal, ExternalFinancingProposal externalFinancingProposal) {
+        return txCreateExternalFinancingProposalMapper.mapOut(formatoUGMSGAP1);
     }
 }

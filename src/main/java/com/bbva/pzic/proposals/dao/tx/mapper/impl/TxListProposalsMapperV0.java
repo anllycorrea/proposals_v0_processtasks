@@ -10,6 +10,7 @@ import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 
 /**
  * Created on 28/12/2017.
@@ -52,13 +53,13 @@ public class TxListProposalsMapperV0 extends ConfigurableMapper implements ITxLi
     }
 
     @Override
-    public Proposal mapOut(final FormatoHYMR602 formatOut, final Proposal proposal) {
+    public List<Proposal> mapOut(final FormatoHYMR602 formatOut, final List<Proposal> proposal) {
         Proposal data = map(formatOut, Proposal.class);
-
         if (formatOut.getTipplaz() != null) {
             data.getTerm().setFrequency(
                     enumMapper.getEnumValue("conditions.period.id", formatOut.getTipplaz()));
         }
-        return data;
+        proposal.add(data);
+        return proposal;
     }
 }
