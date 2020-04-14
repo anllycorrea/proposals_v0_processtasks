@@ -1,13 +1,13 @@
 package com.bbva.pzic.proposals.dao.apx.mapper.impl;
 
 import com.bbva.jee.arq.spring.core.managers.OutputHeaderManager;
-import com.bbva.jee.arq.spring.core.servicing.context.BackendContext;
 import com.bbva.pzic.proposals.EntityStubs;
 import com.bbva.pzic.proposals.business.dto.DTOIntValidateAccess;
 import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityin;
 import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityout;
 import com.bbva.pzic.proposals.dao.model.ppcut011_1.mock.Ppcut011_1Stubs;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
+import com.bbva.pzic.proposals.util.Constants;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -115,7 +115,7 @@ public class ApxCreateQuestionnairesValidateAccessMapperTest {
 
         ValidateAccess result = mapper.mapOut(output);
 
-        verify(outputHeaderManager, times(1)).setHeader(BackendContext.CONTACT_ID, output.getContactid());
+        verify(outputHeaderManager, times(1)).setHeader(Constants.BCS_OPERATION_TRACER, output.getHeaders().getContactid());
 
         assertNotNull(result);
         assertNotNull(result.getParticipant());

@@ -5,6 +5,7 @@ package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
 import com.bbva.pzic.proposals.dao.model.ppcut011_1.Dictumreasons;
 import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityout;
+import com.bbva.pzic.proposals.dao.model.ppcut011_1.Headers;
 import com.bbva.pzic.proposals.dao.model.ppcut011_1.Participant;
 import com.bbva.pzic.proposals.dao.model.ppcut011_1.Product;
 import java.util.List;
@@ -12,22 +13,22 @@ import java.util.List;
 privileged aspect Entityout_Roo_JavaBean {
     
     /**
-     * Gets product value
+     * Gets validationdictum value
      * 
-     * @return Product
+     * @return String
      */
-    public Product Entityout.getProduct() {
-        return this.product;
+    public String Entityout.getValidationdictum() {
+        return this.validationdictum;
     }
     
     /**
-     * Sets product value
+     * Sets validationdictum value
      * 
-     * @param product
+     * @param validationdictum
      * @return Entityout
      */
-    public Entityout Entityout.setProduct(Product product) {
-        this.product = product;
+    public Entityout Entityout.setValidationdictum(String validationdictum) {
+        this.validationdictum = validationdictum;
         return this;
     }
     
@@ -52,6 +53,26 @@ privileged aspect Entityout_Roo_JavaBean {
     }
     
     /**
+     * Gets product value
+     * 
+     * @return Product
+     */
+    public Product Entityout.getProduct() {
+        return this.product;
+    }
+    
+    /**
+     * Sets product value
+     * 
+     * @param product
+     * @return Entityout
+     */
+    public Entityout Entityout.setProduct(Product product) {
+        this.product = product;
+        return this;
+    }
+    
+    /**
      * Gets participant value
      * 
      * @return Participant
@@ -72,22 +93,22 @@ privileged aspect Entityout_Roo_JavaBean {
     }
     
     /**
-     * Gets contactid value
+     * Gets headers value
      * 
-     * @return String
+     * @return Headers
      */
-    public String Entityout.getContactid() {
-        return this.contactid;
+    public Headers Entityout.getHeaders() {
+        return this.headers;
     }
     
     /**
-     * Sets contactid value
+     * Sets headers value
      * 
-     * @param contactid
+     * @param headers
      * @return Entityout
      */
-    public Entityout Entityout.setContactid(String contactid) {
-        this.contactid = contactid;
+    public Entityout Entityout.setHeaders(Headers headers) {
+        this.headers = headers;
         return this;
     }
     

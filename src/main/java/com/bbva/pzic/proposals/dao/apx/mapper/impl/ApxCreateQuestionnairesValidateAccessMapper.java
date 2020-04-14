@@ -1,7 +1,6 @@
 package com.bbva.pzic.proposals.dao.apx.mapper.impl;
 
 import com.bbva.jee.arq.spring.core.managers.OutputHeaderManager;
-import com.bbva.jee.arq.spring.core.servicing.context.BackendContext;
 import com.bbva.pzic.proposals.business.dto.DTOIntContact;
 import com.bbva.pzic.proposals.business.dto.DTOIntValidateAccess;
 import com.bbva.pzic.proposals.dao.apx.mapper.IApxCreateQuestionnairesValidateAccessMapper;
@@ -11,6 +10,7 @@ import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityout;
 import com.bbva.pzic.proposals.dao.model.ppcut011_1.Participant;
 import com.bbva.pzic.proposals.facade.v0.dto.Contact;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
+import com.bbva.pzic.proposals.util.Constants;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
@@ -84,8 +84,8 @@ public class ApxCreateQuestionnairesValidateAccessMapper extends ConfigurableMap
 
     @Override
     public ValidateAccess mapOut(final Entityout entityOut) {
-        if (entityOut.getContactid() != null) {
-            outputHeaderManager.setHeader(BackendContext.CONTACT_ID, entityOut.getContactid());
+        if (entityOut.getHeaders() != null && entityOut.getHeaders().getContactid() != null) {
+            outputHeaderManager.setHeader(Constants.BCS_OPERATION_TRACER, entityOut.getHeaders().getContactid());
         }
 
         ValidateAccess validateAccess = map(entityOut, ValidateAccess.class);

@@ -13,7 +13,8 @@ import java.io.IOException;
 public final class Ppcut011_1Stubs {
 
     private static final Ppcut011_1Stubs INSTANCE = new Ppcut011_1Stubs();
-    private ObjectMapperHelper mapper = ObjectMapperHelper.getInstance();
+
+    private final ObjectMapperHelper mapper = ObjectMapperHelper.getInstance();
 
     private Ppcut011_1Stubs() {
     }
