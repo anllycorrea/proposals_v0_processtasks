@@ -10,6 +10,7 @@ import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 /**

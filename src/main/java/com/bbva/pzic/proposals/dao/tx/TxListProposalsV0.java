@@ -12,6 +12,7 @@ import com.bbva.pzic.proposals.util.tx.Tx;
 import com.bbva.pzic.routine.commons.utils.host.templates.impl.SingleOutputFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;

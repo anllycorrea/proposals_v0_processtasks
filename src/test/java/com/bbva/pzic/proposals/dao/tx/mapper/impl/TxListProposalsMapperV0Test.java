@@ -33,8 +33,8 @@ public class TxListProposalsMapperV0Test {
     @Mock
     private EnumMapper enumMapper;
 
-    private FormatoHYMRMock formatoHYMRMock = new FormatoHYMRMock();
-    private EntityStubs entityStubs = EntityStubs.getInstance();
+    private final FormatoHYMRMock formatoHYMRMock = new FormatoHYMRMock();
+    private final EntityStubs entityStubs = EntityStubs.getInstance();
 
     @Before
     public void setUp() {
@@ -139,7 +139,7 @@ public class TxListProposalsMapperV0Test {
 
 
         mock = formatoHYMRMock.buildFormatoHYMR602s().get(1);
-        result = proposalsMapperV0.mapOut(mock,l).get(1);
+        result = proposalsMapperV0.mapOut(mock, l).get(1);
         Assert.assertEquals(mock.getId(), result.getId());
         Assert.assertEquals("MONTHLY", result.getTerm().getFrequency());
         Assert.assertEquals(mock.getPlazo(), result.getTerm().getValue());
@@ -151,7 +151,7 @@ public class TxListProposalsMapperV0Test {
         Assert.assertEquals(mock.getTea(), result.getInterestAnnualRate());
 
         mock = formatoHYMRMock.buildFormatoHYMR602s().get(2);
-        result = proposalsMapperV0.mapOut(mock,l).get(2);
+        result = proposalsMapperV0.mapOut(mock, l).get(2);
 
         Assert.assertEquals(mock.getId(), result.getId());
         Assert.assertEquals("ANNUALLY", result.getTerm().getFrequency());
@@ -164,13 +164,5 @@ public class TxListProposalsMapperV0Test {
         Assert.assertEquals(mock.getTea(), result.getInterestAnnualRate());
 
     }
-
-//    @Test
-//    public void mapOutEmptyTest() throws IOException {
-//        FormatoHYMR602 mock = formatoHYMRMock.buildFormatoHYMR602sEmpty().get(0);
-//        List<Proposal> list = proposalsMapperV0.mapOut(mock, new ArrayList<>());
-//        Assert.assertNull(list);
-//
-//    }
 
 }

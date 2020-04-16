@@ -8,7 +8,7 @@ import com.bbva.pzic.proposals.dao.model.ugmp.RespuestaTransaccionUgmp;
 import com.bbva.pzic.proposals.dao.tx.mapper.ITxModifyExternalFinancingProposalMapper;
 import com.bbva.pzic.proposals.util.tx.IFormatNotApply;
 import com.bbva.pzic.proposals.util.tx.Tx;
-import com.bbva.pzic.routine.commons.utils.host.templates.impl.SingleOutputFormat;
+import com.bbva.pzic.routine.commons.utils.host.templates.impl.NoneOutputFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -20,23 +20,18 @@ import javax.annotation.Resource;
  * @author Entelgy
  */
 @Tx("txModifyExternalFinancingProposal")
-public class TxModifyExternalFinancingProposal extends SingleOutputFormat<DTOInputModifyExternalFinancingProposal, FormatoUGMEGMP, DTOInputModifyExternalFinancingProposal, IFormatNotApply> {
+public class TxModifyExternalFinancingProposal extends NoneOutputFormat<DTOInputModifyExternalFinancingProposal, FormatoUGMEGMP> {
 
     @Resource(name = "txModifyExternalFinancingProposalMapper")
     private ITxModifyExternalFinancingProposalMapper mapper;
 
     @Autowired
     public TxModifyExternalFinancingProposal(@Qualifier("transaccionUgmp") InvocadorTransaccion<PeticionTransaccionUgmp, RespuestaTransaccionUgmp> transaction) {
-        super(transaction, PeticionTransaccionUgmp::new, DTOInputModifyExternalFinancingProposal::new, IFormatNotApply.class);
+        super(transaction, PeticionTransaccionUgmp::new);
     }
 
     @Override
     protected FormatoUGMEGMP mapInput(DTOInputModifyExternalFinancingProposal dtoInputModifyExternalFinancingProposal) {
         return mapper.mapIn(dtoInputModifyExternalFinancingProposal);
-    }
-
-    @Override
-    protected DTOInputModifyExternalFinancingProposal mapFirstOutputFormat(IFormatNotApply iFormatNotApply, DTOInputModifyExternalFinancingProposal dtoInputModifyExternalFinancingProposal, DTOInputModifyExternalFinancingProposal dtoInputModifyExternalFinancingProposal2) {
-        return null;
     }
 }
