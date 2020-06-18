@@ -85,7 +85,7 @@ public class ApxCreateQuestionnairesValidateAccessMapper extends ConfigurableMap
     @Override
     public ValidateAccess mapOut(final Entityout entityOut) {
         if (entityOut.getHeaders() != null && entityOut.getHeaders().getContactid() != null) {
-            outputHeaderManager.setHeader(Constants.BCS_OPERATION_TRACER, entityOut.getHeaders().getContactid());
+            outputHeaderManager.setHeader(Constants.CONTACT_ID, entityOut.getHeaders().getContactid());
         }
 
         ValidateAccess validateAccess = map(entityOut, ValidateAccess.class);
