@@ -13,6 +13,7 @@ import com.bbva.jee.arq.spring.core.servicing.gce.xml.instance.Message;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,7 +46,7 @@ public class RestConnectionProcessor {
     protected ConfigurationManager configurationManager;
     @Autowired
     private ServiceInvocationContext serviceInvocationContext;
-    private ObjectMapperHelper mapper = ObjectMapperHelper.getInstance();
+    protected ObjectMapperHelper mapperHelper = ObjectMapperHelper.getInstance();
 
     @PostConstruct
     private void init() {
@@ -62,7 +63,7 @@ public class RestConnectionProcessor {
 
     protected String buildPayload(final Object entityPayload) {
         try {
-            String payload = mapper.writeValueAsString(entityPayload);
+            String payload = mapperHelper.writeValueAsString(entityPayload);
             LOG.debug("[Rest Connector] Payload=" + payload);
             return payload;
         } catch (IOException e) {
@@ -89,57 +90,45 @@ public class RestConnectionProcessor {
             LOG.error("com.bbva.jee.arq.spring.core.rest.RestConnectorResponse is null for SocketTimeoutException");
             throw new BusinessServiceException(Errors.TECHNICAL_ERROR);
         }
-        try {
-            if (rcr.getResponseBody() == null) {
-                return null;
+
+        if (rcr.getStatusCode() >= HttpStatus.SC_OK && rcr.getStatusCode() <= HttpStatus.SC_MULTI_STATUS) {
+            try {
+                final ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
+                final Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+                @SuppressWarnings("unchecked")
+                final Class<S> valueType = (Class<S>) actualTypeArguments[actualTypeArgumentIndex];
+                if (rcr.getResponseBody() == null) {
+                    try {
+                        return valueType.newInstance();
+                    } catch (InstantiationException | IllegalAccessException e) {
+                        throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
+                    }
+                }
+                return mapperHelper.readValue(rcr.getResponseBody(), valueType);
+            } catch (IOException e) {
+                LOG.error(String.format("Error converting JSON: %s", e.getMessage()));
+                throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
             }
-            final ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
-            final Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-            @SuppressWarnings("unchecked") final Class<S> valueType = (Class<S>) actualTypeArguments[actualTypeArgumentIndex];
-            return mapper.readValue(rcr.getResponseBody(), valueType);
-        } catch (IOException e) {
-            LOG.error(String.format("Error converting JSON: %s", e.getMessage()));
-            throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
-        }
-    }
-
-    protected void evaluateMessagesResponse(final List<Message> messages, final String smcRegistryId, final int statusCode) {
-        Message firstMessage = null;
-        if (CollectionUtils.isNotEmpty(messages)) {
-            firstMessage = messages.get(0);
-        }
-
-        if (statusCode / 100 == 4 || statusCode / 100 == 5) {
-            generateServiceException(firstMessage, smcRegistryId);
-        } else if (statusCode / 100 == 2 &&
-                firstMessage != null && ErrorSeverity.WARNING.equals(firstMessage.getType())) {
-            serviceInvocationContext.setWarning(firstMessage.getCode(), firstMessage.getMessage());
-        }
-    }
-
-    private void generateServiceException(final Message message, final String smcRegistryId) {
-        if (StringUtils.isEmpty(smcRegistryId)) {
-            LOG.error("smcRegistryId is not defined");
-            throw new BusinessServiceException(Errors.TECHNICAL_ERROR);
-        }
-        if (message == null || StringUtils.isEmpty(message.getCode())) {
-            LOG.error("backendErrorCode is not defined");
-            throw new BusinessServiceException(Errors.TECHNICAL_ERROR);
-        }
-
-        String errorAlias = getProperty(String.format("servicing.smc.configuration.%s.backend.error.code.%s", smcRegistryId, message.getCode()));
-        if (errorAlias == null) {
-            BusinessServiceException businessServiceException = new BusinessServiceException(Errors.FUNCTIONAL_ERROR);
-            if (message.getCode() != null) {
-                businessServiceException.setErrorCode(message.getCode());
-            }
-            if (message.getMessage() != null) {
-                businessServiceException.setErrorMessage(message.getMessage());
-            }
-            throw businessServiceException;
         } else {
-            throw new BusinessServiceException(errorAlias);
+            throw restConnectorResponseToError(rcr.getHeaders());
         }
+    }
+
+    protected BusinessServiceException restConnectorResponseToError(final Map<String, String> responseHeaders) {
+        String errorCode = responseHeaders.get("errorCode");
+        String errorMessage = responseHeaders.get("errorMessage");
+
+        if (StringUtils.isEmpty(errorCode) || StringUtils.isEmpty(errorMessage)) {
+            LOG.error("Can't create an exception with null errorCode or errorMessage");
+            throw new BusinessServiceException(Errors.TECHNICAL_ERROR);
+        }
+
+        LOG.info(String.format("Creating exception with errorMessage: '%s'", errorMessage));
+
+        BusinessServiceException businessServiceException = new BusinessServiceException(Errors.FUNCTIONAL_ERROR);
+        businessServiceException.setErrorMessage(errorCode);
+        businessServiceException.setErrorMessage(errorMessage);
+        return businessServiceException;
     }
 
     protected String replacePathParamToUrl(final String url, final Map<String, String> pathParams) {

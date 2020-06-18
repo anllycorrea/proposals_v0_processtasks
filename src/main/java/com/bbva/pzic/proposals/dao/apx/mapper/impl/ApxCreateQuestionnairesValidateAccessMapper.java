@@ -25,6 +25,10 @@ import org.apache.commons.collections.CollectionUtils;
 public class ApxCreateQuestionnairesValidateAccessMapper extends ConfigurableMapper
         implements IApxCreateQuestionnairesValidateAccessMapper {
 
+    private static final String PRODUCT_SUBPRODUCT_ID = "product.subproduct.id";
+    private static final String PRODUCT_ID = "product.id";
+    private static final String PARTICIPANT_ID = "participant.id";
+
     private OutputHeaderManager outputHeaderManager;
 
     public ApxCreateQuestionnairesValidateAccessMapper(OutputHeaderManager outputHeaderManager) {
@@ -36,11 +40,11 @@ public class ApxCreateQuestionnairesValidateAccessMapper extends ConfigurableMap
         super.configure(factory);
 
         factory.classMap(DTOIntValidateAccess.class, Entityin.class)
-                .field("participant.id", "participant.id")
+                .field(PARTICIPANT_ID, PARTICIPANT_ID)
                 .field("participant.identityDocument.documentType.id", "participant.identitydocument.documenttype.id")
                 .field("participant.identityDocument.documentNumber", "participant.identitydocument.documentnumber")
-                .field("product.id", "product.id")
-                .field("product.subproduct.id", "product.subproduct.id")
+                .field(PRODUCT_ID, PRODUCT_ID)
+                .field(PRODUCT_SUBPRODUCT_ID, PRODUCT_SUBPRODUCT_ID)
                 .register();
 
         factory.classMap(DTOIntContact.class, Contacts.class)
@@ -51,11 +55,11 @@ public class ApxCreateQuestionnairesValidateAccessMapper extends ConfigurableMap
                 .register();
 
         factory.classMap(ValidateAccess.class, Entityout.class)
-                .field("participant.id", "participant.id")
+                .field(PARTICIPANT_ID, PARTICIPANT_ID)
                 .field("participant.identityDocument.documentType.id", "participant.identitydocument.documenttype.id")
                 .field("participant.identityDocument.documentNumber", "participant.identitydocument.documentnumber")
-                .field("product.id", "product.id")
-                .field("product.subproduct.id", "product.subproduct.id")
+                .field(PRODUCT_ID, PRODUCT_ID)
+                .field(PRODUCT_SUBPRODUCT_ID, PRODUCT_SUBPRODUCT_ID)
                 .register();
 
         factory.classMap(Contact.class, Contacts.class)
