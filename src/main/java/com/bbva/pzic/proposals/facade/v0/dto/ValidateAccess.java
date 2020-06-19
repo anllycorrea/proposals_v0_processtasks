@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Entelgy
@@ -23,6 +24,14 @@ public class ValidateAccess implements Serializable {
      * Commercial product identification.
      */
     private ProductProposal product;
+    /**
+     * Dictum of the validation to the applicant.
+     */
+    private String validationDictum;
+    /**
+     * Reasons to support the dictum.
+     */
+    private List<DictumReason> dictumReasons;
 
     public ParticipantProposal getParticipant() {
         return participant;
@@ -38,5 +47,21 @@ public class ValidateAccess implements Serializable {
 
     public void setProduct(ProductProposal product) {
         this.product = product;
+    }
+
+    public String getValidationDictum() {
+        return validationDictum;
+    }
+
+    public void setValidationDictum(String validationDictum) {
+        this.validationDictum = validationDictum;
+    }
+
+    public List<DictumReason> getDictumReasons() {
+        return dictumReasons;
+    }
+
+    public void setDictumReasons(List<DictumReason> dictumReasons) {
+        this.dictumReasons = dictumReasons;
     }
 }

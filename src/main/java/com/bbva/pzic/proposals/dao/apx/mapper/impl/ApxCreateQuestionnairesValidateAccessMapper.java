@@ -4,17 +4,19 @@ import com.bbva.jee.arq.spring.core.managers.OutputHeaderManager;
 import com.bbva.pzic.proposals.business.dto.DTOIntContact;
 import com.bbva.pzic.proposals.business.dto.DTOIntValidateAccess;
 import com.bbva.pzic.proposals.dao.apx.mapper.IApxCreateQuestionnairesValidateAccessMapper;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Contacts;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityin;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityout;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Participant;
+import com.bbva.pzic.proposals.dao.model.ppcut011_1.*;
 import com.bbva.pzic.proposals.facade.v0.dto.Contact;
+import com.bbva.pzic.proposals.facade.v0.dto.DictumReason;
 import com.bbva.pzic.proposals.facade.v0.dto.ValidateAccess;
 import com.bbva.pzic.proposals.util.Constants;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
 import org.apache.commons.collections.CollectionUtils;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Created on 15/11/2019.
@@ -101,7 +103,28 @@ public class ApxCreateQuestionnairesValidateAccessMapper extends ConfigurableMap
             }
             validateAccess.getParticipant().setContacts(mapAsList(entityOut.getParticipant().getContacts(), Contact.class));
         }
+        validateAccess.setValidationDictum(entityOut.getValidationdictum());
+        validateAccess.setDictumReasons(mapOutDictumReasons(entityOut.getDictumreasons()));
 
         return validateAccess;
+    }
+
+    private List<DictumReason> mapOutDictumReasons(final List<Dictumreasons> dictumreasons) {
+        if (CollectionUtils.isEmpty(dictumreasons)) {
+            return null;
+        }
+
+        return dictumreasons.stream().filter(Objects::nonNull).map(this::mapOutDictumReason).collect(Collectors.toList());
+    }
+
+    private DictumReason mapOutDictumReason(final Dictumreasons dictumreasons) {
+        if (dictumreasons.getDictumreason() == null) {
+            return null;
+        }
+
+        DictumReason result = new DictumReason();
+        result.setId(dictumreasons.getDictumreason().getId());
+        result.setDescription(dictumreasons.getDictumreason().getDescription());
+        return result;
     }
 }

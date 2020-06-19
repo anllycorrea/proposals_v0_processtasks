@@ -124,23 +124,25 @@ public class ApxCreateQuestionnairesValidateAccessMapperTest {
         assertNotNull(result.getParticipant().getIdentityDocument().getDocumentType());
         assertNotNull(result.getParticipant().getIdentityDocument().getDocumentType().getId());
         assertNotNull(result.getParticipant().getIdentityDocument().getDocumentNumber());
-
         assertNotNull(result.getParticipant().getContacts().get(0).getContactDetailType());
         assertNotNull(result.getParticipant().getContacts().get(0).getNumber());
         assertNotNull(result.getParticipant().getContacts().get(0).getPhoneCompany());
         assertNotNull(result.getParticipant().getContacts().get(0).getPhoneCompany().getId());
         assertNotNull(result.getParticipant().getContacts().get(0).getPhoneCompany().getName());
         assertNull(result.getParticipant().getContacts().get(0).getAddress());
-
         assertNotNull(result.getParticipant().getContacts().get(1).getContactDetailType());
         assertNull(result.getParticipant().getContacts().get(1).getNumber());
         assertNull(result.getParticipant().getContacts().get(1).getPhoneCompany());
         assertNotNull(result.getParticipant().getContacts().get(1).getAddress());
-
         assertNotNull(result.getProduct());
         assertNotNull(result.getProduct().getId());
         assertNotNull(result.getProduct().getSubproduct());
         assertNotNull(result.getProduct().getSubproduct().getId());
+        assertNotNull(result.getValidationDictum());
+        assertNotNull(result.getDictumReasons());
+        assertEquals(1, result.getDictumReasons().size());
+        assertNotNull(result.getDictumReasons().get(0).getId());
+        assertNotNull(result.getDictumReasons().get(0).getDescription());
 
         assertEquals(output.getParticipant().getId(), result.getParticipant().getId());
         assertEquals(output.getParticipant().getIdentitydocument().getDocumenttype().getId(), result.getParticipant().getIdentityDocument().getDocumentType().getId());
@@ -153,6 +155,9 @@ public class ApxCreateQuestionnairesValidateAccessMapperTest {
         assertEquals(output.getParticipant().getContacts().get(1).getContact().getAddress(), result.getParticipant().getContacts().get(1).getAddress());
         assertEquals(output.getProduct().getId(), result.getProduct().getId());
         assertEquals(output.getProduct().getSubproduct().getId(), result.getProduct().getSubproduct().getId());
+        assertEquals(output.getValidationdictum(), result.getValidationDictum());
+        assertEquals(output.getDictumreasons().get(0).getDictumreason().getId(), result.getDictumReasons().get(0).getId());
+        assertEquals(output.getDictumreasons().get(0).getDictumreason().getDescription(), result.getDictumReasons().get(0).getDescription());
     }
 
     @Test
@@ -187,5 +192,6 @@ public class ApxCreateQuestionnairesValidateAccessMapperTest {
         assertNotNull(result);
         assertNull(result.getParticipant());
         assertNull(result.getProduct());
+        assertNull(result.getDictumReasons());
     }
 }

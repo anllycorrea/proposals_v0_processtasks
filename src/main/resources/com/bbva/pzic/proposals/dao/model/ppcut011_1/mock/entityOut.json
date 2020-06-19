@@ -1,4 +1,13 @@
 {
+  "validationdictum": "DISAPPROVED",
+  "dictumreasons": [
+    {
+      "dictumreason": {
+        "id": "RULE_INVALIDATE",
+        "description": "Exceeded the limit of attempts"
+      }
+    }
+  ],
   "product": {
     "id": "CARD",
     "subproduct": {
