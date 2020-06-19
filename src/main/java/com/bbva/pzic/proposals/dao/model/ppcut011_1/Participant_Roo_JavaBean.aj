@@ -3,9 +3,6 @@
 
 package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Contacts;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Identitydocument;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Participant;
 import java.util.List;
 
 privileged aspect Participant_Roo_JavaBean {

@@ -3,7 +3,6 @@
 
 package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Contacts;
 import java.io.Serializable;
 
 privileged aspect Contacts_Roo_Serializable {

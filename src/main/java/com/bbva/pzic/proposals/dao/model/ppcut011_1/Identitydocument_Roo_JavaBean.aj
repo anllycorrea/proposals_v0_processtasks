@@ -3,9 +3,6 @@
 
 package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Documenttype;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Identitydocument;
-
 privileged aspect Identitydocument_Roo_JavaBean {
     
     /**

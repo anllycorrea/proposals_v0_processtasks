@@ -84,7 +84,7 @@
             </dto>
             <dto order="5" name="headers" mandatory="0" package="com.bbva.ppcu.dto.validateaccess.dto.HeaderDTO"
                  artifactId="PPCUC011">
-                <parameter order="1" name="contactID" mandatory="0" type="String" size="40"/>
+                <parameter order="1" name="contactId" mandatory="0" type="String" size="160"/>
             </dto>
         </dto>
     </paramsOut>

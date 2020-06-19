@@ -1,16 +1,8 @@
 package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
-import com.bbva.jee.arq.spring.core.host.Cabecera;
-import com.bbva.jee.arq.spring.core.host.NombreCabecera;
-import com.bbva.jee.arq.spring.core.host.Campo;
-import com.bbva.jee.arq.spring.core.host.Formato;
-import com.bbva.jee.arq.spring.core.host.RespuestaTransaccion;
-import com.bbva.jee.arq.spring.core.host.TipoCampo;
-
+import com.bbva.jee.arq.spring.core.host.*;
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
-import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.javabean.annotations.RooSerializable;
-
 
 
 /**

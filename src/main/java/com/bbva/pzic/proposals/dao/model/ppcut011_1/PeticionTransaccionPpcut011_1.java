@@ -4,9 +4,7 @@ import com.bbva.jee.arq.spring.core.host.Atributo;
 import com.bbva.jee.arq.spring.core.host.Campo;
 import com.bbva.jee.arq.spring.core.host.TipoCampo;
 import com.bbva.jee.arq.spring.core.host.Transaccion;
-
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
-import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.javabean.annotations.RooSerializable;
 
 /**
@@ -113,7 +111,7 @@ import org.springframework.roo.addon.javabean.annotations.RooSerializable;
  * &lt;/dto&gt;
  * &lt;dto order=&quot;5&quot; name=&quot;headers&quot; mandatory=&quot;0&quot; package=&quot;com.bbva.ppcu.dto.validateaccess.dto.HeaderDTO&quot;
  * artifactId=&quot;PPCUC011&quot;&gt;
- * &lt;parameter order=&quot;1&quot; name=&quot;contactID&quot; mandatory=&quot;0&quot; type=&quot;String&quot; size=&quot;40&quot;/&gt;
+ * &lt;parameter order=&quot;1&quot; name=&quot;contactId&quot; mandatory=&quot;0&quot; type=&quot;String&quot; size=&quot;160&quot;/&gt;
  * &lt;/dto&gt;
  * &lt;/dto&gt;
  * &lt;/paramsOut&gt;

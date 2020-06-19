@@ -3,9 +3,7 @@ package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 import com.bbva.jee.arq.spring.core.host.Campo;
 import com.bbva.jee.arq.spring.core.host.FilaCampoTabular;
 import com.bbva.jee.arq.spring.core.host.TipoCampo;
-
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
-import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.javabean.annotations.RooSerializable;
 
 /**

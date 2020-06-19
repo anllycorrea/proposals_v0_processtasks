@@ -3,9 +3,7 @@ package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 import com.bbva.jee.arq.spring.core.host.Campo;
 import com.bbva.jee.arq.spring.core.host.FilaCampoTabular;
 import com.bbva.jee.arq.spring.core.host.TipoCampo;
-
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
-import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.javabean.annotations.RooSerializable;
 
 /**
@@ -21,9 +19,9 @@ import org.springframework.roo.addon.javabean.annotations.RooSerializable;
 public class Headers {
 	
 	/**
-	 * <p>Campo <code>contactID</code>, &iacute;ndice: <code>1</code>, tipo: <code>ALFANUMERICO</code>
+	 * <p>Campo <code>contactId</code>, &iacute;ndice: <code>1</code>, tipo: <code>ALFANUMERICO</code>
 	 */
-	@Campo(indice = 1, nombre = "contactID", tipo = TipoCampo.ALFANUMERICO, longitudMaxima = 40, signo = true)
+	@Campo(indice = 1, nombre = "contactId", tipo = TipoCampo.ALFANUMERICO, longitudMaxima = 160, signo = true)
 	private String contactid;
 	
 }

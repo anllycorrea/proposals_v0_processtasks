@@ -3,9 +3,6 @@
 
 package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityout;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.RespuestaTransaccionPpcut011_1;
-
 privileged aspect RespuestaTransaccionPpcut011_1_Roo_JavaBean {
     
     /**

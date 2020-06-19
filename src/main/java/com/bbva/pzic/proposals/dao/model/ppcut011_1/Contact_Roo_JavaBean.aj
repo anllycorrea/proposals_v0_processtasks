@@ -3,9 +3,6 @@
 
 package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Contact;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Phonecompany;
-
 privileged aspect Contact_Roo_JavaBean {
     
     /**

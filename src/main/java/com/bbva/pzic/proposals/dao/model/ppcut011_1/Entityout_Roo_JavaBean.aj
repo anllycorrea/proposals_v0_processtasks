@@ -3,11 +3,6 @@
 
 package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Dictumreasons;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Entityout;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Headers;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Participant;
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Product;
 import java.util.List;
 
 privileged aspect Entityout_Roo_JavaBean {

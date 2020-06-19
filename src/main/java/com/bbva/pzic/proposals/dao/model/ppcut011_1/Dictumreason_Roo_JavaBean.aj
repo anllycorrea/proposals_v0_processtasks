@@ -3,8 +3,6 @@
 
 package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
-import com.bbva.pzic.proposals.dao.model.ppcut011_1.Dictumreason;
-
 privileged aspect Dictumreason_Roo_JavaBean {
     
     /**

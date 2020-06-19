@@ -1,11 +1,9 @@
 package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
+import com.bbva.jee.arq.spring.core.host.InvocadorTransaccion;
+import com.bbva.jee.arq.spring.core.host.ServicioTransacciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.bbva.jee.arq.spring.core.host.ExcepcionTransaccion;
-import com.bbva.jee.arq.spring.core.host.ServicioTransacciones;
-import com.bbva.jee.arq.spring.core.host.InvocadorTransaccion;
 
 /**
  * Invocador de la transacci&oacute;n <code>PPCUT011</code>
