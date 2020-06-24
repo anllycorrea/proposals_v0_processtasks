@@ -13,6 +13,7 @@ import com.bbva.pzic.proposals.util.mappers.Mapper;
 import com.bbva.pzic.proposals.util.orika.MapperFactory;
 import com.bbva.pzic.proposals.util.orika.impl.ConfigurableMapper;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -90,8 +91,8 @@ public class ApxCreateQuestionnairesValidateAccessMapper extends ConfigurableMap
 
     @Override
     public ValidateAccess mapOut(final Entityout entityOut) {
-        if (entityOut.getHeaders() != null && entityOut.getHeaders().getContactid() != null) {
-            outputHeaderManager.setHeader(Constants.CONTACT_ID, entityOut.getHeaders().getContactid());
+        if (entityOut.getHeaders() != null && StringUtils.isNotEmpty(entityOut.getHeaders().getContactid())) {
+            outputHeaderManager.setHeader(Constants.BCS_OPERATION_TRACER, entityOut.getHeaders().getContactid());
         }
 
         ValidateAccess validateAccess = map(entityOut, ValidateAccess.class);

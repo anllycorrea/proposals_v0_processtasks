@@ -115,7 +115,7 @@ public class ApxCreateQuestionnairesValidateAccessMapperTest {
 
         ValidateAccess result = mapper.mapOut(output);
 
-        verify(outputHeaderManager, times(1)).setHeader(Constants.CONTACT_ID, output.getHeaders().getContactid());
+        verify(outputHeaderManager, times(1)).setHeader(Constants.BCS_OPERATION_TRACER, output.getHeaders().getContactid());
 
         assertNotNull(result);
         assertNotNull(result.getParticipant());
