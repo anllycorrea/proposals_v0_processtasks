@@ -5,7 +5,7 @@ package com.bbva.pzic.proposals.util;
  */
 public final class Constants {
 
-    public static final String CUF_HEADER = "cuf";
+    public static final String BCS_OPERATION_TRACER = "BCS-Operation-Tracer";
 
     public static final String CUSTOMER_ID = "customerId";
     public static final String DOCUMENT_TYPE = "documentType";
