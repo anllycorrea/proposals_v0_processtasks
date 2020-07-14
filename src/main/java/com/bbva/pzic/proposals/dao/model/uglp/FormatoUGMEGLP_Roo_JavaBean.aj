@@ -179,8 +179,8 @@ privileged aspect FormatoUGMEGLP_Roo_JavaBean {
                 ", nrodocu='" + nrodocu + '\'' + 
                 ", codemp='" + codemp + '\'' + 
                 ", tipbien='" + tipbien + '\'' + 
-                ", fecrdes='" + fecrdes == null ? null : java.text.DateFormat.getDateTimeInstance().format(fecrdes) + '\'' + 
-                ", fecrhas='" + fecrhas == null ? null : java.text.DateFormat.getDateTimeInstance().format(fecrhas) + '\'' + 
+                ", fecrdes='" + (fecrdes == null ? null : java.text.DateFormat.getDateTimeInstance().format(fecrdes)) + '\'' +
+                ", fecrhas='" + (fecrhas == null ? null : java.text.DateFormat.getDateTimeInstance().format(fecrhas)) + '\'' +
                 ", idpagin='" + idpagin + '\'' + 
                 ", tampagi='" + tampagi + '\'' + "}" + super.toString();
     }
