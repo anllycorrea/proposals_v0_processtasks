@@ -35,7 +35,7 @@ public class RestSimulateProposals extends RestPostConnection<SimulatedProposalR
     }
 
     @Override
-    protected void evaluateResponse(final SimulatedProposalsResponse response, final int statusCode) {
-        evaluateMessagesResponse(response.getMessages(), "SMCPE1720158", statusCode);
+    protected void evaluateResponse(SimulatedProposalsResponse response, int statusCode) {
+
     }
 }
