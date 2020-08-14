@@ -1,5 +1,6 @@
 package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
+import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
 import com.bbva.jee.arq.spring.core.host.Campo;
 import com.bbva.jee.arq.spring.core.host.FilaCampoTabular;
 import com.bbva.jee.arq.spring.core.host.TipoCampo;
@@ -21,6 +22,7 @@ public class Identitydocument {
 	/**
 	 * <p>Campo <code>documentNumber</code>, &iacute;ndice: <code>1</code>, tipo: <code>ALFANUMERICO</code>
 	 */
+	@DatoAuditable(omitir = true)
 	@Campo(indice = 1, nombre = "documentNumber", tipo = TipoCampo.ALFANUMERICO, longitudMaxima = 50, signo = true, obligatorio = true)
 	private String documentnumber;
 	

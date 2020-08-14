@@ -1,5 +1,6 @@
 package com.bbva.pzic.proposals.dao.model.ppcut011_1;
 
+import com.bbva.jee.arq.spring.core.auditoria.DatoAuditable;
 import com.bbva.jee.arq.spring.core.host.Campo;
 import com.bbva.jee.arq.spring.core.host.FilaCampoTabular;
 import com.bbva.jee.arq.spring.core.host.TipoCampo;
@@ -27,12 +28,14 @@ public class Contact {
 	/**
 	 * <p>Campo <code>number</code>, &iacute;ndice: <code>2</code>, tipo: <code>ALFANUMERICO</code>
 	 */
+	@DatoAuditable(omitir = true)
 	@Campo(indice = 2, nombre = "number", tipo = TipoCampo.ALFANUMERICO, longitudMaxima = 50, signo = true)
 	private String number;
 	
 	/**
 	 * <p>Campo <code>address</code>, &iacute;ndice: <code>3</code>, tipo: <code>ALFANUMERICO</code>
 	 */
+	@DatoAuditable(omitir = true)
 	@Campo(indice = 3, nombre = "address", tipo = TipoCampo.ALFANUMERICO, longitudMaxima = 100, signo = true)
 	private String address;
 	
