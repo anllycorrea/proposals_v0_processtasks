@@ -8,7 +8,6 @@ import com.bbva.pzic.proposals.canonic.*;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.ProductClassification;
 import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalRequest;
-import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalsResponse;
 import com.bbva.pzic.proposals.dao.rest.mapper.IRestSimulateProposalsMapper;
 import com.bbva.pzic.proposals.util.mappers.EnumMapper;
 import com.bbva.pzic.proposals.util.mappers.Mapper;
@@ -109,12 +108,12 @@ public class RestSimulateProposalsMapper extends ConfigurableMapper implements I
     }
 
     @Override
-    public DTOIntSimulatedProposals mapOut(final SimulatedProposalsResponse response) {
-        if (response == null || CollectionUtils.isEmpty(response.getData())) {
+    public DTOIntSimulatedProposals mapOut(final List<Oferta> response) {
+        if (CollectionUtils.isEmpty(response)) {
             return null;
         }
 
-        List<SimulatedProposal> data = response.getData().stream().map(oferta -> {
+        List<SimulatedProposal> data = response.stream().map(oferta -> {
 
             SimulatedProposal simulatedProposal = map(oferta, SimulatedProposal.class);
 

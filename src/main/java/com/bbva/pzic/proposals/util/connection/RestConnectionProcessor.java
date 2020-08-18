@@ -8,11 +8,8 @@ import com.bbva.jee.arq.spring.core.servicing.configuration.ConfigurationManager
 import com.bbva.jee.arq.spring.core.servicing.context.BackendContext;
 import com.bbva.jee.arq.spring.core.servicing.context.ServiceInvocationContext;
 import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
-import com.bbva.jee.arq.spring.core.servicing.gce.xml.instance.ErrorSeverity;
-import com.bbva.jee.arq.spring.core.servicing.gce.xml.instance.Message;
 import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -24,7 +21,6 @@ import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -95,8 +91,7 @@ public class RestConnectionProcessor {
             try {
                 final ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
                 final Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-                @SuppressWarnings("unchecked")
-                final Class<S> valueType = (Class<S>) actualTypeArguments[actualTypeArgumentIndex];
+                @SuppressWarnings("unchecked") final Class<S> valueType = (Class<S>) actualTypeArguments[actualTypeArgumentIndex];
                 if (rcr.getResponseBody() == null) {
                     try {
                         return valueType.newInstance();

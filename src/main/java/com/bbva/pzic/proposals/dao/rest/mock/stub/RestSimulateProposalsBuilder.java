@@ -1,9 +1,13 @@
 package com.bbva.pzic.proposals.dao.rest.mock.stub;
 
-import com.bbva.pzic.proposals.dao.model.simulateproposals.SimulatedProposalsResponse;
+import com.bbva.jee.arq.spring.core.servicing.gce.BusinessServiceException;
+import com.bbva.pzic.proposals.dao.model.simulateproposals.Oferta;
+import com.bbva.pzic.proposals.util.Errors;
 import com.bbva.pzic.proposals.util.helper.ObjectMapperHelper;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created on 29/12/2017.
@@ -14,13 +18,14 @@ public class RestSimulateProposalsBuilder {
 
     private ObjectMapperHelper mapper = ObjectMapperHelper.getInstance();
 
-    public SimulatedProposalsResponse buildSimulatedProposalsResponse() throws IOException {
-        return mapper.readValue(Thread.currentThread().getContextClassLoader().getResourceAsStream(
-                "com/bbva/pzic/proposals/dao/mock/simulatedProposalsResponse.json"), SimulatedProposalsResponse.class);
-    }
-
-    public SimulatedProposalsResponse buildMessages() throws IOException {
-        return mapper.readValue(Thread.currentThread().getContextClassLoader().getResourceAsStream(
-                "com/bbva/pzic/proposals/dao/mock/response_error_messages.json"), SimulatedProposalsResponse.class);
+    public List<Oferta> buildSimulatedProposalsResponse() {
+        try {
+            return mapper.readValue(Thread.currentThread().getContextClassLoader().getResourceAsStream(
+                    "com/bbva/pzic/proposals/dao/mock/simulatedProposalsResponse.json"),
+                    new TypeReference<List<Oferta>>() {
+                    });
+        } catch (IOException e) {
+            throw new BusinessServiceException(Errors.TECHNICAL_ERROR, e);
+        }
     }
 }
