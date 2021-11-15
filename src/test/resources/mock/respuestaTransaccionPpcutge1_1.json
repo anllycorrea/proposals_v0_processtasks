@@ -1,0 +1,8 @@
+{
+  "campo_1_businessprocessid": "CAR-432435343",
+  "campo_2_taskid": "23443",
+   "status": {
+     "id": "ACTIVE",
+     "description": "Indicates that the task is active"
+   }
+}

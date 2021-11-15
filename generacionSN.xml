@@ -7,12 +7,12 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>target/classes/com/bbva/pzic/proposals/business</directory>
-            <outputDirectory>com/bbva/pzic/proposals/business</outputDirectory>
+            <directory>target/classes/com/bbva/pzic/proposals/v0/processtasks/business</directory>
+            <outputDirectory>com/bbva/pzic/proposals/v0/processtasks/business</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>target/classes/com/bbva/pzic/proposals/dao</directory>
-            <outputDirectory>com/bbva/pzic/proposals/dao</outputDirectory>
+            <directory>target/classes/com/bbva/pzic/proposals/v0/processtasks/dao</directory>
+            <outputDirectory>com/bbva/pzic/proposals/v0/processtasks/dao</outputDirectory>
             <excludes>
                 <exclude>
                     **/mock/**
@@ -20,12 +20,8 @@
             </excludes>
         </fileSet>
         <fileSet>
-            <directory>target/classes/com/bbva/pzic/proposals/canonic</directory>
-            <outputDirectory>com/bbva/pzic/proposals/canonic</outputDirectory>
-        </fileSet>
-        <fileSet>
-            <directory>target/classes/com/bbva/pzic/proposals/util</directory>
-            <outputDirectory>com/bbva/pzic/proposals/util</outputDirectory>
+            <directory>target/classes/com/bbva/pzic/proposals/v0/processtasks/util</directory>
+            <outputDirectory>com/bbva/pzic/proposals/v0/processtasks/util</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>target/classes/META-INF</directory>

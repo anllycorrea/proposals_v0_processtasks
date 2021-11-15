@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transaction xmlns="http://www.w3schools.com" transactionName="PPCUTGE1" application="PPCU" version="01" country="PE"
+             language="ES">
+    <paramsIn>
+        <parameter order="1" name="businessProcessId" mandatory="0" type="String" size="40"/>
+        <parameter order="2" name="taskId" mandatory="0" type="String" size="10"/>
+    </paramsIn>
+    <paramsOut>
+        <parameter order="1" name="businessProcessId" mandatory="1" type="String" size="40"/>
+        <parameter order="2" name="taskId" mandatory="1" type="String" size="10"/>
+        <dto order="3" name="status" mandatory="1" package="com.bbva.ppcu.dto.getestado.StatusDTO"
+             artifactId="PPCUCGE1">
+            <parameter order="1" name="id" mandatory="1" type="String" size="20"/>
+            <parameter order="2" name="description" mandatory="1" type="String" size="100"/>
+        </dto>
+    </paramsOut>
+    <description>Transaccion para obtener el estado de proceso</description>
+</transaction>

@@ -6,15 +6,15 @@
     <parent>
         <groupId>com.bbva.arq.servicing.spring</groupId>
         <artifactId>pom-padre-frontend</artifactId>
-        <version>5.5.4.8</version>
+        <version>5.7.5.16</version>
     </parent>
 
-    <groupId>com.bbva.pzic.proposals</groupId>
-    <artifactId>pzic_proposals</artifactId>
+    <groupId>com.bbva.pzic.proposals.v0.processtasks</groupId>
+    <artifactId>pzic_proposals_v0_processtasks</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>pzic_proposals</name>
+    <name>pzic_proposals_v0_processtasks</name>
 
     <repositories/>
     <pluginRepositories/>
@@ -35,6 +35,19 @@
     </properties>
 
     <dependencies>
+
+        <!-- Dependencia para solucionar problemas por compatibilidad con frameworks de logs-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.30</version>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>com.bbva.pzic.routine.processing.data</groupId>
@@ -355,7 +368,6 @@
                 <configuration>
                     <source>${arq.spring.jdk.version}</source>
                     <target>${arq.spring.jdk.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
                     <useIncrementalCompilation>false</useIncrementalCompilation>
                 </configuration>
             </plugin>
@@ -363,9 +375,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${maven-resources-plugin.version}</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -434,7 +443,7 @@
                             <descriptors>
                                 <descriptor>generacionFacade.xml</descriptor>
                                 <descriptor>generacionSN.xml</descriptor>
-                                <descriptor>generacionSNMock.xml</descriptor>
+                                <!--<descriptor>generacionSNMock.xml</descriptor>-->
                             </descriptors>
                             <outputDirectory>target/</outputDirectory>
                         </configuration>

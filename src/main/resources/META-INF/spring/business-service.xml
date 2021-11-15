@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<beans xmlns:servicing="http://bbva.com/arq-spring-servicing"
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:servicing="http://bbva.com/arq-spring-servicing"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cxf="http://cxf.apache.org/core"
        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
-       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
         http://www.springframework.org/schema/beans
@@ -22,14 +22,13 @@
     <context:annotation-config/>
 
     <!-- Declaracion de modulo de servicios -->
-    <servicing:module-metadata application-name="pzic" service-logical-id="proposals"
-                               routines="validator,data-processing-executor"/>
+    <servicing:module-metadata application-name="pzic" service-logical-id="proposals" routines="validator,data-processing-executor,translator"/>
 
     <!-- beans de cxf -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 
-    <context:component-scan base-package="com.bbva.pzic.proposals">
+    <context:component-scan base-package="com.bbva.pzic.proposals.v0.processtasks.dao,com.bbva.pzic.proposals.v0.processtasks.business,com.bbva.pzic.proposals.v0.processtasks.facade,com.bbva.pzic.proposals.v0.processtasks.util">
         <context:exclude-filter expression=".*_Roo_.*" type="regex"/>
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
@@ -53,8 +52,7 @@
             <entry key="json" value="application/json"/>
         </jaxrs:extensionMappings>
         <jaxrs:serviceBeans>
-            <ref bean="srvProposalsV0"/>
-            <ref bean="srvProposalsV01"/>
+            <ref bean="srvProposalsV0Processtasks"/>
             <ref bean="swaggerResourceJSON"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
